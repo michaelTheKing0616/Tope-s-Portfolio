@@ -86,8 +86,28 @@ function renderWhoAmI(stage: HTMLElement) {
     }
 
     let state = startWhoAmI(player.id);
+    let answered = false;
+
+    function showResult(result: ReturnType<typeof answerWhoAmI>) {
+      answered = true;
+      const clues = player.clues.slice(0, state.cluesRevealed);
+      grantQuiz(result);
+      stage.innerHTML = `
+        <p class="muted">Round ${deck.round} / ${deck.total}</p>
+        <div class="panel"><p>${clues.map((c, i) => `${i + 1}. ${c}`).join("<br/>")}</p></div>
+        <div class="result ${result.correct ? "" : "result--bad"}">
+          <strong>${result.correct ? "Correct!" : "Wrong"}</strong> +${result.xpEarned} XP · +${result.coinsEarned} coins
+          <p>${result.details}</p>
+          ${nextRoundButton(deck, startRound)}
+        </div>`;
+      stage.querySelector("#again")?.addEventListener("click", () => {
+        if (deck.hasMore) startRound();
+        else renderWhoAmI(stage);
+      });
+    }
 
     function draw() {
+      if (answered) return;
       const clues = player.clues.slice(0, state.cluesRevealed);
       stage.innerHTML = `
         <p class="muted">Round ${deck.round} / ${deck.total}</p>
@@ -98,23 +118,21 @@ function renderWhoAmI(stage: HTMLElement) {
         <div id="out"></div>
       `;
       stage.querySelector("#clue")?.addEventListener("click", () => {
+        if (answered) return;
         state = revealNextClue(state);
         draw();
       });
       stage.querySelector("#submit")?.addEventListener("click", () => {
+        if (answered) return;
         const guess = (stage.querySelector("#guess") as HTMLInputElement).value;
-        const result = answerWhoAmI(state, guess);
-        grantQuiz(result);
-        (stage.querySelector("#out") as HTMLElement).innerHTML = `
-          <div class="result ${result.correct ? "" : "result--bad"}">
-            <strong>${result.correct ? "Correct!" : "Wrong"}</strong> +${result.xpEarned} XP · +${result.coinsEarned} coins
-            <p>${result.details}</p>
-            ${nextRoundButton(deck, startRound)}
-          </div>`;
-        stage.querySelector("#again")?.addEventListener("click", () => {
-          if (deck.hasMore) startRound();
-          else renderWhoAmI(stage);
-        });
+        showResult(answerWhoAmI(state, guess));
+      });
+      const input = stage.querySelector("#guess") as HTMLInputElement;
+      input?.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && !answered) {
+          e.preventDefault();
+          showResult(answerWhoAmI(state, input.value));
+        }
       });
     }
     draw();
@@ -135,8 +153,27 @@ function renderGuessClub(stage: HTMLElement) {
     }
 
     let cluesRevealed = 1;
+    let answered = false;
+
+    function showResult(result: ReturnType<typeof answerGuessClub>) {
+      answered = true;
+      const clues = club.clues.slice(0, cluesRevealed);
+      grantQuiz(result);
+      stage.innerHTML = `
+        <p class="muted">Round ${deck.round} / ${deck.total}</p>
+        <div class="panel"><p>${clues.map((c) => `• ${c}`).join("<br/>")}</p></div>
+        <div class="result ${result.correct ? "" : "result--bad"}">
+          <strong>${result.correct ? "Yes!" : `No — ${club.name}`}</strong> +${result.xpEarned} XP
+          ${nextRoundButton(deck, startRound)}
+        </div>`;
+      stage.querySelector("#again")?.addEventListener("click", () => {
+        if (deck.hasMore) startRound();
+        else renderGuessClub(stage);
+      });
+    }
 
     function draw() {
+      if (answered) return;
       const clues = club.clues.slice(0, cluesRevealed);
       stage.innerHTML = `
         <p class="muted">Round ${deck.round} / ${deck.total}</p>
@@ -146,22 +183,14 @@ function renderGuessClub(stage: HTMLElement) {
         <button class="btn btn--ghost btn--block" id="clue" ${cluesRevealed >= club.clues.length ? "disabled" : ""}>Next clue</button>
         <div id="out"></div>`;
       stage.querySelector("#clue")?.addEventListener("click", () => {
+        if (answered) return;
         cluesRevealed++;
         draw();
       });
       stage.querySelector("#submit")?.addEventListener("click", () => {
+        if (answered) return;
         const guess = (stage.querySelector("#guess") as HTMLInputElement).value;
-        const result = answerGuessClub(club, cluesRevealed, guess);
-        grantQuiz(result);
-        (stage.querySelector("#out") as HTMLElement).innerHTML = `
-          <div class="result ${result.correct ? "" : "result--bad"}">
-            <strong>${result.correct ? "Yes!" : `No — ${club.name}`}</strong> +${result.xpEarned} XP
-            ${nextRoundButton(deck, startRound)}
-          </div>`;
-        stage.querySelector("#again")?.addEventListener("click", () => {
-          if (deck.hasMore) startRound();
-          else renderGuessClub(stage);
-        });
+        showResult(answerGuessClub(club, cluesRevealed, guess));
       });
     }
     draw();
@@ -181,6 +210,8 @@ function renderTrueFalse(stage: HTMLElement) {
       return;
     }
 
+    let answered = false;
+
     stage.innerHTML = `
       <p class="muted">Round ${deck.round} / ${deck.total}</p>
       <div class="panel"><p>${stmt.text}</p></div>
@@ -188,21 +219,28 @@ function renderTrueFalse(stage: HTMLElement) {
       <button class="btn btn--block btn--ghost" data-a="false">False</button>
       <div id="out"></div>`;
 
+    function showResult(result: ReturnType<typeof answerTrueFalse>) {
+      answered = true;
+      grantQuiz(result);
+      stage.innerHTML = `
+        <p class="muted">Round ${deck.round} / ${deck.total}</p>
+        <div class="panel"><p>${stmt.text}</p></div>
+        <div class="result ${result.correct ? "" : "result--bad"}">
+          <strong>${result.correct ? "Correct" : "Incorrect"}</strong>
+          <p>${result.details}</p>
+          ${nextRoundButton(deck, startRound)}
+        </div>`;
+      stage.querySelector("#again")?.addEventListener("click", () => {
+        if (deck.hasMore) startRound();
+        else renderTrueFalse(stage);
+      });
+    }
+
     stage.querySelectorAll("[data-a]").forEach((btn) => {
       btn.addEventListener("click", () => {
+        if (answered) return;
         const answer = (btn as HTMLElement).dataset.a === "true";
-        const result = answerTrueFalse(stmt.id, answer);
-        grantQuiz(result);
-        (stage.querySelector("#out") as HTMLElement).innerHTML = `
-          <div class="result ${result.correct ? "" : "result--bad"}">
-            <strong>${result.correct ? "Correct" : "Incorrect"}</strong>
-            <p>${result.details}</p>
-            ${nextRoundButton(deck, startRound)}
-          </div>`;
-        stage.querySelector("#again")?.addEventListener("click", () => {
-          if (deck.hasMore) startRound();
-          else renderTrueFalse(stage);
-        });
+        showResult(answerTrueFalse(stmt.id, answer));
       });
     });
   }
@@ -274,8 +312,27 @@ function renderCareerPath(stage: HTMLElement) {
     const shuffled = [...entry.clubs].sort(() => Math.random() - 0.5);
     let order = [...shuffled];
     const pathId = entry.id;
+    let answered = false;
+
+    function showResult(result: ReturnType<typeof submitCareerPath>) {
+      answered = true;
+      grantQuiz(result);
+      stage.innerHTML = `
+        <p class="muted">Round ${deck.round} / ${deck.total}</p>
+        <div class="panel"><p>Career path for <strong>${label}</strong></p></div>
+        <ul class="order-list order-list--locked">${order.map((c) => `<li>${c}</li>`).join("")}</ul>
+        <div class="result ${result.correct ? "" : "result--bad"}">
+          <strong>${result.correct ? "Perfect!" : "Partial"}</strong> +${result.score} pts
+          ${nextRoundButton(deck, startRound)}
+        </div>`;
+      stage.querySelector("#again")?.addEventListener("click", () => {
+        if (deck.hasMore) startRound();
+        else renderCareerPath(stage);
+      });
+    }
 
     function draw() {
+      if (answered) return;
       stage.innerHTML = `
         <p class="muted">Round ${deck.round} / ${deck.total}</p>
         <div class="panel"><p>Drag to order clubs chronologically for <strong>${label}</strong></p></div>
@@ -301,17 +358,8 @@ function renderCareerPath(stage: HTMLElement) {
       });
 
       stage.querySelector("#submit")?.addEventListener("click", () => {
-        const result = submitCareerPath({ pathId, playerOrder: order, submitted: true, correct: false }, order);
-        grantQuiz(result);
-        (stage.querySelector("#out") as HTMLElement).innerHTML = `
-          <div class="result ${result.correct ? "" : "result--bad"}">
-            <strong>${result.correct ? "Perfect!" : "Partial"}</strong> +${result.score} pts
-            ${nextRoundButton(deck, startRound)}
-          </div>`;
-        stage.querySelector("#again")?.addEventListener("click", () => {
-          if (deck.hasMore) startRound();
-          else renderCareerPath(stage);
-        });
+        if (answered) return;
+        showResult(submitCareerPath({ pathId, playerOrder: order, submitted: true, correct: false }, order));
       });
     }
     draw();

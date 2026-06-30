@@ -40,3 +40,6 @@ venv/
 # per-project build output
 projects/*/dist/
 projects/*/.tatafo/
+
+# embedded game builds (regenerated via npm run build:games)
+public/play/
