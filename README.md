@@ -22,11 +22,12 @@ npm run extract:portrait   # one-off: extract images from legacy HTML
 | `src/` | Astro pages, components, case-study content |
 | `public/` | Static assets (portraits, favicon) |
 | `projects/` | Runnable portfolio apps (see `projects/README.md`) |
+| `sportverse/` | SPORTVERSE gaming platform (embedded at `/play/sportverse/`) |
 | `ROADMAP.md` | Deep-research project strategy document |
 
 ## Deploy
 
-See **[DEPLOY.md](./DEPLOY.md)** for Netlify, Vercel, and splitting `projects/` into separate GitHub repos.
+See **[RUN_AND_DEPLOY.md](./RUN_AND_DEPLOY.md)** and **[UNIFIED_PLAY_DEPLOY.md](./UNIFIED_PLAY_DEPLOY.md)** for Netlify, Vercel, and unified games deploy.
 
 ## Contact form
 
