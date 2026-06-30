@@ -1,0 +1,27 @@
+{
+  "name": "sportverse",
+  "version": "0.1.0",
+  "private": true,
+  "description": "SPORTVERSE — unified sports gaming platform (Web PWA)",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "services/*",
+    "games/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w @sportverse/web",
+    "dev:api": "npm run dev -w @sportverse/api",
+    "build": "npm run build -w @sportverse/web",
+    "build:api": "npm run build -w @sportverse/api",
+    "build:all": "npm run build -w @sportverse/sports-db && npm run build -w @sportverse/platform && npm run build -w @sportverse/quiz-engine && npm run build -w @sportverse/sim-core && npm run build -w @sportverse/api && npm run build -w @sportverse/web",
+    "test": "vitest run",
+    "typecheck": "tsc -b"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.8"
+  },
+  "license": "MIT",
+  "author": "Temitope Olaitan"
+}

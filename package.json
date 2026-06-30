@@ -1,0 +1,28 @@
+{
+  "name": "temitope-olaitan-portfolio",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Portfolio of Temitope Olaitan - Software Engineer & AI Builder",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build:games": "node scripts/build-embedded-games.mjs",
+    "build": "npm run build:games && astro build",
+    "build:site-only": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "extract:portrait": "node scripts/extract-portrait.mjs",
+    "test:projects": "npm run test --prefix projects/kobo && npm run test --prefix projects/tatafo && npm run test --prefix projects/pulse && npm run test --prefix projects/ayo-master && npm run test --prefix projects/naija-utils"
+  },
+  "dependencies": {
+    "@astrojs/tailwind": "^5.1.2",
+    "astro": "^4.16.18",
+    "gsap": "^3.12.5",
+    "sharp": "^0.33.5",
+    "tailwindcss": "^3.4.17"
+  },
+  "devDependencies": {
+    "prettier": "^3.4.2",
+    "prettier-plugin-astro": "^0.14.1"
+  }
+}

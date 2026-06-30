@@ -1,0 +1,25 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "alo"
+version = "0.1.0"
+description = "A generative pipeline that retells African folktales as narrated, captioned short videos: script -> voice -> visuals -> assembly, with caching, retries, quality gates and tracing."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Temitope Olaitan" }]
+dependencies = []  # core runs on the standard library alone
+
+[project.optional-dependencies]
+# Swap the stubs for real providers by installing these and wiring concrete
+# implementations of the Protocols in providers.py. The orchestrator is unchanged.
+real = ["openai>=1.0", "elevenlabs>=1.0"]
+dev = ["pytest>=8"]
+
+[project.scripts]
+alo = "alo.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["alo"]

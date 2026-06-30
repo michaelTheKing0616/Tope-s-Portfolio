@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ayo Master — Mancala vs. a minimax AI</title>
+    <meta
+      name="description"
+      content="Ayoayo (Mancala) against a minimax + alpha-beta AI. A pure, tested rules engine wrapped in a polished, accessible UI."
+    />
+  </head>
+  <body>
+    <main class="wrap">
+      <header class="head">
+        <p class="eyebrow">Ayo Master</p>
+        <h1>The ancient game of <em>Ayoayo</em>, against an AI that thinks ahead.</h1>
+        <p class="lede">
+          A faithful Mancala rules engine and a minimax + alpha-beta opponent — all
+          running in your browser. Land your last seed in your own store to move
+          again; land in an empty pit on your side to capture the seeds opposite.
+        </p>
+      </header>
+
+      <section class="game" data-game aria-label="Ayo game">
+        <div class="bar">
+          <p class="status" data-status aria-live="polite">Your move.</p>
+          <div class="controls">
+            <label>Difficulty
+              <select data-diff aria-label="AI difficulty">
+                <option value="easy">Easy</option>
+                <option value="medium" selected>Medium</option>
+                <option value="hard">Hard</option>
+              </select>
+            </label>
+            <button type="button" data-new>New game</button>
+          </div>
+        </div>
+
+        <div class="board">
+          <div class="store store--north">
+            <span class="store__label">AI</span>
+            <span class="store__count" data-store="13">0</span>
+          </div>
+          <div class="rows">
+            <div class="row row--north" data-row="north" aria-label="AI pits"></div>
+            <div class="row row--south" data-row="south" aria-label="Your pits"></div>
+          </div>
+          <div class="store store--south">
+            <span class="store__label">You</span>
+            <span class="store__count" data-store="6">0</span>
+          </div>
+        </div>
+      </section>
+
+      <footer class="foot">
+        <a href="https://github.com/" rel="noopener">Source</a>
+        <span>Pure engine + minimax AI · keyboard accessible · reduced-motion aware</span>
+      </footer>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

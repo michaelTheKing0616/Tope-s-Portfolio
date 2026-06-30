@@ -1,0 +1,169 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+
+const projects = (await getCollection("projects")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+const domainOrder = ["Web", "Mobile", "Desktop", "AI", "Games", "Systems"];
+const domains = [
+  "All",
+  ...domainOrder.filter((d) =>
+    projects.some((p) => p.data.domains.includes(d)),
+  ),
+];
+---
+
+<Base
+  title="Work — Temitope Olaitan"
+  description="Selected projects across web, mobile, desktop, AI, games and systems — each pairing a high-demand 2026 capability with a clear senior signal."
+>
+  <section class="page-head">
+    <div class="shell-wide">
+      <div class="section-label" data-reveal>Selected Work</div>
+      <h1 class="page-head__title" data-reveal data-reveal-delay="0.06">
+        Eight projects.<br /><em>One</em> coherent thesis.
+      </h1>
+      <p class="page-head__lead" data-reveal data-reveal-delay="0.12">
+        Anchored to a single idea — African technology built by African hands —
+        and deliberately spread across every domain a senior generalist is
+        expected to own. Live and in-progress work is marked as such; the rest is
+        a costed roadmap, shown as concept so the ambition reads as a plan, never
+        a claim.
+      </p>
+    </div>
+  </section>
+
+  <section class="work-section">
+    <div class="shell-wide">
+      <div class="filters" data-reveal role="tablist" aria-label="Filter projects by domain">
+        {
+          domains.map((d, i) => (
+            <button
+              class:list={["filter", { "is-active": i === 0 }]}
+              data-filter={d}
+              type="button"
+              aria-pressed={i === 0 ? "true" : "false"}
+            >
+              {d}
+            </button>
+          ))
+        }
+      </div>
+
+      <div class="work-grid" data-work-grid>
+        {
+          projects.map((p, i) => (
+            <div class="work-cell" data-domains={p.data.domains.join(",")}>
+              <ProjectCard project={p} index={i} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-head {
+    padding: clamp(120px, 16vw, 180px) 0 clamp(40px, 6vw, 64px);
+    background: linear-gradient(180deg, #efede8, var(--smoke));
+  }
+  .page-head__title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(2.6rem, 7vw, 5rem);
+    font-weight: 300;
+    line-height: 1.02;
+    color: var(--ink);
+    margin: 22px 0 22px;
+  }
+  .page-head__title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .page-head__lead {
+    max-width: 66ch;
+    font-size: 15.5px;
+    line-height: 1.75;
+    color: var(--mid);
+  }
+
+  .work-section {
+    padding: 0 0 clamp(80px, 12vw, 130px);
+    background: var(--smoke);
+  }
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+  .filter {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--mid);
+    padding: 9px 18px;
+    border: 1px solid var(--rule);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .filter:hover {
+    border-color: var(--gold);
+    color: var(--ink);
+  }
+  .filter.is-active {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--gold-light);
+  }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(184, 149, 74, 0.14);
+    border: 1px solid rgba(184, 149, 74, 0.14);
+  }
+  .work-cell {
+    display: contents;
+  }
+  .work-cell.is-hidden {
+    display: none;
+  }
+
+  @media (max-width: 980px) {
+    .work-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 620px) {
+    .work-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>("[data-filter]");
+  const cells = document.querySelectorAll<HTMLElement>(".work-cell");
+
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const filter = btn.dataset.filter ?? "All";
+      buttons.forEach((b) => {
+        const active = b === btn;
+        b.classList.toggle("is-active", active);
+        b.setAttribute("aria-pressed", String(active));
+      });
+      cells.forEach((cell) => {
+        const domains = (cell.dataset.domains ?? "").split(",");
+        const show = filter === "All" || domains.includes(filter);
+        cell.classList.toggle("is-hidden", !show);
+      });
+    });
+  });
+</script>

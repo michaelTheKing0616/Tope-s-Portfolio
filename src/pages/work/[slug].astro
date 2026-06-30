@@ -1,0 +1,294 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import Base from "../../layouts/Base.astro";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+  const sorted = projects.sort((a, b) => a.data.order - b.data.order);
+  return sorted.map((project, i) => {
+    const prev = sorted[(i - 1 + sorted.length) % sorted.length];
+    const next = sorted[(i + 1) % sorted.length];
+    return {
+      params: { slug: project.slug },
+      props: { project, prev, next },
+    };
+  });
+}
+
+interface Props {
+  project: CollectionEntry<"projects">;
+  prev: CollectionEntry<"projects">;
+  next: CollectionEntry<"projects">;
+}
+
+const { project, prev, next } = Astro.props;
+const { data } = project;
+const { Content } = await project.render();
+
+const statusLabel = {
+  live: "Live",
+  "in-progress": "In progress",
+  concept: "Roadmap",
+} as const;
+---
+
+<Base title={`${data.title} — Temitope Olaitan`} description={data.summary}>
+  <article class="case">
+    <header class="case__head">
+      <div class="shell">
+        <a href="/work" class="case__back link-underline" data-reveal>&larr; All work</a>
+
+        <div class="case__meta" data-reveal data-reveal-delay="0.05">
+          <span class={`case__status case__status--${data.status}`}>
+            <span class="dot"></span>{statusLabel[data.status]}
+          </span>
+          <span class="case__domain">{data.domain}</span>
+          <span class="case__year">{data.year}</span>
+        </div>
+
+        <h1 class="case__title" data-reveal data-reveal-delay="0.1">{data.title}</h1>
+        <p class="case__tagline" data-reveal data-reveal-delay="0.16">{data.tagline}</p>
+
+        {
+          data.demo && (
+            <a
+              href={`/demos#${data.demo}`}
+              class="btn-gold case__demo"
+              data-reveal
+              data-reveal-delay="0.2"
+              data-magnetic="0.25"
+            >
+              Try the live demo
+            </a>
+          )
+        }
+      </div>
+    </header>
+
+    <div class="case__body shell">
+      <aside class="case__aside" data-reveal>
+        <div class="aside-block">
+          <span class="aside-label">Stack</span>
+          <ul class="aside-tags">
+            {data.stack.map((s) => <li>{s}</li>)}
+          </ul>
+        </div>
+        <div class="aside-block">
+          <span class="aside-label">Capability proven</span>
+          <p class="aside-text">{data.skill}</p>
+        </div>
+        <div class="aside-block">
+          <span class="aside-label">Senior signal</span>
+          <p class="aside-text">{data.seniorSignal}</p>
+        </div>
+        {
+          data.links.length > 0 && (
+            <div class="aside-block">
+              <span class="aside-label">Links</span>
+              <ul class="aside-links">
+                {data.links.map((l) => (
+                  <li>
+                    <a href={l.href} class="link-underline" target="_blank" rel="noopener">
+                      {l.label} &nearr;
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+      </aside>
+
+      <div class="case__prose prose" data-reveal data-reveal-delay="0.06">
+        <Content />
+      </div>
+    </div>
+
+    <nav class="case__nav shell-wide" aria-label="Project navigation">
+      <a href={`/work/${prev.slug}`} class="case__nav-item">
+        <span class="case__nav-dir">&larr; Previous</span>
+        <span class="case__nav-name">{prev.data.title}</span>
+      </a>
+      <a href={`/work/${next.slug}`} class="case__nav-item case__nav-item--next">
+        <span class="case__nav-dir">Next &rarr;</span>
+        <span class="case__nav-name">{next.data.title}</span>
+      </a>
+    </nav>
+  </article>
+</Base>
+
+<style>
+  .case__head {
+    padding: clamp(120px, 16vw, 180px) 0 clamp(40px, 6vw, 60px);
+    background: var(--ink);
+    color: var(--gold-light);
+  }
+  .case__back {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #9a9488;
+    margin-bottom: 36px;
+  }
+  .case__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 22px;
+  }
+  .case__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #b9b3a7;
+  }
+  .case__status .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #6b6b6b;
+  }
+  .case__status--live .dot {
+    background: #5fb37a;
+    box-shadow: 0 0 0 3px rgba(95, 179, 122, 0.18);
+  }
+  .case__status--in-progress .dot {
+    background: var(--gold);
+    box-shadow: 0 0 0 3px rgba(184, 149, 74, 0.18);
+  }
+  .case__domain,
+  .case__year {
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #6f6a60;
+  }
+  .case__title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 300;
+    line-height: 1;
+    color: var(--gold-light);
+    margin-bottom: 18px;
+  }
+  .case__tagline {
+    max-width: 54ch;
+    font-size: clamp(1.05rem, 2.2vw, 1.4rem);
+    line-height: 1.5;
+    color: #ccc6ba;
+  }
+  .case__demo {
+    margin-top: 32px;
+  }
+
+  .case__body {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 56px;
+    padding-top: clamp(56px, 8vw, 88px);
+    padding-bottom: clamp(56px, 8vw, 88px);
+  }
+  .case__aside {
+    align-self: start;
+    position: sticky;
+    top: 96px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .aside-block {
+    border-top: 1px solid var(--rule);
+    padding-top: 16px;
+  }
+  .aside-label {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .aside-tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+  .aside-tags li {
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    color: var(--mid);
+    padding: 4px 10px;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+  }
+  .aside-text {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--mid);
+  }
+  .aside-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--ink);
+  }
+
+  @media (max-width: 860px) {
+    .case__body {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+    .case__aside {
+      position: static;
+    }
+  }
+
+  .case__nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: rgba(184, 149, 74, 0.16);
+    border-top: 1px solid rgba(184, 149, 74, 0.16);
+    border-bottom: 1px solid rgba(184, 149, 74, 0.16);
+  }
+  .case__nav-item {
+    background: var(--ink);
+    color: var(--gold-light);
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: background 0.3s ease;
+  }
+  .case__nav-item:hover {
+    background: var(--ink-soft, #1a1814);
+  }
+  .case__nav-item--next {
+    text-align: right;
+    align-items: flex-end;
+  }
+  .case__nav-dir {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .case__nav-name {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 24px;
+    color: var(--gold-light);
+  }
+  @media (max-width: 560px) {
+    .case__nav {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

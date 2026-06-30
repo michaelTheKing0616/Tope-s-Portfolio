@@ -1,0 +1,517 @@
+---
+// Ayo Master — a playable Ayoayo/Mancala (Kalah ruleset) board with a real
+// minimax + alpha-beta AI opponent. Pure rules engine, decoupled from rendering.
+//
+// Board layout (indices):
+//   player pits 0..5  | player store 6
+//   ai pits     7..12 | ai store    13
+// Sowing is counter-clockwise; a player skips the opponent's store.
+---
+
+<div class="ayo" data-ayo>
+  <div class="ayo__bar">
+    <div class="ayo__turn" data-ayo-status aria-live="polite">Your move — pick one of your pits.</div>
+    <div class="ayo__controls">
+      <label class="ayo__diff">
+        <span>Difficulty</span>
+        <select data-ayo-diff aria-label="AI difficulty">
+          <option value="easy">Easy</option>
+          <option value="medium" selected>Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+      </label>
+      <button class="ayo__new" type="button" data-ayo-new>New game</button>
+    </div>
+  </div>
+
+  <div class="ayo__board" role="group" aria-label="Ayo board">
+    <div class="ayo__store ayo__store--ai">
+      <span class="ayo__store-label">AI</span>
+      <span class="ayo__store-count" data-store="13">0</span>
+    </div>
+
+    <div class="ayo__rows">
+      <div class="ayo__row ayo__row--ai" aria-label="AI pits">
+        {[12, 11, 10, 9, 8, 7].map((i) => (
+          <button class="pit pit--ai" data-pit={i} disabled aria-label={`AI pit, ${4} seeds`}>
+            <span class="pit__pips" data-pips={i} aria-hidden="true"></span>
+            <span class="pit__count" data-count={i}>4</span>
+          </button>
+        ))}
+      </div>
+      <div class="ayo__row ayo__row--player" aria-label="Your pits">
+        {[0, 1, 2, 3, 4, 5].map((i) => (
+          <button class="pit pit--player" data-pit={i} aria-label={`Your pit ${i + 1}, ${4} seeds`}>
+            <span class="pit__pips" data-pips={i} aria-hidden="true"></span>
+            <span class="pit__count" data-count={i}>4</span>
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <div class="ayo__store ayo__store--player">
+      <span class="ayo__store-label">You</span>
+      <span class="ayo__store-count" data-store="6">0</span>
+    </div>
+  </div>
+
+  <p class="ayo__hint">
+    Land your last seed in your own store to move again. Land in an empty pit on
+    your side to capture the seeds opposite. Most seeds when the board empties wins.
+  </p>
+</div>
+
+<style>
+  .ayo {
+    --pit: #161310;
+    --pit-hot: #221d15;
+    background: linear-gradient(160deg, #131210, #0c0b09);
+    border: 1px solid rgba(184, 149, 74, 0.22);
+    border-radius: 10px;
+    padding: 22px;
+    color: var(--gold-light);
+  }
+  .ayo__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+  .ayo__turn {
+    font-size: 12.5px;
+    letter-spacing: 0.04em;
+    color: #c8c2b6;
+    min-height: 18px;
+  }
+  .ayo__turn.is-win {
+    color: #7cc596;
+  }
+  .ayo__turn.is-lose {
+    color: #d68b7c;
+  }
+  .ayo__controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .ayo__diff {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .ayo__diff select {
+    background: var(--pit);
+    color: var(--gold-light);
+    border: 1px solid rgba(184, 149, 74, 0.3);
+    padding: 6px 8px;
+    font-family: inherit;
+    font-size: 11px;
+    border-radius: 4px;
+  }
+  .ayo__new {
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--gold);
+    border: 0;
+    padding: 9px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  .ayo__new:hover {
+    background: var(--gold-light);
+  }
+
+  .ayo__board {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 14px;
+    align-items: stretch;
+  }
+  .ayo__store {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 78px;
+    background: var(--pit);
+    border: 1px solid rgba(184, 149, 74, 0.22);
+    border-radius: 44px;
+    padding: 20px 0;
+  }
+  .ayo__store-label {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .ayo__store-count {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 40px;
+    line-height: 1;
+    color: var(--gold-light);
+  }
+
+  .ayo__rows {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    justify-content: center;
+  }
+  .ayo__row {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+  }
+
+  .pit {
+    position: relative;
+    aspect-ratio: 1;
+    background: var(--pit);
+    border: 1px solid rgba(184, 149, 74, 0.2);
+    border-radius: 50%;
+    color: var(--gold-light);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+      transform 0.18s ease,
+      background 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+  .pit--player:not(:disabled):hover {
+    background: var(--pit-hot);
+    border-color: var(--gold);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4);
+  }
+  .pit:disabled {
+    cursor: default;
+  }
+  .pit--ai {
+    opacity: 0.92;
+  }
+  .pit.is-sown {
+    animation: pit-pulse 0.4s ease;
+  }
+  .pit.is-capture {
+    border-color: #7cc596;
+    box-shadow: 0 0 0 2px rgba(124, 197, 150, 0.3);
+  }
+  @keyframes pit-pulse {
+    50% {
+      background: rgba(184, 149, 74, 0.32);
+      transform: scale(1.06);
+    }
+  }
+  .pit__count {
+    position: relative;
+    z-index: 2;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 26px;
+    line-height: 1;
+    color: var(--gold-light);
+  }
+  .pit__pips {
+    position: absolute;
+    inset: 16%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    place-content: center;
+    opacity: 0.5;
+  }
+  .pit__pips span {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+  .pit.is-empty .pit__count {
+    color: #4a463e;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pit.is-sown {
+      animation: none;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .ayo__store {
+      width: 56px;
+      border-radius: 30px;
+    }
+    .ayo__store-count {
+      font-size: 30px;
+    }
+    .pit__count {
+      font-size: 20px;
+    }
+    .ayo__row {
+      gap: 7px;
+    }
+  }
+</style>
+
+<script>
+  type Side = "player" | "ai";
+  const PLAYER_STORE = 6;
+  const AI_STORE = 13;
+  const PLAYER_PITS = [0, 1, 2, 3, 4, 5];
+  const AI_PITS = [7, 8, 9, 10, 11, 12];
+
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // ---- Pure rules engine -------------------------------------------------
+  function legalMoves(board: number[], side: Side): number[] {
+    const pits = side === "player" ? PLAYER_PITS : AI_PITS;
+    return pits.filter((i) => board[i] > 0);
+  }
+
+  function isTerminal(board: number[]): boolean {
+    const playerEmpty = PLAYER_PITS.every((i) => board[i] === 0);
+    const aiEmpty = AI_PITS.every((i) => board[i] === 0);
+    return playerEmpty || aiEmpty;
+  }
+
+  function finalize(board: number[]): number[] {
+    const b = board.slice();
+    let p = 0;
+    let a = 0;
+    PLAYER_PITS.forEach((i) => ((p += b[i]), (b[i] = 0)));
+    AI_PITS.forEach((i) => ((a += b[i]), (b[i] = 0)));
+    b[PLAYER_STORE] += p;
+    b[AI_STORE] += a;
+    return b;
+  }
+
+  interface MoveResult {
+    board: number[];
+    extraTurn: boolean;
+    last: number;
+    captured: number;
+  }
+
+  function applyMove(board: number[], pit: number, side: Side): MoveResult {
+    const b = board.slice();
+    const store = side === "player" ? PLAYER_STORE : AI_STORE;
+    const oppStore = side === "player" ? AI_STORE : PLAYER_STORE;
+    const ownPits = side === "player" ? PLAYER_PITS : AI_PITS;
+    let seeds = b[pit];
+    b[pit] = 0;
+    let idx = pit;
+    while (seeds > 0) {
+      idx = (idx + 1) % 14;
+      if (idx === oppStore) continue;
+      b[idx]++;
+      seeds--;
+    }
+    const extraTurn = idx === store;
+    let captured = 0;
+    if (!extraTurn && ownPits.includes(idx) && b[idx] === 1) {
+      const opp = 12 - idx;
+      if (b[opp] > 0) {
+        captured = b[opp] + 1;
+        b[store] += captured;
+        b[opp] = 0;
+        b[idx] = 0;
+      }
+    }
+    return { board: b, extraTurn, last: idx, captured };
+  }
+
+  // Score from the AI's perspective.
+  function evaluate(board: number[]): number {
+    const b = isTerminal(board) ? finalize(board) : board;
+    let score = (b[AI_STORE] - b[PLAYER_STORE]) * 2;
+    // Mild positional heuristics: seeds banked are safe; loaded pits create reach.
+    for (const i of AI_PITS) score += b[i] * 0.1;
+    for (const i of PLAYER_PITS) score -= b[i] * 0.1;
+    return score;
+  }
+
+  function minimax(
+    board: number[],
+    depth: number,
+    alpha: number,
+    beta: number,
+    side: Side,
+  ): number {
+    if (depth === 0 || isTerminal(board)) return evaluate(board);
+    const moves = legalMoves(board, side);
+    if (moves.length === 0) return evaluate(finalize(board));
+
+    if (side === "ai") {
+      let best = -Infinity;
+      for (const m of moves) {
+        const r = applyMove(board, m, "ai");
+        const next: Side = r.extraTurn ? "ai" : "player";
+        const val = minimax(r.board, depth - 1, alpha, beta, next);
+        best = Math.max(best, val);
+        alpha = Math.max(alpha, best);
+        if (beta <= alpha) break;
+      }
+      return best;
+    }
+    let best = Infinity;
+    for (const m of moves) {
+      const r = applyMove(board, m, "player");
+      const next: Side = r.extraTurn ? "player" : "ai";
+      const val = minimax(r.board, depth - 1, alpha, beta, next);
+      best = Math.min(best, val);
+      beta = Math.min(beta, best);
+      if (beta <= alpha) break;
+    }
+    return best;
+  }
+
+  function chooseAiMove(board: number[], difficulty: string): number {
+    const moves = legalMoves(board, "ai");
+    if (difficulty === "easy" && Math.random() < 0.45) {
+      return moves[Math.floor(Math.random() * moves.length)];
+    }
+    const depth = difficulty === "easy" ? 2 : difficulty === "medium" ? 5 : 9;
+    let best = moves[0];
+    let bestVal = -Infinity;
+    for (const m of moves) {
+      const r = applyMove(board, m, "ai");
+      const next: Side = r.extraTurn ? "ai" : "player";
+      const val = minimax(r.board, depth - 1, -Infinity, Infinity, next);
+      if (val > bestVal) {
+        bestVal = val;
+        best = m;
+      }
+    }
+    return best;
+  }
+
+  // ---- UI wiring ---------------------------------------------------------
+  const root = document.querySelector<HTMLElement>("[data-ayo]");
+  if (root) {
+    const statusEl = root.querySelector<HTMLElement>("[data-ayo-status]")!;
+    const diffEl = root.querySelector<HTMLSelectElement>("[data-ayo-diff]")!;
+    const newBtn = root.querySelector<HTMLButtonElement>("[data-ayo-new]")!;
+    const pitButtons = Array.from(root.querySelectorAll<HTMLButtonElement>(".pit"));
+
+    let board: number[] = [];
+    let turn: Side = "player";
+    let busy = false;
+
+    function freshBoard(): number[] {
+      const b = new Array(14).fill(0);
+      [...PLAYER_PITS, ...AI_PITS].forEach((i) => (b[i] = 4));
+      return b;
+    }
+
+    function setStatus(msg: string, kind: "" | "win" | "lose" = "") {
+      statusEl.textContent = msg;
+      statusEl.classList.toggle("is-win", kind === "win");
+      statusEl.classList.toggle("is-lose", kind === "lose");
+    }
+
+    function render(highlight?: { last?: number; capture?: number }) {
+      pitButtons.forEach((btn) => {
+        const i = Number(btn.dataset.pit);
+        const count = board[i];
+        const countEl = btn.querySelector<HTMLElement>("[data-count]")!;
+        const pips = btn.querySelector<HTMLElement>("[data-pips]")!;
+        countEl.textContent = String(count);
+        btn.classList.toggle("is-empty", count === 0);
+        if (pips.childElementCount !== Math.min(count, 9)) {
+          pips.innerHTML = "";
+          for (let k = 0; k < Math.min(count, 9); k++) pips.appendChild(document.createElement("span"));
+        }
+        const side: Side = PLAYER_PITS.includes(i) ? "player" : "ai";
+        const playable = turn === "player" && side === "player" && count > 0 && !busy;
+        btn.disabled = !playable;
+        btn.setAttribute(
+          "aria-label",
+          side === "player" ? `Your pit ${i + 1}, ${count} seeds` : `AI pit, ${count} seeds`,
+        );
+        if (highlight?.last === i && !reduced) {
+          btn.classList.add("is-sown");
+          setTimeout(() => btn.classList.remove("is-sown"), 420);
+        }
+        btn.classList.toggle("is-capture", highlight?.capture === i);
+        if (highlight?.capture === i) setTimeout(() => btn.classList.remove("is-capture"), 700);
+      });
+      root.querySelector<HTMLElement>('[data-store="6"]')!.textContent = String(board[PLAYER_STORE]);
+      root.querySelector<HTMLElement>('[data-store="13"]')!.textContent = String(board[AI_STORE]);
+    }
+
+    function endGame() {
+      board = finalize(board);
+      render();
+      const me = board[PLAYER_STORE];
+      const ai = board[AI_STORE];
+      if (me > ai) setStatus(`You win, ${me}–${ai}. Well played.`, "win");
+      else if (ai > me) setStatus(`AI wins, ${ai}–${me}. Try Hard next time.`, "lose");
+      else setStatus(`A draw, ${me}–${me}.`);
+    }
+
+    function aiTurn() {
+      if (isTerminal(board)) return endGame();
+      busy = true;
+      render();
+      setStatus("AI is thinking…");
+      setTimeout(() => {
+        const move = chooseAiMove(board, diffEl.value);
+        const r = applyMove(board, move, "ai");
+        board = r.board;
+        render({ last: r.last, capture: r.captured ? r.last : undefined });
+        if (isTerminal(board)) return endGame();
+        if (r.extraTurn) {
+          setStatus("AI landed in its store — it goes again.");
+          setTimeout(aiTurn, 650);
+        } else {
+          busy = false;
+          turn = "player";
+          render();
+          setStatus(r.captured ? `AI captured ${r.captured}. Your move.` : "Your move.");
+        }
+      }, reduced ? 120 : 520);
+    }
+
+    function playerMove(pit: number) {
+      if (busy || turn !== "player" || board[pit] === 0) return;
+      const r = applyMove(board, pit, "player");
+      board = r.board;
+      render({ last: r.last, capture: r.captured ? r.last : undefined });
+      if (isTerminal(board)) return endGame();
+      if (r.extraTurn) {
+        setStatus("You landed in your store — go again.");
+        return;
+      }
+      turn = "ai";
+      aiTurn();
+    }
+
+    pitButtons.forEach((btn) =>
+      btn.addEventListener("click", () => playerMove(Number(btn.dataset.pit))),
+    );
+
+    function newGame() {
+      board = freshBoard();
+      turn = "player";
+      busy = false;
+      render();
+      setStatus("Your move — pick one of your pits.");
+    }
+
+    newBtn.addEventListener("click", newGame);
+    diffEl.addEventListener("change", newGame);
+    newGame();
+  }
+</script>

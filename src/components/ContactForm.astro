@@ -1,0 +1,168 @@
+---
+// Static-host friendly. Works with Netlify Forms out of the box (data-netlify),
+// and degrades to a mailto: fallback if no form backend is configured.
+import { site } from "../data/site";
+---
+
+<form
+  class="cform"
+  name="contact"
+  method="POST"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  data-contact-form
+  data-email={site.email}
+>
+  <input type="hidden" name="form-name" value="contact" />
+  <p class="cform__hp" aria-hidden="true">
+    <label>Leave this empty<input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+  </p>
+
+  <div class="cform__row">
+    <div class="field">
+      <label for="cf-name">Name</label>
+      <input id="cf-name" name="name" type="text" required autocomplete="name" placeholder="Your name" />
+    </div>
+    <div class="field">
+      <label for="cf-email">Email</label>
+      <input id="cf-email" name="email" type="email" required autocomplete="email" placeholder="you@company.com" />
+    </div>
+  </div>
+
+  <div class="field">
+    <label for="cf-subject">Subject</label>
+    <input id="cf-subject" name="subject" type="text" placeholder="What is this about?" />
+  </div>
+
+  <div class="field">
+    <label for="cf-message">Message</label>
+    <textarea id="cf-message" name="message" rows="5" required placeholder="Tell me what you're building."></textarea>
+  </div>
+
+  <div class="cform__foot">
+    <button type="submit" class="btn-ghost" data-magnetic="0.25">Send message</button>
+    <p class="cform__status" role="status" aria-live="polite" data-form-status></p>
+  </div>
+</form>
+
+<style>
+  .cform {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .cform__hp {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+  }
+  .cform__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .field label {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .field input,
+  .field textarea {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(184, 149, 74, 0.25);
+    color: var(--gold-light);
+    font-family: inherit;
+    font-size: 14px;
+    padding: 13px 15px;
+    transition:
+      border-color 0.2s ease,
+      background 0.2s ease;
+  }
+  .field textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+  .field input::placeholder,
+  .field textarea::placeholder {
+    color: #6f6a60;
+  }
+  .field input:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+    background: rgba(184, 149, 74, 0.05);
+  }
+  .field input:user-invalid,
+  .field textarea:user-invalid {
+    border-color: #c46a5a;
+  }
+
+  .cform__foot {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .cform__status {
+    font-size: 12px;
+    color: #9a9488;
+  }
+  .cform__status.is-ok {
+    color: #7cc596;
+  }
+  .cform__status.is-err {
+    color: #d68b7c;
+  }
+
+  @media (max-width: 600px) {
+    .cform__row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("[data-contact-form]");
+  const statusEl = document.querySelector<HTMLElement>("[data-form-status]");
+
+  function setStatus(msg: string, kind: "ok" | "err" | "") {
+    if (!statusEl) return;
+    statusEl.textContent = msg;
+    statusEl.classList.toggle("is-ok", kind === "ok");
+    statusEl.classList.toggle("is-err", kind === "err");
+  }
+
+  form?.addEventListener("submit", async (e) => {
+    if (!form.checkValidity()) return; // let native validation show
+    e.preventDefault();
+    const data = new FormData(form);
+    setStatus("Sending…", "");
+
+    try {
+      const res = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(data as any).toString(),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      form.reset();
+      setStatus("Thank you — your message is on its way.", "ok");
+    } catch {
+      // No form backend (e.g. local/static preview): fall back to mailto.
+      const email = form.dataset.email ?? "";
+      const subject = encodeURIComponent(String(data.get("subject") || "Portfolio enquiry"));
+      const body = encodeURIComponent(
+        `${data.get("message") || ""}\n\n— ${data.get("name") || ""} (${data.get("email") || ""})`,
+      );
+      window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+      setStatus("Opening your email client…", "ok");
+    }
+  });
+</script>

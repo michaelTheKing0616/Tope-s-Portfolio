@@ -1,0 +1,123 @@
+---
+import { site, nav } from "../data/site";
+
+interface Props {
+  dark?: boolean;
+}
+const { dark = false } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="foot" class:list={[{ "foot--dark": dark }]}>
+  <div class="foot__inner shell-wide">
+    <div class="foot__lead">
+      <p class="foot__eyebrow">Let's build something that matters</p>
+      <a href="/contact" class="foot__cta link-underline">Start a conversation &rarr;</a>
+    </div>
+
+    <div class="foot__cols">
+      <nav class="foot__col" aria-label="Footer">
+        <span class="foot__label">Navigate</span>
+        <ul>
+          {nav.map((item) => <li><a href={item.href} class="link-underline">{item.label}</a></li>)}
+        </ul>
+      </nav>
+      <div class="foot__col">
+        <span class="foot__label">Elsewhere</span>
+        <ul>
+          {
+            site.socials
+              .filter((s) => s.label !== "Phone")
+              .map((s) => (
+                <li>
+                  <a href={s.href} class="link-underline" rel="noopener" target="_blank">
+                    {s.label}
+                  </a>
+                </li>
+              ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot__base shell-wide">
+    <p>&copy; {year} {site.name}</p>
+    <p>{site.location} &middot; Built with intention</p>
+  </div>
+</footer>
+
+<style>
+  .foot {
+    background: var(--ink);
+    border-top: 1px solid rgba(184, 149, 74, 0.2);
+    color: #8a8478;
+    padding-top: 72px;
+  }
+  .foot__inner {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 48px;
+    padding-bottom: 56px;
+  }
+  .foot__eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+  }
+  .foot__cta {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 300;
+    color: var(--gold-light);
+  }
+  .foot__cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .foot__label {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: #5f5a52;
+    margin-bottom: 16px;
+  }
+  .foot__col ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .foot__col a {
+    font-size: 13px;
+    color: #b0aa9e;
+  }
+  .foot__col a:hover {
+    color: var(--gold-light);
+  }
+  .foot__base {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 22px;
+    padding-bottom: 26px;
+    border-top: 1px solid rgba(184, 149, 74, 0.12);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: #5f5a52;
+  }
+  @media (max-width: 768px) {
+    .foot__inner {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+    .foot__base {
+      flex-direction: column;
+      gap: 6px;
+    }
+  }
+</style>

@@ -1,0 +1,285 @@
+---
+// LingAfriq micro-lesson — a phone-framed flashcard demo. Tap to reveal meaning,
+// step through phrases, and hear best-effort audio via the Web Speech API.
+const cards = [
+  { lang: "Yoruba", code: "yo", phrase: "Ẹ káàrọ̀", say: "E kaaro", meaning: "Good morning" },
+  { lang: "Yoruba", code: "yo", phrase: "Báwo ni?", say: "Bawo ni", meaning: "How are you?" },
+  { lang: "Igbo", code: "ig", phrase: "Kèdú?", say: "Kedu", meaning: "How are you?" },
+  { lang: "Igbo", code: "ig", phrase: "Daalụ", say: "Daalu", meaning: "Thank you" },
+  { lang: "Hausa", code: "ha", phrase: "Sannu", say: "Sannu", meaning: "Hello" },
+  { lang: "Hausa", code: "ha", phrase: "Na gode", say: "Na gode", meaning: "Thank you" },
+];
+---
+
+<div class="ling" data-ling data-cards={JSON.stringify(cards)}>
+  <div class="phone">
+    <div class="phone__notch" aria-hidden="true"></div>
+    <div class="phone__screen">
+      <div class="ling__top">
+        <span class="ling__brand">LingAfriq</span>
+        <span class="ling__lang" data-ling-lang>Yoruba</span>
+      </div>
+
+      <div class="ling__progress" data-ling-progress aria-hidden="true"></div>
+
+      <button class="flash" type="button" data-ling-card aria-live="polite">
+        <span class="flash__face flash__face--front">
+          <span class="flash__phrase" data-ling-phrase>Ẹ káàrọ̀</span>
+          <span class="flash__say" data-ling-say>/ E kaaro /</span>
+          <span class="flash__hint">Tap to reveal</span>
+        </span>
+        <span class="flash__face flash__face--back">
+          <span class="flash__meaning" data-ling-meaning>Good morning</span>
+          <span class="flash__hint">Tap to flip back</span>
+        </span>
+      </button>
+
+      <div class="ling__controls">
+        <button class="ling__btn" type="button" data-ling-prev aria-label="Previous phrase">‹</button>
+        <button class="ling__btn ling__btn--audio" type="button" data-ling-audio>
+          ♪ Hear it
+        </button>
+        <button class="ling__btn" type="button" data-ling-next aria-label="Next phrase">›</button>
+      </div>
+    </div>
+  </div>
+  <p class="ling__foot">
+    A taste of the real product: a culturally-grounded, mobile-first way to learn
+    Yoruba, Igbo and Hausa. Audio is best-effort device speech in this demo.
+  </p>
+</div>
+
+<style>
+  .ling {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .phone {
+    position: relative;
+    width: 300px;
+    max-width: 100%;
+    aspect-ratio: 300 / 600;
+    background: #0c0b09;
+    border: 1px solid rgba(184, 149, 74, 0.3);
+    border-radius: 36px;
+    padding: 14px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+  }
+  .phone__notch {
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 22px;
+    background: #0c0b09;
+    border-radius: 0 0 14px 14px;
+    z-index: 3;
+  }
+  .phone__screen {
+    height: 100%;
+    background: linear-gradient(170deg, #15120c, #0d0d0d);
+    border-radius: 24px;
+    padding: 30px 22px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .ling__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .ling__brand {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 18px;
+    color: var(--gold-light);
+  }
+  .ling__lang {
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(184, 149, 74, 0.3);
+    padding: 4px 9px;
+    border-radius: 999px;
+  }
+  .ling__progress {
+    display: flex;
+    gap: 5px;
+  }
+  .ling__progress span {
+    flex: 1;
+    height: 3px;
+    border-radius: 2px;
+    background: rgba(184, 149, 74, 0.2);
+    transition: background 0.3s ease;
+  }
+  .ling__progress span.is-active {
+    background: var(--gold);
+  }
+
+  .flash {
+    position: relative;
+    flex: 1;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    perspective: 1000px;
+  }
+  .flash__face {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 20px;
+    background: rgba(184, 149, 74, 0.06);
+    border: 1px solid rgba(184, 149, 74, 0.25);
+    border-radius: 16px;
+    backface-visibility: hidden;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .flash__face--front {
+    transform: rotateY(0deg);
+  }
+  .flash__face--back {
+    transform: rotateY(180deg);
+  }
+  .flash.is-flipped .flash__face--front {
+    transform: rotateY(-180deg);
+  }
+  .flash.is-flipped .flash__face--back {
+    transform: rotateY(0deg);
+  }
+  .flash__phrase {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 34px;
+    font-weight: 600;
+    color: var(--gold-light);
+    text-align: center;
+    line-height: 1.1;
+  }
+  .flash__say {
+    font-size: 13px;
+    font-style: italic;
+    color: #9a9488;
+  }
+  .flash__meaning {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 30px;
+    color: var(--gold-light);
+    text-align: center;
+  }
+  .flash__hint {
+    position: absolute;
+    bottom: 16px;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #6f6a60;
+  }
+
+  .ling__controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .ling__btn {
+    font-size: 18px;
+    color: var(--gold-light);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(184, 149, 74, 0.3);
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .ling__btn:hover {
+    border-color: var(--gold);
+    background: rgba(184, 149, 74, 0.12);
+  }
+  .ling__btn--audio {
+    flex: 1;
+    width: auto;
+    border-radius: 999px;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .ling__foot {
+    max-width: 320px;
+    text-align: center;
+    font-size: 11px;
+    line-height: 1.5;
+    color: #6f6a60;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .flash__face {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  interface Card { lang: string; code: string; phrase: string; say: string; meaning: string }
+  const root = document.querySelector<HTMLElement>("[data-ling]");
+  if (root) {
+    const cards: Card[] = JSON.parse(root.dataset.cards ?? "[]");
+    const langEl = root.querySelector<HTMLElement>("[data-ling-lang]")!;
+    const phraseEl = root.querySelector<HTMLElement>("[data-ling-phrase]")!;
+    const sayEl = root.querySelector<HTMLElement>("[data-ling-say]")!;
+    const meaningEl = root.querySelector<HTMLElement>("[data-ling-meaning]")!;
+    const card = root.querySelector<HTMLButtonElement>("[data-ling-card]")!;
+    const progress = root.querySelector<HTMLElement>("[data-ling-progress]")!;
+    const prev = root.querySelector<HTMLButtonElement>("[data-ling-prev]")!;
+    const next = root.querySelector<HTMLButtonElement>("[data-ling-next]")!;
+    const audio = root.querySelector<HTMLButtonElement>("[data-ling-audio]")!;
+
+    let i = 0;
+
+    progress.innerHTML = cards.map(() => "<span></span>").join("");
+    const dots = Array.from(progress.children) as HTMLElement[];
+
+    function show(n: number) {
+      i = (n + cards.length) % cards.length;
+      const c = cards[i];
+      card.classList.remove("is-flipped");
+      langEl.textContent = c.lang;
+      phraseEl.textContent = c.phrase;
+      sayEl.textContent = `/ ${c.say} /`;
+      meaningEl.textContent = c.meaning;
+      dots.forEach((d, idx) => d.classList.toggle("is-active", idx === i));
+    }
+
+    function speak() {
+      const c = cards[i];
+      if (!("speechSynthesis" in window)) {
+        audio.textContent = "♪ Audio n/a";
+        setTimeout(() => (audio.textContent = "♪ Hear it"), 1200);
+        return;
+      }
+      const u = new SpeechSynthesisUtterance(c.say);
+      const map: Record<string, string> = { yo: "yo-NG", ig: "ig-NG", ha: "ha-NG" };
+      u.lang = map[c.code] ?? "en-NG";
+      u.rate = 0.85;
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(u);
+    }
+
+    card.addEventListener("click", () => card.classList.toggle("is-flipped"));
+    prev.addEventListener("click", () => show(i - 1));
+    next.addEventListener("click", () => show(i + 1));
+    audio.addEventListener("click", speak);
+
+    show(0);
+  }
+</script>

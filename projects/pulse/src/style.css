@@ -1,0 +1,116 @@
+:root {
+  --ink: #0d0d0d;
+  --gold: #b8954a;
+  --gold-light: #e8d9b5;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  font-family: Inter, system-ui, sans-serif;
+  background: radial-gradient(120% 120% at 50% 30%, #15120c, #0d0d0d 70%);
+  color: var(--gold-light);
+  overflow: hidden;
+}
+.field {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+.hud {
+  position: relative;
+  z-index: 1;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 48px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  min-height: 100%;
+}
+.hud__head h1 {
+  font-size: 13px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+}
+.hud__head p {
+  margin-top: 8px;
+  max-width: 52ch;
+  font-size: 13px;
+  color: #b0aa9e;
+}
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(184, 149, 74, 0.18);
+  border: 1px solid rgba(184, 149, 74, 0.18);
+}
+.stat {
+  background: rgba(13, 13, 13, 0.72);
+  backdrop-filter: blur(6px);
+  padding: 20px 18px;
+}
+.stat__k {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8a8478;
+  margin-bottom: 10px;
+}
+.stat__v {
+  font-size: 30px;
+  font-variant-numeric: tabular-nums;
+  color: var(--gold-light);
+}
+.spark {
+  width: 100%;
+  height: 70px;
+  border: 1px solid rgba(184, 149, 74, 0.18);
+  background: rgba(13, 13, 13, 0.5);
+}
+.legend {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+.legend li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: capitalize;
+  color: #b0aa9e;
+}
+.legend b {
+  color: var(--gold-light);
+  font-variant-numeric: tabular-nums;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+.dot--deploy { background: #9bb0d6; }
+.dot--signup { background: #7cc596; }
+.dot--payment { background: var(--gold); }
+.dot--commit { background: #d6b89b; }
+
+@media (max-width: 640px) {
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

@@ -1,0 +1,123 @@
+---
+import Base from "../layouts/Base.astro";
+import ContactForm from "../components/ContactForm.astro";
+import { site } from "../data/site";
+
+const channels = site.socials.filter((s) => s.label !== "Phone");
+---
+
+<Base
+  dark
+  title="Contact — Temitope Olaitan"
+  description="Get in touch with Temitope Olaitan — software engineer and AI builder based in Lagos, Nigeria."
+>
+  <section class="contact">
+    <div class="shell-wide contact__inner">
+      <div class="contact__left">
+        <div class="section-label section-label--dark" data-reveal>Get in touch</div>
+        <h1 class="contact__title" data-reveal data-reveal-delay="0.06">
+          Let's <em>talk</em><br />about what<br />you're building.
+        </h1>
+        <p class="contact__lead" data-reveal data-reveal-delay="0.12">
+          Open to senior engineering roles, ambitious product collaborations and
+          work that matters for the continent. Use the form, or reach me directly.
+        </p>
+
+        <ul class="channels" data-reveal data-reveal-delay="0.16">
+          {
+            channels.map((c) => (
+              <li>
+                <a href={c.href} class="channel" target="_blank" rel="noopener">
+                  <span class="channel__label">{c.label}</span>
+                  <span class="channel__handle">{c.handle}</span>
+                  <span class="channel__arrow" aria-hidden="true">&nearr;</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="contact__right" data-reveal data-reveal-delay="0.1">
+        <ContactForm />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .contact {
+    background: var(--ink);
+    color: var(--gold-light);
+    min-height: 100svh;
+    padding: clamp(130px, 16vw, 190px) 0 clamp(72px, 11vw, 120px);
+  }
+  .contact__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .contact__title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(2.6rem, 6vw, 4.6rem);
+    font-weight: 300;
+    line-height: 1.04;
+    color: var(--gold-light);
+    margin: 22px 0 24px;
+  }
+  .contact__title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .contact__lead {
+    max-width: 46ch;
+    font-size: 15.5px;
+    line-height: 1.75;
+    color: #9a9488;
+    margin-bottom: 38px;
+  }
+
+  .channels {
+    list-style: none;
+    border-top: 1px solid rgba(184, 149, 74, 0.18);
+  }
+  .channel {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 4px;
+    border-bottom: 1px solid rgba(184, 149, 74, 0.18);
+    transition: padding-left 0.25s ease;
+  }
+  .channel:hover {
+    padding-left: 14px;
+  }
+  .channel__label {
+    flex: 0 0 110px;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .channel__handle {
+    flex: 1;
+    font-size: 14px;
+    color: #c8c2b6;
+  }
+  .channel__arrow {
+    color: var(--gold);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+  .channel:hover .channel__arrow {
+    opacity: 1;
+  }
+
+  @media (max-width: 860px) {
+    .contact__inner {
+      grid-template-columns: 1fr;
+      gap: 44px;
+    }
+  }
+</style>

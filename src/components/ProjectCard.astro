@@ -1,0 +1,180 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  project: CollectionEntry<"projects">;
+  index: number;
+}
+
+const { project, index } = Astro.props;
+const { data, slug } = project;
+
+const statusLabel = {
+  live: "Live",
+  "in-progress": "In progress",
+  concept: "Roadmap",
+} as const;
+---
+
+<a
+  href={`/work/${slug}`}
+  class="pcard"
+  data-reveal
+  data-reveal-delay={(index % 2) * 0.08}
+  aria-label={`${data.title} — ${data.tagline}`}
+>
+  <span class="pcard__num">{String(index + 1).padStart(2, "0")}</span>
+
+  <div class="pcard__top">
+    <span class={`pcard__status pcard__status--${data.status}`}>
+      <span class="dot"></span>{statusLabel[data.status]}
+    </span>
+    <span class="pcard__domain">{data.domain}</span>
+  </div>
+
+  <h3 class="pcard__title">{data.title}</h3>
+  <p class="pcard__tagline">{data.tagline}</p>
+
+  <div class="pcard__stack">
+    {data.stack.slice(0, 4).map((s) => <span class="chip">{s}</span>)}
+    {data.stack.length > 4 && <span class="chip chip--more">+{data.stack.length - 4}</span>}
+  </div>
+
+  <span class="pcard__cta">
+    {data.demo ? "View case study + live demo" : "View case study"}
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M3 8h9M8 4l5 4-5 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </span>
+</a>
+
+<style>
+  .pcard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background: var(--ink);
+    padding: 40px 36px 34px;
+    min-height: 320px;
+    overflow: hidden;
+    isolation: isolate;
+    transition:
+      background 0.35s ease,
+      transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .pcard::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold-light), var(--gold));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .pcard:hover {
+    background: var(--ink-soft, #1a1814);
+    transform: translateY(-4px);
+  }
+  .pcard:hover::before {
+    transform: scaleX(1);
+  }
+
+  .pcard__num {
+    position: absolute;
+    top: 18px;
+    right: 28px;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 60px;
+    line-height: 1;
+    color: rgba(184, 149, 74, 0.12);
+    pointer-events: none;
+  }
+
+  .pcard__top {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .pcard__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #b9b3a7;
+  }
+  .pcard__status .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #6b6b6b;
+  }
+  .pcard__status--live .dot {
+    background: #5fb37a;
+    box-shadow: 0 0 0 3px rgba(95, 179, 122, 0.18);
+  }
+  .pcard__status--in-progress .dot {
+    background: var(--gold);
+    box-shadow: 0 0 0 3px rgba(184, 149, 74, 0.18);
+  }
+  .pcard__domain {
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #6f6a60;
+  }
+
+  .pcard__title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 34px;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--gold-light);
+  }
+  .pcard__tagline {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: #9a9488;
+    max-width: 38ch;
+    flex: 1;
+  }
+
+  .pcard__stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+  .chip {
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    color: #b0aa9e;
+    padding: 4px 10px;
+    border: 1px solid rgba(184, 149, 74, 0.22);
+    border-radius: 999px;
+  }
+  .chip--more {
+    color: var(--gold);
+    border-color: rgba(184, 149, 74, 0.4);
+  }
+
+  .pcard__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .pcard__cta svg {
+    transition: transform 0.3s ease;
+  }
+  .pcard:hover .pcard__cta svg {
+    transform: translateX(4px);
+  }
+</style>

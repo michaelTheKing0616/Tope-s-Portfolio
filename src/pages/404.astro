@@ -1,0 +1,50 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base dark title="Not found — Temitope Olaitan" description="Page not found.">
+  <section class="nf">
+    <div class="shell nf__inner">
+      <p class="section-label section-label--dark" style="justify-content:center">Error 404</p>
+      <h1 class="nf__title">This page<br /><em>wandered off.</em></h1>
+      <p class="nf__lead">The link is broken or the page has moved. Let's get you back to the work.</p>
+      <div class="nf__actions">
+        <a href="/" class="btn-gold" data-magnetic="0.3">Back home</a>
+        <a href="/work" class="btn-ghost" data-magnetic="0.25">View the work</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf {
+    background: var(--ink);
+    color: var(--gold-light);
+    min-height: 100svh;
+    display: grid;
+    place-items: center;
+    text-align: center;
+  }
+  .nf__title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(2.8rem, 9vw, 6rem);
+    font-weight: 300;
+    line-height: 1;
+    margin: 22px 0 18px;
+  }
+  .nf__title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .nf__lead {
+    color: #9a9488;
+    max-width: 44ch;
+    margin: 0 auto 30px;
+  }
+  .nf__actions {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+</style>

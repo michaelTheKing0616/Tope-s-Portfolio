@@ -1,0 +1,181 @@
+---
+import { site, nav } from "../data/site";
+
+interface Props {
+  /** Home page uses the dark hero treatment, so the nav starts transparent. */
+  dark?: boolean;
+}
+
+const { dark = false } = Astro.props;
+const path = Astro.url.pathname;
+
+const isActive = (href: string) =>
+  href === "/" ? path === "/" : path === href || path.startsWith(`${href}/`);
+---
+
+<header class="site-nav" class:list={[{ "site-nav--over-hero": dark }]} data-nav>
+  <div class="site-nav__inner shell-wide">
+    <a href="/" class="site-nav__brand" aria-label={`${site.name} — home`}>
+      {site.shortName}
+    </a>
+
+    <nav class="site-nav__links" aria-label="Primary">
+      <ul>
+        {
+          nav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class:list={["link-underline", { "is-active": isActive(item.href) }]}
+                aria-current={isActive(item.href) ? "page" : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <button class="site-nav__toggle" aria-label="Open menu" aria-expanded="false" data-nav-toggle>
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div class="site-nav__drawer" data-nav-drawer hidden>
+    <ul>
+      {
+        nav.map((item) => (
+          <li>
+            <a href={item.href} class:list={[{ "is-active": isActive(item.href) }]}>
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</header>
+
+<style>
+  .site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--ink);
+    border-bottom: 1px solid rgba(184, 149, 74, 0.22);
+    transition:
+      background 0.3s ease,
+      border-color 0.3s ease;
+  }
+  /* Over the dark hero, blend in until scrolled. */
+  .site-nav--over-hero {
+    background: transparent;
+    border-color: transparent;
+  }
+  .site-nav.is-scrolled {
+    background: rgba(13, 13, 13, 0.85);
+    backdrop-filter: saturate(140%) blur(10px);
+    border-color: rgba(184, 149, 74, 0.22);
+  }
+
+  .site-nav__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .site-nav__brand {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--gold-light);
+  }
+
+  .site-nav__links ul {
+    display: flex;
+    gap: 34px;
+    list-style: none;
+  }
+  .site-nav__links a {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #9a9488;
+    padding-bottom: 2px;
+    transition: color 0.2s ease;
+  }
+  .site-nav__links a:hover,
+  .site-nav__links a.is-active {
+    color: var(--gold);
+  }
+
+  .site-nav__toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    width: 30px;
+    padding: 6px 2px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+  }
+  .site-nav__toggle span {
+    height: 1.5px;
+    width: 100%;
+    background: var(--gold-light);
+    transition: transform 0.3s ease, opacity 0.2s ease;
+  }
+  .site-nav__toggle[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg);
+  }
+  .site-nav__toggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+  }
+  .site-nav__toggle[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg);
+  }
+
+  .site-nav__drawer {
+    background: var(--ink);
+    border-top: 1px solid rgba(184, 149, 74, 0.18);
+  }
+  .site-nav__drawer ul {
+    list-style: none;
+    padding: 8px 0 16px;
+  }
+  .site-nav__drawer a {
+    display: block;
+    padding: 14px 24px;
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #b9b3a7;
+  }
+  .site-nav__drawer a.is-active {
+    color: var(--gold);
+  }
+
+  @media (max-width: 768px) {
+    .site-nav__links {
+      display: none;
+    }
+    .site-nav__toggle {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>("[data-nav-toggle]");
+  const drawer = document.querySelector<HTMLElement>("[data-nav-drawer]");
+  toggle?.addEventListener("click", () => {
+    const open = toggle.getAttribute("aria-expanded") === "true";
+    toggle.setAttribute("aria-expanded", String(!open));
+    toggle.setAttribute("aria-label", open ? "Open menu" : "Close menu");
+    if (drawer) drawer.hidden = open;
+  });
+</script>

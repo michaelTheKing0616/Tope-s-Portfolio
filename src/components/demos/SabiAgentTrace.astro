@@ -1,0 +1,345 @@
+---
+// Sabi — interactive agent-trace demo. Runs deterministic, scripted trajectories
+// (no API key, no cost, always works) that visualise the planner -> tool-call ->
+// critic -> answer loop the production system is designed around.
+---
+
+<div class="sabi" data-sabi>
+  <div class="sabi__head">
+    <span class="sabi__avatar" aria-hidden="true">S</span>
+    <div>
+      <p class="sabi__name">Sabi</p>
+      <p class="sabi__sub">SME operations agent · scripted trajectory</p>
+    </div>
+    <span class="sabi__badge" data-sabi-state>idle</span>
+  </div>
+
+  <div class="sabi__transcript" data-sabi-transcript role="log" aria-live="polite" aria-label="Agent trace">
+    <p class="sabi__empty" data-sabi-empty>
+      Pick a request below to watch Sabi plan, call typed tools, self-check, and reply.
+    </p>
+  </div>
+
+  <div class="sabi__prompts" data-sabi-prompts>
+    <button class="sabi__chip" type="button" data-scenario="stock">
+      “Customer wants 3 bags of rice — in stock? total?”
+    </button>
+    <button class="sabi__chip" type="button" data-scenario="invoice">
+      “Send Amaka an invoice for 2 cartons of milk.”
+    </button>
+    <button class="sabi__chip" type="button" data-scenario="report">
+      “What were my best-sellers this week?”
+    </button>
+  </div>
+
+  <p class="sabi__foot">
+    Deterministic demo — no model is called. The same trajectory shape (plan,
+    tools, critic, commit) is what runs in production, with evals and tracing.
+  </p>
+</div>
+
+<style>
+  .sabi {
+    background: linear-gradient(160deg, #131210, #0c0b09);
+    border: 1px solid rgba(184, 149, 74, 0.22);
+    border-radius: 10px;
+    padding: 20px;
+    color: var(--gold-light);
+    display: flex;
+    flex-direction: column;
+    min-height: 460px;
+  }
+  .sabi__head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(184, 149, 74, 0.18);
+  }
+  .sabi__avatar {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--gold);
+    color: var(--ink);
+    font-family: "Cormorant Garamond", serif;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .sabi__name {
+    font-size: 14px;
+    color: var(--gold-light);
+  }
+  .sabi__sub {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #6f6a60;
+  }
+  .sabi__badge {
+    margin-left: auto;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(184, 149, 74, 0.3);
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+  .sabi__badge.is-running {
+    color: #e8d9b5;
+    border-color: var(--gold);
+    animation: pulse 1.2s ease-in-out infinite;
+  }
+  .sabi__badge.is-done {
+    color: #7cc596;
+    border-color: rgba(124, 197, 150, 0.5);
+  }
+  @keyframes pulse {
+    50% {
+      opacity: 0.55;
+    }
+  }
+
+  .sabi__transcript {
+    flex: 1;
+    overflow-y: auto;
+    padding: 18px 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .sabi__empty {
+    color: #6f6a60;
+    font-size: 13px;
+    line-height: 1.6;
+    margin: auto 0;
+    text-align: center;
+  }
+
+  .step {
+    border-left: 2px solid rgba(184, 149, 74, 0.3);
+    padding: 2px 0 2px 14px;
+    opacity: 0;
+    transform: translateY(8px);
+    animation: step-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  @keyframes step-in {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  .step__kind {
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+  .step--user {
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+  .step--user .step__kind {
+    color: #c8c2b6;
+  }
+  .step--plan .step__kind {
+    color: #9bb0d6;
+  }
+  .step--tool .step__kind {
+    color: var(--gold);
+  }
+  .step--critic .step__kind {
+    color: #d6b89b;
+  }
+  .step--answer {
+    border-color: #7cc596;
+  }
+  .step--answer .step__kind {
+    color: #7cc596;
+  }
+  .step__body {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: #d6d0c4;
+  }
+  .step--user .step__body {
+    color: var(--gold-light);
+  }
+  .tool {
+    font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+    font-size: 11.5px;
+    line-height: 1.55;
+  }
+  .tool__call {
+    color: var(--gold-light);
+  }
+  .tool__fn {
+    color: var(--gold);
+  }
+  .tool__result {
+    display: block;
+    margin-top: 4px;
+    padding: 8px 10px;
+    background: rgba(184, 149, 74, 0.08);
+    border-radius: 5px;
+    color: #b9d6c2;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .step__plan-list {
+    margin: 0;
+    padding-left: 16px;
+  }
+  .step__plan-list li {
+    margin: 2px 0;
+  }
+  .step__plan-list li::marker {
+    color: var(--gold);
+  }
+
+  .sabi__prompts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(184, 149, 74, 0.18);
+  }
+  .sabi__chip {
+    font-size: 11.5px;
+    color: #c8c2b6;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(184, 149, 74, 0.25);
+    padding: 9px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .sabi__chip:hover:not(:disabled) {
+    border-color: var(--gold);
+    color: var(--gold-light);
+  }
+  .sabi__chip:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+  .sabi__foot {
+    margin-top: 12px;
+    font-size: 11px;
+    line-height: 1.5;
+    color: #6f6a60;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .step {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+    .sabi__badge.is-running {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  type Step =
+    | { kind: "user"; text: string }
+    | { kind: "plan"; items: string[] }
+    | { kind: "tool"; fn: string; args: Record<string, unknown>; result: Record<string, unknown> }
+    | { kind: "critic"; text: string }
+    | { kind: "answer"; text: string };
+
+  const scenarios: Record<string, Step[]> = {
+    stock: [
+      { kind: "user", text: "A customer wants 3 bags of rice — do we have stock and what's the total?" },
+      { kind: "plan", items: ["Check inventory for rice", "Compute the order total", "Reply with availability + price"] },
+      { kind: "tool", fn: "check_inventory", args: { item: "rice" }, result: { sku: "RICE-50KG", qty: 8, unit_price: 62000, currency: "NGN" } },
+      { kind: "tool", fn: "calculate_total", args: { unit_price: 62000, qty: 3 }, result: { subtotal: 186000, currency: "NGN" } },
+      { kind: "critic", text: "Stock 8 ≥ 3 requested. Total within normal range. Safe to reply." },
+      { kind: "answer", text: "Yes — 8 bags in stock. 3 × 50kg rice = ₦186,000. Want me to reserve them and draft an invoice?" },
+    ],
+    invoice: [
+      { kind: "user", text: "Send an invoice to Amaka for 2 cartons of milk." },
+      { kind: "plan", items: ["Find the customer 'Amaka'", "Verify milk stock + price", "Create and send the invoice", "Confirm against spend guardrail"] },
+      { kind: "tool", fn: "lookup_customer", args: { name: "Amaka" }, result: { id: "C-104", phone: "+234•••4821" } },
+      { kind: "tool", fn: "check_inventory", args: { item: "milk" }, result: { sku: "MILK-CTN", qty: 15, unit_price: 18500 } },
+      { kind: "tool", fn: "create_invoice", args: { customer: "C-104", items: [{ sku: "MILK-CTN", qty: 2 }] }, result: { invoice: "INV-2291", total: 37000, status: "sent" } },
+      { kind: "critic", text: "Total ₦37,000 < daily cap ₦500,000. Idempotency key set. Action committed." },
+      { kind: "answer", text: "Invoice INV-2291 for ₦37,000 sent to Amaka on WhatsApp. I'll notify you the moment she pays." },
+    ],
+    report: [
+      { kind: "user", text: "What were my best-selling items this week?" },
+      { kind: "plan", items: ["Query last 7 days of sales", "Group by item, rank by revenue", "Summarise the top three"] },
+      { kind: "tool", fn: "query_sales", args: { range: "7d", group: "item", order: "revenue_desc", limit: 3 }, result: { rows: [{ item: "Rice 50kg", units: 21, revenue: 1302000 }, { item: "Milk carton", units: 64, revenue: 1184000 }, { item: "Sugar 1kg", units: 130, revenue: 910000 }] } },
+      { kind: "critic", text: "3 rows returned, totals reconcile with ledger. Ready to summarise." },
+      { kind: "answer", text: "This week's top sellers: 1) Rice 50kg — ₦1.30m, 2) Milk cartons — ₦1.18m, 3) Sugar 1kg — ₦910k. Rice leads on revenue; sugar on volume." },
+    ],
+  };
+
+  const root = document.querySelector<HTMLElement>("[data-sabi]");
+  if (root) {
+    const transcript = root.querySelector<HTMLElement>("[data-sabi-transcript]")!;
+    const emptyEl = root.querySelector<HTMLElement>("[data-sabi-empty]");
+    const stateEl = root.querySelector<HTMLElement>("[data-sabi-state]")!;
+    const chips = Array.from(root.querySelectorAll<HTMLButtonElement>("[data-scenario]"));
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let running = false;
+
+    const wait = (ms: number) => new Promise((r) => setTimeout(r, reduced ? Math.min(ms, 120) : ms));
+    const esc = (s: string) =>
+      s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+    function renderStep(step: Step): HTMLElement {
+      const el = document.createElement("div");
+      el.className = `step step--${step.kind}`;
+      if (step.kind === "user") {
+        el.innerHTML = `<div class="step__kind">Request</div><div class="step__body">${esc(step.text)}</div>`;
+      } else if (step.kind === "plan") {
+        el.innerHTML =
+          `<div class="step__kind">Plan</div><ol class="step__plan-list step__body">` +
+          step.items.map((i) => `<li>${esc(i)}</li>`).join("") +
+          `</ol>`;
+      } else if (step.kind === "tool") {
+        el.innerHTML =
+          `<div class="step__kind">Tool call</div>` +
+          `<div class="step__body tool"><span class="tool__call"><span class="tool__fn">${esc(step.fn)}</span>(${esc(JSON.stringify(step.args))})</span>` +
+          `<span class="tool__result">→ ${esc(JSON.stringify(step.result))}</span></div>`;
+      } else if (step.kind === "critic") {
+        el.innerHTML = `<div class="step__kind">Critic / guardrail</div><div class="step__body">${esc(step.text)}</div>`;
+      } else {
+        el.innerHTML = `<div class="step__kind">Answer</div><div class="step__body">${esc(step.text)}</div>`;
+      }
+      return el;
+    }
+
+    async function run(key: string) {
+      if (running) return;
+      running = true;
+      emptyEl?.remove();
+      transcript.innerHTML = "";
+      chips.forEach((c) => (c.disabled = true));
+      stateEl.textContent = "running";
+      stateEl.classList.add("is-running");
+      stateEl.classList.remove("is-done");
+
+      const steps = scenarios[key];
+      for (const step of steps) {
+        await wait(step.kind === "user" ? 120 : step.kind === "tool" ? 760 : 560);
+        transcript.appendChild(renderStep(step));
+        transcript.scrollTop = transcript.scrollHeight;
+      }
+
+      stateEl.textContent = "done";
+      stateEl.classList.remove("is-running");
+      stateEl.classList.add("is-done");
+      chips.forEach((c) => (c.disabled = false));
+      running = false;
+    }
+
+    chips.forEach((chip) =>
+      chip.addEventListener("click", () => run(chip.dataset.scenario!)),
+    );
+  }
+</script>

@@ -1,0 +1,75 @@
+---
+import "../styles/global.css";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import { site } from "../data/site";
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Set true on the home page for the dark, full-bleed hero treatment. */
+  dark?: boolean;
+}
+
+const {
+  title = `${site.name} — ${site.role}`,
+  description = site.intro,
+  dark = false,
+} = Astro.props;
+
+const siteOrigin = Astro.site ?? new URL("http://localhost:4321");
+const canonical = new URL(Astro.url.pathname, siteOrigin).href;
+const ogImage = new URL("/images/og-cover.png", siteOrigin).href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="author" content={site.name} />
+    <meta name="theme-color" content="#0d0d0d" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content={site.name} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class:list={[{ "is-dark": dark }]} data-page-dark={dark ? "true" : "false"}>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <Nav dark={dark} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer dark={dark} />
+
+    <script>
+      import { initMotion } from "../scripts/motion";
+      initMotion();
+    </script>
+  </body>
+</html>

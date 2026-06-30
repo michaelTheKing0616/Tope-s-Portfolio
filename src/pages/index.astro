@@ -1,0 +1,213 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import Hero from "../components/Hero.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import SkillMatrix from "../components/SkillMatrix.astro";
+import { highlights, site } from "../data/site";
+
+const projects = (await getCollection("projects")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const featured = projects.filter((p) => p.data.featured).slice(0, 4);
+---
+
+<Base dark>
+  <Hero />
+
+  <!-- Highlights strip -->
+  <section id="highlights" class="band band--ink">
+    <div class="shell-wide highlights">
+      {
+        highlights.map((h, i) => (
+          <div class="highlight" data-reveal data-reveal-delay={i * 0.08}>
+            <h2 class="highlight__stat text-gradient-gold">{h.stat}</h2>
+            <p class="highlight__label">{h.label}</p>
+            <p class="highlight__desc">{h.desc}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Featured work -->
+  <section class="band">
+    <div class="shell-wide">
+      <div class="band__head" data-reveal>
+        <div class="section-label">Selected Work</div>
+        <div class="band__head-row">
+          <h2 class="band__title">
+            Range, <em>shipped</em> — not claimed.
+          </h2>
+          <a href="/work" class="btn-outline" data-magnetic="0.2">All projects</a>
+        </div>
+        <p class="band__lead">
+          Six domains, one through-line. Each project pairs a high-demand 2026
+          capability with a clear senior-level signal.
+        </p>
+      </div>
+
+      <div class="work-grid">
+        {featured.map((p, i) => <ProjectCard project={p} index={i} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Capabilities -->
+  <section class="band band--ink">
+    <div class="shell-wide">
+      <div class="band__head" data-reveal>
+        <div class="section-label section-label--dark">Capabilities</div>
+        <h2 class="band__title band__title--light">
+          A genuine full-spectrum engineer.
+        </h2>
+        <p class="band__lead band__lead--light">
+          Web to mobile to desktop, with AI and game systems in between — the
+          breadth a senior generalist is expected to own in 2026.
+        </p>
+      </div>
+      <SkillMatrix />
+    </div>
+  </section>
+
+  <!-- CTA band -->
+  <section class="band cta-band">
+    <div class="shell cta-band__inner" data-reveal>
+      <p class="section-label" style="justify-content:center">Let's talk</p>
+      <h2 class="cta-band__title">
+        Have something ambitious<br />that needs building?
+      </h2>
+      <p class="cta-band__lead">{site.intro}</p>
+      <div class="cta-band__actions">
+        <a href="/contact" class="btn-gold" data-magnetic="0.3">Get in touch</a>
+        <a href="/resume" class="btn-outline" data-magnetic="0.2">View resume</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .band {
+    padding: clamp(72px, 11vw, 140px) 0;
+  }
+  .band--ink {
+    background: var(--ink);
+    color: var(--gold-light);
+  }
+
+  .highlights {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(184, 149, 74, 0.16);
+    border: 1px solid rgba(184, 149, 74, 0.16);
+  }
+  .highlight {
+    background: var(--ink);
+    padding: 44px 40px;
+  }
+  .highlight__stat {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(2.6rem, 5vw, 3.6rem);
+    font-weight: 300;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .highlight__label {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #c8c2b6;
+    margin-bottom: 8px;
+  }
+  .highlight__desc {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #8a8478;
+  }
+
+  .band__head {
+    margin-bottom: 52px;
+  }
+  .band__head-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin: 22px 0 18px;
+  }
+  .band__title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 300;
+    line-height: 1.04;
+    color: var(--ink);
+  }
+  .band__title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .band__title--light {
+    color: var(--gold-light);
+    margin: 22px 0 16px;
+  }
+  .band__lead {
+    max-width: 60ch;
+    font-size: 15px;
+    color: var(--mid);
+  }
+  .band__lead--light {
+    color: #9a9488;
+  }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: rgba(184, 149, 74, 0.14);
+    border: 1px solid rgba(184, 149, 74, 0.14);
+  }
+
+  .cta-band {
+    background: linear-gradient(180deg, var(--smoke), #efede8);
+    text-align: center;
+  }
+  .cta-band__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+  .cta-band__title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(2.4rem, 6vw, 4.2rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--ink);
+  }
+  .cta-band__lead {
+    max-width: 56ch;
+    color: var(--mid);
+    font-size: 15px;
+  }
+  .cta-band__actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  @media (max-width: 768px) {
+    .highlights {
+      grid-template-columns: 1fr;
+    }
+    .work-grid {
+      grid-template-columns: 1fr;
+    }
+    .band__head-row {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

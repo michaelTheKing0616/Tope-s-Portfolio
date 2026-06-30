@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pulse — African tech in motion</title>
+    <link rel="stylesheet" href="./src/style.css" />
+  </head>
+  <body>
+    <canvas data-field class="field" aria-hidden="true"></canvas>
+
+    <main class="hud">
+      <header class="hud__head">
+        <h1>Pulse</h1>
+        <p>A live, GPU-rendered view of African tech in motion. Simulated stream — deterministic, with backpressure.</p>
+      </header>
+
+      <section class="stats" aria-label="Live metrics">
+        <div class="stat"><span class="stat__k">Throughput /s</span><span class="stat__v" data-stat="throughput">0</span></div>
+        <div class="stat"><span class="stat__k">Events seen</span><span class="stat__v" data-stat="total">0</span></div>
+        <div class="stat"><span class="stat__k">Payment volume</span><span class="stat__v" data-stat="volume">₦0</span></div>
+        <div class="stat"><span class="stat__k">Shed (backpressure)</span><span class="stat__v" data-stat="shed">0</span></div>
+      </section>
+
+      <canvas data-spark class="spark" aria-hidden="true"></canvas>
+
+      <ul class="legend" data-legend aria-label="Events by kind"></ul>
+    </main>
+
+    <script type="module" src="./src/main.ts"></script>
+  </body>
+</html>

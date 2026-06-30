@@ -1,0 +1,249 @@
+---
+import Base from "../layouts/Base.astro";
+import { site } from "../data/site";
+import { interests, profile } from "../data/resume";
+
+const principles = [
+  {
+    title: "Built by African hands",
+    body: "Technology for the continent should be designed and engineered by people who live its context. That conviction is the through-line of everything I build, from LingAfriq to the roadmap ahead.",
+  },
+  {
+    title: "Reliability over demos",
+    body: "Anyone can ship a prototype. The discipline that reads as senior is making software dependable when it runs a thousand times a day — guardrails, tests, observability, graceful failure.",
+  },
+  {
+    title: "Range with intent",
+    body: "Web, mobile, desktop, AI and games are not a scattered checklist. They are one engineer choosing the right tool for the problem, and proving it by shipping across all of them.",
+  },
+];
+---
+
+<Base
+  title="About — Temitope Olaitan"
+  description="Software engineer and AI builder from Lagos, Nigeria, building technology for the continent — by African hands."
+>
+  <section class="about-hero">
+    <div class="shell">
+      <div class="section-label" data-reveal>About</div>
+      <h1 class="about-hero__title" data-reveal data-reveal-delay="0.06">
+        I build software<br />that speaks <em>my</em> continent's languages.
+      </h1>
+      <p class="about-hero__lead" data-reveal data-reveal-delay="0.12">{profile}</p>
+    </div>
+  </section>
+
+  <section class="about-portrait band--ink">
+    <div class="shell about-portrait__inner">
+      <div class="about-portrait__media" data-reveal>
+        <picture>
+          <source srcset="/images/portrait.avif" type="image/avif" />
+          <source srcset="/images/portrait.webp" type="image/webp" />
+          <img
+            src="/images/portrait.jpg"
+            alt="Portrait of Temitope Olaitan"
+            width="900"
+            height="900"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
+      </div>
+      <div class="about-portrait__text" data-reveal data-reveal-delay="0.08">
+        <p class="about-quote">&ldquo;{site.thesis}&rdquo;</p>
+        <p class="about-portrait__meta">
+          {site.name} &middot; {site.location}<br />
+          First Class B.Tech, Computer Science
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="shell">
+      <div class="section-label" data-reveal>What I hold to</div>
+      <div class="principles">
+        {
+          principles.map((p, i) => (
+            <article class="principle" data-reveal data-reveal-delay={i * 0.08}>
+              <span class="principle__num">{String(i + 1).padStart(2, "0")}</span>
+              <h2 class="principle__title">{p.title}</h2>
+              <p class="principle__body">{p.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--ink">
+    <div class="shell">
+      <div class="section-label section-label--dark" data-reveal>Beyond the code</div>
+      <h2 class="interests__title" data-reveal data-reveal-delay="0.06">
+        What feeds the mind<br />when I'm <em>not</em> building.
+      </h2>
+      <div class="interests">
+        {
+          interests.map((h, i) => (
+            <article class="interest" data-reveal data-reveal-delay={(i % 2) * 0.08}>
+              <span class="interest__icon">{h.icon}</span>
+              <h3 class="interest__name">{h.name}</h3>
+              <p class="interest__desc">{h.desc}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .about-hero {
+    padding: clamp(120px, 16vw, 190px) 0 clamp(50px, 7vw, 80px);
+    background: linear-gradient(180deg, #efede8, var(--smoke));
+  }
+  .about-hero__title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(2.6rem, 7vw, 5rem);
+    font-weight: 300;
+    line-height: 1.02;
+    color: var(--ink);
+    margin: 22px 0 24px;
+  }
+  .about-hero__title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .about-hero__lead {
+    max-width: 64ch;
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--mid);
+  }
+
+  .band {
+    padding: clamp(72px, 11vw, 130px) 0;
+  }
+  .band--ink {
+    background: var(--ink);
+    color: var(--gold-light);
+  }
+
+  .about-portrait {
+    padding: clamp(64px, 9vw, 110px) 0;
+  }
+  .about-portrait__inner {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    align-items: center;
+    gap: 56px;
+  }
+  .about-portrait__media img {
+    width: 100%;
+    height: auto;
+    border: 1px solid rgba(184, 149, 74, 0.3);
+    filter: grayscale(0.2) contrast(1.02);
+  }
+  .about-quote {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(1.6rem, 3.6vw, 2.6rem);
+    font-weight: 300;
+    line-height: 1.3;
+    color: var(--gold-light);
+    margin-bottom: 26px;
+  }
+  .about-portrait__meta {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    line-height: 1.9;
+    text-transform: uppercase;
+    color: #8a8478;
+  }
+
+  .principles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+    margin-top: 44px;
+  }
+  .principle__num {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 28px;
+    color: var(--gold);
+  }
+  .principle__title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 10px 0 12px;
+    line-height: 1.1;
+  }
+  .principle__body {
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: var(--mid);
+  }
+
+  .interests__title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--gold-light);
+    margin: 22px 0 44px;
+  }
+  .interests__title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .interests {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: rgba(184, 149, 74, 0.16);
+    border: 1px solid rgba(184, 149, 74, 0.16);
+  }
+  .interest {
+    background: var(--ink);
+    padding: 40px 36px;
+    transition: background 0.3s ease;
+  }
+  .interest:hover {
+    background: var(--ink-soft, #1a1814);
+  }
+  .interest__icon {
+    font-size: 30px;
+    display: block;
+    margin-bottom: 16px;
+  }
+  .interest__name {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--gold-light);
+    margin-bottom: 10px;
+  }
+  .interest__desc {
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: #8a8478;
+    max-width: 42ch;
+  }
+
+  @media (max-width: 860px) {
+    .about-portrait__inner {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+    .principles {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+  }
+  @media (max-width: 600px) {
+    .interests {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

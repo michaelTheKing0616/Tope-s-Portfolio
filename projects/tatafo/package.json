@@ -1,0 +1,29 @@
+{
+  "name": "tatafo",
+  "version": "0.2.0",
+  "description": "Private, local-first file search — BM25 ranking, file watcher, web UI. Offline, no API keys.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Temitope Olaitan",
+  "bin": {
+    "tatafo": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "dev": "tsx src/cli.ts",
+    "web": "tsx src/web.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.13.7",
+    "hono": "^4.6.14"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.8"
+  }
+}

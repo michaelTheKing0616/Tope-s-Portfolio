@@ -1,0 +1,139 @@
+---
+/** Micro-demo: one Football IQ scenario — mirrors sportverse/packages/sim-core */
+---
+
+<div class="sv-demo" id="sv-demo">
+  <div class="sv-demo__head">
+    <span class="sv-demo__tag">SPORTVERSE · Football IQ</span>
+    <p class="sv-demo__context" id="sv-context">Your striker is 1v1 with the keeper. Defender closing from behind.</p>
+    <div class="sv-demo__timer" id="sv-timer" aria-live="polite">4s</div>
+  </div>
+  <div class="sv-demo__opts" id="sv-opts"></div>
+  <div class="sv-demo__result" id="sv-result" hidden></div>
+</div>
+
+<script>
+  const scenario = {
+    context: "Your striker is 1v1 with the keeper. Defender closing from behind.",
+    best: "shoot",
+    options: [
+      { id: "shoot", label: "Shoot", rate: 0.72, outcome: "Low shot beats the keeper!", explain: "1v1 — shoot before the defender recovers." },
+      { id: "pass_left", label: "Pass left", rate: 0.35, outcome: "Intercepted.", explain: "No supporting runner." },
+      { id: "cut_inside", label: "Cut inside", rate: 0.55, outcome: "Blocked.", explain: "Extra touch lets the defender commit." },
+    ],
+  };
+
+  const root = document.getElementById("sv-demo");
+  const opts = document.getElementById("sv-opts");
+  const result = document.getElementById("sv-result");
+  const timerEl = document.getElementById("sv-timer");
+  let t = 4;
+  let tick;
+
+  function end(choice, timeout) {
+    clearInterval(tick);
+    opts.innerHTML = "";
+    const opt = scenario.options.find((o) => o.id === choice) ?? scenario.options[0];
+    const optimal = choice === scenario.best;
+    const success = Math.random() < opt.rate;
+    result.hidden = false;
+    result.className = "sv-demo__result " + (optimal ? "sv-demo__result--win" : "sv-demo__result--loss");
+    result.innerHTML = `<strong>${timeout ? "Time! " : ""}${success ? opt.outcome : "Failed — " + opt.outcome}</strong>
+      <p>${opt.explain}${optimal ? "" : " Better choice: Shoot."}</p>
+      <button type="button" class="sv-demo__retry" id="sv-retry">Try again</button>`;
+    document.getElementById("sv-retry")?.addEventListener("click", init);
+  }
+
+  function init() {
+    result.hidden = true;
+    t = 4;
+    timerEl.textContent = "4s";
+    opts.innerHTML = "";
+    scenario.options.forEach((o) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "sv-demo__btn";
+      b.textContent = o.label;
+      b.addEventListener("click", () => end(o.id, false));
+      opts.appendChild(b);
+    });
+    clearInterval(tick);
+    tick = setInterval(() => {
+      t -= 1;
+      timerEl.textContent = t + "s";
+      if (t <= 0) end("pass_left", true);
+    }, 1000);
+  }
+
+  init();
+</script>
+
+<style>
+  .sv-demo {
+    background: #0a1628;
+    color: #f4f7fb;
+    border: 1px solid rgba(245, 197, 24, 0.2);
+    border-radius: 14px;
+    padding: 24px;
+    font-family: Inter, system-ui, sans-serif;
+  }
+  .sv-demo__tag {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #f5c518;
+  }
+  .sv-demo__context {
+    color: #8fa3bf;
+    line-height: 1.55;
+    margin: 12px 0;
+  }
+  .sv-demo__timer {
+    font-family: "Bebas Neue", Impact, sans-serif;
+    font-size: 2.4rem;
+    color: #f5c518;
+    letter-spacing: 0.06em;
+  }
+  .sv-demo__opts {
+    display: grid;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .sv-demo__btn {
+    background: transparent;
+    border: 1px solid #1e3352;
+    color: #f4f7fb;
+    padding: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 600;
+    transition: border-color 0.15s;
+  }
+  .sv-demo__btn:hover {
+    border-color: #f5c518;
+  }
+  .sv-demo__result {
+    margin-top: 18px;
+    padding-left: 14px;
+    border-left: 3px solid #2ecc71;
+    line-height: 1.55;
+  }
+  .sv-demo__result--loss {
+    border-color: #e74c3c;
+  }
+  .sv-demo__result p {
+    color: #8fa3bf;
+    font-size: 14px;
+  }
+  .sv-demo__retry {
+    margin-top: 12px;
+    background: #f5c518;
+    color: #0a1628;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+</style>

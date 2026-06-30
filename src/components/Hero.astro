@@ -1,0 +1,230 @@
+---
+import { site } from "../data/site";
+---
+
+<section class="hero grain" data-hero>
+  <canvas class="hero__canvas" data-hero-canvas aria-hidden="true"></canvas>
+  <div class="hero__scrim" aria-hidden="true"></div>
+
+  <div class="hero__inner shell-wide">
+    <div class="hero__text">
+      <p class="hero__eyebrow" data-reveal>{site.role}</p>
+
+      <h1 class="hero__title" data-reveal data-reveal-delay="0.08">
+        <span class="hero__line">Temitope</span>
+        <span class="hero__line hero__line--accent">Olaitan</span>
+      </h1>
+
+      <p class="hero__subtitle" data-reveal data-reveal-delay="0.16">
+        {site.location} <span class="dot">&middot;</span> {site.tagline}
+      </p>
+
+      <p class="hero__intro" data-reveal data-reveal-delay="0.22">
+        {site.thesis}
+      </p>
+
+      <div class="hero__ctas" data-reveal data-reveal-delay="0.3">
+        <a href="/work" class="btn-gold" data-magnetic="0.3">View the work</a>
+        <a href="/demos" class="btn-ghost" data-magnetic="0.25">Play the live demos</a>
+      </div>
+    </div>
+
+    <div class="hero__aside" data-reveal data-reveal-delay="0.2">
+      <div class="hero__portrait" data-parallax="0.08">
+        <picture>
+          <source srcset="/images/portrait.avif" type="image/avif" />
+          <source srcset="/images/portrait.webp" type="image/webp" />
+          <img
+            src="/images/portrait.jpg"
+            alt="Portrait of Temitope Olaitan"
+            width="900"
+            height="900"
+            loading="eager"
+            decoding="async"
+          />
+        </picture>
+        <span class="hero__portrait-ring" aria-hidden="true"></span>
+      </div>
+    </div>
+  </div>
+
+  <a href="#highlights" class="hero__cue" aria-label="Scroll to content">
+    <span>Scroll</span>
+    <span class="hero__cue-line" aria-hidden="true"></span>
+  </a>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    isolation: isolate;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    background: radial-gradient(120% 120% at 40% 40%, #15120c 0%, #0d0d0d 60%);
+    color: var(--gold-light);
+    overflow: hidden;
+  }
+  .hero__canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    display: block;
+  }
+  .hero__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      linear-gradient(90deg, rgba(13, 13, 13, 0.7) 0%, rgba(13, 13, 13, 0.2) 55%, rgba(13, 13, 13, 0.6) 100%),
+      linear-gradient(180deg, rgba(13, 13, 13, 0.55) 0%, transparent 30%, rgba(13, 13, 13, 0.6) 100%);
+  }
+
+  .hero__inner {
+    display: grid;
+    grid-template-columns: 1.5fr 0.9fr;
+    align-items: center;
+    gap: 56px;
+    padding-top: 120px;
+    padding-bottom: 120px;
+  }
+
+  .hero__eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 22px;
+  }
+  .hero__title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 300;
+    font-size: clamp(3.4rem, 9vw, 8rem);
+    line-height: 0.96;
+    letter-spacing: -0.02em;
+    margin-bottom: 26px;
+  }
+  .hero__line {
+    display: block;
+  }
+  .hero__line--accent {
+    font-weight: 600;
+    background: linear-gradient(100deg, var(--gold-light), var(--gold) 55%, var(--gold-light));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hero__subtitle {
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #b9b3a7;
+    margin-bottom: 26px;
+  }
+  .hero__subtitle .dot {
+    color: var(--gold);
+    margin: 0 6px;
+  }
+  .hero__intro {
+    max-width: 50ch;
+    font-size: 16px;
+    line-height: 1.75;
+    color: #ccc6ba;
+    margin-bottom: 38px;
+  }
+  .hero__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .hero__aside {
+    display: flex;
+    justify-content: center;
+  }
+  .hero__portrait {
+    position: relative;
+    width: min(340px, 80%);
+    aspect-ratio: 1;
+  }
+  .hero__portrait picture,
+  .hero__portrait img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    filter: grayscale(0.15) contrast(1.02);
+  }
+  .hero__portrait-ring {
+    position: absolute;
+    inset: -14px;
+    border: 1px solid rgba(184, 149, 74, 0.45);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero__portrait-ring::after {
+    content: "";
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgba(184, 149, 74, 0.16);
+    border-radius: 50%;
+  }
+
+  .hero__cue {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    font-size: 9px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: #8a8478;
+  }
+  .hero__cue-line {
+    width: 1px;
+    height: 42px;
+    background: linear-gradient(var(--gold), transparent);
+    animation: cue 2.4s ease-in-out infinite;
+    transform-origin: top;
+  }
+  @keyframes cue {
+    0%,
+    100% {
+      transform: scaleY(0.4);
+      opacity: 0.4;
+    }
+    50% {
+      transform: scaleY(1);
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .hero__inner {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      padding-top: 110px;
+      padding-bottom: 100px;
+    }
+    .hero__aside {
+      order: -1;
+      justify-content: flex-start;
+    }
+    .hero__portrait {
+      width: 180px;
+    }
+  }
+</style>
+
+<script>
+  import { initHero } from "../scripts/hero-shader";
+  initHero();
+</script>
