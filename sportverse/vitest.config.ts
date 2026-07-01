@@ -9,6 +9,9 @@ export default defineConfig({
       "@sportverse/quiz-engine": resolve(__dirname, "packages/quiz-engine/src/index.ts"),
       "@sportverse/sim-core": resolve(__dirname, "packages/sim-core/src/index.ts"),
       "@sportverse/platform": resolve(__dirname, "packages/platform/src/index.ts"),
+      "@sportverse/rating-engine": resolve(__dirname, "packages/rating-engine/src/index.ts"),
+      "@sportverse/draftballer-core": resolve(__dirname, "packages/draftballer-core/src/index.ts"),
+      "@sportverse/draftballer-types": resolve(__dirname, "packages/draftballer-types/src/index.ts"),
     },
   },
   test: {

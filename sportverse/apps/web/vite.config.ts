@@ -22,6 +22,9 @@ export default defineConfig({
       "@sportverse/quiz-engine": resolve(root, "packages/quiz-engine/src/index.ts"),
       "@sportverse/sim-core": resolve(root, "packages/sim-core/src/index.ts"),
       "@sportverse/platform": resolve(root, "packages/platform/src/index.ts"),
+      "@sportverse/draftballer-types": resolve(root, "packages/draftballer-types/src/index.ts"),
+      "@sportverse/rating-engine": resolve(root, "packages/rating-engine/src/index.ts"),
+      "@sportverse/draftballer-core": resolve(root, "packages/draftballer-core/src/index.ts"),
     },
   },
   optimizeDeps: {

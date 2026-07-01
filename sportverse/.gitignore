@@ -1,4 +1,8 @@
-data/
 node_modules/
 dist/
 *.local
+
+# Downloaded/raw datasets only — curated quiz JSON in packages/sports-db/data/ MUST be committed
+data/raw/
+data/cache/
+packages/*/data/raw/

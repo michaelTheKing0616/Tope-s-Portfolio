@@ -1,0 +1,12 @@
+[
+  {
+    "id": "cp-ronaldo",
+    "playerId": "ronaldo",
+    "clubs": ["Sporting CP", "Manchester United", "Real Madrid", "Juventus", "Manchester United", "Al Nassr"]
+  },
+  {
+    "id": "cp-messi",
+    "playerId": "messi",
+    "clubs": ["Barcelona", "Paris Saint-Germain", "Inter Miami"]
+  }
+]

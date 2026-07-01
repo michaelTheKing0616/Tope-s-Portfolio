@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 import { getCollection } from "astro:content";
 
-const staticRoutes = ["/", "/work", "/demos", "/play", "/about", "/resume", "/contact"];
+const staticRoutes = ["/", "/work", "/demos", "/play", "/showcase", "/about", "/resume", "/contact"];
 
 export const GET: APIRoute = async ({ site }) => {
   const base = (site?.href ?? import.meta.env.SITE ?? "http://localhost:4321").replace(/\/$/, "");

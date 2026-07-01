@@ -43,6 +43,11 @@ function hubHtml(
           <h3 class="card__title">Goalkeeper Instinct</h3>
           <p class="card__blurb">Read body language. Dive before the shot.</p>
         </a>
+        <a class="card" href="#/draftballer" data-route="draftballer">
+          <span class="card__tag">Draft · New</span>
+          <h3 class="card__title">DRAFTBALLER</h3>
+          <p class="card__blurb">Draft the greatest XI — any era, OVR-rated player cards, snake draft vs bot.</p>
+        </a>
       </div>
 
       <h2 style="font-family:var(--font-display);letter-spacing:.08em;font-size:1.4rem;margin:24px 0 12px">SPORTS IQ</h2>

@@ -1,0 +1,147 @@
+/* DRAFTBALLER — Floodlit Archive design tokens */
+.db-root {
+  --db-bg: #0b0d10;
+  --db-panel: #12161c;
+  --db-elevated: #1c2128;
+  --db-gold: #d4af37;
+  --db-gold-hi: #f5d576;
+  --db-emerald: #1f8a57;
+  --db-emerald-hi: #3fd188;
+  --db-muted: #8fa3bf;
+  --db-ink: #f4f7fb;
+  --db-border: #2a3340;
+  --font-display: "Bebas Neue", system-ui, sans-serif;
+}
+
+.db-root .shell { max-width: 1100px; }
+
+.db-hero {
+  text-align: center;
+  padding: 2rem 0 1.5rem;
+  border-bottom: 1px solid var(--db-border);
+  margin-bottom: 1.5rem;
+}
+.db-hero__label {
+  color: var(--db-gold);
+  letter-spacing: 0.25em;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+}
+.db-hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  letter-spacing: 0.06em;
+  margin: 0.25rem 0;
+  background: linear-gradient(135deg, var(--db-gold-hi), var(--db-gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.db-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+}
+
+.db-card {
+  background: var(--db-panel);
+  border: 1px solid var(--db-border);
+  border-radius: 12px;
+  padding: 1rem;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s, transform 0.2s;
+  cursor: pointer;
+}
+.db-card:hover {
+  border-color: var(--db-gold);
+  transform: translateY(-2px);
+}
+.db-card--featured {
+  border-color: rgba(212, 175, 55, 0.4);
+  background: linear-gradient(145deg, #151a22, #0f1318);
+}
+
+.db-player-card {
+  aspect-ratio: 3/4;
+  border-radius: 12px;
+  background: var(--db-elevated);
+  border: 2px solid var(--db-border);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+.db-player-card:hover { transform: scale(1.02); }
+.db-player-card[data-tier="prismatic"] { border-image: linear-gradient(135deg, #f5d576, #3fd188, #d4af37) 1; box-shadow: 0 0 20px rgba(212,175,55,0.25); }
+.db-player-card[data-tier="gold_plus"] { border-color: var(--db-gold-hi); }
+.db-player-card[data-tier="gold"] { border-color: var(--db-gold); }
+.db-player-card[data-tier="silver"] { border-color: #a8b2bd; }
+.db-player-card[data-tier="bronze"] { border-color: #8b6914; }
+
+.db-ovr {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: var(--db-gold);
+  line-height: 1;
+}
+.db-pos {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--db-muted);
+}
+.db-name {
+  margin-top: auto;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.db-stats {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 2px;
+  font-size: 9px;
+  color: var(--db-muted);
+  margin-top: 6px;
+}
+
+.db-slider-row { margin: 1rem 0; }
+.db-slider-row label { display: block; font-size: 0.75rem; color: var(--db-muted); margin-bottom: 6px; }
+.db-slider-row input[type="range"] { width: 100%; accent-color: var(--db-gold); }
+
+.db-pool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.db-draft-layout {
+  display: grid;
+  grid-template-columns: 180px 1fr 200px;
+  gap: 12px;
+}
+@media (max-width: 768px) {
+  .db-draft-layout { grid-template-columns: 1fr; }
+}
+
+.db-order-rail .db-drafter {
+  padding: 8px;
+  border-radius: 8px;
+  margin-bottom: 6px;
+  background: var(--db-panel);
+  border: 1px solid var(--db-border);
+  font-size: 0.8rem;
+}
+.db-order-rail .db-drafter--active {
+  border-color: var(--db-emerald-hi);
+  box-shadow: 0 0 12px rgba(63, 209, 136, 0.2);
+}

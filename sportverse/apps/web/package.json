@@ -11,8 +11,11 @@
   },
   "dependencies": {
     "@sportverse/content-gen": "*",
+    "@sportverse/draftballer-core": "*",
+    "@sportverse/draftballer-types": "*",
     "@sportverse/platform": "*",
     "@sportverse/quiz-engine": "*",
+    "@sportverse/rating-engine": "*",
     "@sportverse/sim-core": "*",
     "@sportverse/sports-db": "*"
   },

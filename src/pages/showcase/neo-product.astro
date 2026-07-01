@@ -1,0 +1,26 @@
+---
+import Base from "../../layouts/Base.astro";
+---
+
+<Base title="Neo Product — Showcase" description="Bold product UI design demo.">
+  <div class="min-h-screen bg-[#fafafa] text-black">
+    <header class="border-b-4 border-black bg-[#b8ff3d] px-6 py-5">
+      <div class="mx-auto flex max-w-5xl items-center justify-between">
+        <span class="text-xl font-black uppercase">Pulsekit</span>
+        <a href="/showcase" class="text-sm font-bold underline">Showcase</a>
+      </div>
+    </header>
+    <main class="mx-auto max-w-5xl px-6 py-16">
+      <div class="rounded-none border-4 border-black bg-white p-8 shadow-[8px_8px_0_#000] md:p-12">
+        <h1 class="text-4xl font-black uppercase leading-none md:text-6xl">Ship faster.<br/>Look louder.</h1>
+        <p class="mt-6 max-w-lg text-lg">Neo-brutalist product UI — thick strokes, confident CTAs, zero ambiguity.</p>
+        <button class="mt-10 border-4 border-black bg-black px-8 py-4 text-sm font-bold uppercase text-[#b8ff3d]">Try it now</button>
+      </div>
+      <div class="mt-8 grid gap-4 md:grid-cols-3">
+        {["Speed", "Clarity", "Delight"].map((t) => (
+          <div class="border-4 border-black bg-[#ff6b6b] p-6 font-bold uppercase">{t}</div>
+        ))}
+      </div>
+    </main>
+  </div>
+</Base>

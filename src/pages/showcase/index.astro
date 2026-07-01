@@ -1,0 +1,60 @@
+---
+import Base from "../../layouts/Base.astro";
+
+const showcases = [
+  {
+    slug: "editorial",
+    title: "Editorial Brutalism",
+    tag: "Post-modern",
+    blurb: "Oversized type, raw grid, high-contrast monochrome with a single accent.",
+    accent: "from-amber-400 to-orange-600",
+  },
+  {
+    slug: "saas",
+    title: "Glass SaaS",
+    tag: "Modern",
+    blurb: "Frosted panels, soft gradients, conversion-focused hierarchy.",
+    accent: "from-sky-400 to-indigo-600",
+  },
+  {
+    slug: "luxury",
+    title: "Quiet Luxury",
+    tag: "Minimal",
+    blurb: "Generous whitespace, serif display, restrained motion.",
+    accent: "from-stone-300 to-stone-500",
+  },
+  {
+    slug: "neo-product",
+    title: "Neo Product",
+    tag: "Bold UI",
+    blurb: "Thick borders, playful geometry, confident CTAs.",
+    accent: "from-lime-400 to-emerald-600",
+  },
+];
+---
+
+<Base title="Design Showcase — Temitope Olaitan" description="A range of modern and post-modern web design directions.">
+  <section class="mx-auto max-w-5xl px-6 py-20">
+    <p class="text-xs uppercase tracking-[0.3em] text-stone-400">Design range</p>
+    <h1 class="mt-3 font-serif text-4xl text-white md:text-5xl">Websites that show craft</h1>
+    <p class="mt-4 max-w-2xl text-stone-400">Four distinct directions — same engineering discipline, different visual languages.</p>
+
+    <div class="mt-14 grid gap-6 md:grid-cols-2">
+      {
+        showcases.map((s) => (
+          <a
+            href={`/showcase/${s.slug}`}
+            class="group block overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-8 transition hover:border-white/25"
+          >
+            <span class={`inline-block rounded-full bg-gradient-to-r ${s.accent} px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-black`}>
+              {s.tag}
+            </span>
+            <h2 class="mt-4 text-2xl font-semibold text-white group-hover:underline">{s.title}</h2>
+            <p class="mt-2 text-sm text-stone-400">{s.blurb}</p>
+            <span class="mt-6 inline-block text-sm text-stone-300">View demo →</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</Base>
