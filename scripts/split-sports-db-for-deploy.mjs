@@ -19,6 +19,7 @@ export function splitSportsDbForDeploy(dataDir, options = {}) {
   const maxChunkBytes = options.maxChunkBytes ?? MAX_CHUNK_BYTES;
   const files = options.files ?? CHUNKED_FILES;
   const force = options.force === true;
+  const requireFiles = options.requireFiles ?? ["season-stats.json"];
   const chunksRoot = join(dataDir, "chunks");
   mkdirSync(chunksRoot, { recursive: true });
 
@@ -26,7 +27,14 @@ export function splitSportsDbForDeploy(dataDir, options = {}) {
 
   for (const fileName of files) {
     const sourcePath = join(dataDir, fileName);
-    if (!existsSync(sourcePath)) continue;
+    if (!existsSync(sourcePath)) {
+      if (requireFiles.includes(fileName)) {
+        throw new Error(
+          `${fileName} missing in ${dataDir} — run prebuild:data or download the sports-db release bundle first`,
+        );
+      }
+      continue;
+    }
 
     const baseName = fileName.replace(/\.json$/i, "");
     const manifestPath = join(chunksRoot, `${baseName}.manifest.json`);
@@ -129,7 +137,15 @@ export function copySportsDbDataForDeploy(src, dest, options = {}) {
   for (const file of readdirSync(src)) {
     if (!file.endsWith(".json")) continue;
     if (skipMonoliths.has(file)) continue;
-    cpSync(join(src, file), join(dest, file));
+    const filePath = join(src, file);
+    const size = statSync(filePath).size;
+    if (size > MAX_CHUNK_BYTES) {
+      console.warn(
+        `  ⚠ Skipping ${file} (${(size / 1024 / 1024).toFixed(1)} MB) — chunks required for Netlify deploy`,
+      );
+      continue;
+    }
+    cpSync(filePath, join(dest, file));
     copied += 1;
   }
 
@@ -139,6 +155,33 @@ export function copySportsDbDataForDeploy(src, dest, options = {}) {
   }
 
   return { copied, chunked: [...skipMonoliths] };
+}
+
+/** @param {string} dataDir */
+export function verifyChunkManifests(dataDir) {
+  const chunksRoot = join(dataDir, "chunks");
+
+  for (const fileName of CHUNKED_FILES) {
+    const sourcePath = join(dataDir, fileName);
+    if (!existsSync(sourcePath)) {
+      if (fileName === "season-stats.json") {
+        throw new Error(`${fileName} missing in ${dataDir} — prebuild:data failed`);
+      }
+      continue;
+    }
+
+    const size = statSync(sourcePath).size;
+    if (size <= MAX_CHUNK_BYTES) continue;
+
+    const baseName = fileName.replace(/\.json$/i, "");
+    const manifestPath = join(chunksRoot, `${baseName}.manifest.json`);
+    if (!existsSync(manifestPath)) {
+      const listing = existsSync(chunksRoot) ? readdirSync(chunksRoot).join(", ") : "(no chunks dir)";
+      throw new Error(
+        `${baseName}.manifest.json missing in ${chunksRoot} — split step did not run (source ${(size / 1024 / 1024).toFixed(1)} MB). Found: ${listing}`,
+      );
+    }
+  }
 }
 
 const isMain = process.argv[1]?.endsWith("split-sports-db-for-deploy.mjs");
