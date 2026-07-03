@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 /**
  * Copy chunked sports-db JSON into dist/play/sportverse/data after astro build.
- * Ensures large JSON is split here (single split point) then copied into the Netlify publish dir.
  */
 import { existsSync, readdirSync, statSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { ensureSportsDbData, dataDir as dataSrc } from "./ensure-sports-db-data.mjs";
 import {
   copySportsDbDataForDeploy,
   MAX_CHUNK_BYTES,
@@ -14,7 +14,6 @@ import {
 } from "./split-sports-db-for-deploy.mjs";
 
 const root = resolve(fileURLToPath(new URL(".", import.meta.url)), "..");
-const dataSrc = join(root, "sportverse/packages/sports-db/data");
 const gameRoot = join(root, "dist/play/sportverse");
 const dataDest = join(gameRoot, "data");
 
@@ -32,7 +31,7 @@ function verifyDistData() {
   const statsManifest = join(dataDest, "chunks/season-stats.manifest.json");
   if (!existsSync(statsManifest)) {
     const statsPath = join(dataDest, "season-stats.json");
-    if (existsSync(statsPath) && statSync(statsPath).size <= 8_000_000) {
+    if (existsSync(statsPath) && statSync(statsPath).size <= MAX_CHUNK_BYTES) {
       console.log("  ✓ dist data verified (season-stats monolith ≤8MB, no chunks needed)");
       return;
     }
@@ -51,25 +50,19 @@ function verifyDistData() {
   );
 }
 
-function main() {
+async function main() {
   if (!existsSync(gameRoot)) {
     throw new Error("dist/play/sportverse missing — run build:games before astro build");
   }
-  if (!existsSync(dataSrc)) {
-    throw new Error("sportverse/packages/sports-db/data missing — run prebuild:data first");
-  }
+
+  console.log("\n→ Staging SPORTVERSE data into dist/ for Netlify…");
+  await ensureSportsDbData({ skipInstall: true });
 
   const statsPath = join(dataSrc, "season-stats.json");
-  if (!existsSync(statsPath)) {
-    throw new Error(
-      `season-stats.json missing at ${statsPath} — prebuild:data failed or release bundle was not extracted`,
-    );
-  }
   console.log(
     `  source season-stats.json: ${(statSync(statsPath).size / 1024 / 1024).toFixed(1)} MB`,
   );
 
-  console.log("\n→ Staging SPORTVERSE data into dist/ for Netlify…");
   console.log("→ Splitting large JSON (if not already chunked)…");
   splitSportsDbForDeploy(dataSrc);
   verifyChunkManifests(dataSrc);
@@ -85,4 +78,7 @@ function main() {
   console.log("✓ dist/play/sportverse/data ready for Netlify publish\n");
 }
 
-main();
+main().catch((err) => {
+  console.error("\n✗ Stage failed:", err.message ?? err);
+  process.exit(1);
+});
