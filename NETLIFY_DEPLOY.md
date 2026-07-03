@@ -80,6 +80,8 @@ $env:ARCHIVE_URL = "https://drive.google.com/file/d/YOUR_ID/view?usp=sharing"
 node scripts/download-archive-url.mjs
 ```
 
+Uses `python -m gdown` (Windows) or `python3 -m gdown` (Linux/CI). Requires Python on PATH locally.
+
 Zip layout: folders `player_profiles/`, `player_performances/`, etc. at the **root** of the zip (zip from inside `sportverse/archive/`).
 
 **Run CI with archive:** Actions → Build SPORTVERSE database → check **use_archive** → Run.

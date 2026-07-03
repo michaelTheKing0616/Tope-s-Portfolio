@@ -45,11 +45,48 @@ function downloadDirect(url, dest) {
   });
 }
 
+function extractGoogleDriveId(url) {
+  const patterns = [/\/file\/d\/([^/]+)/, /[?&]id=([^&]+)/, /^([a-zA-Z0-9_-]{20,})$/];
+  for (const pattern of patterns) {
+    const match = url.match(pattern);
+    if (match?.[1]) return match[1];
+  }
+  return null;
+}
+
+function googleDriveDownloadUrl(url) {
+  const id = extractGoogleDriveId(url);
+  if (!id) {
+    throw new Error("Could not parse Google Drive file ID — use a share link or https://drive.google.com/uc?id=FILE_ID");
+  }
+  return `https://drive.google.com/uc?id=${id}`;
+}
+
+function pythonCommand() {
+  return process.platform === "win32" ? "python" : "python3";
+}
+
+function shellQuote(value) {
+  return `"${String(value).replace(/"/g, '\\"')}"`;
+}
+
 function downloadWithGdown(url, dest) {
-  execSync(
-    `python3 -m pip install -q gdown && gdown --fuzzy "${url.replace(/"/g, '\\"')}" -O "${dest}"`,
-    { stdio: "inherit", shell: true },
-  );
+  const py = pythonCommand();
+  const driveUrl = googleDriveDownloadUrl(url);
+  const safeUrl = shellQuote(driveUrl);
+  const safeDest = shellQuote(dest);
+
+  try {
+    execSync(`${py} -m gdown ${safeUrl} -O ${safeDest}`, { stdio: "inherit", shell: true });
+    return;
+  } catch {
+    console.log("  gdown not found — installing via pip…");
+  }
+
+  execSync(`${py} -m pip install -q gdown && ${py} -m gdown ${safeUrl} -O ${safeDest}`, {
+    stdio: "inherit",
+    shell: true,
+  });
 }
 
 function verifyAndExtract(zip) {
