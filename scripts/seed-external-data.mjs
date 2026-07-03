@@ -35,7 +35,12 @@ function cloneRepos() {
   console.log("Primary TM source: sportverse/archive/ (use --tm-cdn-fallback for R2 CDN).");
 }
 
-async function buildJson() {
+async function buildJson(options = {}) {
+  const useTmCdn =
+    options.tmCdnFallback === true ||
+    args.has("--tm-cdn-fallback") ||
+    (!existsSync(ARCHIVE_PROFILES) && args.has("--build"));
+
   const curated = loadCuratedPlayers();
   const footballBase = buildFromFootballDatasets(curated);
   console.log("football-datasets:", footballBase.meta);
@@ -52,7 +57,7 @@ async function buildJson() {
     console.warn("Archive not found at", ARCHIVE_DIR, "— skipping archive ETL.");
   }
 
-  if (args.has("--tm-cdn-fallback") || (!existsSync(ARCHIVE_PROFILES) && args.has("--build"))) {
+  if (useTmCdn) {
     try {
       console.log("Fetching Transfermarkt R2 CDN datasets (fallback)…");
       const tm = await buildFromTransfermarkt(built.mergedIds, built.mergedNorms);
@@ -61,7 +66,7 @@ async function buildJson() {
       console.log("transfermarkt CDN:", tm.meta);
     } catch (err) {
       console.error("Transfermarkt CDN ETL failed:", err.message);
-      if (args.has("--tm-cdn-fallback")) process.exit(1);
+      if (options.tmCdnFallback || args.has("--tm-cdn-fallback")) process.exit(1);
     }
   }
 
@@ -96,6 +101,45 @@ async function buildJson() {
   });
   console.log("Wrote JSON to", OUT_DIR);
   return built;
+}
+
+/** Programmatic entry for Netlify / CI (always awaits completion). */
+export async function runSeedPipeline(options = {}) {
+  const {
+    cloneFootballDatasets = false,
+    buildJson: doBuild = false,
+    calibrationOnly = false,
+    tmCdnFallback = false,
+    importSql = false,
+  } = options;
+
+  if (cloneFootballDatasets) cloneRepos();
+
+  if (calibrationOnly) {
+    if (!existsSync(ARCHIVE_PROFILES)) {
+      throw new Error(`Archive not found at ${ARCHIVE_DIR} — calibration-only requires local CSVs`);
+    }
+    mkdirSync(OUT_DIR, { recursive: true });
+    const calibration = await buildAllCalibrationData();
+    writeFileSync(resolve(OUT_DIR, "player-transfers.json"), JSON.stringify(calibration.transfers, null, 2));
+    writeFileSync(resolve(OUT_DIR, "cross-league-fixtures.json"), JSON.stringify(calibration.fixtures, null, 2));
+    writeFileSync(resolve(OUT_DIR, "team-season-records.json"), JSON.stringify(calibration.teamSeasonRecords, null, 2));
+    console.log("Calibration-only ETL complete:", calibration.meta);
+    return null;
+  }
+
+  if (doBuild) {
+    const fdPath = resolve(RAW_DIR, "football-datasets");
+    if (!existsSync(fdPath)) {
+      console.log("football-datasets missing — cloning now…");
+      cloneRepos();
+    }
+    const built = await buildJson({ tmCdnFallback: tmCdnFallback || !existsSync(ARCHIVE_PROFILES) });
+    if (importSql) buildSql(built);
+    return built;
+  }
+
+  return null;
 }
 
 function esc(v) {
@@ -140,6 +184,7 @@ SPORTVERSE / DRAFTBALLER data seed
   node scripts/seed-external-data.mjs --build              Build JSON (archive primary + SQL seed)
   node scripts/seed-external-data.mjs --build --import-sql Build + write SQL seed
   node scripts/seed-external-data.mjs --tm-cdn-fallback    Also merge R2 CDN Transfermarkt export
+  node scripts/netlify-prebuild.mjs                        Netlify: clone + seed + verify (used by npm run build)
 
 Raw data: sportverse/data/raw/ (gitignored)
 Archive:  sportverse/archive/ (local TM CSVs)
@@ -151,25 +196,17 @@ Output:   sportverse/packages/sports-db/data/*.json
 if (args.has("--clone")) cloneRepos();
 
 if (args.has("--calibration-only")) {
-  if (!existsSync(ARCHIVE_PROFILES)) {
-    console.error("Archive not found at", ARCHIVE_DIR);
+  runSeedPipeline({ calibrationOnly: true }).catch((err) => {
+    console.error(err);
     process.exit(1);
-  }
-  void (async () => {
-    mkdirSync(OUT_DIR, { recursive: true });
-    const calibration = await buildAllCalibrationData();
-    writeFileSync(resolve(OUT_DIR, "player-transfers.json"), JSON.stringify(calibration.transfers, null, 2));
-    writeFileSync(resolve(OUT_DIR, "cross-league-fixtures.json"), JSON.stringify(calibration.fixtures, null, 2));
-    writeFileSync(resolve(OUT_DIR, "team-season-records.json"), JSON.stringify(calibration.teamSeasonRecords, null, 2));
-    console.log("Calibration-only ETL complete:", calibration.meta);
-  })();
+  });
 } else if (args.has("--build") || args.has("--import-sql")) {
-  if (!existsSync(resolve(RAW_DIR, "football-datasets"))) {
-    console.error("Run with --clone first or ensure football-datasets exists.");
+  runSeedPipeline({
+    buildJson: true,
+    tmCdnFallback: args.has("--tm-cdn-fallback"),
+    importSql: args.has("--import-sql"),
+  }).catch((err) => {
+    console.error(err);
     process.exit(1);
-  }
-  void (async () => {
-    const built = await buildJson();
-    if (args.has("--import-sql")) buildSql(built);
-  })();
+  });
 }

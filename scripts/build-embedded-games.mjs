@@ -4,7 +4,7 @@
  * at public/play/sportverse/ so all games live under one deployed site.
  */
 import { execSync } from "node:child_process";
-import { cpSync, existsSync, mkdirSync, rmSync } from "node:fs";
+import { cpSync, existsSync, mkdirSync, readdirSync, rmSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -45,9 +45,15 @@ cpSync(distDir, outDir, { recursive: true });
 const dataSrc = join(sportverseRoot, "packages", "sports-db", "data");
 const dataDest = join(outDir, "data");
 mkdirSync(dataDest, { recursive: true });
-for (const file of ["players-extended.json", "season-stats.json", "competitions.json", "clubs-extended.json", "era-baselines.json", "players.json", "clubs.json", "true-false.json", "speed-questions.json"]) {
-  const src = join(dataSrc, file);
-  if (existsSync(src)) cpSync(src, join(dataDest, file));
+if (existsSync(dataSrc)) {
+  for (const file of readdirSync(dataSrc)) {
+    if (file.endsWith(".json")) {
+      cpSync(join(dataSrc, file), join(dataDest, file));
+    }
+  }
+  console.log(`  Copied ${readdirSync(dataSrc).filter((f) => f.endsWith(".json")).length} data JSON files`);
+} else {
+  console.warn("  ⚠ sports-db/data missing — run npm run prebuild:data first");
 }
 
 console.log("✓ SPORTVERSE embedded at public/play/sportverse/");

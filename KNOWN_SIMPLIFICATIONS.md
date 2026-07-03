@@ -16,25 +16,48 @@
 
 ## Engine v4 — remaining honest limits
 
-| Item | Reality |
-|---|---|
-| **True xT/VAEP/OBV** | Requires event-level pass/carry/tackle chains — not in season-aggregate schema. Tier-1 uses labeled `progressive_*_proxy` + `defensive_value_proxy` (goalsConceded when present). |
-| **RPS 0.2063 benchmark** | Citable reference for 1X2 prediction challenge; our holdout uses continental league-comparison fixtures — not identical task. |
-| **Hypothetical squad validation** | Cross-era dream matchups have no ground truth — confidence flows from §4.3.1 pipeline validation only. |
-| **Full season-stats goalsConceded backfill** | New archive ETL writes `goalsConceded`; full `--build` re-run backfills all ~1.88M rows. `--calibration-only` does not rewrite season-stats. |
+
+| Item                                         | Reality                                                                                                                                                                           |
+| -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **True xT/VAEP/OBV**                         | Requires event-level pass/carry/tackle chains — not in season-aggregate schema. Tier-1 uses labeled `progressive_*_proxy` + `defensive_value_proxy` (goalsConceded when present). |
+| **RPS 0.2063 benchmark**                     | Citable reference for 1X2 prediction challenge; our holdout uses continental league-comparison fixtures — not identical task.                                                     |
+| **Hypothetical squad validation**            | Cross-era dream matchups have no ground truth — confidence flows from §4.3.1 pipeline validation only.                                                                            |
+| **Full season-stats goalsConceded backfill** | New archive ETL writes `goalsConceded`; full `--build` re-run backfills all ~1.88M rows. `--calibration-only` does not rewrite season-stats.                                      |
+
+
+## Netlify deploy (automatic data seed on build)
+
+Every `npm run build` (Netlify default) runs `**scripts/netlify-prebuild.mjs`** before embedding SPORTVERSE:
+
+1. Clone [football-datasets](https://github.com/datasets/football-datasets) into `sportverse/data/raw/`
+2. Build player pool + **season-stats.json** via football-datasets + Transfermarkt CDN (archive not on GitHub)
+3. Verify required JSON artifacts (including committed `engine-calibration.json`, LSI, transfers)
+4. `npm install` in `sportverse/`
+5. `build:games` copies **all** `packages/sports-db/data/*.json` → `/play/sportverse/data/`
+6. Astro build → `dist/`
+
+**Netlify UI:** Build command = `npm run build`, Publish = `dist`, Node 20 (set in `netlify.toml`).  
+**Recommended:** Build timeout **20–25 minutes** (ETL + CDN download).  
+**Local fast build (skip ETL):** `npm run build:skip-data` if you already have `season-stats.json` locally.
+
+**Full archive pool (local only):** Place CSVs in `sportverse/archive/`, run `node scripts/seed-external-data.mjs --build`, then deploy is optional — archive is not pushed to GitHub.
+
+See `NETLIFY_DEPLOY.md` for step-by-step.
 
 ## External infra only (intentionally deferred)
 
-| Item | Reality |
-|---|---|
-| **season-stats.json (287MB)** | Gitignored — exceeds GitHub limit; build locally with `node scripts/seed-external-data.mjs --build` |
-| **Transfermarkt archive CSVs** | Gitignored — place under `sportverse/archive/` locally; not pushed to GitHub |
-| **Meilisearch hosted sync** | Local token index ships; optional remote when `MEILI_URL` set |
-| **Redis multi-instance rooms** | Socket.IO + file-backed persistence today |
-| **Clerk auth + Sentry** | Env hooks; wire when credentials available |
-| **Postgres live views** | Migrations `002` + `003` ready; static deploy uses JSON bundles |
-| **BullMQ ETL automation** | Manual `scripts/seed-external-data.mjs` + `calibrate-engine.ts` |
-| **Commercial Opta/StatsPerform feed** | Business licensing — archive + football-datasets substitute |
+
+| Item                                  | Reality                                                                                             |
+| ------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| **season-stats.json (287MB)**         | Gitignored — exceeds GitHub limit; build locally with `node scripts/seed-external-data.mjs --build` |
+| **Transfermarkt archive CSVs**        | Gitignored — place under `sportverse/archive/` locally; not pushed to GitHub                        |
+| **Meilisearch hosted sync**           | Local token index ships; optional remote when `MEILI_URL` set                                       |
+| **Redis multi-instance rooms**        | Socket.IO + file-backed persistence today                                                           |
+| **Clerk auth + Sentry**               | Env hooks; wire when credentials available                                                          |
+| **Postgres live views**               | Migrations `002` + `003` ready; static deploy uses JSON bundles                                     |
+| **BullMQ ETL automation**             | Manual `scripts/seed-external-data.mjs` + `calibrate-engine.ts`                                     |
+| **Commercial Opta/StatsPerform feed** | Business licensing — archive + football-datasets substitute                                         |
+
 
 ## Intentional scope choices
 
@@ -47,7 +70,7 @@
 ## Full-fix paths (remaining)
 
 1. **Event data ingestion** → literal xT/VAEP for Tier-1 leagues
-2. **`node scripts/seed-external-data.mjs --build`** → backfill season-stats with `goalsConceded` from archive performances
+2. `**node scripts/seed-external-data.mjs --build`** → backfill season-stats with `goalsConceded` from archive performances
 3. **Meilisearch / Postgres / Redis / Clerk / Sentry** → see external infra table
 
 ## Calibration commands

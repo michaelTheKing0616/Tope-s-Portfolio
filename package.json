@@ -6,9 +6,11 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
+    "prebuild:data": "node scripts/netlify-prebuild.mjs",
     "build:games": "node scripts/build-embedded-games.mjs",
-    "build": "npm run build:games && astro build",
+    "build": "npm run prebuild:data && npm run build:games && astro build",
     "build:site-only": "astro build",
+    "build:skip-data": "npm run build:games && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "extract:portrait": "node scripts/extract-portrait.mjs",
