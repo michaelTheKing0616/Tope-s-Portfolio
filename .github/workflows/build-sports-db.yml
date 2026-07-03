@@ -44,15 +44,7 @@ jobs:
         if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.use_archive == true }}
         env:
           ARCHIVE_URL: ${{ secrets.SPORTVERSE_ARCHIVE_URL }}
-        run: |
-          if [ -z "$ARCHIVE_URL" ]; then
-            echo "::error::use_archive was enabled but SPORTVERSE_ARCHIVE_URL secret is not set."
-            exit 1
-          fi
-          mkdir -p sportverse/archive
-          curl -fsSL "$ARCHIVE_URL" -o /tmp/sportverse-archive.zip
-          unzip -q /tmp/sportverse-archive.zip -d sportverse/archive
-          echo "Archive files:" && find sportverse/archive -name "*.csv" | head -20
+        run: node scripts/download-archive-url.mjs
 
       - name: Build sports-db JSON (ETL)
         env:
@@ -75,12 +67,11 @@ jobs:
           retention-days: 90
 
       - name: Publish GitHub Release bundle
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh release view sports-db-latest >/dev/null 2>&1 || \
-            gh release create sports-db-latest \
-              --title "SPORTVERSE database (latest)" \
-              --notes "Auto-built JSON bundle for Netlify deploy. Tag moves on each CI run."
-          gh release upload sports-db-latest sports-db-data.tar.gz --clobber
-          echo "Release asset: https://github.com/${{ github.repository }}/releases/download/sports-db-latest/sports-db-data.tar.gz"
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: sports-db-latest
+          name: SPORTVERSE database (latest)
+          body: Auto-built JSON bundle for Netlify deploy. Rebuilt by GitHub Actions.
+          files: sports-db-data.tar.gz
+          overwrite_files: true
+          make_latest: true

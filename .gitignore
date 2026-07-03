@@ -25,6 +25,7 @@ Thumbs.db
 
 # misc
 *.local
+.cache/
 
 # legacy source assets (2.2MB inlined portraits — already extracted)
 files (1)/

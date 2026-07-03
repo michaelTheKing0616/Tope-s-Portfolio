@@ -55,10 +55,34 @@ Workflow: `.github/workflows/build-sports-db.yml`
 **Run it once** (then weekly on schedule):
 
 1. GitHub → **Actions** → **Build SPORTVERSE database** → **Run workflow**
-2. Optional: enable **use_archive** if you set repo secret `SPORTVERSE_ARCHIVE_URL` (zip of `sportverse/archive/` CSVs hosted elsewhere)
+2. Optional: enable **use_archive** if you set repo secret `SPORTVERSE_ARCHIVE_URL` (see **Host the archive zip** below)
 3. CI runs ETL, packages `sports-db-data.tar.gz`, publishes to release **`sports-db-latest`**
 
 After CI succeeds, Netlify redeploy downloads the bundle instead of re-running ETL.
+
+### Host the archive zip (no GitHub CLI required)
+
+Upload `sportverse-archive.zip` (~82 MB) to any of these, then paste the URL into secret **`SPORTVERSE_ARCHIVE_URL`**.
+
+| Host | How to upload | Secret URL example |
+|---|---|---|
+| **Google Drive** (easiest if already uploaded) | Share → Anyone with link | `https://drive.google.com/file/d/YOUR_ID/view?usp=sharing` |
+| **Cloudflare R2** | Dashboard → bucket → upload → public URL | `https://pub-xxxxx.r2.dev/sportverse-archive.zip` |
+| **Dropbox** | Upload → Share → change `?dl=0` to `?dl=1` | `https://www.dropbox.com/s/xxx/archive.zip?dl=1` |
+
+CI auto-detects Google Drive and uses **gdown** (plain `curl` fails on large Drive files).
+
+**Local test (Google Drive):**
+
+```powershell
+pip install gdown
+$env:ARCHIVE_URL = "https://drive.google.com/file/d/YOUR_ID/view?usp=sharing"
+node scripts/download-archive-url.mjs
+```
+
+Zip layout: folders `player_profiles/`, `player_performances/`, etc. at the **root** of the zip (zip from inside `sportverse/archive/`).
+
+**Run CI with archive:** Actions → Build SPORTVERSE database → check **use_archive** → Run.
 
 | Build type | What you get |
 |---|---|
