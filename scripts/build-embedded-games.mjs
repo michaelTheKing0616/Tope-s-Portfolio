@@ -4,7 +4,7 @@
  * at public/play/sportverse/ so all games live under one deployed site.
  */
 import { execSync } from "node:child_process";
-import { existsSync, mkdirSync, rmSync } from "node:fs";
+import { cpSync, existsSync, mkdirSync, rmSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { copySportsDbDataForDeploy } from "./split-sports-db-for-deploy.mjs";
