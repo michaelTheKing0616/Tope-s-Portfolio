@@ -4,7 +4,7 @@
  */
 import { existsSync, statSync } from "node:fs";
 import { join, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const root = resolve(fileURLToPath(new URL(".", import.meta.url)), "..");
 const dataDir = join(root, "sportverse/packages/sports-db/data");
@@ -77,5 +77,27 @@ export function verifySportsDbArtifacts(options = {}) {
 
   if (t.mode === "archive") {
     console.log("  ✓ Archive build verified — full Transfermarkt pool");
+  }
+}
+
+function parseCli() {
+  const args = process.argv.slice(2);
+  const tarballIdx = args.indexOf("--tarball");
+  return {
+    tarballPath: tarballIdx >= 0 ? args[tarballIdx + 1] : undefined,
+  };
+}
+
+const isMain =
+  process.argv[1] &&
+  import.meta.url === pathToFileURL(resolve(process.argv[1])).href;
+
+if (isMain) {
+  const { tarballPath } = parseCli();
+  try {
+    verifySportsDbArtifacts({ tarballPath });
+  } catch (err) {
+    console.error("\n✗", err.message ?? err);
+    process.exit(1);
   }
 }

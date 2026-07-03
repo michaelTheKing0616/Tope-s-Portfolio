@@ -61,7 +61,7 @@ jobs:
         run: node scripts/seed-external-data.mjs --clone --build --tm-cdn-fallback
 
       - name: Verify required artifacts
-        run: node -e "import('./scripts/verify-sports-db-artifacts.mjs').then(m=>m.verifySportsDbArtifacts())"
+        run: node scripts/verify-sports-db-artifacts.mjs
 
       - name: Install SPORTVERSE dependencies
         run: npm install
@@ -71,7 +71,7 @@ jobs:
         run: node scripts/package-sports-db.mjs
 
       - name: Verify release bundle size
-        run: node -e "import('./scripts/verify-sports-db-artifacts.mjs').then(m=>m.verifySportsDbArtifacts({ tarballPath: 'sports-db-data.tar.gz' }))"
+        run: node scripts/verify-sports-db-artifacts.mjs --tarball sports-db-data.tar.gz
 
       - name: Upload workflow artifact (90-day retention)
         uses: actions/upload-artifact@v4
