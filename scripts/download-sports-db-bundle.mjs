@@ -9,18 +9,10 @@ import { get as httpsGet } from "node:https";
 import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { pipeline } from "node:stream/promises";
+import { verifySportsDbArtifacts } from "./verify-sports-db-artifacts.mjs";
 
 const root = resolve(fileURLToPath(new URL(".", import.meta.url)), "..");
 const dataDir = join(root, "sportverse/packages/sports-db/data");
-
-const REQUIRED = [
-  { name: "players-extended.json", minBytes: 500_000 },
-  { name: "season-stats.json", minBytes: 1_000_000 },
-  { name: "competitions.json", minBytes: 100 },
-  { name: "clubs-extended.json", minBytes: 1000 },
-  { name: "era-baselines.json", minBytes: 100 },
-  { name: "engine-calibration.json", minBytes: 100 },
-];
 
 function bundleUrl() {
   if (process.env.SPORTS_DB_BUNDLE_URL) return process.env.SPORTS_DB_BUNDLE_URL;
@@ -54,12 +46,12 @@ function downloadFile(url, dest) {
 }
 
 function verifyArtifacts() {
-  for (const { name, minBytes } of REQUIRED) {
-    const path = join(dataDir, name);
-    if (!existsSync(path)) return false;
-    if (statSync(path).size < minBytes) return false;
+  try {
+    verifySportsDbArtifacts();
+    return true;
+  } catch {
+    return false;
   }
-  return true;
 }
 
 /**
@@ -78,12 +70,11 @@ export async function downloadSportsDbBundle(opts = {}) {
     execSync(`tar -xzf "${archive}" -C "${dataDir}"`, { stdio: "inherit", shell: true });
     unlinkSync(archive);
 
-    if (!verifyArtifacts()) {
-      throw new Error("Bundle extracted but required files missing or too small");
-    }
+    verifySportsDbArtifacts();
 
     const count = readdirSync(dataDir).filter((f) => f.endsWith(".json")).length;
-    console.log(`✓ Release bundle loaded (${count} JSON files in sports-db/data/)`);
+    const statsMb = (statSync(join(dataDir, "season-stats.json")).size / 1024 / 1024).toFixed(1);
+    console.log(`✓ Release bundle loaded (${count} JSON files, season-stats ${statsMb} MB uncompressed)`);
     return true;
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);

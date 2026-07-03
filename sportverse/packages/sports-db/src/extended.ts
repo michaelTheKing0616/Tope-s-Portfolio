@@ -38,17 +38,51 @@ function rebuildStatsIndex() {
   }
 }
 
+interface ChunkManifest {
+  source: string;
+  chunkCount: number;
+  totalItems: number;
+}
+
+async function fetchJsonArray(base: string, fileName: string): Promise<unknown[]> {
+  const baseName = fileName.replace(/\.json$/i, "");
+  const manifestUrl = `${base}data/chunks/${baseName}.manifest.json`;
+  const manifestRes = await fetch(manifestUrl);
+
+  if (manifestRes.ok) {
+    const manifest = (await manifestRes.json()) as ChunkManifest;
+    const parts = await Promise.all(
+      Array.from({ length: manifest.chunkCount }, (_, i) => {
+        const chunkPath = `${base}data/chunks/${baseName}/${String(i).padStart(3, "0")}.json`;
+        return fetch(chunkPath).then((r) => {
+          if (!r.ok) throw new Error(`Failed to load ${baseName} chunk ${i} (${r.status})`);
+          return r.json() as Promise<unknown[]>;
+        });
+      }),
+    );
+    return parts.flat();
+  }
+
+  const res = await fetch(`${base}data/${fileName}`);
+  if (!res.ok) throw new Error(`Failed to load ${fileName} (${res.status})`);
+  return res.json() as Promise<unknown[]>;
+}
+
 async function loadFromFetch(baseUrl: string) {
   const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
   const [players, stats, competitions, clubs, eras, aliases, awards, moments, lsi, csi, fixtures, transfers] =
     await Promise.all([
-    fetch(`${base}data/players-extended.json`).then((r) => {
-      if (!r.ok) throw new Error(`Failed to load players-extended.json (${r.status})`);
-      return r.json();
+    fetchJsonArray(base, "players-extended.json").then((data) => {
+      if (!Array.isArray(data) || !data.length) {
+        throw new Error("Failed to load players-extended.json (empty or invalid)");
+      }
+      return data;
     }),
-    fetch(`${base}data/season-stats.json`).then((r) => {
-      if (!r.ok) throw new Error(`Failed to load season-stats.json (${r.status})`);
-      return r.json();
+    fetchJsonArray(base, "season-stats.json").then((data) => {
+      if (!Array.isArray(data) || !data.length) {
+        throw new Error("Failed to load season-stats.json (empty or invalid)");
+      }
+      return data;
     }),
     fetch(`${base}data/competitions.json`).then((r) => r.json()),
     fetch(`${base}data/clubs-extended.json`).then((r) => r.json()),

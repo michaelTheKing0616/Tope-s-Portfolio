@@ -4,9 +4,10 @@
  * at public/play/sportverse/ so all games live under one deployed site.
  */
 import { execSync } from "node:child_process";
-import { cpSync, existsSync, mkdirSync, readdirSync, rmSync } from "node:fs";
+import { existsSync, mkdirSync, rmSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { copySportsDbDataForDeploy } from "./split-sports-db-for-deploy.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const sportverseRoot = join(root, "sportverse");
@@ -44,14 +45,12 @@ cpSync(distDir, outDir, { recursive: true });
 
 const dataSrc = join(sportverseRoot, "packages", "sports-db", "data");
 const dataDest = join(outDir, "data");
-mkdirSync(dataDest, { recursive: true });
 if (existsSync(dataSrc)) {
-  for (const file of readdirSync(dataSrc)) {
-    if (file.endsWith(".json")) {
-      cpSync(join(dataSrc, file), join(dataDest, file));
-    }
+  const { copied, chunked } = copySportsDbDataForDeploy(dataSrc, dataDest);
+  if (chunked.length) {
+    console.log(`  Chunked (not deployed as monolith): ${chunked.join(", ")}`);
   }
-  console.log(`  Copied ${readdirSync(dataSrc).filter((f) => f.endsWith(".json")).length} data JSON files`);
+  console.log(`  Copied ${copied} small JSON files + chunks/`);
 } else {
   console.warn("  ⚠ sports-db/data missing — run npm run prebuild:data first");
 }

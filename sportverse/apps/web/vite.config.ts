@@ -1,7 +1,10 @@
 import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 import { resolve } from "node:path";
-import { cpSync, mkdirSync, readdirSync } from "node:fs";
+import { createRequire } from "node:module";
+
+const require = createRequire(import.meta.url);
+const { copySportsDbDataForDeploy } = require("../../../scripts/split-sports-db-for-deploy.mjs");
 
 const root = resolve(__dirname, "../..");
 const base = process.env.VITE_BASE_PATH ?? "/";
@@ -17,12 +20,7 @@ const workspacePackages = [
 function copySportsDbData() {
   const src = resolve(root, "packages/sports-db/data");
   const dest = resolve(__dirname, "public/data");
-  mkdirSync(dest, { recursive: true });
-  for (const file of readdirSync(src)) {
-    if (file.endsWith(".json")) {
-      cpSync(resolve(src, file), resolve(dest, file));
-    }
-  }
+  copySportsDbDataForDeploy(src, dest);
 }
 
 export default defineConfig({

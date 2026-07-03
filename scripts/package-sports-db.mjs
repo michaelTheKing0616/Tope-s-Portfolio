@@ -34,8 +34,9 @@ async function main() {
 
   execSync(`tar -czf "${outTar}" -C "${staging}" .`, { shell: true });
   verifySportsDbArtifacts({ tarballPath: outTar });
-  const sizeMb = (statSync(outTar).size / 1024 / 1024).toFixed(2);
-  console.log(`✓ Packaged ${files.length} JSON files → sports-db-data.tar.gz (${sizeMb} MB)`);
+  const tarMb = (statSync(outTar).size / 1024 / 1024).toFixed(2);
+  const rawMb = (manifest.files.reduce((sum, f) => sum + f.bytes, 0) / 1024 / 1024).toFixed(1);
+  console.log(`✓ Packaged ${files.length} JSON files → sports-db-data.tar.gz (${tarMb} MB compressed, ${rawMb} MB raw JSON)`);
   console.log(JSON.stringify(manifest, null, 2));
 }
 

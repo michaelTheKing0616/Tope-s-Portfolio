@@ -101,6 +101,16 @@ Zip layout: folders `player_profiles/`, `player_performances/`, etc. at the **ro
 | **CI + archive secret** | Full Transfermarkt archive pool (~90k+ players, richest stats) |
 | **Local `--build` with archive** | Same as archive CI; 287MB season-stats stays local/gitignored |
 
+### Expected release bundle sizes (archive build)
+
+| File | Uncompressed | In tarball |
+|---|---|---|
+| `season-stats.json` | ~320 MB | gzip compresses well |
+| `players-extended.json` | ~36 MB | included |
+| **Tarball total** | ~360 MB raw JSON | **~25–30 MB compressed** ← normal |
+
+A **25.4 MB download** is correct when CI logs show `season-stats.json (319 MB)` and `totalPlayers: 98437`. Netlify **build** extracts the tarball locally, then splits large JSON into **8MB chunks** under `data/chunks/` for deploy (Netlify cannot serve single files >~10MB).
+
 Release URL (Netlify default):
 
 `https://github.com/michaelTheKing0616/Tope-s-Portfolio/releases/download/sports-db-latest/sports-db-data.tar.gz`
@@ -118,7 +128,9 @@ Override with env `SPORTS_DB_BUNDLE_URL` on Netlify if needed.
 | `/play/sportverse/#/draftballer/wheel` | Wheel draft works |
 | `/play/sportverse/#/draftballer/room` | Snake draft vs bot |
 | `/play/sportverse/#/draftballer/auction` | Auction draft |
-| `/play/sportverse/data/season-stats.json` | Large JSON (not 404) |
+| `/play/sportverse/data/season-stats.json` | **404 is OK** — served as `data/chunks/season-stats/*.json` |
+| `/play/sportverse/data/chunks/season-stats.manifest.json` | Present (chunk manifest) |
+| `/play/sportverse/data/chunks/season-stats/000.json` | Present (~8MB chunk) |
 | `/play/sportverse/data/engine-calibration.json` | Present |
 
 ---
@@ -161,13 +173,14 @@ Netlify deploy is **fully playable** for all modes; local archive is **maximum r
 
 | Symptom | Fix |
 |---|---|
-| `season-stats.json (404)` | Run GitHub Actions **Build SPORTVERSE database**, wait for release, redeploy Netlify |
-| `Extended data not loaded` | Same — data JSON missing from deploy; confirm `/play/sportverse/data/players-extended.json` returns 200 |
-| Build fails “Missing season-stats.json” | Check Netlify logs for CDN/clone errors; increase timeout |
+| `season-stats.json (404)` on live site | **Expected** if chunk deploy is active — game loads `data/chunks/season-stats/*.json`. Redeploy after pushing chunking fix. Check manifest: `/play/sportverse/data/chunks/season-stats.manifest.json` |
+| `Failed to load season-stats.json (404)` in UI | Old deploy without chunks — push latest code and redeploy Netlify; confirm build log shows `Splitting season-stats.json` |
+| `Extended data not loaded` | Chunk manifest or players chunks missing — check Netlify build logs for split step |
+| Build fails “Missing season-stats.json” | Check Netlify logs for release download / ETL errors; increase timeout |
 | “Transfermarkt CDN ETL failed” | Transient network — retry deploy |
-| Out of memory | `NODE_OPTIONS=--max-old-space-size=4096` is in `netlify.toml` |
+| Out of memory | `NODE_OPTIONS=--max-old-space-size=4096` is in `netlify.toml`; chunk split needs ~4GB during build |
 | Stale game data after deploy | Hard refresh; data JSON cache is 1 hour (`netlify.toml`) |
-| Empty player pool in UI | Confirm `/play/sportverse/data/players-extended.json` returns 200 |
+| Empty player pool in UI | Confirm `/play/sportverse/data/chunks/players-extended.manifest.json` or monolith returns 200 |
 
 Build log should end with:
 
