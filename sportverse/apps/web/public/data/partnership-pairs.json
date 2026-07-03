@@ -1,0 +1,7 @@
+[
+  { "playerAId": "messi", "playerBId": "xavi", "chemistryBonus": 3, "label": "La Masia telepathy" },
+  { "playerAId": "messi", "playerBId": "iniesta", "chemistryBonus": 3, "label": "Barcelona golden era" },
+  { "playerAId": "ronaldo", "playerBId": "modric", "chemistryBonus": 2, "label": "Madrid title machine" },
+  { "playerAId": "salah", "playerBId": "mane", "chemistryBonus": 2, "label": "Liverpool front two" },
+  { "playerAId": "henry", "playerBId": "bergkamp", "chemistryBonus": 3, "label": "Arsenal invincibles link" }
+]

@@ -209,9 +209,9 @@ function countMisplaced(order: string[], correct: string[]): number {
 }
 
 export const QUIZ_MODES: { id: QuizMode; title: string; blurb: string }[] = [
-  { id: "who-am-i", title: "Who Am I?", blurb: "Identify real players from verified progressive clues." },
-  { id: "speed-round", title: "Speed Round", blurb: "60 seconds. Verified football facts only." },
-  { id: "guess-club", title: "Guess the Club", blurb: "Decode real clubs from accurate hints." },
-  { id: "career-path", title: "Career Path", blurb: "Order real club histories chronologically." },
-  { id: "true-false", title: "True or False", blurb: "Checked sports facts with explanations." },
+  { id: "who-am-i", title: "Who Am I?", blurb: "Identify real players from progressive clues drawn from the full archive." },
+  { id: "speed-round", title: "Speed Round", blurb: "60 seconds — thousands of procedurally generated football facts." },
+  { id: "guess-club", title: "Guess the Club", blurb: "Decode real clubs from database-backed hints." },
+  { id: "career-path", title: "Career Path", blurb: "Order real club histories from season-stat timelines." },
+  { id: "true-false", title: "True or False", blurb: "Stat-verified claims with explanations — curated + procedural." },
 ];

@@ -3,7 +3,12 @@ import type {
   PlayerAttributes,
   RatedPlayerCard,
 } from "@sportverse/draftballer-types";
+import type { PlayerSeasonStat } from "@sportverse/sports-db";
 import { mapQuizPosition, ovrFromAttributes, tierFromOvr } from "./position-weights.js";
+import { ovrFromSeasonStats } from "./stats-rating.js";
+import { lensBlend } from "./lens-blend.js";
+import { awardBonus, bigMomentBonus, legacyReputationBonus, longevityAdjustment } from "./awards.js";
+import { communityCalibrationNudge } from "./calibration.js";
 
 export interface RatingInput {
   id: string;
@@ -11,8 +16,13 @@ export interface RatingInput {
   nationality?: string;
   position?: string;
   clubs?: string[];
+  seasonStats?: PlayerSeasonStat[];
   /** Optional hand-tuned override for verified legends */
   manualOvr?: number;
+}
+
+function clamp(n: number, min = 1, max = 99): number {
+  return Math.max(min, Math.min(max, Math.round(n)));
 }
 
 function seeded(seed: string): () => number {
@@ -24,10 +34,6 @@ function seeded(seed: string): () => number {
     h ^= h << 5;
     return (h >>> 0) / 4294967295;
   };
-}
-
-function clamp(n: number, min = 1, max = 99): number {
-  return Math.max(min, Math.min(max, Math.round(n)));
 }
 
 function deriveAttributes(input: RatingInput, position: ReturnType<typeof mapQuizPosition>): PlayerAttributes {
@@ -59,25 +65,77 @@ function deriveAttributes(input: RatingInput, position: ReturnType<typeof mapQui
   };
 }
 
-function lensBlend(clubOvr: number, intlOvr: number, lens: DraftModeConfig["ratingLens"], blend: number): number {
-  if (lens === "club_only") return clubOvr;
-  if (lens === "international_only") return intlOvr;
-  if (lens === "best_context") return Math.max(clubOvr, intlOvr) - 2;
-  const b = Math.max(0, Math.min(1, blend));
-  let ovr = (1 - b) * clubOvr + b * intlOvr;
-  if (clubOvr >= 75 && intlOvr >= 75) {
-    ovr += Math.max(0, 3 - Math.abs(clubOvr - intlOvr) / 5);
+function contextMode(mode: DraftModeConfig, context: "club" | "intl"): DraftModeConfig {
+  if (context === "club") {
+    return {
+      ...mode,
+      ratingLens: "club_only",
+      competitionScope: mode.competitionScope === "international" ? "any_league" : mode.competitionScope,
+    };
   }
-  return clamp(ovr);
+  return {
+    ...mode,
+    ratingLens: "international_only",
+    competitionScope: "international",
+  };
 }
 
-/** Compute OVR for a player under the given draft mode config. */
+function ratingFromStats(
+  stats: PlayerSeasonStat[] | undefined,
+  position: ReturnType<typeof mapQuizPosition>,
+  mode: DraftModeConfig,
+  context: "club" | "intl",
+) {
+  if (!stats?.length) return null;
+  return ovrFromSeasonStats(
+    stats,
+    position,
+    contextMode(mode, context),
+    context === "intl" ? "international" : "club",
+  );
+}
+
+/** Compute OVR for a player under the given draft mode config (rating engine v4). */
 export function computePlayerRating(input: RatingInput, mode: DraftModeConfig): RatedPlayerCard {
   const position = mapQuizPosition(input.position);
-  const attrs = deriveAttributes(input, position);
-  const clubOvr = input.manualOvr ?? ovrFromAttributes(position, attrs);
-  const intlOvr = clamp(clubOvr - 4 + (seeded(`${input.id}:intl`)() > 0.6 ? 6 : 0));
-  const ovr = lensBlend(clubOvr, intlOvr, mode.ratingLens, mode.blendFactor);
+  const stats = input.seasonStats ?? [];
+
+  const clubFromStats = ratingFromStats(stats, position, mode, "club");
+  const intlFromStats = ratingFromStats(stats, position, mode, "intl");
+
+  const attrs = clubFromStats?.attrs ?? intlFromStats?.attrs ?? deriveAttributes(input, position);
+  const statConfidence = Math.max(clubFromStats?.confidence ?? 0, intlFromStats?.confidence ?? 0, 0.72);
+  const microBreakdown = clubFromStats?.microBreakdown ?? intlFromStats?.microBreakdown;
+  const gkAttributes = clubFromStats?.gkAttributes ?? intlFromStats?.gkAttributes;
+  const leagueContext =
+    mode.ratingLens === "international_only"
+      ? intlFromStats?.leagueContext
+      : mode.ratingLens === "club_only"
+        ? clubFromStats?.leagueContext
+        : clubFromStats?.leagueContext ?? intlFromStats?.leagueContext;
+
+  let clubOvr = input.manualOvr ?? clubFromStats?.ovr ?? intlFromStats?.ovr ?? ovrFromAttributes(position, attrs);
+  let intlOvr = intlFromStats?.ovr ?? clubFromStats?.ovr ?? clamp(clubOvr - 6);
+
+  if (intlFromStats) {
+    intlOvr = intlFromStats.ovr;
+  } else if (!stats.some((s) => s.context === "NATIONAL_TEAM")) {
+    intlOvr = clamp(clubOvr - 6 + (seeded(`${input.id}:intl`)() > 0.7 ? 4 : 0));
+  }
+
+  const awards = awardBonus(input.id, mode.ratingLens);
+  const moments = bigMomentBonus(input.id, mode.ratingLens);
+  const legacy = legacyReputationBonus(input.id);
+  const longevity = longevityAdjustment(stats, mode.era);
+  const bonus = awards + moments + legacy + longevity;
+
+  clubOvr = clamp(clubOvr + bonus * 0.6);
+  intlOvr = clamp(intlOvr + bonus * 0.4);
+
+  let ovr = lensBlend(clubOvr, intlOvr, mode.ratingLens, mode.blendFactor);
+  const confidence = input.manualOvr ? 0.98 : statConfidence;
+  const { nudge, entry } = communityCalibrationNudge(input.id, confidence);
+  ovr = clamp(ovr + nudge);
 
   return {
     playerId: input.id,
@@ -87,13 +145,19 @@ export function computePlayerRating(input: RatingInput, mode: DraftModeConfig): 
     ovr,
     tier: tierFromOvr(ovr),
     attributes: attrs,
-    confidence: input.manualOvr ? 0.98 : 0.72,
+    confidence,
+    gkAttributes,
     breakdown: {
       clubOvrRaw: clubOvr,
       intlOvrRaw: intlOvr,
-      awardBonus: 0,
+      awardBonus: awards + moments,
+      longevityBonus: longevity,
+      calibrationNudge: nudge || undefined,
+      calibrationReason: entry?.reason,
       lens: mode.ratingLens,
       blendFactor: mode.blendFactor,
+      microBreakdown,
+      leagueContext,
     },
   };
 }

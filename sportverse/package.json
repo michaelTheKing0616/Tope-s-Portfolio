@@ -16,6 +16,7 @@
     "build:api": "npm run build -w @sportverse/api",
     "build:all": "npm run build -w @sportverse/sports-db && npm run build -w @sportverse/platform && npm run build -w @sportverse/quiz-engine && npm run build -w @sportverse/sim-core && npm run build -w @sportverse/api && npm run build -w @sportverse/web",
     "test": "vitest run",
+    "benchmark:pool": "npx tsx scripts/benchmark-pool.ts",
     "typecheck": "tsc -b"
   },
   "devDependencies": {

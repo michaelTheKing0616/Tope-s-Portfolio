@@ -1,5 +1,7 @@
-import type { DraftFormat, DraftPick, DraftRoomState, RatedPlayerCard } from "@sportverse/draftballer-types";
-import type { DraftModeConfig } from "@sportverse/draftballer-types";
+import type { DraftFormat, DraftModeConfig, DraftPick, DraftRoomState, RatedPlayerCard } from "@sportverse/draftballer-types";
+import { computeSquadRating } from "@sportverse/rating-engine";
+import { initialAuctionBudgets } from "./draft-auction.js";
+import { initBlindRound } from "./draft-blind.js";
 
 export function createDraftRoom(
   mode: DraftModeConfig,
@@ -8,7 +10,7 @@ export function createDraftRoom(
   squadSize = 11,
   format: DraftFormat = "snake",
 ): DraftRoomState {
-  return {
+  let room: DraftRoomState = {
     id: `room_${Date.now()}`,
     mode,
     format,
@@ -20,6 +22,15 @@ export function createDraftRoom(
     poolIds: pool.map((p) => p.playerId),
     status: "picking",
   };
+
+  if (format === "auction") {
+    room = { ...room, budgets: initialAuctionBudgets(drafterCount, squadSize), auctionLot: null };
+  }
+  if (format === "blind") {
+    room = initBlindRound(room);
+  }
+
+  return room;
 }
 
 export function pickOrderForIndex(pickIndex: number, drafterCount: number, format: DraftFormat): number {
@@ -73,8 +84,8 @@ export function makePick(
   };
 }
 
-export function squadRating(roster: string[], pool: Map<string, RatedPlayerCard>): number {
+export function squadRating(roster: string[], pool: Map<string, RatedPlayerCard>, formationId?: string): number {
   if (!roster.length) return 0;
-  const ovrs = roster.map((id) => pool.get(id)?.ovr ?? 0);
-  return Math.round(ovrs.reduce((a, b) => a + b, 0) / ovrs.length);
+  const players = roster.map((id) => pool.get(id)).filter(Boolean) as RatedPlayerCard[];
+  return computeSquadRating(players, { formationId }).squadRating;
 }

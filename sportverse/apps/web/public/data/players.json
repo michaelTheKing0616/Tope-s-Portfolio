@@ -1,0 +1,962 @@
+[
+  {
+    "id": "messi",
+    "name": "Lionel Messi",
+    "sport": "football",
+    "nationality": "Argentina",
+    "position": "Forward",
+    "clubs": ["Barcelona", "Paris Saint-Germain", "Inter Miami"],
+    "clues": [
+      "I am an Argentine forward who came through La Masia.",
+      "I spent over 15 years at a Catalan club before leaving in 2021.",
+      "I won the 2022 FIFA World Cup with my country.",
+      "I have won the Ballon d'Or a record number of times.",
+      "I currently play in Major League Soccer for Inter Miami."
+    ]
+  },
+  {
+    "id": "ronaldo",
+    "name": "Cristiano Ronaldo",
+    "sport": "football",
+    "nationality": "Portugal",
+    "position": "Forward",
+    "clubs": ["Sporting CP", "Manchester United", "Real Madrid", "Juventus", "Manchester United", "Al Nassr"],
+    "clues": [
+      "I began my senior career in Portugal at Sporting CP.",
+      "I won multiple Champions League titles with Real Madrid.",
+      "I am Portugal's all-time leading goalscorer.",
+      "I famously wear number 7.",
+      "I currently play in the Saudi Pro League for Al Nassr."
+    ]
+  },
+  {
+    "id": "mbappe",
+    "name": "Kylian Mbappé",
+    "sport": "football",
+    "nationality": "France",
+    "position": "Forward",
+    "clubs": ["Monaco", "Paris Saint-Germain", "Real Madrid"],
+    "clues": [
+      "I broke through at a Ligue 1 club on the French Riviera.",
+      "I scored in the 2018 World Cup final as a teenager.",
+      "I won multiple Ligue 1 titles with Paris Saint-Germain.",
+      "I won the Golden Boot at the 2022 World Cup.",
+      "I joined Real Madrid in 2024."
+    ]
+  },
+  {
+    "id": "haaland",
+    "name": "Erling Haaland",
+    "sport": "football",
+    "nationality": "Norway",
+    "position": "Striker",
+    "clubs": ["Molde", "Red Bull Salzburg", "Borussia Dortmund", "Manchester City"],
+    "clues": [
+      "I am a Norwegian striker born in Leeds.",
+      "I scored prolifically in the Bundesliga for Borussia Dortmund.",
+      "I am the son of a former professional defender.",
+      "I broke Premier League goal-scoring records in my first seasons in England.",
+      "I play for Manchester City."
+    ]
+  },
+  {
+    "id": "de-bruyne",
+    "name": "Kevin De Bruyne",
+    "sport": "football",
+    "nationality": "Belgium",
+    "position": "Midfielder",
+    "clubs": ["Genk", "Chelsea", "Werder Bremen", "Wolfsburg", "Manchester City"],
+    "clues": [
+      "I am a Belgian playmaker who started at Genk.",
+      "I had a brief, limited spell at Chelsea before flourishing in Germany.",
+      "I am known for my vision and long-range passing.",
+      "I won the treble with Manchester City in 2023.",
+      "I have been Manchester City's creative hub for many years."
+    ]
+  },
+  {
+    "id": "salah",
+    "name": "Mohamed Salah",
+    "sport": "football",
+    "nationality": "Egypt",
+    "position": "Forward",
+    "clubs": ["Al Mokawloon", "Basel", "Chelsea", "Fiorentina", "Roma", "Liverpool"],
+    "clues": [
+      "I am Egypt's all-time leading goalscorer.",
+      "I played in Serie A for Roma before my Premier League move.",
+      "I won the Premier League Golden Boot multiple times at Liverpool.",
+      "I scored in a Champions League final for Liverpool.",
+      "I am Liverpool's right-sided forward known for cutting inside on my left foot."
+    ]
+  },
+  {
+    "id": "van-dijk",
+    "name": "Virgil van Dijk",
+    "sport": "football",
+    "nationality": "Netherlands",
+    "position": "Centre-back",
+    "clubs": ["Groningen", "Celtic", "Southampton", "Liverpool"],
+    "clues": [
+      "I am a Dutch centre-back who played in Scotland for Celtic.",
+      "I moved to Southampton before a record-breaking Premier League transfer.",
+      "I won the Champions League with Liverpool in 2019.",
+      "I finished runner-up in the Ballon d'Or in 2019.",
+      "I captained Liverpool to Premier League glory in 2020."
+    ]
+  },
+  {
+    "id": "kane",
+    "name": "Harry Kane",
+    "sport": "football",
+    "nationality": "England",
+    "position": "Striker",
+    "clubs": ["Tottenham Hotspur", "Bayern Munich"],
+    "clues": [
+      "I came through the academy at a North London club.",
+      "I became England's all-time leading goalscorer.",
+      "I won three Premier League Golden Boots at Tottenham.",
+      "I left England in 2023 to join Bayern Munich.",
+      "I wear number 9 for England and Bayern Munich."
+    ]
+  },
+  {
+    "id": "bellingham",
+    "name": "Jude Bellingham",
+    "sport": "football",
+    "nationality": "England",
+    "position": "Midfielder",
+    "clubs": ["Birmingham City", "Borussia Dortmund", "Real Madrid"],
+    "clues": [
+      "I made my professional debut at 16 in the Championship.",
+      "I captained Borussia Dortmund as a teenager.",
+      "I joined Real Madrid in 2023.",
+      "I wear number 5 for Real Madrid and England.",
+      "I won La Liga in my first season at the Santiago Bernabéu."
+    ]
+  },
+  {
+    "id": "saka",
+    "name": "Bukayo Saka",
+    "sport": "football",
+    "nationality": "England",
+    "position": "Winger",
+    "clubs": ["Arsenal"],
+    "clues": [
+      "I am an England international winger from a North London academy.",
+      "I made my Arsenal first-team debut under Unai Emery.",
+      "I missed a penalty in the Euro 2020 final shootout.",
+      "I wear number 7 for Arsenal.",
+      "I have been an Arsenal first-team regular since my teens."
+    ]
+  },
+  {
+    "id": "rodri",
+    "name": "Rodri",
+    "sport": "football",
+    "nationality": "Spain",
+    "position": "Defensive midfielder",
+    "clubs": ["Villarreal", "Atlético Madrid", "Manchester City"],
+    "clues": [
+      "I am a Spanish holding midfielder who started at Villarreal.",
+      "I played for Atlético Madrid before moving to England.",
+      "I scored the winner in the 2023 Champions League final.",
+      "I won the Ballon d'Or in 2024.",
+      "I am Manchester City's metronome in midfield."
+    ]
+  },
+  {
+    "id": "osimhen",
+    "name": "Victor Osimhen",
+    "sport": "football",
+    "nationality": "Nigeria",
+    "position": "Striker",
+    "clubs": ["Ultimate Strikers", "Wolfsburg", "Charleroi", "Lille", "Napoli", "Galatasaray"],
+    "clues": [
+      "I represented Nigeria at the 2015 FIFA U-17 World Cup.",
+      "I won Ligue 1 with Lille in 2021.",
+      "I became one of Serie A's top scorers at Napoli.",
+      "I helped Napoli win their first Serie A title in over 30 years.",
+      "I am a Nigerian striker who played on loan at Galatasaray."
+    ]
+  },
+  {
+    "id": "lookman",
+    "name": "Ademola Lookman",
+    "sport": "football",
+    "nationality": "Nigeria",
+    "position": "Forward",
+    "clubs": ["Everton", "Fulham", "RB Leipzig", "Atalanta"],
+    "clues": [
+      "I was born in London and came through Charlton Athletic's academy.",
+      "I played in the Premier League for Everton and Fulham.",
+      "I switched international allegiance to Nigeria.",
+      "I scored a hat-trick in the 2024 Europa League final for Atalanta.",
+      "I play as a forward for Atalanta and the Super Eagles."
+    ]
+  },
+  {
+    "id": "iwobi",
+    "name": "Alex Iwobi",
+    "sport": "football",
+    "nationality": "Nigeria",
+    "position": "Midfielder",
+    "clubs": ["Arsenal", "Everton", "Fulham"],
+    "clues": [
+      "I am a nephew of a Nigerian football legend who played for Ajax and Arsenal.",
+      "I came through the Arsenal academy and made over 100 appearances for the club.",
+      "I played for Nigeria at the 2018 World Cup.",
+      "I moved to Fulham from Everton in 2023.",
+      "I am a versatile Nigerian midfielder who plays for Fulham."
+    ]
+  },
+  {
+    "id": "chukwueze",
+    "name": "Samuel Chukwueze",
+    "sport": "football",
+    "nationality": "Nigeria",
+    "position": "Winger",
+    "clubs": ["Villarreal", "AC Milan"],
+    "clues": [
+      "I broke through at Villarreal in La Liga.",
+      "I scored against Bayern Munich in a Champions League quarter-final.",
+      "I won the Europa League with Villarreal in 2021.",
+      "I joined AC Milan in 2023.",
+      "I am a Nigerian right winger known for pace."
+    ]
+  },
+  {
+    "id": "vinicius-jr",
+    "name": "Vinícius Júnior",
+    "sport": "football",
+    "nationality": "Brazil",
+    "position": "Winger",
+    "clubs": ["Flamengo", "Real Madrid"],
+    "clues": [
+      "I joined Real Madrid as a teenager from Flamengo.",
+      "I scored in the 2022 Champions League final against Liverpool.",
+      "I wear number 7 for Real Madrid.",
+      "I won the first FIFA U-20 World Cup for Brazil in over a decade in 2017.",
+      "I am a Brazilian winger who plays on the left for Real Madrid."
+    ]
+  },
+  {
+    "id": "yamal",
+    "name": "Lamine Yamal",
+    "sport": "football",
+    "nationality": "Spain",
+    "position": "Winger",
+    "clubs": ["Barcelona"],
+    "clues": [
+      "I am a Spanish youth international born in 2007.",
+      "I made my Barcelona first-team debut before turning 16.",
+      "I became the youngest goalscorer in La Liga history.",
+      "I played a key role for Spain at Euro 2024.",
+      "I wear number 19 for Barcelona."
+    ]
+  },
+  {
+    "id": "pedri",
+    "name": "Pedri",
+    "sport": "football",
+    "nationality": "Spain",
+    "position": "Midfielder",
+    "clubs": ["Las Palmas", "Barcelona"],
+    "clues": [
+      "I played for Las Palmas in the Segunda División before a big move.",
+      "I was named Young Player of the Tournament at Euro 2020.",
+      "I wear number 8 for Barcelona.",
+      "I am a Spanish midfielder known for close control and composure.",
+      "I came through Barcelona's first team under Ronald Koeman."
+    ]
+  },
+  {
+    "id": "lewandowski",
+    "name": "Robert Lewandowski",
+    "sport": "football",
+    "nationality": "Poland",
+    "position": "Striker",
+    "clubs": ["Lech Poznań", "Borussia Dortmund", "Bayern Munich", "Barcelona"],
+    "clues": [
+      "I am Poland's all-time leading goalscorer.",
+      "I won the treble with Bayern Munich in 2020.",
+      "I scored five goals in nine minutes against Wolfsburg in 2015.",
+      "I joined Barcelona in 2022.",
+      "I won the FIFA Best Men's Player award in 2020 and 2021."
+    ]
+  },
+  {
+    "id": "modric",
+    "name": "Luka Modrić",
+    "sport": "football",
+    "nationality": "Croatia",
+    "position": "Midfielder",
+    "clubs": ["Dinamo Zagreb", "Tottenham Hotspur", "Real Madrid"],
+    "clues": [
+      "I am a Croatian midfielder who played for Tottenham before Madrid.",
+      "I won the Ballon d'Or in 2018.",
+      "I led Croatia to the 2018 World Cup final.",
+      "I won five Champions League titles with Real Madrid.",
+      "I wear number 10 for Croatia."
+    ]
+  },
+  {
+    "id": "neymar",
+    "name": "Neymar",
+    "sport": "football",
+    "nationality": "Brazil",
+    "position": "Forward",
+    "clubs": ["Santos", "Barcelona", "Paris Saint-Germain", "Al Hilal"],
+    "clues": [
+      "I rose to fame at Santos in Brazil.",
+      "I formed part of MSN at Barcelona alongside Messi and Suárez.",
+      "I became the world's most expensive player when I joined PSG in 2017.",
+      "I am Brazil's all-time leading goalscorer (men's).",
+      "I joined Al Hilal in 2023."
+    ]
+  },
+  {
+    "id": "benzema",
+    "name": "Karim Benzema",
+    "sport": "football",
+    "nationality": "France",
+    "position": "Striker",
+    "clubs": ["Olympique Lyonnais", "Real Madrid", "Al Ittihad"],
+    "clues": [
+      "I won the Ballon d'Or in 2022.",
+      "I spent over a decade at Real Madrid as a centre-forward.",
+      "I won five Champions League titles with Real Madrid.",
+      "I was Lyon's breakout star before moving to Spain.",
+      "I joined Al Ittihad in 2023."
+    ]
+  },
+  {
+    "id": "mane",
+    "name": "Sadio Mané",
+    "sport": "football",
+    "nationality": "Senegal",
+    "position": "Forward",
+    "clubs": ["Metz", "Red Bull Salzburg", "Southampton", "Liverpool", "Bayern Munich", "Al Nassr"],
+    "clues": [
+      "I won the Africa Cup of Nations with Senegal in 2022.",
+      "I formed a famous forward line at Liverpool with Salah and Firmino.",
+      "I won the Premier League and Champions League with Liverpool.",
+      "I had a stint at Bayern Munich after leaving Liverpool.",
+      "I currently play in Saudi Arabia for Al Nassr."
+    ]
+  },
+  {
+    "id": "son",
+    "name": "Son Heung-min",
+    "sport": "football",
+    "nationality": "South Korea",
+    "position": "Forward",
+    "clubs": ["Hamburger SV", "Bayer Leverkusen", "Tottenham Hotspur"],
+    "clues": [
+      "I am South Korea's all-time leading goalscorer.",
+      "I won the Premier League Golden Boot in 2022.",
+      "I have been a Tottenham player since 2015.",
+      "I scored a solo goal that won the 2020 Puskás Award.",
+      "I wear number 7 for Tottenham and South Korea."
+    ]
+  },
+  {
+    "id": "suarez",
+    "name": "Luis Suárez",
+    "sport": "football",
+    "nationality": "Uruguay",
+    "position": "Striker",
+    "clubs": ["Nacional", "Groningen", "Ajax", "Liverpool", "Barcelona", "Atlético Madrid", "Grêmio", "Inter Miami"],
+    "clues": [
+      "I won the Golden Boot in the Premier League with Liverpool.",
+      "I was part of MSN at Barcelona.",
+      "I won the Champions League with Barcelona in 2015.",
+      "I bit an opponent at the 2014 World Cup.",
+      "I reunited with Lionel Messi at Inter Miami."
+    ]
+  },
+  {
+    "id": "henry",
+    "name": "Thierry Henry",
+    "sport": "football",
+    "nationality": "France",
+    "position": "Forward",
+    "clubs": ["Monaco", "Juventus", "Arsenal", "Barcelona", "New York Red Bulls"],
+    "clues": [
+      "I won the World Cup with France in 1998.",
+      "I am Arsenal's all-time leading Premier League goalscorer.",
+      "I won the Premier League Golden Boot multiple times.",
+      "I won the Champions League with Barcelona in 2009.",
+      "I wore number 14 famously at Arsenal."
+    ]
+  },
+  {
+    "id": "drogba",
+    "name": "Didier Drogba",
+    "sport": "football",
+    "nationality": "Ivory Coast",
+    "position": "Striker",
+    "clubs": ["Le Mans", "Guingamp", "Marseille", "Chelsea", "Shanghai Shenhua", "Galatasaray", "Montreal Impact", "Phoenix Rising"],
+    "clues": [
+      "I am Ivory Coast's all-time leading goalscorer.",
+      "I scored the equaliser and winning penalty in the 2012 Champions League final.",
+      "I won multiple Premier League titles with Chelsea.",
+      "I played for Galatasaray and won the Turkish league.",
+      "I am a Chelsea legend known for big-game goals."
+    ]
+  },
+  {
+    "id": "etoo",
+    "name": "Samuel Eto'o",
+    "sport": "football",
+    "nationality": "Cameroon",
+    "position": "Striker",
+    "clubs": ["Real Madrid", "Mallorca", "Barcelona", "Inter Milan", "Anzhi Makhachkala", "Chelsea", "Everton", "Sampdoria"],
+    "clues": [
+      "I won the Champions League with Barcelona and Inter Milan.",
+      "I won two Africa Cup of Nations titles with Cameroon.",
+      "I won the treble with Inter Milan under José Mourinho in 2010.",
+      "I played for Barcelona alongside Ronaldinho and later Messi.",
+      "I am one of Africa's greatest strikers."
+    ]
+  },
+  {
+    "id": "weah",
+    "name": "George Weah",
+    "sport": "football",
+    "nationality": "Liberia",
+    "position": "Forward",
+    "clubs": ["Monaco", "Paris Saint-Germain", "AC Milan", "Chelsea", "Manchester City", "Marseille"],
+    "clues": [
+      "I am the only African player to win the Ballon d'Or.",
+      "I won it in 1995 while playing for AC Milan.",
+      "I played for PSG and Monaco in Ligue 1.",
+      "I later became president of my country, Liberia.",
+      "I wore number 9 for AC Milan."
+    ]
+  },
+  {
+    "id": "okocha",
+    "name": "Jay-Jay Okocha",
+    "sport": "football",
+    "nationality": "Nigeria",
+    "position": "Attacking midfielder",
+    "clubs": ["Borussia Neunkirchen", "Eintracht Frankfurt", "Fenerbahçe", "Paris Saint-Germain", "Bolton Wanderers", "Qatar SC"],
+    "clues": [
+      "I am a Nigerian playmaker famous for skill and flair.",
+      "I played for PSG before the Qatari takeover era.",
+      "I became a cult hero at Bolton Wanderers in the Premier League.",
+      "I won the Olympics with Nigeria in 1996.",
+      "So good they named me twice, according to fans."
+    ]
+  },
+  {
+    "id": "kanu",
+    "name": "Nwankwo Kanu",
+    "sport": "football",
+    "nationality": "Nigeria",
+    "position": "Forward",
+    "clubs": ["Iwuanyanwu Nationale", "Ajax", "Inter Milan", "Arsenal", "West Bromwich Albion", "Portsmouth"],
+    "clues": [
+      "I won the Champions League with Ajax in 1995.",
+      "I won two Premier League titles with Arsenal.",
+      "I scored a famous FA Cup semi-final goal against Tottenham.",
+      "I overcame a serious heart condition to continue playing.",
+      "I am a Nigerian forward who wore number 25 at Arsenal."
+    ]
+  },
+  {
+    "id": "mikel",
+    "name": "John Obi Mikel",
+    "sport": "football",
+    "nationality": "Nigeria",
+    "position": "Midfielder",
+    "clubs": ["Lyn", "Chelsea", "Tianjin TEDA", "Middlesbrough", "Trabzonspor", "Kuwait SC"],
+    "clues": [
+      "I captained Nigeria to Olympic bronze in 2016.",
+      "I won the Champions League and Europa League with Chelsea.",
+      "I was involved in a transfer dispute between Manchester United and Chelsea.",
+      "I played over 350 games for Chelsea.",
+      "I am a Nigerian defensive midfielder who wore number 12 at Chelsea."
+    ]
+  },
+  {
+    "id": "mahrez",
+    "name": "Riyad Mahrez",
+    "sport": "football",
+    "nationality": "Algeria",
+    "position": "Winger",
+    "clubs": ["Quimper", "Le Havre", "Leicester City", "Manchester City", "Al Ahli"],
+    "clues": [
+      "I helped Leicester City win the Premier League in 2016.",
+      "I won the PFA Players' Player of the Year in 2016.",
+      "I won multiple Premier League titles with Manchester City.",
+      "I won the Africa Cup of Nations with Algeria in 2019.",
+      "I joined Al Ahli in the Saudi Pro League in 2023."
+    ]
+  },
+  {
+    "id": "maldini",
+    "name": "Paolo Maldini",
+    "sport": "football",
+    "nationality": "Italy",
+    "position": "Defender",
+    "clubs": ["AC Milan"],
+    "clues": [
+      "I spent my entire career at one Serie A club.",
+      "I won five Champions League titles.",
+      "I played over 900 official games for AC Milan.",
+      "I wore number 3 for club and country.",
+      "I am considered one of the greatest defenders of all time."
+    ]
+  },
+  {
+    "id": "buffon",
+    "name": "Gianluigi Buffon",
+    "sport": "football",
+    "nationality": "Italy",
+    "position": "Goalkeeper",
+    "clubs": ["Parma", "Juventus", "Paris Saint-Germain", "Juventus", "Parma"],
+    "clues": [
+      "I won the World Cup with Italy in 2006.",
+      "I kept more clean sheets than any goalkeeper in Serie A history.",
+      "I spent most of my career at Juventus.",
+      "I had a brief spell at Paris Saint-Germain.",
+      "I wore number 1 for Italy for nearly two decades."
+    ]
+  },
+  {
+    "id": "iniesta",
+    "name": "Andrés Iniesta",
+    "sport": "football",
+    "nationality": "Spain",
+    "position": "Midfielder",
+    "clubs": ["Barcelona", "Vissel Kobe"],
+    "clues": [
+      "I scored the winning goal in the 2010 World Cup final.",
+      "I won four Champions League titles with Barcelona.",
+      "I was part of Spain's tiki-taka golden generation.",
+      "I spent most of my career in Barcelona's midfield.",
+      "I finished my playing career in Japan at Vissel Kobe."
+    ]
+  },
+  {
+    "id": "xavi",
+    "name": "Xavi",
+    "sport": "football",
+    "nationality": "Spain",
+    "position": "Midfielder",
+    "clubs": ["Barcelona", "Al Sadd"],
+    "clues": [
+      "I won the World Cup and two European Championships with Spain.",
+      "I won four Champions League titles as a Barcelona player.",
+      "I later managed Barcelona as head coach.",
+      "I am known for dictating tempo from central midfield.",
+      "I wore number 6 for Barcelona."
+    ]
+  },
+  {
+    "id": "zidane",
+    "name": "Zinedine Zidane",
+    "sport": "football",
+    "nationality": "France",
+    "position": "Midfielder",
+    "clubs": ["Cannes", "Bordeaux", "Juventus", "Real Madrid"],
+    "clues": [
+      "I scored twice in the 1998 World Cup final for France.",
+      "I won the Ballon d'Or in 1998.",
+      "I scored a famous volley in the 2002 Champions League final.",
+      "I was sent off in the 2006 World Cup final for a headbutt.",
+      "I later won three consecutive Champions Leagues as Real Madrid manager."
+    ]
+  },
+  {
+    "id": "ronaldinho",
+    "name": "Ronaldinho",
+    "sport": "football",
+    "nationality": "Brazil",
+    "position": "Attacking midfielder",
+    "clubs": ["Grêmio", "Paris Saint-Germain", "Barcelona", "AC Milan", "Flamengo", "Atlético Mineiro"],
+    "clues": [
+      "I won the World Cup with Brazil in 2002.",
+      "I won the Ballon d'Or in 2005.",
+      "I won the Champions League with Barcelona in 2006.",
+      "I am famous for the buck-toothed smile and no-look passes.",
+      "I won the Copa Libertadores with Atlético Mineiro in 2013."
+    ]
+  },
+  {
+    "id": "pele",
+    "name": "Pelé",
+    "sport": "football",
+    "nationality": "Brazil",
+    "position": "Forward",
+    "clubs": ["Santos", "New York Cosmos"],
+    "clues": [
+      "I won three FIFA World Cups with Brazil.",
+      "I spent most of my career at Santos in Brazil.",
+      "I am widely regarded as one of football's greatest players.",
+      "I scored over 1,000 goals in my career including friendlies.",
+      "I finished my career in the NASL with the New York Cosmos."
+    ]
+  },
+  {
+    "id": "maradona",
+    "name": "Diego Maradona",
+    "sport": "football",
+    "nationality": "Argentina",
+    "position": "Attacking midfielder",
+    "clubs": ["Argentinos Juniors", "Boca Juniors", "Barcelona", "Napoli", "Sevilla", "Newell's Old Boys", "Boca Juniors"],
+    "clues": [
+      "I captained Argentina to World Cup glory in 1986.",
+      "I scored the 'Hand of God' and 'Goal of the Century' in the same match.",
+      "I led Napoli to two Serie A titles.",
+      "I had a short, turbulent spell at Barcelona.",
+      "I wore number 10 for Argentina."
+    ]
+  },
+  {
+    "id": "cruyff",
+    "name": "Johan Cruyff",
+    "sport": "football",
+    "nationality": "Netherlands",
+    "position": "Forward",
+    "clubs": ["Ajax", "Barcelona", "Los Angeles Aztecs", "Washington Diplomats", "Levante", "Feyenoord"],
+    "clues": [
+      "I won three Ballon d'Or awards in the 1970s.",
+      "I pioneered Total Football with Ajax and the Netherlands.",
+      "I later managed Barcelona and built the Dream Team.",
+      "I wore number 14 for the Netherlands.",
+      "Barcelona's La Masia philosophy was shaped by my ideas."
+    ]
+  },
+  {
+    "id": "beckham",
+    "name": "David Beckham",
+    "sport": "football",
+    "nationality": "England",
+    "position": "Midfielder",
+    "clubs": ["Manchester United", "Real Madrid", "LA Galaxy", "AC Milan", "Paris Saint-Germain"],
+    "clues": [
+      "I scored from the halfway line against Wimbledon in 1996.",
+      "I won the treble with Manchester United in 1999.",
+      "I captained England at the 2006 World Cup.",
+      "I won La Liga with Real Madrid in 2003.",
+      "I am famous for free kicks and crossing from the right."
+    ]
+  },
+  {
+    "id": "gerrard",
+    "name": "Steven Gerrard",
+    "sport": "football",
+    "nationality": "England",
+    "position": "Midfielder",
+    "clubs": ["Liverpool", "LA Galaxy"],
+    "clues": [
+      "I spent almost my entire career at one English club.",
+      "I scored in the 2006 FA Cup final with a long-range strike.",
+      "I led Liverpool to Champions League glory in 2005 in Istanbul.",
+      "I wore number 8 for Liverpool.",
+      "I later managed Aston Villa and Rangers."
+    ]
+  },
+  {
+    "id": "lampard",
+    "name": "Frank Lampard",
+    "sport": "football",
+    "nationality": "England",
+    "position": "Midfielder",
+    "clubs": ["West Ham United", "Chelsea", "Manchester City", "New York City FC"],
+    "clues": [
+      "I am Chelsea's all-time leading goalscorer from midfield.",
+      "I won the Champions League with Chelsea in 2012.",
+      "I started my career at West Ham, where my father also played.",
+      "I scored over 200 goals in the Premier League.",
+      "I later managed Chelsea and Everton."
+    ]
+  },
+  {
+    "id": "pirlo",
+    "name": "Andrea Pirlo",
+    "sport": "football",
+    "nationality": "Italy",
+    "position": "Midfielder",
+    "clubs": ["Brescia", "Inter Milan", "AC Milan", "Juventus", "New York City FC"],
+    "clues": [
+      "I won the World Cup with Italy in 2006.",
+      "I am known for deep-lying playmaking and free kicks.",
+      "I won two Champions League titles with AC Milan.",
+      "I dominated Serie A with Juventus in my thirties.",
+      "I wore a beard and controlled games without running much."
+    ]
+  },
+  {
+    "id": "totti",
+    "name": "Francesco Totti",
+    "sport": "football",
+    "nationality": "Italy",
+    "position": "Forward",
+    "clubs": ["Roma"],
+    "clues": [
+      "I spent my entire career at one Serie A club.",
+      "I won the World Cup with Italy in 2006.",
+      "I scored over 250 Serie A goals for Roma.",
+      "I wore number 10 for Roma.",
+      "I am nicknamed the King of Rome."
+    ]
+  },
+  {
+    "id": "casillas",
+    "name": "Iker Casillas",
+    "sport": "football",
+    "nationality": "Spain",
+    "position": "Goalkeeper",
+    "clubs": ["Real Madrid", "Porto"],
+    "clues": [
+      "I won the World Cup and two European Championships with Spain.",
+      "I won three Champions League titles with Real Madrid.",
+      "I captained Real Madrid and Spain as a goalkeeper.",
+      "I wore number 1 for Spain during their golden era.",
+      "I finished my career at Porto in Portugal."
+    ]
+  },
+  {
+    "id": "ramos",
+    "name": "Sergio Ramos",
+    "sport": "football",
+    "nationality": "Spain",
+    "position": "Centre-back",
+    "clubs": ["Sevilla", "Real Madrid", "Paris Saint-Germain", "Sevilla"],
+    "clues": [
+      "I scored crucial goals in Champions League finals.",
+      "I won four Champions League titles with Real Madrid.",
+      "I won the World Cup and two Euros with Spain.",
+      "I had a spell at Paris Saint-Germain after leaving Madrid.",
+      "I returned to Sevilla, where I started my career."
+    ]
+  },
+  {
+    "id": "foden",
+    "name": "Phil Foden",
+    "sport": "football",
+    "nationality": "England",
+    "position": "Midfielder",
+    "clubs": ["Manchester City"],
+    "clues": [
+      "I am a Manchester City academy graduate from Stockport.",
+      "I won the treble with Manchester City in 2023.",
+      "I was named Premier League Young Player of the Season multiple times.",
+      "I wear number 47 for Manchester City.",
+      "I scored key goals for England at Euro 2024."
+    ]
+  },
+  {
+    "id": "rice",
+    "name": "Declan Rice",
+    "sport": "football",
+    "nationality": "England",
+    "position": "Midfielder",
+    "clubs": ["West Ham United", "Arsenal"],
+    "clues": [
+      "I captained West Ham United before a big-money move.",
+      "I won the Europa Conference League with West Ham in 2023.",
+      "I joined Arsenal in 2023 for a club-record fee.",
+      "I wear number 41 for Arsenal.",
+      "I play as a defensive midfielder for England."
+    ]
+  },
+  {
+    "id": "palmer",
+    "name": "Cole Palmer",
+    "sport": "football",
+    "nationality": "England",
+    "position": "Attacking midfielder",
+    "clubs": ["Manchester City", "Chelsea"],
+    "clues": [
+      "I came through the Manchester City academy.",
+      "I joined Chelsea in 2023 seeking more minutes.",
+      "I won the Premier League Young Player of the Season in 2024.",
+      "I scored a penalty in the Euro 2024 final for England.",
+      "I wear number 20 for Chelsea."
+    ]
+  },
+  {
+    "id": "wirtz",
+    "name": "Florian Wirtz",
+    "sport": "football",
+    "nationality": "Germany",
+    "position": "Attacking midfielder",
+    "clubs": ["Köln", "Bayer Leverkusen"],
+    "clues": [
+      "I broke through at Köln as a teenager.",
+      "I joined Bayer Leverkusen in 2020.",
+      "I helped Leverkusen go unbeaten to win the Bundesliga in 2024.",
+      "I wear number 10 for Germany.",
+      "I am one of Germany's brightest young talents."
+    ]
+  },
+  {
+    "id": "musiala",
+    "name": "Jamal Musiala",
+    "sport": "football",
+    "nationality": "Germany",
+    "position": "Attacking midfielder",
+    "clubs": ["Chelsea", "Bayern Munich"],
+    "clues": [
+      "I was born in Germany and spent youth years at Chelsea.",
+      "I chose to represent Germany over England.",
+      "I broke through at Bayern Munich under Hansi Flick.",
+      "I wear number 42 for Bayern Munich.",
+      "I am known for close dribbling and balance."
+    ]
+  },
+  {
+    "id": "martinelli",
+    "name": "Gabriel Martinelli",
+    "sport": "football",
+    "nationality": "Brazil",
+    "position": "Forward",
+    "clubs": ["Ituano", "Arsenal"],
+    "clues": [
+      "I joined Arsenal from a Brazilian lower-league club.",
+      "I can play on either wing or as a striker.",
+      "I won the FA Cup with Arsenal in 2020.",
+      "I wear number 11 for Arsenal.",
+      "I have represented Brazil at senior level."
+    ]
+  },
+  {
+    "id": "odegaard",
+    "name": "Martin Ødegaard",
+    "sport": "football",
+    "nationality": "Norway",
+    "position": "Attacking midfielder",
+    "clubs": ["Strømsgodset", "Real Madrid", "Heerenveen", "Vitesse", "Real Sociedad", "Arsenal"],
+    "clues": [
+      "I became Norway's youngest senior international at 15.",
+      "I signed for Real Madrid as a teenage prodigy.",
+      "I had loan spells in the Eredivisie and La Liga before Arsenal.",
+      "I am captain of Arsenal.",
+      "I wear number 8 for Arsenal."
+    ]
+  },
+  {
+    "id": "alisson",
+    "name": "Alisson Becker",
+    "sport": "football",
+    "nationality": "Brazil",
+    "position": "Goalkeeper",
+    "clubs": ["Internacional", "Roma", "Liverpool"],
+    "clues": [
+      "I won the Copa América with Brazil in 2019.",
+      "I joined Liverpool from Roma in 2018.",
+      "I won the Premier League and Champions League with Liverpool.",
+      "I wear number 1 for Liverpool.",
+      "I am known for sweeping and distribution from goal."
+    ]
+  },
+  {
+    "id": "ederson",
+    "name": "Ederson",
+    "sport": "football",
+    "nationality": "Brazil",
+    "position": "Goalkeeper",
+    "clubs": ["São Paulo", "Benfica", "Rio Ave", "Manchester City"],
+    "clues": [
+      "I am a Brazilian goalkeeper known for long passing.",
+      "I played for Benfica before joining Manchester City.",
+      "I won the treble with Manchester City in 2023.",
+      "I wear number 31 for Manchester City.",
+      "I have assisted goals with my kicking accuracy."
+    ]
+  },
+  {
+    "id": "casemiro",
+    "name": "Casemiro",
+    "sport": "football",
+    "nationality": "Brazil",
+    "position": "Defensive midfielder",
+    "clubs": ["São Paulo", "Real Madrid", "Manchester United"],
+    "clues": [
+      "I won five Champions League titles with Real Madrid.",
+      "I scored a header in the 2022 Champions League final.",
+      "I joined Manchester United in 2022.",
+      "I wear number 18 for Brazil.",
+      "I am a specialist holding midfielder."
+    ]
+  },
+  {
+    "id": "hakimi",
+    "name": "Achraf Hakimi",
+    "sport": "football",
+    "nationality": "Morocco",
+    "position": "Right-back",
+    "clubs": ["Real Madrid", "Borussia Dortmund", "Inter Milan", "Paris Saint-Germain"],
+    "clues": [
+      "I came through Real Madrid's academy.",
+      "I won the Champions League with Real Madrid in 2018.",
+      "I helped Morocco reach the 2022 World Cup semi-finals.",
+      "I play as an attacking right-back for PSG.",
+      "I wear number 2 for Morocco."
+    ]
+  },
+  {
+    "id": "davies",
+    "name": "Alphonso Davies",
+    "sport": "football",
+    "nationality": "Canada",
+    "position": "Left-back",
+    "clubs": ["Vancouver Whitecaps", "Bayern Munich"],
+    "clues": [
+      "I was born in a refugee camp in Ghana before moving to Canada.",
+      "I joined Bayern Munich from MLS as a teenager.",
+      "I won the Champions League with Bayern in 2020.",
+      "I am one of Canada's most famous footballers.",
+      "I wear number 19 for Bayern Munich."
+    ]
+  },
+  {
+    "id": "bruno-fernandes",
+    "name": "Bruno Fernandes",
+    "sport": "football",
+    "nationality": "Portugal",
+    "position": "Attacking midfielder",
+    "clubs": ["Boavista", "Udinese", "Novara", "Sampdoria", "Sporting CP", "Manchester United"],
+    "clues": [
+      "I developed in Italy with Udinese and Sampdoria.",
+      "I returned to Portugal and dominated at Sporting CP.",
+      "I joined Manchester United in January 2020.",
+      "I wear number 8 for Manchester United.",
+      "I take penalties and set pieces for Portugal."
+    ]
+  },
+  {
+    "id": "sterling",
+    "name": "Raheem Sterling",
+    "sport": "football",
+    "nationality": "England",
+    "position": "Winger",
+    "clubs": ["Queens Park Rangers", "Liverpool", "Manchester City", "Chelsea", "Arsenal"],
+    "clues": [
+      "I started at Queens Park Rangers before joining Liverpool.",
+      "I won multiple Premier League titles with Manchester City.",
+      "I played for Chelsea after leaving City.",
+      "I joined Arsenal in 2023.",
+      "I have over 80 England caps."
+    ]
+  },
+  {
+    "id": "rashford",
+    "name": "Marcus Rashford",
+    "sport": "football",
+    "nationality": "England",
+    "position": "Forward",
+    "clubs": ["Manchester United"],
+    "clues": [
+      "I scored on my Manchester United debut in the Europa League.",
+      "I scored in my first Manchester derby.",
+      "I won the FA Cup, League Cup and Europa League with United.",
+      "I wear number 10 for Manchester United.",
+      "I am known for campaigning against child food poverty in England."
+    ]
+  }
+]

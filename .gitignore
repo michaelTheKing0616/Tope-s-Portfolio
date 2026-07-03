@@ -43,3 +43,10 @@ projects/*/.tatafo/
 
 # embedded game builds (regenerated via npm run build:games)
 public/play/
+
+# DRAFTBALLER — local-only data (exceeds GitHub limits; build via scripts/seed-external-data.mjs)
+sportverse/archive/
+sportverse/archive.zip
+sportverse/data/raw/
+sportverse/packages/sports-db/data/season-stats.json
+sportverse/apps/web/public/data/season-stats.json

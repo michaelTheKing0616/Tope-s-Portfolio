@@ -12,10 +12,12 @@ export default defineConfig({
       "@sportverse/rating-engine": resolve(__dirname, "packages/rating-engine/src/index.ts"),
       "@sportverse/draftballer-core": resolve(__dirname, "packages/draftballer-core/src/index.ts"),
       "@sportverse/draftballer-types": resolve(__dirname, "packages/draftballer-types/src/index.ts"),
+      "@sportverse/match-sim": resolve(__dirname, "packages/match-sim/src/index.ts"),
     },
   },
   test: {
     environment: "node",
     include: ["packages/**/*.test.ts", "services/**/*.test.ts"],
+    setupFiles: ["./vitest.setup.ts"],
   },
 });

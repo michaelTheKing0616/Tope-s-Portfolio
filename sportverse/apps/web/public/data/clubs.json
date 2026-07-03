@@ -1,0 +1,282 @@
+[
+  {
+    "id": "chelsea",
+    "name": "Chelsea",
+    "founded": 1905,
+    "league": "Premier League",
+    "nickname": "The Blues",
+    "stadium": "Stamford Bridge",
+    "country": "England",
+    "clues": ["Founded in 1905", "Play in the Premier League", "Nickname: The Blues", "Home ground: Stamford Bridge", "West London club"]
+  },
+  {
+    "id": "arsenal",
+    "name": "Arsenal",
+    "founded": 1886,
+    "league": "Premier League",
+    "nickname": "The Gunners",
+    "stadium": "Emirates Stadium",
+    "country": "England",
+    "clues": ["Founded in 1886", "Play in the Premier League", "Nickname: The Gunners", "Home ground: Emirates Stadium", "North London club"]
+  },
+  {
+    "id": "liverpool",
+    "name": "Liverpool",
+    "founded": 1892,
+    "league": "Premier League",
+    "nickname": "The Reds",
+    "stadium": "Anfield",
+    "country": "England",
+    "clues": ["Founded in 1892", "Play in the Premier League", "Nickname: The Reds", "Home ground: Anfield", "You'll Never Walk Alone is our anthem"]
+  },
+  {
+    "id": "manchester-united",
+    "name": "Manchester United",
+    "founded": 1878,
+    "league": "Premier League",
+    "nickname": "The Red Devils",
+    "stadium": "Old Trafford",
+    "country": "England",
+    "clues": ["Founded as Newton Heath in 1878", "Play in the Premier League", "Nickname: The Red Devils", "Home ground: Old Trafford", "Theatre of Dreams"]
+  },
+  {
+    "id": "manchester-city",
+    "name": "Manchester City",
+    "founded": 1880,
+    "league": "Premier League",
+    "nickname": "The Citizens",
+    "stadium": "Etihad Stadium",
+    "country": "England",
+    "clues": ["Founded in 1880", "Play in the Premier League", "Nickname: The Citizens", "Home ground: Etihad Stadium", "Won the treble in 2023"]
+  },
+  {
+    "id": "tottenham",
+    "name": "Tottenham Hotspur",
+    "founded": 1882,
+    "league": "Premier League",
+    "nickname": "Spurs",
+    "stadium": "Tottenham Hotspur Stadium",
+    "country": "England",
+    "clues": ["Founded in 1882", "Play in the Premier League", "Nickname: Spurs", "Home ground in North London", "White and navy colours"]
+  },
+  {
+    "id": "barcelona",
+    "name": "Barcelona",
+    "founded": 1899,
+    "league": "La Liga",
+    "nickname": "Blaugrana",
+    "stadium": "Camp Nou",
+    "country": "Spain",
+    "clues": ["Founded in 1899", "Play in La Liga", "Motto: Més que un club", "Home ground: Camp Nou", "Catalan giants"]
+  },
+  {
+    "id": "real-madrid",
+    "name": "Real Madrid",
+    "founded": 1902,
+    "league": "La Liga",
+    "nickname": "Los Blancos",
+    "stadium": "Santiago Bernabéu",
+    "country": "Spain",
+    "clues": ["Founded in 1902", "Play in La Liga", "Nickname: Los Blancos", "Home ground: Santiago Bernabéu", "Record Champions League winners"]
+  },
+  {
+    "id": "atletico-madrid",
+    "name": "Atlético Madrid",
+    "founded": 1903,
+    "league": "La Liga",
+    "nickname": "Los Colchoneros",
+    "stadium": "Cívitas Metropolitano",
+    "country": "Spain",
+    "clues": ["Founded in 1903", "Play in La Liga", "Based in Madrid", "Red and white stripes", "Diego Simeone's long-serving club"]
+  },
+  {
+    "id": "bayern-munich",
+    "name": "Bayern Munich",
+    "founded": 1900,
+    "league": "Bundesliga",
+    "nickname": "Die Roten",
+    "stadium": "Allianz Arena",
+    "country": "Germany",
+    "clues": ["Founded in 1900", "Play in the Bundesliga", "Based in Munich", "Home ground: Allianz Arena", "Most successful club in Germany"]
+  },
+  {
+    "id": "borussia-dortmund",
+    "name": "Borussia Dortmund",
+    "founded": 1909,
+    "league": "Bundesliga",
+    "nickname": "Die Schwarzgelben",
+    "stadium": "Signal Iduna Park",
+    "country": "Germany",
+    "clues": ["Founded in 1909", "Play in the Bundesliga", "Yellow and black colours", "Home ground: Signal Iduna Park", "Famous for the Yellow Wall"]
+  },
+  {
+    "id": "juventus",
+    "name": "Juventus",
+    "founded": 1897,
+    "league": "Serie A",
+    "nickname": "La Vecchia Signora",
+    "stadium": "Allianz Stadium",
+    "country": "Italy",
+    "clues": ["Founded in 1897", "Play in Serie A", "Based in Turin", "Black and white stripes", "Nickname: The Old Lady"]
+  },
+  {
+    "id": "ac-milan",
+    "name": "AC Milan",
+    "founded": 1899,
+    "league": "Serie A",
+    "nickname": "Rossoneri",
+    "stadium": "San Siro",
+    "country": "Italy",
+    "clues": ["Founded in 1899", "Play in Serie A", "Red and black colours", "Share San Siro with Inter", "Seven-time European Cup/Champions League winners"]
+  },
+  {
+    "id": "inter-milan",
+    "name": "Inter Milan",
+    "founded": 1908,
+    "league": "Serie A",
+    "nickname": "Nerazzurri",
+    "stadium": "San Siro",
+    "country": "Italy",
+    "clues": ["Founded in 1908", "Play in Serie A", "Blue and black colours", "Share San Siro with AC Milan", "Won the treble in 2010"]
+  },
+  {
+    "id": "napoli",
+    "name": "Napoli",
+    "founded": 1926,
+    "league": "Serie A",
+    "nickname": "Partenopei",
+    "stadium": "Diego Armando Maradona Stadium",
+    "country": "Italy",
+    "clues": ["Founded in 1926", "Play in Serie A", "Based in southern Italy", "Stadium named after Maradona", "Sky blue shirts"]
+  },
+  {
+    "id": "psg",
+    "name": "Paris Saint-Germain",
+    "founded": 1970,
+    "league": "Ligue 1",
+    "nickname": "Les Parisiens",
+    "stadium": "Parc des Princes",
+    "country": "France",
+    "clues": ["Founded in 1970", "Play in Ligue 1", "Based in the French capital", "Home ground: Parc des Princes", "Red, blue and white colours"]
+  },
+  {
+    "id": "marseille",
+    "name": "Olympique Marseille",
+    "founded": 1899,
+    "league": "Ligue 1",
+    "nickname": "Les Olympiens",
+    "stadium": "Stade Vélodrome",
+    "country": "France",
+    "clues": ["Founded in 1899", "Play in Ligue 1", "Based in southern France", "Home ground: Stade Vélodrome", "Only French club to win the Champions League"]
+  },
+  {
+    "id": "ajax",
+    "name": "Ajax",
+    "founded": 1900,
+    "league": "Eredivisie",
+    "nickname": "De Godenzonen",
+    "stadium": "Johan Cruyff Arena",
+    "country": "Netherlands",
+    "clues": ["Founded in 1900", "Play in the Eredivisie", "Based in Amsterdam", "Famous for youth development", "Four-time European Cup winners"]
+  },
+  {
+    "id": "benfica",
+    "name": "Benfica",
+    "founded": 1904,
+    "league": "Primeira Liga",
+    "nickname": "As Águias",
+    "stadium": "Estádio da Luz",
+    "country": "Portugal",
+    "clues": ["Founded in 1904", "Play in the Primeira Liga", "Based in Lisbon", "Home ground: Estádio da Luz", "Eagle mascot before home games"]
+  },
+  {
+    "id": "porto",
+    "name": "FC Porto",
+    "founded": 1893,
+    "league": "Primeira Liga",
+    "nickname": "Os Dragões",
+    "stadium": "Estádio do Dragão",
+    "country": "Portugal",
+    "clues": ["Founded in 1893", "Play in the Primeira Liga", "Based in northern Portugal", "Blue and white colours", "Won the Champions League in 2004"]
+  },
+  {
+    "id": "celtic",
+    "name": "Celtic",
+    "founded": 1887,
+    "league": "Scottish Premiership",
+    "nickname": "The Bhoys",
+    "stadium": "Celtic Park",
+    "country": "Scotland",
+    "clues": ["Founded in 1887", "Play in Scotland", "Green and white hoops", "Home ground: Celtic Park", "1967 European Cup winners"]
+  },
+  {
+    "id": "rangers",
+    "name": "Rangers",
+    "founded": 1872,
+    "league": "Scottish Premiership",
+    "nickname": "The Gers",
+    "stadium": "Ibrox Stadium",
+    "country": "Scotland",
+    "clues": ["Founded in 1872", "Play in Scotland", "Blue shirts", "Home ground: Ibrox Stadium", "Old Firm rivals of Celtic"]
+  },
+  {
+    "id": "galatasaray",
+    "name": "Galatasaray",
+    "founded": 1905,
+    "league": "Süper Lig",
+    "nickname": "Cimbom",
+    "stadium": "Rams Park",
+    "country": "Turkey",
+    "clues": ["Founded in 1905", "Play in Turkey", "Yellow and red colours", "Based in Istanbul", "Won the UEFA Cup in 2000"]
+  },
+  {
+    "id": "river-plate",
+    "name": "River Plate",
+    "founded": 1901,
+    "league": "Argentine Primera División",
+    "nickname": "Los Millonarios",
+    "stadium": "Estadio Monumental",
+    "country": "Argentina",
+    "clues": ["Founded in 1901", "Play in Argentina", "White shirt with red diagonal band", "Based in Buenos Aires", "Fierce Superclásico rivals"]
+  },
+  {
+    "id": "boca-juniors",
+    "name": "Boca Juniors",
+    "founded": 1905,
+    "league": "Argentine Primera División",
+    "nickname": "Xeneizes",
+    "stadium": "La Bombonera",
+    "country": "Argentina",
+    "clues": ["Founded in 1905", "Play in Argentina", "Blue and yellow colours", "Home ground: La Bombonera", "Maradona played here"]
+  },
+  {
+    "id": "flamengo",
+    "name": "Flamengo",
+    "founded": 1895,
+    "league": "Brasileirão",
+    "nickname": "Mengão",
+    "stadium": "Maracanã",
+    "country": "Brazil",
+    "clues": ["Founded in 1895", "Play in Brazil", "Red and black colours", "Play at the Maracanã", "One of Brazil's most supported clubs"]
+  },
+  {
+    "id": "inter-miami",
+    "name": "Inter Miami",
+    "founded": 2018,
+    "league": "MLS",
+    "nickname": "The Herons",
+    "stadium": "Chase Stadium",
+    "country": "USA",
+    "clues": ["Founded in 2018", "Play in Major League Soccer", "Based in Florida", "Pink and black colours", "Lionel Messi joined in 2023"]
+  },
+  {
+    "id": "al-nassr",
+    "name": "Al Nassr",
+    "founded": 1955,
+    "league": "Saudi Pro League",
+    "nickname": "Al-Alami",
+    "stadium": "Al-Awwal Park",
+    "country": "Saudi Arabia",
+    "clues": ["Founded in 1955", "Play in the Saudi Pro League", "Yellow and blue colours", "Based in Riyadh", "Cristiano Ronaldo plays here"]
+  }
+]

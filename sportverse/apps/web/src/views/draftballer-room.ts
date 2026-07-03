@@ -5,6 +5,7 @@ import {
   makePick,
   squadRating,
   buildDraftPool,
+  saveSquadForSeason,
 } from "@sportverse/draftballer-core";
 import { playerCardHtml } from "./draftballer-hub.js";
 
@@ -12,12 +13,13 @@ type Navigate = (route: string, param?: string) => void;
 
 const DRAFTER_NAMES = ["You", "Rival Bot"];
 
-export function renderDraftballerRoom(root: HTMLElement, navigate: Navigate) {
+export function renderDraftballerRoom(root: HTMLElement, navigate: Navigate, formatParam?: string) {
   const raw = sessionStorage.getItem("db_mode");
   const mode: DraftModeConfig = raw ? JSON.parse(raw) : { id: "all-time-any" };
   const poolCards = buildDraftPool(mode);
   const poolMap = new Map(poolCards.map((c) => [c.playerId, c]));
-  let room: DraftRoomState = createDraftRoom(mode, poolCards, 2, 11);
+  const format = formatParam === "linear" ? "linear" : "snake";
+  let room: DraftRoomState = createDraftRoom(mode, poolCards, 2, 11, format);
 
   function botPick() {
     if (room.status !== "picking") return;
@@ -42,10 +44,17 @@ export function renderDraftballerRoom(root: HTMLElement, navigate: Navigate) {
             <h2 class="db-hero__title" style="font-size:2.5rem">${winner}</h2>
             <p>Your squad OVR: <strong style="color:var(--db-gold)">${youRating}</strong> · Bot: ${botRating}</p>
             <div class="db-pool-grid" style="margin:16px 0">${room.rosters[0]!.map((id) => playerCardHtml(poolMap.get(id)!, true)).join("")}</div>
+            <button class="btn" id="simulate">Simulate Season</button>
             <button class="btn" id="again">Draft again</button>
             <button class="btn btn--ghost" id="hub">Hub</button>
           </div>
         </div>`;
+      root.querySelector("#simulate")?.addEventListener("click", () => {
+        const ids = room.rosters[0]!;
+        const cards = ids.map((id) => poolMap.get(id)!).filter(Boolean);
+        saveSquadForSeason(mode, ids, cards, youRating, "snake");
+        navigate("draftballer", "season");
+      });
       root.querySelector("#again")?.addEventListener("click", () => renderDraftballerRoom(root, navigate));
       root.querySelector("#hub")?.addEventListener("click", () => navigate("draftballer"));
       return;
@@ -57,7 +66,7 @@ export function renderDraftballerRoom(root: HTMLElement, navigate: Navigate) {
     root.innerHTML = `
       <div class="shell db-root">
         <button class="btn btn--ghost" id="back">← Exit</button>
-        <p class="db-hero__label">${mode.title} · Snake Draft · Pick ${room.currentPickIndex + 1}</p>
+        <p class="db-hero__label">${mode.title} · ${format === "linear" ? "Linear" : "Snake"} Draft · Pick ${room.currentPickIndex + 1}</p>
         <div class="db-draft-layout">
           <div class="db-order-rail">
             ${DRAFTER_NAMES.map(

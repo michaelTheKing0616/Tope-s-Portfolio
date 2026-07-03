@@ -1,0 +1,58 @@
+[
+  {
+    "competitionId": "world-cup",
+    "seasonLabel": "2022",
+    "csiFinal": 1,
+    "csiRaw": 1,
+    "confidence": 0.96,
+    "eloComponent": 1,
+    "transferDeltaComponent": 1,
+    "talentFlowComponent": 1,
+    "natTeamComponent": 1,
+    "crossConfederationFixtures": 64,
+    "transferComparisons": 0,
+    "regionalTierPrior": 0.95
+  },
+  {
+    "competitionId": "world-cup",
+    "seasonLabel": "2018",
+    "csiFinal": 0.98,
+    "csiRaw": 0.97,
+    "confidence": 0.94,
+    "eloComponent": 0.98,
+    "transferDeltaComponent": 0.97,
+    "talentFlowComponent": 0.99,
+    "natTeamComponent": 0.99,
+    "crossConfederationFixtures": 64,
+    "transferComparisons": 0,
+    "regionalTierPrior": 0.95
+  },
+  {
+    "competitionId": "euro",
+    "seasonLabel": "2020",
+    "csiFinal": 0.96,
+    "csiRaw": 0.95,
+    "confidence": 0.9,
+    "eloComponent": 0.96,
+    "transferDeltaComponent": 0.94,
+    "talentFlowComponent": 0.97,
+    "natTeamComponent": 0.98,
+    "crossConfederationFixtures": 51,
+    "transferComparisons": 0,
+    "regionalTierPrior": 0.92
+  },
+  {
+    "competitionId": "copa-america",
+    "seasonLabel": "2021",
+    "csiFinal": 0.9,
+    "csiRaw": 0.88,
+    "confidence": 0.82,
+    "eloComponent": 0.88,
+    "transferDeltaComponent": 0.87,
+    "talentFlowComponent": 0.9,
+    "natTeamComponent": 0.92,
+    "crossConfederationFixtures": 28,
+    "transferComparisons": 0,
+    "regionalTierPrior": 0.85
+  }
+]

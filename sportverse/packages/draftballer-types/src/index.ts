@@ -17,6 +17,17 @@ export interface DraftModeConfig {
   leagueId?: string;
   year?: number;
   decade?: string;
+  /** When true, skip cross-league LSI bridging (Raw Domestic Dominance toggle — §6.1). */
+  rawDomesticDominance?: boolean;
+  /** Custom era window (inclusive season labels as years). */
+  yearFrom?: number;
+  yearTo?: number;
+  /** Multi-league filter when competitionScope is `custom`. */
+  leagueIds?: string[];
+  /** Peak-N only — ignore non-peak seasons in all-time/decade modes. */
+  primeYearsOnly?: boolean;
+  /** Enforce position-locked picks in draft rooms. */
+  positionLocked?: boolean;
 }
 
 export interface PlayerAttributes {
@@ -26,6 +37,16 @@ export interface PlayerAttributes {
   dri: number;
   def: number;
   phy: number;
+}
+
+/** GK-specific attributes — DIV/HAN/KIC/REF/SPD/POS (Rating Engine v3 EA addendum). */
+export interface GKAttributes {
+  div: number;
+  han: number;
+  kic: number;
+  ref: number;
+  spd: number;
+  pos: number;
 }
 
 export interface RatedPlayerCard {
@@ -41,9 +62,32 @@ export interface RatedPlayerCard {
     clubOvrRaw: number;
     intlOvrRaw: number;
     awardBonus: number;
+    longevityBonus?: number;
+    calibrationNudge?: number;
+    calibrationReason?: string;
     lens: RatingLens;
     blendFactor: number;
+    microBreakdown?: Partial<Record<keyof PlayerAttributes, Record<string, number>>>;
+    squadRatingBreakdown?: {
+      correctionFactor: number;
+      chemistryBonus: number;
+      zoneCoherenceBonus: number;
+    };
+    leagueContext?: {
+      competitionId: string;
+      seasonLabel: string;
+      strengthIndex: number;
+      confidence: number;
+      confidenceLabel: string;
+      pointSwing: number;
+      scalingFactor: number;
+      baselineShift: number;
+      skipped?: boolean;
+      skipReason?: string;
+      lens: "club" | "international";
+    };
   };
+  gkAttributes?: GKAttributes;
 }
 
 export interface DraftPick {
@@ -55,7 +99,23 @@ export interface DraftPick {
   ovr: number;
 }
 
-export type DraftFormat = "snake" | "linear";
+export type DraftFormat = "snake" | "linear" | "auction" | "blind";
+
+export interface AuctionLotState {
+  playerId: string;
+  playerName: string;
+  ovr: number;
+  nominatorIndex: number;
+  highBid: number;
+  highBidder: number | null;
+  status: "open" | "resolved";
+}
+
+export interface BlindRoundState {
+  round: number;
+  submissions: { drafterIndex: number; playerId: string; playerName: string; ovr: number }[];
+  complete: boolean;
+}
 
 export interface DraftRoomState {
   id: string;
@@ -68,4 +128,189 @@ export interface DraftRoomState {
   rosters: string[][];
   poolIds: string[];
   status: "lobby" | "picking" | "complete";
+  /** Auction format — remaining budget per drafter (defaults to squadSize × 100). */
+  budgets?: number[];
+  auctionLot?: AuctionLotState | null;
+  /** Blind format — simultaneous picks per round. */
+  blindRound?: BlindRoundState | null;
 }
+
+/** One slice on the spin wheel — club+era (38-0 style) or nationality+era. */
+export interface WheelSegment {
+  id: string;
+  label: string;
+  sublabel: string;
+  club?: string;
+  nationality?: string;
+  eraLabel?: string;
+}
+
+export interface FormationSlot {
+  id: string;
+  position: Position;
+  playerId?: string;
+}
+
+export type WheelPhase = "ready" | "spinning" | "picking" | "complete";
+
+/** Spin-and-build session (38-0 style randomizer draft). */
+export interface WheelBuildState {
+  mode: DraftModeConfig;
+  segments: WheelSegment[];
+  formation: FormationSlot[];
+  roster: string[];
+  currentSlotIndex: number;
+  spunSegment: WheelSegment | null;
+  phase: WheelPhase;
+  spinsUsed: number;
+  squadSize: number;
+}
+
+/** Squad input for match/season simulation (bible §7.1). */
+export interface SimSquadInput {
+  name?: string;
+  playerIds: string[];
+  players: RatedPlayerCard[];
+  squadOvr: number;
+}
+
+export type MatchEventType = "goal" | "shot_saved" | "chance_missed" | "kickoff" | "fulltime";
+
+export interface MatchEvent {
+  minute: number;
+  type: MatchEventType;
+  team: "home" | "away";
+  playerName?: string;
+  text: string;
+}
+
+export interface MatchResult {
+  homeGoals: number;
+  awayGoals: number;
+  homeName: string;
+  awayName: string;
+  events: MatchEvent[];
+  mvpPlayerId?: string;
+}
+
+export interface FixtureResult {
+  matchday: number;
+  opponent: string;
+  home: boolean;
+  goalsFor: number;
+  goalsAgainst: number;
+  result: "W" | "D" | "L";
+  events: MatchEvent[];
+}
+
+export interface SeasonSimResult {
+  played: number;
+  won: number;
+  drawn: number;
+  lost: number;
+  points: number;
+  goalsFor: number;
+  goalsAgainst: number;
+  goalDifference: number;
+  fixtures: FixtureResult[];
+  mvpPlayerId?: string;
+  mvpPlayerName?: string;
+  isUnbeaten: boolean;
+  isPerfect: boolean;
+  seed: string;
+  /** Pre-sim layman preview shown before the engine runs. */
+  prediction?: SeasonPrediction;
+  /** Post-sim comparison of actual vs predicted. */
+  expectationGrade?: SeasonExpectationGrade;
+}
+
+/** Superficial pre-sim forecast from raw squad OVR (pundit-style). */
+export interface SeasonPrediction {
+  expectedWins: number;
+  expectedDraws: number;
+  expectedLosses: number;
+  expectedPoints: number;
+  expectedGoalsFor: number;
+  expectedGoalsAgainst: number;
+  expectedGoalDifference: number;
+  squadOvr: number;
+  avgXiOvr: number;
+  opponentAvgOvr: number;
+  starPlayerName?: string;
+  starPlayerOvr?: number;
+  outlookTier:
+    | "title_challenger"
+    | "european_push"
+    | "mid_table"
+    | "survival_scrap"
+    | "relegation_battle";
+  headline: string;
+  narrative: string;
+  disclaimer: string;
+}
+
+export type ExpectationGradeCode =
+  | "exceeded"
+  | "overperformed"
+  | "met"
+  | "slightly_above"
+  | "slightly_below"
+  | "underperformed"
+  | "underwhelmed";
+
+/** Post-season verdict vs pre-sim prediction. */
+export interface SeasonExpectationGrade {
+  grade: ExpectationGradeCode;
+  label: string;
+  summary: string;
+  pointsDelta: number;
+  goalDifferenceDelta: number;
+  winsDelta: number;
+  prediction: SeasonPrediction;
+  actualPoints: number;
+  actualRecord: string;
+}
+
+/** Persisted squad payload for season sim route. */
+export interface SavedSquadPayload {
+  mode: DraftModeConfig;
+  playerIds: string[];
+  squadOvr: number;
+  source: "wheel" | "snake" | "linear" | "auction" | "blind" | "mp";
+  formationId?: string;
+  tacticalIdentity?: import("./sim-types.js").TacticalIdentity;
+}
+
+export interface RoundRobinFixture {
+  matchday: number;
+  homeTeamId: string;
+  awayTeamId: string;
+  homeName: string;
+  awayName: string;
+  homeGoals: number;
+  awayGoals: number;
+  events: MatchEvent[];
+}
+
+export interface RoundRobinStanding {
+  teamId: string;
+  name: string;
+  played: number;
+  won: number;
+  drawn: number;
+  lost: number;
+  goalsFor: number;
+  goalsAgainst: number;
+  points: number;
+  goalDifference: number;
+}
+
+export interface RoundRobinResult {
+  fixtures: RoundRobinFixture[];
+  standings: RoundRobinStanding[];
+  championTeamId: string;
+  championName: string;
+  seed: string;
+}
+
+export * from "./sim-types.js";

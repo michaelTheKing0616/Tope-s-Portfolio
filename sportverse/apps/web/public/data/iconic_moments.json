@@ -1,0 +1,56 @@
+[
+  {
+    "playerId": "maradona",
+    "moment": "1986 World Cup quarter-final",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "zidane",
+    "moment": "2002 Champions League final volley",
+    "context": "club",
+    "bonus": 2
+  },
+  {
+    "playerId": "ronaldinho",
+    "moment": "2002 El Clásico at Bernabéu",
+    "context": "club",
+    "bonus": 2
+  },
+  {
+    "playerId": "messi",
+    "moment": "2011 Champions League final",
+    "context": "club",
+    "bonus": 2
+  },
+  {
+    "playerId": "ronaldo",
+    "moment": "2008 Champions League final header",
+    "context": "club",
+    "bonus": 2
+  },
+  {
+    "playerId": "pele",
+    "moment": "1970 World Cup final",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "henry",
+    "moment": "2003-04 Invincibles season",
+    "context": "club",
+    "bonus": 2
+  },
+  {
+    "playerId": "modric",
+    "moment": "2018 World Cup run",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "mbappe",
+    "moment": "2018 World Cup final",
+    "context": "international",
+    "bonus": 2
+  }
+]

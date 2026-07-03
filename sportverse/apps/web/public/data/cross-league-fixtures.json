@@ -1,0 +1,62 @@
+[
+  {
+    "fixtureId": "ucl-2020-r16-1",
+    "clubAId": "premier-league-liverpool",
+    "leagueAId": "premier-league",
+    "clubBId": "la-liga-atletico",
+    "leagueBId": "la-liga",
+    "competitionId": "champions-league",
+    "seasonLabel": "2020",
+    "result": 1
+  },
+  {
+    "fixtureId": "ucl-2020-r16-2",
+    "clubAId": "premier-league-man-city",
+    "leagueAId": "premier-league",
+    "clubBId": "bundesliga-dortmund",
+    "leagueBId": "bundesliga",
+    "competitionId": "champions-league",
+    "seasonLabel": "2020",
+    "result": 1
+  },
+  {
+    "fixtureId": "ucl-2020-r16-3",
+    "clubAId": "serie-a-juventus",
+    "leagueAId": "serie-a",
+    "clubBId": "ligue-1-lyon",
+    "leagueBId": "ligue-1",
+    "competitionId": "champions-league",
+    "seasonLabel": "2020",
+    "result": -1
+  },
+  {
+    "fixtureId": "ucl-2020-qf-1",
+    "clubAId": "premier-league-man-city",
+    "leagueAId": "premier-league",
+    "clubBId": "la-liga-barcelona",
+    "leagueBId": "la-liga",
+    "competitionId": "champions-league",
+    "seasonLabel": "2020",
+    "result": 1
+  },
+  {
+    "fixtureId": "uel-2020-sf-1",
+    "clubAId": "championship-fulham",
+    "leagueAId": "championship",
+    "clubBId": "eredivisie-ajax",
+    "leagueBId": "eredivisie",
+    "competitionId": "europa-league",
+    "seasonLabel": "2020",
+    "result": 0
+  },
+  {
+    "fixtureId": "lib-2020-final",
+    "clubAId": "serie-a-brazil-flamengo",
+    "leagueAId": "serie-a-brazil",
+    "clubBId": "la-liga-atletico",
+    "leagueBId": "la-liga",
+    "competitionId": "copa-libertadores",
+    "seasonLabel": "2020",
+    "result": -1
+  }
+]

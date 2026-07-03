@@ -1,0 +1,212 @@
+[
+  {
+    "id": "sq1",
+    "prompt": "Which country won the 2018 FIFA World Cup?",
+    "options": ["Germany", "France", "Brazil", "Argentina"],
+    "answerIndex": 1,
+    "sport": "football"
+  },
+  {
+    "id": "sq2",
+    "prompt": "Which country won the 2022 FIFA World Cup?",
+    "options": ["France", "Argentina", "Brazil", "Croatia"],
+    "answerIndex": 1,
+    "sport": "football"
+  },
+  {
+    "id": "sq3",
+    "prompt": "How many players start on the pitch per team in football?",
+    "options": ["9", "10", "11", "12"],
+    "answerIndex": 2,
+    "sport": "football"
+  },
+  {
+    "id": "sq4",
+    "prompt": "Which club plays at Anfield?",
+    "options": ["Everton", "Liverpool", "Manchester United", "Leeds United"],
+    "answerIndex": 1,
+    "sport": "football"
+  },
+  {
+    "id": "sq5",
+    "prompt": "Who has won the most men's Ballon d'Or awards?",
+    "options": ["Cristiano Ronaldo", "Lionel Messi", "Michel Platini", "Johan Cruyff"],
+    "answerIndex": 1,
+    "sport": "football"
+  },
+  {
+    "id": "sq6",
+    "prompt": "Which club is nicknamed The Red Devils?",
+    "options": ["Liverpool", "Arsenal", "Manchester United", "Nottingham Forest"],
+    "answerIndex": 2,
+    "sport": "football"
+  },
+  {
+    "id": "sq7",
+    "prompt": "Which country is Erling Haaland from?",
+    "options": ["Sweden", "Norway", "Denmark", "Iceland"],
+    "answerIndex": 1,
+    "sport": "football"
+  },
+  {
+    "id": "sq8",
+    "prompt": "Which club did Kylian Mbappé join in 2024?",
+    "options": ["Paris Saint-Germain", "Manchester City", "Real Madrid", "Liverpool"],
+    "answerIndex": 2,
+    "sport": "football"
+  },
+  {
+    "id": "sq9",
+    "prompt": "Which nation did Didier Drogba represent?",
+    "options": ["Cameroon", "Ghana", "Ivory Coast", "Senegal"],
+    "answerIndex": 2,
+    "sport": "football"
+  },
+  {
+    "id": "sq10",
+    "prompt": "Which club plays at the Santiago Bernabéu?",
+    "options": ["Barcelona", "Atlético Madrid", "Real Madrid", "Sevilla"],
+    "answerIndex": 2,
+    "sport": "football"
+  },
+  {
+    "id": "sq11",
+    "prompt": "Which club plays at Camp Nou?",
+    "options": ["Real Madrid", "Barcelona", "Valencia", "Espanyol"],
+    "answerIndex": 1,
+    "sport": "football"
+  },
+  {
+    "id": "sq12",
+    "prompt": "Which country is Mohamed Salah from?",
+    "options": ["Morocco", "Algeria", "Egypt", "Tunisia"],
+    "answerIndex": 2,
+    "sport": "football"
+  },
+  {
+    "id": "sq13",
+    "prompt": "Which club did Harry Kane join in 2023?",
+    "options": ["Real Madrid", "Bayern Munich", "Barcelona", "Paris Saint-Germain"],
+    "answerIndex": 1,
+    "sport": "football"
+  },
+  {
+    "id": "sq14",
+    "prompt": "How long is a standard football half?",
+    "options": ["30 minutes", "40 minutes", "45 minutes", "50 minutes"],
+    "answerIndex": 2,
+    "sport": "football"
+  },
+  {
+    "id": "sq15",
+    "prompt": "Which country won AFCON in 2024?",
+    "options": ["Nigeria", "Senegal", "Ivory Coast", "Egypt"],
+    "answerIndex": 2,
+    "sport": "football"
+  },
+  {
+    "id": "sq16",
+    "prompt": "Which club is nicknamed The Blues in London?",
+    "options": ["Arsenal", "Chelsea", "Tottenham Hotspur", "West Ham United"],
+    "answerIndex": 1,
+    "sport": "football"
+  },
+  {
+    "id": "sq17",
+    "prompt": "Which player won the Ballon d'Or in 2024?",
+    "options": ["Erling Haaland", "Kylian Mbappé", "Rodri", "Vinícius Júnior"],
+    "answerIndex": 2,
+    "sport": "football"
+  },
+  {
+    "id": "sq18",
+    "prompt": "Which nation did George Weah represent?",
+    "options": ["Ghana", "Nigeria", "Liberia", "Cameroon"],
+    "answerIndex": 2,
+    "sport": "football"
+  },
+  {
+    "id": "sq19",
+    "prompt": "Which club did Jude Bellingham join in 2023?",
+    "options": ["Manchester City", "Real Madrid", "Barcelona", "Liverpool"],
+    "answerIndex": 1,
+    "sport": "football"
+  },
+  {
+    "id": "sq20",
+    "prompt": "What is the penalty spot distance from the goal line?",
+    "options": ["9 metres", "10 metres", "11 metres", "12 metres"],
+    "answerIndex": 2,
+    "sport": "football"
+  },
+  {
+    "id": "sq21",
+    "prompt": "Which country is Victor Osimhen from?",
+    "options": ["Ghana", "Nigeria", "Cameroon", "South Africa"],
+    "answerIndex": 1,
+    "sport": "football"
+  },
+  {
+    "id": "sq22",
+    "prompt": "Which club is based at Old Trafford?",
+    "options": ["Manchester City", "Manchester United", "Liverpool", "Everton"],
+    "answerIndex": 1,
+    "sport": "football"
+  },
+  {
+    "id": "sq23",
+    "prompt": "Which league does Bayern Munich play in?",
+    "options": ["Premier League", "La Liga", "Bundesliga", "Serie A"],
+    "answerIndex": 2,
+    "sport": "football"
+  },
+  {
+    "id": "sq24",
+    "prompt": "Which country did Diego Maradona represent?",
+    "options": ["Brazil", "Uruguay", "Argentina", "Chile"],
+    "answerIndex": 2,
+    "sport": "football"
+  },
+  {
+    "id": "sq25",
+    "prompt": "Which club did Cristiano Ronaldo join in Saudi Arabia?",
+    "options": ["Al Hilal", "Al Nassr", "Al Ittihad", "Al Ahli"],
+    "answerIndex": 1,
+    "sport": "football"
+  },
+  {
+    "id": "sq26",
+    "prompt": "Which stadium do AC Milan and Inter Milan share?",
+    "options": ["Allianz Stadium", "San Siro", "Stadio Olimpico", "Maracanã"],
+    "answerIndex": 1,
+    "sport": "football"
+  },
+  {
+    "id": "sq27",
+    "prompt": "Which country is Sadio Mané from?",
+    "options": ["Senegal", "Mali", "Guinea", "Ivory Coast"],
+    "answerIndex": 0,
+    "sport": "football"
+  },
+  {
+    "id": "sq28",
+    "prompt": "Which club does Bukayo Saka play for?",
+    "options": ["Chelsea", "Tottenham Hotspur", "Arsenal", "West Ham United"],
+    "answerIndex": 2,
+    "sport": "football"
+  },
+  {
+    "id": "sq29",
+    "prompt": "Which nation won the 2010 FIFA World Cup?",
+    "options": ["Netherlands", "Germany", "Spain", "Brazil"],
+    "answerIndex": 2,
+    "sport": "football"
+  },
+  {
+    "id": "sq30",
+    "prompt": "Which club did Lionel Messi join in MLS?",
+    "options": ["LA Galaxy", "Inter Miami", "Atlanta United", "New York City FC"],
+    "answerIndex": 1,
+    "sport": "football"
+  }
+]

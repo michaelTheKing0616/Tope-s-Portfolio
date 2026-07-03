@@ -1,0 +1,18 @@
+{
+  "name": "@sportverse/match-sim",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@sportverse/draftballer-types": "*",
+    "@sportverse/sports-db": "*"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  }
+}

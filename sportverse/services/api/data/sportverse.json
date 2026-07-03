@@ -1,0 +1,42 @@
+{
+  "players": {
+    "guest_7dbf9ac8": {
+      "id": "guest_7dbf9ac8",
+      "displayName": "Guest",
+      "isGuest": true,
+      "xp": 1681,
+      "level": 6,
+      "coins": 310,
+      "streak": 1,
+      "achievements": [
+        "quiz_master",
+        "shot_stopper",
+        "first_game"
+      ],
+      "stats": {
+        "gamesPlayed": 40,
+        "quizWins": 5,
+        "footballIqCorrect": 0,
+        "goalkeeperSaves": 3,
+        "transfersCompleted": 0,
+        "clubUpgrades": 0,
+        "decathlonBest": 0
+      },
+      "season": {
+        "tier": "amateur",
+        "division": 4,
+        "points": 26,
+        "wins": 17,
+        "losses": 8
+      },
+      "sportXp": {
+        "football": 0,
+        "basketball": 0,
+        "multi": 0
+      },
+      "collection": [],
+      "completedChallenges": [],
+      "lastPlayedDate": "2026-06-30"
+    }
+  }
+}

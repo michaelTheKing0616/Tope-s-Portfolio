@@ -1,6 +1,5 @@
 /**
- * Verified quiz bank — every entry is a real player/club/fact.
- * Quiz modes MUST use this module only (no procedural name generation).
+ * Verified quiz bank — curated seed entries plus procedural generation from extended data.
  */
 import type { CareerPathEntry, Club, Player, SpeedQuestion, TrueFalseStatement } from "./types.js";
 import playersData from "../data/players.json" with { type: "json" };

@@ -1,0 +1,18 @@
+[
+  {
+    "playerId": "curated_pele",
+    "nudge": 2,
+    "reason": "Archive under-counts pre-1960 league minutes; historian consensus peak forward.",
+    "evidenceRef": "FIFA Century Player / contemporary press consensus",
+    "reviewerId": "panel_001",
+    "at": "2026-01-15T00:00:00.000Z"
+  },
+  {
+    "playerId": "curated_maradona",
+    "nudge": 1,
+    "reason": "Partial club stat coverage in 1980s; peak World Cup performance underrepresented.",
+    "evidenceRef": "1986 WC final performance record",
+    "reviewerId": "panel_001",
+    "at": "2026-01-15T00:00:00.000Z"
+  }
+]

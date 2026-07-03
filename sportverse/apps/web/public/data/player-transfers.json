@@ -1,0 +1,74 @@
+[
+  {
+    "playerId": "example-a",
+    "fromLeagueId": "eredivisie",
+    "toLeagueId": "premier-league",
+    "transferSeason": "2020",
+    "preMoveZ": 1.8,
+    "postMoveZ": 0.4,
+    "ageAtTransfer": 24,
+    "minutesPre": 2800,
+    "minutesPost": 2600,
+    "roleChangeFlag": false
+  },
+  {
+    "playerId": "example-b",
+    "fromLeagueId": "ligue-1",
+    "toLeagueId": "premier-league",
+    "transferSeason": "2020",
+    "preMoveZ": 1.5,
+    "postMoveZ": 0.2,
+    "ageAtTransfer": 26,
+    "minutesPre": 2500,
+    "minutesPost": 2700,
+    "roleChangeFlag": false
+  },
+  {
+    "playerId": "example-c",
+    "fromLeagueId": "championship",
+    "toLeagueId": "premier-league",
+    "transferSeason": "2020",
+    "preMoveZ": 2.1,
+    "postMoveZ": -0.3,
+    "ageAtTransfer": 23,
+    "minutesPre": 3000,
+    "minutesPost": 1800,
+    "roleChangeFlag": true
+  },
+  {
+    "playerId": "example-d",
+    "fromLeagueId": "serie-a-brazil",
+    "toLeagueId": "ligue-1",
+    "transferSeason": "2020",
+    "preMoveZ": 1.6,
+    "postMoveZ": 0.9,
+    "ageAtTransfer": 22,
+    "minutesPre": 2900,
+    "minutesPost": 2400,
+    "roleChangeFlag": false
+  },
+  {
+    "playerId": "example-e",
+    "fromLeagueId": "bundesliga",
+    "toLeagueId": "la-liga",
+    "transferSeason": "2020",
+    "preMoveZ": 0.9,
+    "postMoveZ": 0.7,
+    "ageAtTransfer": 28,
+    "minutesPre": 2200,
+    "minutesPost": 2100,
+    "roleChangeFlag": false
+  },
+  {
+    "playerId": "example-f",
+    "fromLeagueId": "premier-league",
+    "toLeagueId": "serie-a",
+    "transferSeason": "2020",
+    "preMoveZ": 0.5,
+    "postMoveZ": 0.8,
+    "ageAtTransfer": 30,
+    "minutesPre": 2000,
+    "minutesPost": 2300,
+    "roleChangeFlag": false
+  }
+]

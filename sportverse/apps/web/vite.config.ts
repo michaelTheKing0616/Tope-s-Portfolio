@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 import { resolve } from "node:path";
+import { cpSync, mkdirSync, readdirSync } from "node:fs";
 
 const root = resolve(__dirname, "../..");
 const base = process.env.VITE_BASE_PATH ?? "/";
@@ -12,6 +13,17 @@ const workspacePackages = [
   "@sportverse/sim-core",
   "@sportverse/platform",
 ] as const;
+
+function copySportsDbData() {
+  const src = resolve(root, "packages/sports-db/data");
+  const dest = resolve(__dirname, "public/data");
+  mkdirSync(dest, { recursive: true });
+  for (const file of readdirSync(src)) {
+    if (file.endsWith(".json")) {
+      cpSync(resolve(src, file), resolve(dest, file));
+    }
+  }
+}
 
 export default defineConfig({
   base,
@@ -25,6 +37,7 @@ export default defineConfig({
       "@sportverse/draftballer-types": resolve(root, "packages/draftballer-types/src/index.ts"),
       "@sportverse/rating-engine": resolve(root, "packages/rating-engine/src/index.ts"),
       "@sportverse/draftballer-core": resolve(root, "packages/draftballer-core/src/index.ts"),
+      "@sportverse/match-sim": resolve(root, "packages/match-sim/src/index.ts"),
     },
   },
   optimizeDeps: {
@@ -36,6 +49,15 @@ export default defineConfig({
     fs: { allow: [root] },
   },
   plugins: [
+    {
+      name: "copy-sports-db-data",
+      buildStart() {
+        copySportsDbData();
+      },
+      configureServer() {
+        copySportsDbData();
+      },
+    },
     VitePWA({
       registerType: "autoUpdate",
       manifest: {

@@ -9,8 +9,89 @@ import {
   getCuratedTrueFalse,
   validateCuratedBank,
 } from "./curated.js";
+import {
+  getProceduralCareerPaths,
+  getProceduralQuizClubs,
+  getProceduralQuizPlayers,
+  getProceduralSpeedQuestions,
+  getProceduralTrueFalse,
+  proceduralQuizCounts,
+  resetProceduralQuizCache,
+} from "./procedural-quiz.js";
+import {
+  extendedPoolCounts,
+  ensureExtendedDataLoaded,
+  getClubsExtended,
+  getCompetitions,
+  getExtendedPlayer,
+  getExtendedPlayers,
+  getEraBaselines,
+  getSeasonStats,
+  getPlayerAliases,
+  getAwards,
+  getIconicMoments,
+  isExtendedDataLoaded,
+  searchPlayers,
+  __setExtendedDataForTests,
+} from "./extended.js";
+import {
+  getAllConfederationStrengthIndex,
+  getAllLeagueStrengthIndex,
+  getConfederationStrengthIndex,
+  getCrossLeagueFixtures,
+  getLeagueStrengthIndex,
+  getPlayerTransfers,
+  lsiConfidenceLabel,
+  setLeagueStrengthData,
+} from "./league-strength-data.js";
+import { resolveCompetitionToLeague, seedLeagueResolver } from "./league-resolver.js";
 
 export type { CareerPathEntry, Club, Player, SpeedQuestion, TrueFalseStatement };
+export type {
+  PlayerSeasonStat,
+  Competition,
+  EraBaseline,
+  ExtendedPlayer,
+  PlayerAlias,
+  PlayerAward,
+  IconicMoment,
+  LeagueStrengthIndexEntry,
+  CrossLeagueFixture,
+  PlayerTransfer,
+  ConfederationStrengthIndexEntry,
+} from "./extended-types.js";
+export {
+  getEngineCalibration,
+  setEngineCalibration,
+  loadEngineCalibrationFromFetch,
+  EXPERT_PRIOR_CALIBRATION,
+  type EngineCalibrationPayload,
+} from "./engine-calibration.js";
+export {
+  getSeasonStats,
+  getCompetitions,
+  getClubsExtended,
+  getEraBaselines,
+  getPlayerAliases,
+  getAwards,
+  getIconicMoments,
+  searchPlayers,
+  getExtendedPlayers,
+  getExtendedPlayer,
+  ensureExtendedDataLoaded,
+  isExtendedDataLoaded,
+  __setExtendedDataForTests,
+  getLeagueStrengthIndex,
+  getConfederationStrengthIndex,
+  getCrossLeagueFixtures,
+  getPlayerTransfers,
+  getAllLeagueStrengthIndex,
+  getAllConfederationStrengthIndex,
+  setLeagueStrengthData,
+  lsiConfidenceLabel,
+  resolveCompetitionToLeague,
+  seedLeagueResolver,
+};
 
 const validationErrors = validateCuratedBank();
 if (validationErrors.length > 0) {
@@ -20,19 +101,31 @@ if (validationErrors.length > 0) {
   }
 }
 
-const counts = curatedPoolCounts();
+const curatedCounts = curatedPoolCounts();
+const extCounts = isExtendedDataLoaded() ? extendedPoolCounts() : { playersExtended: 0, seasonStatRows: 0, competitions: 0, clubsExtended: 0, eraBaselines: 0 };
 
-/** Verified real players only — no procedural name generation. */
+/** Quiz modes: full extended database with procedurally generated clues (infinite play). */
 export function getPlayers(): Player[] {
-  return getCuratedPlayers();
+  if (!isExtendedDataLoaded()) return getCuratedPlayers();
+  return getProceduralQuizPlayers();
+}
+
+/** DRAFTBALLER / draft pool: full ETL player set. */
+export function getDraftPlayers() {
+  return getExtendedPlayers();
 }
 
 export function getPlayer(id: string): Player | undefined {
-  return getPlayers().find((p) => p.id === id);
+  return getExtendedPlayer(id) ?? getCuratedPlayers().find((p) => p.id === id);
 }
 
 export function getClubs(): Club[] {
-  return getCuratedClubs();
+  const byId = new Map<string, Club>();
+  if (isExtendedDataLoaded()) {
+    for (const c of getProceduralQuizClubs()) byId.set(c.id, c);
+  }
+  for (const c of getCuratedClubs()) byId.set(c.id, c);
+  return [...byId.values()];
 }
 
 export function getClub(id: string): Club | undefined {
@@ -40,15 +133,18 @@ export function getClub(id: string): Club | undefined {
 }
 
 export function getTrueFalse(): TrueFalseStatement[] {
-  return getCuratedTrueFalse();
+  if (!isExtendedDataLoaded()) return getCuratedTrueFalse();
+  return getProceduralTrueFalse();
 }
 
 export function getSpeedQuestions(): SpeedQuestion[] {
-  return getCuratedSpeedQuestions();
+  if (!isExtendedDataLoaded()) return getCuratedSpeedQuestions();
+  return getProceduralSpeedQuestions();
 }
 
 export function getCareerPaths(): CareerPathEntry[] {
-  return getCuratedCareerPaths();
+  if (!isExtendedDataLoaded()) return getCuratedCareerPaths();
+  return getProceduralCareerPaths();
 }
 
 export function getPlayerByIndex(index: number): Player {
@@ -76,13 +172,21 @@ export function getCareerPathByIndex(index: number): CareerPathEntry {
   return list[index % list.length]!;
 }
 
-/** Size of the verified player pool (quiz modes cycle through curated data). */
 export function poolCount(): number {
-  return counts.players;
+  return getPlayers().length;
 }
 
 export function poolCounts() {
-  return { ...counts, footballIQ: SIM_POOL_SIZE, goalkeeper: SIM_POOL_SIZE };
+  const proc = isExtendedDataLoaded() ? proceduralQuizCounts() : curatedPoolCounts();
+  return {
+    ...curatedCounts,
+    ...extCounts,
+    ...proc,
+    players: getPlayers().length,
+    draftPlayers: extCounts.playersExtended,
+    footballIQ: SIM_POOL_SIZE,
+    goalkeeper: SIM_POOL_SIZE,
+  };
 }
 
 let simPools: ReturnType<typeof getSimPools> | null = null;
@@ -92,7 +196,6 @@ function simPoolsReady() {
   return simPools;
 }
 
-/** Tactical scenarios — procedural game mechanics, not factual trivia. */
 export function getFootballIQPool() {
   return simPoolsReady().footballIQ;
 }
@@ -102,7 +205,6 @@ export function getFootballIQScenario(index: number) {
   return pool[index % pool.length]!;
 }
 
-/** Reaction game levels — procedural, not factual trivia. */
 export function getGoalkeeperPool() {
   return simPoolsReady().goalkeeper;
 }

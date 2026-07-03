@@ -3,6 +3,7 @@ import {
   getPlayers,
   getTrueFalse,
   getCareerPaths,
+  getSpeedQuestions,
   poolCount,
   validateCuratedBank,
   curatedPoolCounts,
@@ -22,13 +23,13 @@ describe("curated sports-db", () => {
     expect(validateCuratedBank()).toEqual([]);
   });
 
-  it("uses only real verified players (no procedural combos)", () => {
+  it("draws from the full extended player archive", () => {
     const players = getPlayers();
-    expect(players.length).toBeGreaterThanOrEqual(60);
-    const names = new Set(players.map((p) => p.name));
-    expect(names.size).toBe(players.length);
-    expect(players.some((p) => p.name === "Gerard Mbappe")).toBe(false);
-    expect(players.some((p) => p.name === "Kylian Mbappé")).toBe(true);
+    expect(players.length).toBeGreaterThan(100);
+    const ids = new Set(players.map((p) => p.id));
+    expect(ids.size).toBe(players.length);
+    expect(players.every((p) => p.clues.length >= 3)).toBe(true);
+    expect(players.some((p) => p.name === "Kylian Mbappé" || p.name.includes("Mbapp"))).toBe(true);
   });
 
   it("career paths match player club histories", () => {
@@ -39,10 +40,12 @@ describe("curated sports-db", () => {
 });
 
 describe("quiz-engine", () => {
-  it("exposes verified content pool size", () => {
+  it("exposes full-database content pool size", () => {
     expect(contentPoolSize()).toBe(poolCount());
-    expect(contentPoolSize()).toBeGreaterThanOrEqual(60);
-    expect(curatedPoolCounts().trueFalse).toBeGreaterThanOrEqual(20);
+    expect(contentPoolSize()).toBeGreaterThan(100);
+    expect(getTrueFalse().length).toBeGreaterThan(100);
+    expect(getSpeedQuestions().length).toBeGreaterThan(100);
+    expect(getCareerPaths().length).toBeGreaterThan(40);
   });
 
   it("scores Who Am I by clue index", () => {

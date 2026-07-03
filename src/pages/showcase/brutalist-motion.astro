@@ -1,0 +1,44 @@
+---
+import Base from "../../layouts/Base.astro";
+---
+
+<Base title="Brutalist Motion — Showcase" description="Raw grid, oversized type, CSS motion demo.">
+  <div class="min-h-screen bg-[#f4f0e8] text-black">
+    <nav class="flex items-center justify-between border-b-4 border-black px-6 py-4">
+      <span class="text-xl font-black uppercase tracking-tight">Brutalist<br/>Motion</span>
+      <a href="/showcase" class="text-sm font-bold underline underline-offset-4">Back</a>
+    </nav>
+    <main class="mx-auto max-w-6xl px-6 py-16">
+      <h1 class="text-[clamp(3rem,12vw,9rem)] font-black uppercase leading-[0.85] tracking-tighter">
+        <span class="block hover:translate-x-2 transition-transform duration-300">Design</span>
+        <span class="block text-stone-500 hover:-translate-x-2 transition-transform duration-300">Without</span>
+        <span class="block hover:translate-x-4 transition-transform duration-300">Apology</span>
+      </h1>
+      <div class="mt-16 grid gap-0 border-4 border-black md:grid-cols-3">
+        <div class="border-b-4 border-black p-8 md:border-b-0 md:border-r-4">
+          <p class="font-mono text-xs">01</p>
+          <p class="mt-2 text-2xl font-bold">Raw grid</p>
+        </div>
+        <div class="border-b-4 border-black p-8 md:border-b-0 md:border-r-4">
+          <p class="font-mono text-xs">02</p>
+          <p class="mt-2 text-2xl font-bold">Heavy type</p>
+        </div>
+        <div class="p-8">
+          <p class="font-mono text-xs">03</p>
+          <p class="mt-2 text-2xl font-bold">CSS motion</p>
+        </div>
+      </div>
+      <div class="mt-12 overflow-hidden border-4 border-black bg-black py-3 text-white">
+        <p class="animate-[marquee_18s_linear_infinite] whitespace-nowrap font-mono text-sm uppercase tracking-[0.4em]">
+          Post-modern · Editorial · Unapologetic · Post-modern · Editorial · Unapologetic ·
+        </p>
+      </div>
+    </main>
+  </div>
+  <style>
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+  </style>
+</Base>

@@ -1,6 +1,7 @@
 import type { DraftModeConfig, RatedPlayerCard } from "@sportverse/draftballer-types";
-import { computePool, type RatingInput } from "@sportverse/rating-engine";
-import { getPlayers } from "@sportverse/sports-db";
+import { computePoolCached, type RatingInput } from "@sportverse/rating-engine";
+import { getDraftPlayers, getSeasonStats } from "@sportverse/sports-db";
+import { buildFilteredPoolInputs, type EligibilityFilter } from "./mode-filters.js";
 
 const LEGEND_OVERRIDES: Record<string, number> = {
   messi: 93,
@@ -23,33 +24,16 @@ const LEGEND_OVERRIDES: Record<string, number> = {
   bellingham: 88,
 };
 
-function toRatingInput(p: ReturnType<typeof getPlayers>[number]): RatingInput {
-  return {
-    id: p.id,
-    name: p.name,
-    nationality: p.nationality,
-    position: p.position,
-    clubs: p.clubs,
-    manualOvr: LEGEND_OVERRIDES[p.id],
-  };
+function enrichInput(p: RatingInput): RatingInput {
+  return { ...p, manualOvr: LEGEND_OVERRIDES[p.id] };
 }
 
-export function buildDraftPool(mode: DraftModeConfig): RatedPlayerCard[] {
-  let players = getPlayers().map(toRatingInput);
-
-  if (mode.competitionScope === "single_league" && mode.leagueId === "premier-league") {
-    const plClubs = new Set([
-      "Manchester United",
-      "Manchester City",
-      "Liverpool",
-      "Chelsea",
-      "Arsenal",
-      "Tottenham Hotspur",
-    ]);
-    players = players.filter((p) => p.clubs?.some((c) => plClubs.has(c)));
-  }
-
-  return computePool(players, mode);
+export function buildDraftPool(
+  mode: DraftModeConfig,
+  eligibility: EligibilityFilter = {},
+): RatedPlayerCard[] {
+  const inputs = buildFilteredPoolInputs(mode, eligibility).map(enrichInput);
+  return computePoolCached(inputs, mode);
 }
 
 export function poolSummary(cards: RatedPlayerCard[]) {
@@ -61,4 +45,16 @@ export function poolSummary(cards: RatedPlayerCard[]) {
     byPosition: byPos,
     avgOvr: cards.length ? Math.round(cards.reduce((s, c) => s + c.ovr, 0) / cards.length) : 0,
   };
+}
+
+/** Histogram for architect preview API. */
+export function poolHistogram(cards: RatedPlayerCard[]) {
+  const buckets = { bronze: 0, silver: 0, gold: 0, gold_plus: 0, prismatic: 0 };
+  for (const c of cards) buckets[c.tier] = (buckets[c.tier] ?? 0) + 1;
+  return buckets;
+}
+
+export function previewPool(mode: DraftModeConfig, eligibility: EligibilityFilter = {}) {
+  const cards = buildDraftPool(mode, eligibility);
+  return { ...poolSummary(cards), histogram: poolHistogram(cards) };
 }

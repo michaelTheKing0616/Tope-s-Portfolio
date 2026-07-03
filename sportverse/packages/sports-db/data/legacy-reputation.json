@@ -1,0 +1,7 @@
+[
+  { "playerId": "pele", "tag": "all_time_icon", "bonus": 4, "era": "pre-1980" },
+  { "playerId": "maradona", "tag": "all_time_icon", "bonus": 4, "era": "pre-1980" },
+  { "playerId": "cruyff", "tag": "tactical_revolution", "bonus": 3, "era": "pre-1980" },
+  { "playerId": "eusebio", "tag": "european_pioneer", "bonus": 3, "era": "pre-1980" },
+  { "playerId": "best", "tag": "cultural_icon", "bonus": 2, "era": "pre-1980" }
+]

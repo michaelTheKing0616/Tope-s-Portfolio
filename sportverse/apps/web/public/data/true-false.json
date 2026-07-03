@@ -1,0 +1,177 @@
+[
+  {
+    "id": "tf1",
+    "text": "Pelé scored over 1,000 career goals in official FIFA-recognised matches.",
+    "answer": false,
+    "explanation": "Pelé's 1,000+ figure includes friendlies and unofficial matches. FIFA-recognised career goals are lower.",
+    "sport": "football"
+  },
+  {
+    "id": "tf2",
+    "text": "A direct free kick can result in an own goal in football.",
+    "answer": true,
+    "explanation": "If a direct free kick enters the goal without touching another outfield player, it counts as an own goal against the defending team.",
+    "sport": "football"
+  },
+  {
+    "id": "tf3",
+    "text": "The offside rule requires a player to be involved in active play, not merely positioned beyond the last defender.",
+    "answer": true,
+    "explanation": "Modern interpretations judge offside on involvement in active play, not position alone.",
+    "sport": "football"
+  },
+  {
+    "id": "tf4",
+    "text": "You can be offside from a throw-in in football.",
+    "answer": false,
+    "explanation": "There is no offside offence directly from a throw-in.",
+    "sport": "football"
+  },
+  {
+    "id": "tf5",
+    "text": "A goalkeeper can hold the ball for a maximum of six seconds when it is in their hands.",
+    "answer": true,
+    "explanation": "Law 12 limits how long a goalkeeper may hold the ball to six seconds.",
+    "sport": "football"
+  },
+  {
+    "id": "tf6",
+    "text": "A penalty shootout begins with five kicks per team.",
+    "answer": true,
+    "explanation": "Teams take five kicks each initially, then sudden death if still tied.",
+    "sport": "football"
+  },
+  {
+    "id": "tf7",
+    "text": "Lionel Messi has won the FIFA World Cup.",
+    "answer": true,
+    "explanation": "Messi won the World Cup with Argentina in 2022.",
+    "sport": "football"
+  },
+  {
+    "id": "tf8",
+    "text": "Cristiano Ronaldo has won the FIFA World Cup.",
+    "answer": false,
+    "explanation": "Ronaldo has not won a World Cup with Portugal.",
+    "sport": "football"
+  },
+  {
+    "id": "tf9",
+    "text": "Real Madrid have won more UEFA Champions League titles than any other club.",
+    "answer": true,
+    "explanation": "Real Madrid hold the record for European Cup/Champions League titles.",
+    "sport": "football"
+  },
+  {
+    "id": "tf10",
+    "text": "The Premier League was founded in 1992.",
+    "answer": true,
+    "explanation": "The Premier League replaced the old First Division as the top flight in England in 1992.",
+    "sport": "football"
+  },
+  {
+    "id": "tf11",
+    "text": "A standard football match lasts 90 minutes of playing time in regulation.",
+    "answer": true,
+    "explanation": "Regulation time is two 45-minute halves unless otherwise stated.",
+    "sport": "football"
+  },
+  {
+    "id": "tf12",
+    "text": "Substituted players may return to the pitch in a standard football match.",
+    "answer": false,
+    "explanation": "In standard play, a substituted player cannot return except under specific competition rules such as concussion substitutions.",
+    "sport": "football"
+  },
+  {
+    "id": "tf13",
+    "text": "Argentina won the 2022 FIFA World Cup.",
+    "answer": true,
+    "explanation": "Argentina beat France on penalties in the 2022 final in Qatar.",
+    "sport": "football"
+  },
+  {
+    "id": "tf14",
+    "text": "France won the 2018 FIFA World Cup.",
+    "answer": true,
+    "explanation": "France defeated Croatia 4-2 in the 2018 final in Russia.",
+    "sport": "football"
+  },
+  {
+    "id": "tf15",
+    "text": "Erling Haaland plays for Manchester City.",
+    "answer": true,
+    "explanation": "Haaland joined Manchester City from Borussia Dortmund in 2022.",
+    "sport": "football"
+  },
+  {
+    "id": "tf16",
+    "text": "Harry Kane still plays for Tottenham Hotspur.",
+    "answer": false,
+    "explanation": "Kane joined Bayern Munich in 2023.",
+    "sport": "football"
+  },
+  {
+    "id": "tf17",
+    "text": "Kylian Mbappé joined Real Madrid in 2024.",
+    "answer": true,
+    "explanation": "Mbappé left Paris Saint-Germain and signed for Real Madrid in 2024.",
+    "sport": "football"
+  },
+  {
+    "id": "tf18",
+    "text": "AC Milan and Inter Milan share the same stadium.",
+    "answer": true,
+    "explanation": "Both clubs play home matches at the San Siro (Giuseppe Meazza).",
+    "sport": "football"
+  },
+  {
+    "id": "tf19",
+    "text": "Liverpool's home stadium is Anfield.",
+    "answer": true,
+    "explanation": "Anfield has been Liverpool's home since their formation.",
+    "sport": "football"
+  },
+  {
+    "id": "tf20",
+    "text": "The Ballon d'Or is awarded to the best male footballer in a calendar year.",
+    "answer": true,
+    "explanation": "France Football's Ballon d'Or honours the outstanding male footballer of the year.",
+    "sport": "football"
+  },
+  {
+    "id": "tf21",
+    "text": "Nigeria have won the FIFA World Cup.",
+    "answer": false,
+    "explanation": "Nigeria have never won the men's World Cup.",
+    "sport": "football"
+  },
+  {
+    "id": "tf22",
+    "text": "Nigeria won the men's Olympic football gold medal in 1996.",
+    "answer": true,
+    "explanation": "Nigeria's Dream Team won gold in Atlanta in 1996.",
+    "sport": "football"
+  },
+  {
+    "id": "tf23",
+    "text": "The offside rule applies in your own half of the pitch.",
+    "answer": false,
+    "explanation": "A player cannot be offside in their own half.",
+    "sport": "football"
+  },
+  {
+    "id": "tf24",
+    "text": "A throw-in cannot directly result in a goal.",
+    "answer": true,
+    "explanation": "A goal cannot be scored directly from a throw-in.",
+    "sport": "football"
+  },
+  {
+    "id": "tf25",
+    "text": "VAR reviews every offside decision automatically in football.",
+    "answer": false,
+    "explanation": "VAR intervenes for clear and obvious errors or serious missed incidents in defined situations.",
+    "sport": "football"
+  }
+]

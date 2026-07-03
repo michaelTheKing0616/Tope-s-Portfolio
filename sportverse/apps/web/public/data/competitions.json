@@ -1,0 +1,9866 @@
+[
+  {
+    "id": "premier-league",
+    "name": "Premier League",
+    "type": "domestic_league",
+    "country": "England"
+  },
+  {
+    "id": "la-liga",
+    "name": "La Liga",
+    "type": "domestic_league",
+    "country": "Spain"
+  },
+  {
+    "id": "serie-a",
+    "name": "Serie A",
+    "type": "domestic_league",
+    "country": "Italy"
+  },
+  {
+    "id": "bundesliga",
+    "name": "Bundesliga",
+    "type": "domestic_league",
+    "country": "Germany"
+  },
+  {
+    "id": "ligue-1",
+    "name": "Ligue 1",
+    "type": "domestic_league",
+    "country": "France"
+  },
+  {
+    "id": "world-cup",
+    "name": "FIFA World Cup",
+    "type": "international_tournament",
+    "country": "International"
+  },
+  {
+    "id": "serie-a-brazil",
+    "name": "Brasileirão Série A",
+    "type": "domestic_league",
+    "country": "Brazil"
+  },
+  {
+    "id": "tm-itj7",
+    "name": "Under 18 - A",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "championship",
+    "name": "EFL Championship",
+    "type": "domestic_league",
+    "country": "England"
+  },
+  {
+    "id": "tm-l3",
+    "name": "3. Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-se1",
+    "name": "Allsvenskan",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ij2b",
+    "name": "Primavera 2 - B",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mex2",
+    "name": "Prim. A Clausura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-it3c",
+    "name": "Serie C - C",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-itj5",
+    "name": "Under 17 - B",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-l2",
+    "name": "2. Bundesliga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mnp3",
+    "name": "MLS Next Pro",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-a4s",
+    "name": "Salzburger Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-jap1",
+    "name": "J1 League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-no1",
+    "name": "Tippeligaen",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pt3a",
+    "name": "Liga 3",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bcp1",
+    "name": "Campeonato Paulista",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pt23",
+    "name": "Liga Revelação",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-usl",
+    "name": "USL",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-usc3",
+    "name": "USL1",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ar3f",
+    "name": "Federal A - Fase Campeonato",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-argc",
+    "name": "Clausura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gb3",
+    "name": "League One",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-kr2",
+    "name": "Prva NL",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-po2",
+    "name": "Liga Portugal 2",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-arg2",
+    "name": "Primera Nacional",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-vfva",
+    "name": "2de kl. am. VV A",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rlsw",
+    "name": "Regionalliga Südwest",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-it2",
+    "name": "Serie B",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gb4",
+    "name": "League Two",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-se2",
+    "name": "Superettan",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "super-lig",
+    "name": "Süper Lig",
+    "type": "domestic_league",
+    "country": "Turkey"
+  },
+  {
+    "id": "tm-dk2",
+    "name": "1.Division",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rln3",
+    "name": "Regionalliga Nord",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-se3n",
+    "name": "Ettan Norra",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-dk1",
+    "name": "SAS Ligaen",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "mls",
+    "name": "Major League Soccer",
+    "type": "domestic_league",
+    "country": "USA"
+  },
+  {
+    "id": "tm-no2",
+    "name": "OBOS-ligaen",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brqr",
+    "name": "Campeonato Gaúcho - Releg.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ukr1",
+    "name": "Premier Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-es2",
+    "name": "2ª División",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-qsl",
+    "name": "Stars League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c3no",
+    "name": "National 3 - Grp. F",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "primeira-liga",
+    "name": "Primeira Liga",
+    "type": "domestic_league",
+    "country": "Portugal"
+  },
+  {
+    "id": "tm-c3na",
+    "name": "National 3 - Grp. B",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c3hf",
+    "name": "N3 - HtsdeFrance",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cn2b",
+    "name": "National 2 - Grp. B",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ru1",
+    "name": "Premier Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-fr2",
+    "name": "Ligue 2",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-fr3",
+    "name": "Championnat National",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cnat",
+    "name": "National League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-e3g1",
+    "name": "Primera Federación - Gr. I",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ij1",
+    "name": "Primavera 1",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gr1",
+    "name": "Super League 1",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "pro-league",
+    "name": "Belgian Pro League",
+    "type": "domestic_league",
+    "country": "Belgium"
+  },
+  {
+    "id": "eredivisie",
+    "name": "Eredivisie",
+    "type": "domestic_league",
+    "country": "Netherlands"
+  },
+  {
+    "id": "tm-ij2a",
+    "name": "Primavera 2 - A",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-jap2",
+    "name": "J2 League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rlb3",
+    "name": "Regionalliga Bayern",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-it3b",
+    "name": "Serie C-B",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-it4i",
+    "name": "Serie D - I",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-be3v",
+    "name": "1ste Nationale VV",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bra2",
+    "name": "Série B",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-un2",
+    "name": "NB II.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rln4",
+    "name": "Regionalliga Northeast",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ru2",
+    "name": "1.League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-212f",
+    "name": "U21 Div. 2 Fall",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-itj6",
+    "name": "Under 17 - C",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-e4g5",
+    "name": "Segunda Federación - Gr. V",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-e4g3",
+    "name": "Segunda Federación - Gr. III",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-kr1",
+    "name": "1.HNL",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c3br",
+    "name": "National 3 - Grp. E",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nl2",
+    "name": "Keuken Kampioen Divisie",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mexa",
+    "name": "Primera Apertura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-e3g2",
+    "name": "Primera Federación - Gr. II",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-aus1",
+    "name": "A-League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-tr4c",
+    "name": "3.Lig Grup 3",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "scottish-premiership",
+    "name": "Scottish Premiership",
+    "type": "domestic_league",
+    "country": "Scotland"
+  },
+  {
+    "id": "tm-be3a",
+    "name": "1ste Nationale ACFF",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sk2",
+    "name": "II. Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c2",
+    "name": "Challenge League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-itj4",
+    "name": "Under 17 - A",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ung1",
+    "name": "NB I.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cn2c",
+    "name": "National 2 - Grp. C",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gb21",
+    "name": "Premier League 2",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-511",
+    "name": "Topklasse Sunday",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-e4g4",
+    "name": "Segunda Federación - Gr. IV",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-tr2",
+    "name": "1.Lig",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-tr3a",
+    "name": "2.Lig Beyaz",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-tr4b",
+    "name": "3.Lig Grup 2",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-be2",
+    "name": "Challenger Pro League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-olb2",
+    "name": "Bayernliga Süd",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-e4g2",
+    "name": "Segunda Federación - Gr. II",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-a1",
+    "name": "Bundesliga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sc2",
+    "name": "Championship",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c3if",
+    "name": "National 3 - Grp. H",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c3vl",
+    "name": "N3 - Centre",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-chpr",
+    "name": "Promotion League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c3pl",
+    "name": "National 3 - Grp. D",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-chc2",
+    "name": "1. Liga Gr. 2",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-it4d",
+    "name": "Serie D - D",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ts1",
+    "name": "Gambrinus Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ts2",
+    "name": "2. CFL",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-it3a",
+    "name": "Serie C - A",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ar3d",
+    "name": "Primera B Clausura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cn2a",
+    "name": "National 2 - Grp. A",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-tr4d",
+    "name": "3.Lig Grup 4",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ar3r",
+    "name": "Federal A - Fase Reválida",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-slo1",
+    "name": "Niké Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-it4e",
+    "name": "Serie D - E",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-it4f",
+    "name": "Serie D - F",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cpsb",
+    "name": "CP - Série B",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-211f",
+    "name": "U21 Div. 1 Fall",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-tr4a",
+    "name": "3.Lig Grup 1",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-it4c",
+    "name": "Serie D - C",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pl1",
+    "name": "Ekstraklasa",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-grs2",
+    "name": "Super League 2",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rsk2",
+    "name": "K League 2",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rlw3",
+    "name": "Regionalliga West",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brrn",
+    "name": "Campeonato Potiguar",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c3cm",
+    "name": "National 3 - Grp. A",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-csl",
+    "name": "Super League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cz3c",
+    "name": "CFL",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cz3m",
+    "name": "MSFL",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-it4h",
+    "name": "Serie D - H",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-dk3o",
+    "name": "2.Division",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-qu2l",
+    "name": "Qatari Second Division",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-tr3b",
+    "name": "2.Lig Kirmizi",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pl34",
+    "name": "3 Liga Grupa IV",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rsk1",
+    "name": "K League Classic",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ntd",
+    "name": "Betnation Div.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pl2",
+    "name": "Betclic 1 Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-e4g1",
+    "name": "Segunda Federación - Gr. I",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cir4",
+    "name": "2. Liga Inter - Gr. 4",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c1",
+    "name": "Super League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sc3",
+    "name": "League One",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-atrw",
+    "name": "Regionalliga West",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-jap3",
+    "name": "J3 League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-a2",
+    "name": "2. Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-it4a",
+    "name": "Serie D - A",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ukr2",
+    "name": "Persha Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-2dvb",
+    "name": "2. Division B",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-be5b",
+    "name": "3de Nationale VV B",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-no31",
+    "name": "PostNord-ligaen Avd. 1",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-acff",
+    "name": "2de Nationale ACFF",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nls6",
+    "name": "National League South",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-oblf",
+    "name": "NOFV-Oberliga Nord",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-it4b",
+    "name": "Serie D - B",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-it4g",
+    "name": "Serie D - G",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-clo",
+    "name": "League One",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cpsc",
+    "name": "CP - Série C",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pl33",
+    "name": "3 Liga Grupa III",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cpsd",
+    "name": "CP - Série D",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-olw3",
+    "name": "Oberliga Westfalen",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-vfvb",
+    "name": "2de Nat. VV B",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pl31",
+    "name": "3 Liga - Grupa I",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pl2l",
+    "name": "2 Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-se3s",
+    "name": "Ettan Södra",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-chc3",
+    "name": "1. Liga Gr. 3",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-oblb",
+    "name": "Oberliga Baden-Württemberg",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cpsa",
+    "name": "CP - Série A",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-atrm",
+    "name": "Regional League Central",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-olni",
+    "name": "Oberliga Niederrhein",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-olrp",
+    "name": "OL RP/Saar",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-oblg",
+    "name": "NOFV-Oberliga Süd",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rs",
+    "name": "Regionalliga Süd",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-dfb",
+    "name": "DFB-Pokal",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ol0",
+    "name": "Oberliga Bayern",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ol8",
+    "name": "Oberliga Südwest (- 07/08)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-uefa",
+    "name": "UEFA Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rws",
+    "name": "RL West-Südwest",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-arca",
+    "name": "Copa Argentina",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "primera-argentina",
+    "name": "Liga Profesional",
+    "type": "domestic_league",
+    "country": "Argentina"
+  },
+  {
+    "id": "tm-clpd",
+    "name": "Liga Primera",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ch1c",
+    "name": "Copa Chile",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cdlp",
+    "name": "Copa de la Liga (- 23/24)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ungp",
+    "name": "Magyar Kupa",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-elq",
+    "name": "Europa League Qualifying",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-clq",
+    "name": "Champions League Qu.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ar1n",
+    "name": "Liga Profesional (- 23/24)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cs",
+    "name": "Copa Sudamericana",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cdca",
+    "name": "Copa de la Liga - Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-arlc",
+    "name": "Copa Superliga (-19/20)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cli",
+    "name": "Libertadores",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-scag",
+    "name": "Supercopa Argentina",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-marg",
+    "name": "Partidos definición",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-alps",
+    "name": "Liguilla Pre-Sudamericana (-14/15)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-alpl",
+    "name": "Liguilla Pre-Libertadores (-14/15)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-reco",
+    "name": "Recopa Sudamericana",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-fac",
+    "name": "FA Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-poco",
+    "name": "National League Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cgb",
+    "name": "League Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gbfl",
+    "name": "FL Trophy",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-efd2",
+    "name": "First Division",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-f19b",
+    "name": "National U19 - Grp. B",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c3bf",
+    "name": "N3 - Bourgogne",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brgo",
+    "name": "Campeonato Goiano",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bra4",
+    "name": "Série D",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bra3",
+    "name": "Série C",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brc",
+    "name": "Copa do Brasil",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brne",
+    "name": "Copa do Nordeste",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bral",
+    "name": "Campeonato Alagoano",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brnp",
+    "name": "Copa do Nordeste - Fase Preliminar",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brse",
+    "name": "Campeonato Sergipano",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brcm",
+    "name": "Campeonato Mineiro",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brcr",
+    "name": "Carioca - Taça Rio",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brcg",
+    "name": "Campeonato Carioca",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bcp2",
+    "name": "Troféu Independência",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bce1",
+    "name": "Campeonato Cearense - Finals",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brce",
+    "name": "Campeonato Cearense - Group",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brc2",
+    "name": "Primeira Liga do Brasil",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bcpf",
+    "name": "Paulistão A1 - Fase Final",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brsc",
+    "name": "Campeonato Catarinense",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brcf",
+    "name": "Campeonato Carioca - Final",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "europa-league",
+    "name": "UEFA Europa League",
+    "type": "continental_club",
+    "country": "Europe"
+  },
+  {
+    "id": "tm-cit",
+    "name": "Italy Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sci",
+    "name": "Supercoppa Italiana",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "champions-league",
+    "name": "UEFA Champions League",
+    "type": "continental_club",
+    "country": "Europe"
+  },
+  {
+    "id": "tm-dfl",
+    "name": "DFL-Supercup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lpo",
+    "name": "Ligapokal",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cir3",
+    "name": "2. Liga Inter - Gr. 3",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-scc",
+    "name": "Swiss Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sl2",
+    "name": "Druga Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sl1",
+    "name": "Prva Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-slp",
+    "name": "Pokal Slovenije",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-alb1",
+    "name": "Kategoria Superiore",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-albp",
+    "name": "Kupa e Shqipërisë",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lux1",
+    "name": "BGL Ligue",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-frc",
+    "name": "Coupe de France",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c3ge",
+    "name": "N3 - Grand Est",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cn2d",
+    "name": "National 2 - Grp. D",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cdr",
+    "name": "Copa del Rey",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-e3pp",
+    "name": "Promoción a 1ª Federación",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-fryc",
+    "name": "Coupe Gambardella",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mlsp",
+    "name": "US Open Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nis3",
+    "name": "NISA",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-olb1",
+    "name": "Bayernliga Nord",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ukrp",
+    "name": "Ukrainian Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ukre",
+    "name": "Rel. Persha Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-kas1",
+    "name": "Premier Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-kazp",
+    "name": "Kazakhstan Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-let1",
+    "name": "Virsliga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mo1n",
+    "name": "Super Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-wrpo",
+    "name": "Belarusian Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-wer1",
+    "name": "Vysheyshaya Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mol1",
+    "name": "Divizia Nationala (-2017)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mnpp",
+    "name": "MLS Next Pro Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-usmx",
+    "name": "Leagues Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ofb",
+    "name": "ÖFB-Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-a1el",
+    "name": "Bundesliga EC-Play-off",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ffac",
+    "name": "FFA Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ausf",
+    "name": "A-League Fin.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-afcc",
+    "name": "AFC Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-a2sw",
+    "name": "NPL New South Wales",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-irpo",
+    "name": "FAI Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ir1",
+    "name": "Premier Division",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ilip",
+    "name": "League of Ireland Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-irlc",
+    "name": "Leinster Senior Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-wfpo",
+    "name": "Westfalenpokal",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-aj1",
+    "name": "U19-BL N/NE",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-oblk",
+    "name": "Bremenliga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gbcs",
+    "name": "Charity Shield",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pocc",
+    "name": "Championship Play-Offs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pog3",
+    "name": "League One Play-Offs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ensd",
+    "name": "Second Division",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ui",
+    "name": "UI Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-19la",
+    "name": "U19 Nachwuchsliga - Liga A",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-clpi",
+    "name": "Copa Proyec.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cpp2",
+    "name": "Copa Proyección Fin. Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-clpf",
+    "name": "Copa Proyección",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-f19a",
+    "name": "National U19 - Grp. A",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-itjp",
+    "name": "Play-off/out Primavera",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lux2",
+    "name": "Ehrenpromotion",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-luxp",
+    "name": "Coupe de Luxembourg",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-us3p",
+    "name": "USL1 Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-japc",
+    "name": "J. League Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-jemp",
+    "name": "Emperor's Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-acle",
+    "name": "AFC Champions League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-jasp",
+    "name": "Jap. Super Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-afcl",
+    "name": "AFC Champions League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-posu",
+    "name": "Supertaça",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-klub",
+    "name": "Club World Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-popo",
+    "name": "Taça de Portugal",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brve",
+    "name": "Copa Verde",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brpr",
+    "name": "Campeonato Paranaense",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-scbr",
+    "name": "Supercopa Rei",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ualc",
+    "name": "UAE League Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-uae1",
+    "name": "UAE Pro League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sa1",
+    "name": "Saudi Pro League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sakc",
+    "name": "King's Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-saup",
+    "name": "Saudi Crown Prince's Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sass",
+    "name": "Saudi Super Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brcb",
+    "name": "Campeonato Baiano",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brpe",
+    "name": "Campeonato Pernambucano",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rs2f",
+    "name": "Gauchão - Fase Final",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brrs",
+    "name": "Campeonato Gaúcho",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brga",
+    "name": "Gauchão - 2º Turno",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-uslc",
+    "name": "USL Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ncd1",
+    "name": "NCAA D1 College Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-suc",
+    "name": "Supercopa",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-es1p",
+    "name": "Promoción a LaLiga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-spjr",
+    "name": "Copinha",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brms",
+    "name": "Campeonato Mato-Grossense",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ccb",
+    "name": "Croky Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-b3ab",
+    "name": "1N ACFF PRO PO",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-2npp",
+    "name": "2 NAT PO Promotie",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bel3",
+    "name": "1ste Nationale",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-be2a",
+    "name": "CPL Relegation-Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-b3au",
+    "name": "Aufstiegsr. Eerste Klasse Am.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ebel",
+    "name": "Endrunde Jupiler Pro League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-esjp",
+    "name": "Jupiler Pro League playoff Europa League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pobe",
+    "name": "JPL Playoff II",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gbr",
+    "name": "Reserve League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rska",
+    "name": "K League 1 Final B",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-chfa",
+    "name": "Chinese FA Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rskm",
+    "name": "K League 1 Final A",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rkpo",
+    "name": "Korea Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brnf",
+    "name": "Copa do Nordeste - Fase Final",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-frl",
+    "name": "Coupe de la Ligue",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-skc",
+    "name": "Slovnaft Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sk19",
+    "name": "I. Liga SD",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nln6",
+    "name": "National League North",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gbrs",
+    "name": "Reserve League South",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ueq",
+    "name": "UEFA-Cup Qualifikation",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-epp",
+    "name": "Cup Winners' Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-fi1",
+    "name": "Veikkausliiga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-slmr",
+    "name": "Nike Liga - Releg. G.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bu1a",
+    "name": "Efbet liga - Relegation gr.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bu1",
+    "name": "Premier League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bulp",
+    "name": "Bulgarian Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rore",
+    "name": "L1/L2 Play-off",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ro1r",
+    "name": "SuperLiga - Relegation group",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ro1",
+    "name": "Liga 1",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ucol",
+    "name": "Conference L.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-romp",
+    "name": "Romanian Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pocp",
+    "name": "Allianz Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-grp",
+    "name": "Kypello Elladas",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-es3c",
+    "name": "2ª B - Grupo III",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mal1",
+    "name": "Premier League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-p3au",
+    "name": "Liga 3 - Promotion",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ptrl",
+    "name": "Play-Off Liga Portugal",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ro2",
+    "name": "Liga 2",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-p2rl",
+    "name": "Camp. Portugal Ap. Campeão",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-eclq",
+    "name": "UECL Qualifiers",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ejpd",
+    "name": "Jupiler Pro League Abstiegs-Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gu1c",
+    "name": "Liga Guate Clausura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-crpd",
+    "name": "Primera División Apertura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pdv1",
+    "name": "Primera División Clausura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cpmx",
+    "name": "Copa MX",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mexb",
+    "name": "Primera A Apert.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gupc",
+    "name": "Clausura Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gupa",
+    "name": "Liga Guate Ap. Play-Off",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gu1a",
+    "name": "Liga Guate Apertura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-m20c",
+    "name": "Liga MX Sub-20 Clausura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mxcc",
+    "name": "Copa MX Clausura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mex1",
+    "name": "Primera Clausura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mxbc",
+    "name": "Liguilla Asc. Cl",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mxca",
+    "name": "Copa MX Apertura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-m20a",
+    "name": "Liga MX Sub-20 Apertura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pomx",
+    "name": "Liguilla Apertura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ccl",
+    "name": "CONCACAF CL",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pome",
+    "name": "Liguilla Clausura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mexp",
+    "name": "InterLiga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-m20h",
+    "name": "Liga MX Sub-20 (09/10)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-it4z",
+    "name": "Serie C2 - C",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-tdv",
+    "name": "Viareggio Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-it4y",
+    "name": "Serie C2 - B",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-dkdl",
+    "name": "U19 Boys League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-dkre",
+    "name": "Future Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-dkp",
+    "name": "Compaq Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nifs",
+    "name": "NISA Fall Season",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-p23q",
+    "name": "Revelação U23 - Qualif. round",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-suip",
+    "name": "1. Liga Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-suic",
+    "name": "Swiss Cup qualifiers",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-itj3",
+    "name": "Primavera C",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-uslp",
+    "name": "USL Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sl1c",
+    "name": "Primera División Clausura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mxba",
+    "name": "Liguilla Pr.A Ap",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pr1a",
+    "name": "Primera División Apertura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pr1c",
+    "name": "Primera División Clausura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-19lb",
+    "name": "U19 Nachwuchsliga - Liga B",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-19yl",
+    "name": "UEFA Youth League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-19s2",
+    "name": "U19-Sonderspielrunde Hauptr.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bj1",
+    "name": "U17-BL N/NE",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brdf",
+    "name": "Campeonato Brasiliense",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-poll",
+    "name": "Play-Off Liga Portugal 2",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-p23c",
+    "name": "Revelação U23 - Championship",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ptpr",
+    "name": "U-23 Cup Portugal",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-p23f",
+    "name": "Torneio Abertura Final",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-p23a",
+    "name": "Torn. Abertura U23",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bu1m",
+    "name": "Efbet liga - Championship gr.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nifp",
+    "name": "NISA Fall Season Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cilp",
+    "name": "Coppa Serie C",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-it3p",
+    "name": "PlayOff Lega Pro",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pusb",
+    "name": "Serie B Play-out",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-posb",
+    "name": "Serie B Play-off",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-scic",
+    "name": "Supercoppa 1a D.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-itj1",
+    "name": "Primavera A",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-scij",
+    "name": "Supercoppa Primavera",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-itje",
+    "name": "Primavera Fase Finale",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-itj2",
+    "name": "Primavera B",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-buls",
+    "name": "Bulgarian Super Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bu2",
+    "name": "Vtora Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-scj2",
+    "name": "Supercoppa Primavera 2",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-citp",
+    "name": "Coppa Primavera",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-itjf",
+    "name": "Under 17 - Finals",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-itj9",
+    "name": "Under 18 - B",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-itc4",
+    "name": "Coppa Serie D",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sl19",
+    "name": "NextGen Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-p3as",
+    "name": "Liga 3 - Relegation round",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ncl1",
+    "name": "National League - Central",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nznl",
+    "name": "National League Championship",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-212s",
+    "name": "U21 Div. 2 Spring",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nlp",
+    "name": "KNVB Beker",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nsl1",
+    "name": "National League - South",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ssc",
+    "name": "Irn-Bru Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-scp",
+    "name": "League Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sc1p",
+    "name": "Premiership Play-offs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sfa",
+    "name": "SFA Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-can",
+    "name": "Canadian Championship",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cdn1",
+    "name": "CanPL",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-popu",
+    "name": "Puchar Polski",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pofd",
+    "name": "Scottish Championship Play-offs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sl2p",
+    "name": "Scottish League Two Play Offs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sc4",
+    "name": "League Two",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nopo",
+    "name": "NM-Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-no45",
+    "name": "Norsk Tipping-Ligaen avd. 5",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rtip",
+    "name": "Relegation Eliteserien",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-no41",
+    "name": "Norsk Tipping-Ligaen avd. 1",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-no43",
+    "name": "Norsk Tipping-Ligaen avd. 3",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-chc1",
+    "name": "1.Liga Cl. Gr. 1",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cr1",
+    "name": "1. Liga Gr. 1 (- 11/12)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-tsp",
+    "name": "Pohar C. posty",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-blp1",
+    "name": "Ligabeker",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-itc",
+    "name": "Intertoto-Cup (- 94/95)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-fayc",
+    "name": "FA Youth Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pn1c",
+    "name": "Liga Panameña Clausura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pn1a",
+    "name": "Liga Panameña Apertura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pog2",
+    "name": "League Two Play-Offs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-wlc1",
+    "name": "FAW Premier Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-alg1",
+    "name": "Ligue Professionnelle 1",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-wer2",
+    "name": "Pershaya Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-chl3",
+    "name": "League Two North",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ch3r",
+    "name": "League Two Rel.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-m23l",
+    "name": "Liguilla MX U23 Apertura (- 24/25)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-m23a",
+    "name": "Liga MX U23 Apertura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-m2l2",
+    "name": "Liguilla MX Sub-20 Clausura (- 24/25)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-m2l1",
+    "name": "Liguilla MX Sub-20 Apertura (- 24/25)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-182s",
+    "name": "U18 Div. 2 Spring",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-182f",
+    "name": "U18 Div. 2 Fall",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nljb",
+    "name": "U19 Cup Netherlands",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-uru2",
+    "name": "Segunda División",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ar3c",
+    "name": "Primera B Apertura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-arg3",
+    "name": "Torneo Federal A",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mrpo",
+    "name": "Mittelrheinpokal",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-l2po",
+    "name": "Relegation 2. Bundesliga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ndsp",
+    "name": "NFV-Pokal",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rl3",
+    "name": "RL West",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-oble",
+    "name": "NRW-Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rn",
+    "name": "Regionalliga Nord",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nrpo",
+    "name": "Niederrheinpokal",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ol5",
+    "name": "Oberliga Nordrhein",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ol6",
+    "name": "Oberliga Westfalen",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-aj",
+    "name": "U19-Champ.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-isr1",
+    "name": "Ligat ha'Al",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-grpl",
+    "name": "Super League 5th place play-off",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-s2po",
+    "name": "Super League 2 Play-out",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-npfl",
+    "name": "NPFL",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cafc",
+    "name": "CAF Confederation Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nppl",
+    "name": "NPFL Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c3ar",
+    "name": "National 3 - Grp. K",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c3oc",
+    "name": "N3 - Occitanie",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-a4st",
+    "name": "LL Steiermark",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pot2",
+    "name": "1.Lig Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-trp",
+    "name": "Türkiye Kupasi",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-trs",
+    "name": "TFF Süper Kupa",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-posl",
+    "name": "Relegation Prva Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-m21a",
+    "name": "Liga MX U21 Apertura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-m23c",
+    "name": "Liga MX U23 Clausura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cb20",
+    "name": "CBF Brasileiro U20",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-let2",
+    "name": "Nakotnes Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lt19",
+    "name": "U-19 Elites Grupa",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-dkar",
+    "name": "Superliga Relegation round",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-dkrq",
+    "name": "Reserveligaen Spring",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-21pl",
+    "name": "Premier League Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gb18",
+    "name": "U18 Premier League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-e3pl",
+    "name": "Promoción a 2ª Federación",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-col1",
+    "name": "Liga DIMAYOR II",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-colp",
+    "name": "Liga Postobón I",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-copo",
+    "name": "Copa Colombia",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-es3p",
+    "name": "Permanencia en 2ª Federación",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-es3a",
+    "name": "2ª B - Grupo I",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sl",
+    "name": "North American SuperLiga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pous",
+    "name": "MLS Cup Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pon2",
+    "name": "Jupiler PO",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-it4",
+    "name": "Meisterrunde",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-dkmr",
+    "name": "Superliga Championship round",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ponl",
+    "name": "Play-Offs Conference League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nlbv",
+    "name": "Beloften Preliminary Round",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nlsc",
+    "name": "Johan Cruijff Schaal",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-it18",
+    "name": "Under 18 - Finals",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-letp",
+    "name": "Latvian Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sec",
+    "name": "Svenska Cupen",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-2np2",
+    "name": "2 NAT PO Degradatie",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-be4p",
+    "name": "2de Nat. Titel van Kampioen",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-es2p",
+    "name": "Ascenso a 2ª",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-f19d",
+    "name": "National U19 - Grp. D",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-shpo",
+    "name": "Schleswig-Holstein-Pokal",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-olmr",
+    "name": "Mittelrheinliga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rl1",
+    "name": "RL Nord",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-obli",
+    "name": "Oberliga NDS-Ost",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-f19c",
+    "name": "National U19 - Grp. C",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-k18c",
+    "name": "K League U18 Championship",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-f19f",
+    "name": "National U19 - Phase finale",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sb19",
+    "name": "Omladinska liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sr1c",
+    "name": "Super liga Championship round",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ser1",
+    "name": "Jelen SuperLiga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-serp",
+    "name": "Kup Srbije",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ghpl",
+    "name": "Premier League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bapl",
+    "name": "Promotion Playoffs 1 Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-plsc",
+    "name": "Superpuchar",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-e21p",
+    "name": "PL2 Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-18gb",
+    "name": "U18 PL - Final Stage",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c20p",
+    "name": "Brasileiro U20 - Finals",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rup",
+    "name": "Russian Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-russ",
+    "name": "Russian Super Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-frch",
+    "name": "Trophée des Champions",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ejpl",
+    "name": "JPL Champions PO",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-besc",
+    "name": "Pro L. Supercup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-it4p",
+    "name": "Play-off Serie D",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-it3o",
+    "name": "Playout Serie C",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sb17",
+    "name": "Kadetska liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nzl1",
+    "name": "NZ Premiership (- 2021)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-efd1",
+    "name": "First Division (- 91/92)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brpb",
+    "name": "Campeonato Paraibano",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-zypm",
+    "name": "Champions Round",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-zyp1",
+    "name": "Cyprus League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cysc",
+    "name": "Cypriot Super Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-zypa",
+    "name": "Relegation Round",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-smrp",
+    "name": "Camp. Sammarinese Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-smr1",
+    "name": "Camp. Sammarinese",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-smp1",
+    "name": "Coppa Titano",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-it4w",
+    "name": "Play-off/out Lega Pro 2",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-it4x",
+    "name": "Lega Pro 2 - A",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ecb3",
+    "name": "Serie B – Relegation",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ec2l",
+    "name": "Liga Pro Serie B",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-el1s",
+    "name": "Serie A Segunda Etapa",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-el1a",
+    "name": "Serie A Primera Etapa",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ecup",
+    "name": "Copa Ecuador",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ec1n",
+    "name": "LigaPro Serie A",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ecpl",
+    "name": "Serie A Tercera Etapa",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ecse",
+    "name": "Serie A Segunda Etapa",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ecpe",
+    "name": "Serie A Primera Etapa",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cr3",
+    "name": "1. Liga Gr. 3 (- 11/12)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c2i3",
+    "name": "2. Liga inter - Gr. 3 (- 11/12)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-be21",
+    "name": "U21 Pro League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-it4o",
+    "name": "Serie D play-out",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-a2tp",
+    "name": "Prim. Nacional - Reducido",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-es3d",
+    "name": "2ª B - Grupo IV",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-es3b",
+    "name": "2ª B - Grupo II",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cef1",
+    "name": "Copa Federation",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ung2",
+    "name": "NB II - East",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-atro",
+    "name": "Regional League East",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-wepo",
+    "name": "Intercontinental Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-usc",
+    "name": "UEFA Super Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-epl",
+    "name": "European Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ro2b",
+    "name": "Liga II - Seria II",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lucp",
+    "name": "Coupe du Prince",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-vlba",
+    "name": "VL Baden",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bvfp",
+    "name": "Badenpokal",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-oblc",
+    "name": "Hessenliga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-vlhs",
+    "name": "VL Hessen-Süd",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-swp",
+    "name": "Südwestpokal",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-vswe",
+    "name": "VL Südwest - Finals",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-vlsw",
+    "name": "VL Südwest",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cir1",
+    "name": "2. Liga Inter - Gr. 1",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c3p3",
+    "name": "Promotion League - Qualif.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c3p1",
+    "name": "Promotion League - Aufstiegsr.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-basu",
+    "name": "Super League Barrage",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nlbr",
+    "name": "NLB-Abstiegsrunde",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bpo4",
+    "name": "JPL Relegat. PO",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-walc",
+    "name": "Welsh League Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-krc",
+    "name": "Hrvatski nogometni kup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ispo",
+    "name": "Gvia haMedina",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rjl2",
+    "name": "U19 M-Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rujl",
+    "name": "U19 M-Liga (- 2023)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cir2",
+    "name": "2. Liga Inter - Gr. 2",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lnr1",
+    "name": "LL Niederrhein-Gr. 1",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brpa",
+    "name": "Campeonato Paraense",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-no32",
+    "name": "PostNord-ligaen Avd. 2",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-chaa",
+    "name": "Auf-/Abstiegsrunde NLA/NLB",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-m2lc",
+    "name": "Liguilla MX U23 Clausura (- 24/25)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sapo",
+    "name": "Sachsenpokal",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sli",
+    "name": "Sachsenliga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ol4",
+    "name": "NOFV-Oberliga Süd",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-arrn",
+    "name": "Aufstiegsrunde zur RL Nord",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ug2w",
+    "name": "NB II - West",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-19d8",
+    "name": "U19 Nachwuchsliga - Gr. H",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bj",
+    "name": "U17-BL Finals",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-dfbj",
+    "name": "DFB-Pokal der Junioren",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-prtd",
+    "name": "Play-Offs Promotion Tweede Divisie",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-and1",
+    "name": "Primera Divisió",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-andp",
+    "name": "Copa Constitució",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ansc",
+    "name": "Andorran Supercup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bres",
+    "name": "Campeonato Capixaba",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-dk2p",
+    "name": "1.Division Promotion",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-dkda",
+    "name": "2.Division Relegation",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rl2",
+    "name": "Regionalliga Süd",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-tfvp",
+    "name": "Thüringenpokal",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ba93",
+    "name": "Oberliga Bayern",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pnf1",
+    "name": "LPF Clausura Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-posd",
+    "name": "Scottish League One Play-offs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sc3a",
+    "name": "League One Meisterr.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-thli",
+    "name": "Thüringenliga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-oblh",
+    "name": "Oberliga NDS-West",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-skr2",
+    "name": "II. Liga Relegation",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nlaj",
+    "name": "U19 Div. 1 Spring",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nljv",
+    "name": "U19 Div. 1 Fall",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-no44",
+    "name": "Norsk Tipping-Ligaen avd. 4",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-no46",
+    "name": "Norsk Tipping-Ligaen avd. 6",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-no2r",
+    "name": "Rel. OBOS-ligaen",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-no42",
+    "name": "Norsk Tipping-Ligaen avd. 2",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cz19",
+    "name": "1. liga U19",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rno",
+    "name": "RL Nord/Ost",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-olna",
+    "name": "Oberliga Nordrhein",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-obsm",
+    "name": "NOFV-Oberliga Mitte",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-l2sb",
+    "name": "2. BL Süd Abstiegsr.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-l2s",
+    "name": "2. BL South",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-olns",
+    "name": "Oberliga Nordost",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-fdgb",
+    "name": "FDGB-Pokal",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-dd2b",
+    "name": "1.DDR-Liga Staffel B",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ddr",
+    "name": "DDR-Oberliga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-colf",
+    "name": "Fase Final LBD I",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-tr4p",
+    "name": "3.Lig Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-t4pl",
+    "name": "BAL Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-arm2",
+    "name": "First League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rplu",
+    "name": "PFL Group 4",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ru17",
+    "name": "U17 Youth League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-19d2",
+    "name": "U19 Nachwuchsliga - Gr. B",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-17p2",
+    "name": "U17-Sonderspielrunde Hauptr.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sanp",
+    "name": "Sachsen-Anhalt-Pokal",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ar3l",
+    "name": "Aufstiegsrunde zur 3. Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brbl",
+    "name": "Brandenburgliga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ola",
+    "name": "Oberliga Nord",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ol3",
+    "name": "NOFV-Oberliga Nord",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ul2p",
+    "name": "USL2 Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mxbf",
+    "name": "Final de Expansión",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-m192",
+    "name": "Liga MX U19 Clausura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gr20",
+    "name": "Super League K20",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bvp",
+    "name": "Bayernpokal",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lbsw",
+    "name": "LL Bayern-S/W",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-maz1",
+    "name": "Prva liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nmap",
+    "name": "Kup na Makedonija",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c9pl",
+    "name": "U19 Elite Platzierungsspiele",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c191",
+    "name": "U19 Elite League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c19c",
+    "name": "Schweizer Cup U19",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c9po",
+    "name": "U19 Elite Playouts",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c9ep",
+    "name": "U19 Elite Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-chp2",
+    "name": "U18 Playouts",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c18e",
+    "name": "U18 Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ch18",
+    "name": "U18 Elite League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ur2t",
+    "name": "Torneo Competencia",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-urp1",
+    "name": "Copa AUF Uruguay",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-uruc",
+    "name": "Liga AUF Clausura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-urui",
+    "name": "Liga AUF Intermedio",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-uru1",
+    "name": "Liga AUF Apertura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-tdcs",
+    "name": "Trofeo de Campeones Superliga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-fiyo",
+    "name": "Under-20 Intercontinental Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cliy",
+    "name": "U20 Libertadores",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-t19p",
+    "name": "Süper Lig U19 Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-t191",
+    "name": "U19 Süper Lig",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-19d7",
+    "name": "U19 Nachwuchsliga - Gr. G",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-aj3",
+    "name": "U19-Bundesliga S/SW",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bj3",
+    "name": "U17-Bundesliga South/Southwest",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-19d1",
+    "name": "U19 Nachwuchsliga - Gr. A",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-17p1",
+    "name": "U17-Sonderspielrunde Vorr.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cr19",
+    "name": "Prva HNL - Juniori",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bos1",
+    "name": "Premijer Liga BiH",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-s21n",
+    "name": "U21 Allsvenskan Norra",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rese",
+    "name": "Relegation Allsvenskan",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-dkrl",
+    "name": "Superligaen Releg.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-dkpl",
+    "name": "Superliga Europa Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-dk3v",
+    "name": "2.Division Promotion",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-a4b",
+    "name": "Burgenlandliga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-s21p",
+    "name": "U21 Allsvenskan Slutspelet",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-resu",
+    "name": "Relegation Superettan",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-dk2r",
+    "name": "1.Division Relegation",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-itpo",
+    "name": "Play-Out Serie A",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-obw3",
+    "name": "OL Ba-Wü (- 93/94)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sw93",
+    "name": "Oberliga Südwest (- 93/94)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-tun1",
+    "name": "Ligue I Pro",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-jl11",
+    "name": "J1 - 1st Stage",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-be2e",
+    "name": "CPL Promotion-Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-vz1a",
+    "name": "Liga FUTVE Apertura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-vz1c",
+    "name": "Liga FUTVE Clausura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rupm",
+    "name": "Meistersch.-Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-svp1",
+    "name": "Soviet Cup (- 1992)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-su1l",
+    "name": "Vyschaya Liga (- 1991)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pl3w",
+    "name": "2 Liga - East",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pogr",
+    "name": "SL1 Play-off",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-t1el",
+    "name": "F:L EL Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-wal1",
+    "name": "Premier League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brma",
+    "name": "Campeonato Maranhense",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-camc",
+    "name": "Campeones Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sa2l",
+    "name": "Saudi First Division League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brpi",
+    "name": "Campeonato Piauiense",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-frr1",
+    "name": "L1/L2 Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-t192",
+    "name": "U19 Süper Lig Playout",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-scpm",
+    "name": "Scottish Premiership Top Six Split",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ropc",
+    "name": "Playoff Conference League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ro1c",
+    "name": "SuperLiga - Championship group",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-roms",
+    "name": "Romanian Supercup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rocj",
+    "name": "Cupa Ro. U19",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-211s",
+    "name": "U21 Div. 1 Spring",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-181s",
+    "name": "O18 Div. 1 Spring",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-wfvp",
+    "name": "Württembergpokal",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pot1",
+    "name": "Süper Final Championship",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-tr3p",
+    "name": "2.Lig Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cfmf",
+    "name": "Copa FMF - Maranhão",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bey1",
+    "name": "U18 Elite 1",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-irmc",
+    "name": "Munster Senior Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ir2",
+    "name": "First Division",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-alb2",
+    "name": "Kategoria e Parë",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-az1",
+    "name": "Premyer Liqa",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cn42",
+    "name": "Champions League (Final)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cn41",
+    "name": "Champions League (Regional)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-aclq",
+    "name": "AFC CL-Qualification",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-j1po",
+    "name": "J1 Play-off",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-jl12",
+    "name": "J1 - 2nd Stage",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-irn1",
+    "name": "Persian Gulf League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-aoly",
+    "name": "Relegation zur Bayernliga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-hepo",
+    "name": "Hessenpokal",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ol7",
+    "name": "Oberliga Hessen",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-dam",
+    "name": "Amateurmeisterschaft",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-a2bl",
+    "name": "Aufstiegsrunde 2. BL",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ch3p",
+    "name": "League Two Prom.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cl3s",
+    "name": "League Two South",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-beyp",
+    "name": "U18 Elite 1 PO A",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-fis",
+    "name": "Suomen Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-fi3b",
+    "name": "Kakkonen - Group B",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-fil",
+    "name": "Liigacup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-finj",
+    "name": "A-pojat SM-sarja Qualification",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-isrf",
+    "name": "Ligat ha'Al -  Championship round",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-scc2",
+    "name": "Supercoppa C2",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-a3rp",
+    "name": "Federal A - Reválida Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-s2pa",
+    "name": "Super League 2 Play-off",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-grp2",
+    "name": "G' Ethniki Play-off",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gr2",
+    "name": "B' Ethniki",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gr2t",
+    "name": "FL Play-out",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gr2n",
+    "name": "Football League North",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lbnw",
+    "name": "LL Bayern-N/W",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-k3l",
+    "name": "K3 League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-a1p1",
+    "name": "Playoff Torneo Apertura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brac",
+    "name": "Campeonato Acreano",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cn44",
+    "name": "U21 League (Final)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-k4l",
+    "name": "K4 League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cn43",
+    "name": "U21 League (Playoff)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nlbp",
+    "name": "U21 Cup Netherlands",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-181f",
+    "name": "O18 Div. 1 Fall",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lpb1",
+    "name": "Ligapokal RL Bayern",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-obla",
+    "name": "Bayernliga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bihp",
+    "name": "Kup BiH",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-t1mr",
+    "name": "F:L Champion Grp",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cr2",
+    "name": "1. Liga Gr. 2 (- 11/12)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-l1po",
+    "name": "Bundesliga Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-510",
+    "name": "Derde Div. Sat",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nlbe",
+    "name": "Beloften Eredivisie",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brti",
+    "name": "Troféu Inconfidência",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-trp2",
+    "name": "Süper Lig Reserves League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-afol",
+    "name": "African Football League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-acl",
+    "name": "CAF-Champions League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-egy1",
+    "name": "Premier League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-egyp",
+    "name": "Egypt Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-kls1",
+    "name": "K League - 1st Stage",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-klcp",
+    "name": "K League Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-colo",
+    "name": "Fase Final LBD II",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-krel",
+    "name": "K League Championship",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-kls2",
+    "name": "K League - 2nd Stage",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sunc",
+    "name": "J. League Championship",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c17c",
+    "name": "Schweizer Cup U17",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-chp1",
+    "name": "U18 Platzierung",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-chuc",
+    "name": "Schweizer Cup U18",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c17p",
+    "name": "U17 Elite Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ch17",
+    "name": "U17 Elite League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bk19",
+    "name": "U19 Div. 1 Championship-PO",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nlbj",
+    "name": "U17 Div. 1 Spring",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-is2",
+    "name": "Inkasso-deild",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-isp",
+    "name": "Mjólkurbikar",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-isl",
+    "name": "Lengjubikarinn",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cpp1",
+    "name": "Copa Proyección Apertura Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-be3b",
+    "name": "1ste NAT ACFF REL PO",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-amcq",
+    "name": "Amir Cup - Preliminary stage",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-grp3",
+    "name": "Kyp. G' Ethnikis",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ua3l",
+    "name": "Druga Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-geo1",
+    "name": "Umaghlesi Liga (until 12/2016)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bbpo",
+    "name": "Brandenburgpokal",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-19d3",
+    "name": "U19 Nachwuchsliga - Gr. C",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-aj2",
+    "name": "U19-Bundesliga West",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bj2",
+    "name": "U17-Bundesliga West",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bapo",
+    "name": "Baraze o udzial w Ekstraklasie",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ocl",
+    "name": "OFC Champions League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cpo1",
+    "name": "Kypello Kyprou",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nlbb",
+    "name": "Beloften Eerste Divisie",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nlba",
+    "name": "Beloften nacompetitie",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brap",
+    "name": "Campeonato Amapaense",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brto",
+    "name": "Campeonato Tocantinense",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-inpi",
+    "name": "Piala Indonesia",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-irnp",
+    "name": "Hazfi Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ar3p",
+    "name": "Torneo Fed. A Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-hgkg",
+    "name": "Hong Kong Premier League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-hkp2",
+    "name": "Sapling Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-saur",
+    "name": "SPL Relegation (- 2019)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ilp2",
+    "name": "I-League Rel. Stage",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-inil",
+    "name": "I-League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ind1",
+    "name": "Indian Super League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-indc",
+    "name": "Durand Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-hksc",
+    "name": "Senior Shield",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-tha1",
+    "name": "Thai League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-e3fa",
+    "name": "2ª B - Fase de ascenso",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-es3e",
+    "name": "2ª B - Grupo V",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pl32",
+    "name": "Betclic 3 Liga - Group II",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-plzj",
+    "name": "Youth League POL",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-vlw2",
+    "name": "Westfalenliga 2",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-vlw1",
+    "name": "Westfalenliga 1",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cdco",
+    "name": "Copa Maradona - Compl.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-slar",
+    "name": "Nike Liga - Champ. G.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-swep",
+    "name": "Nike L. - Conf. L. Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nir1",
+    "name": "Premiership",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nwsc",
+    "name": "North West Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-jpl1",
+    "name": "Jamaica Premier League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-estp",
+    "name": "Eesti Karikas",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-est1",
+    "name": "Premium Liiga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-est3",
+    "name": "Esiliiga B",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ests",
+    "name": "Eesti Superkarikas",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-r2ao",
+    "name": "Liga 2 Play-Out",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rusr",
+    "name": "Relegation Premier Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-frr2",
+    "name": "L2/N1 Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cssf",
+    "name": "Camp. Sammarinese II",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cspf",
+    "name": "Camp. Sammarinese I",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ccc1",
+    "name": "CONCACAF Caribbean Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-vie1",
+    "name": "V.League 1",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-vpo1",
+    "name": "Vietnam Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-is1",
+    "name": "Trópídeild",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ru16",
+    "name": "U16 Youth Football League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-faro",
+    "name": "Betri-deildin",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-fasc",
+    "name": "Stórsteypadystur",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-fapo",
+    "name": "Logmanssteypid",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-dk3p",
+    "name": "Playoff 2. Division",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-qec1",
+    "name": "Amir Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-qslr",
+    "name": "QSL Relegation",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-conl",
+    "name": "Copa de Oro",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ar3b",
+    "name": "Primera B Reducido",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-isr2",
+    "name": "Liga Leumit",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-olne",
+    "name": "OL Niederrhein - Endr.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-3npp",
+    "name": "3 NAT PO Promotie",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-scin",
+    "name": "Supercopa Internacional",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-par2",
+    "name": "División Intermedia",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-kreg",
+    "name": "K1 Promotion Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-hrsc",
+    "name": "SuperSport Super Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-fi4l",
+    "name": "Kolmonen Itäinen",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-kr2r",
+    "name": "Play-Off 2.HNL",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-jgd",
+    "name": "ÖFB Jugendliga U19 (- 2010)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-aj17",
+    "name": "ÖFB Jugendliga U17 (- 2010)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nlvb",
+    "name": "U17 Div. 1 Fall",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nicp",
+    "name": "NISA Championship Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mne1",
+    "name": "Meridianbet 1. CFL",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mnec",
+    "name": "Montenegro Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-uz1",
+    "name": "Superliga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-kobu",
+    "name": "Uzbekistan Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-uzp1",
+    "name": "Superligasi Playoff I",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-wrsp",
+    "name": "Belarusian Super Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ser2",
+    "name": "Prva liga Srbije",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ndda",
+    "name": "Play-Offs Promotion Derde Divisie",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-a4n",
+    "name": "LL Niederösterreich",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-s21s",
+    "name": "U21 Allsvenskan Södra",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bpp",
+    "name": "Berliner Pokal",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-19s1",
+    "name": "U19-Sonderspielrunde Vorr.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ajr1",
+    "name": "U19-Relegation Nord/Nordost",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ajr2",
+    "name": "U19-Relegation Süd/Südwest",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-vlsa",
+    "name": "VL Sachsen-Anhalt",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bj4r",
+    "name": "U17-Relegation Nord/Nordost",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-19d5",
+    "name": "U19 Nachwuchsliga - Gr. E",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-llho",
+    "name": "Landesliga Holstein",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-obll",
+    "name": "SH-Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-j18w",
+    "name": "Takamado U18 PL West",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-j18c",
+    "name": "U18 PL Championship",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-urpl",
+    "name": "Liguilla Pre-Libertadores",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-urup",
+    "name": "Playoffs Liga AUF",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-j18e",
+    "name": "Takamado U18 PL East",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ursc",
+    "name": "Supercopa",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ussp",
+    "name": "MLS is Back",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ba2l",
+    "name": "Baraże II liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rplw",
+    "name": "PFL West",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-oblj",
+    "name": "Oberliga Hamburg",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ophh",
+    "name": "ODDSET-Pokal",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nir2",
+    "name": "Championship",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-wale",
+    "name": "Welsh Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-itj0",
+    "name": "Primavera D",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-malm",
+    "name": "PL Meisterschaftsrunde",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-malc",
+    "name": "Maltese FA Trophy",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-napl",
+    "name": "NASL Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nafc",
+    "name": "NASL Fall Championship",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nasc",
+    "name": "NASL Spring Championship",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-vlbw",
+    "name": "VL Württemberg",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-aceq",
+    "name": "AFC CL Elite Qualif.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-qscp",
+    "name": "Qatari Stars Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ge1n",
+    "name": "Erovnuli Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gep1",
+    "name": "David Kipiani Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gesc",
+    "name": "Georgian Super Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bos2",
+    "name": "Prva liga FBIH",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-poar",
+    "name": "First Division Promotion (-11/12)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cmer",
+    "name": "Copa Mercosur",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mala",
+    "name": "PL Abstiegsrunde",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gbrn",
+    "name": "Reserve League North",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-dkdd",
+    "name": "U19 Boys Division",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sc5h",
+    "name": "Highland League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-scpa",
+    "name": "Premiership Relegation",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sc5l",
+    "name": "Lowland League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-dsc",
+    "name": "DFB-SuperCup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-reet",
+    "name": "Relegation Ettan",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rocl",
+    "name": "Cupa Ligii",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sc14",
+    "name": "Supercopa MX",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mxsc",
+    "name": "Campeón de Campeones",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-do1p",
+    "name": "Liga Dominicana - Liguilla",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-dom1",
+    "name": "Liga Dominicana de Fútbol",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sl1a",
+    "name": "Primera División Apertura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-s1po",
+    "name": "SL1 Play-out",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rsff",
+    "name": "Campeonato Gaúcho - Final",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-assp",
+    "name": "Asian Super Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-accs",
+    "name": "Asian Club Championship",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-a4t",
+    "name": "Regionalliga Tirol",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-thfa",
+    "name": "Thai FA Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sin1",
+    "name": "S.League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sinp",
+    "name": "Singapore Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lnha",
+    "name": "LL Hannover",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-obln",
+    "name": "OL Niedersachsen",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-np34",
+    "name": "Niedersachsenpokal (3. und 4. Liga)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lnwe",
+    "name": "LL Weser-Ems",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-npam",
+    "name": "Niedersachsenpokal (Amateure)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rlgr",
+    "name": "Rel. A' Ethniki",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-merc",
+    "name": "Copa Merconorte",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lbso",
+    "name": "LL Bayern-S/O",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cpf1",
+    "name": "Camp. Potiguar - Finals",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ecb2",
+    "name": "Serie B – Promotion",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cslc",
+    "name": "CSL Championship Play-Offs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mlsr",
+    "name": "MLS Reserve League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-suru",
+    "name": "Suruga Bank Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-jfl",
+    "name": "Japan Football League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-jpr3",
+    "name": "J3/JFL Play-off",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-is1p",
+    "name": "Besta Deild - Finals",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-r3d1",
+    "name": "2. Division A (Phase 1)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-r3d2",
+    "name": "2. Division A (Phase 2)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-fic1",
+    "name": "FIFA Intercontinental Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cslr",
+    "name": "CSL Relegation Play-Offs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-fi3s",
+    "name": "Kakkonen - South",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-elti",
+    "name": "Regionalliga Tirol (- 2023)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-llsa",
+    "name": "Saarlandliga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-srpo",
+    "name": "Saarlandpokal",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mppo",
+    "name": "Mecklenburg-Vorpommern-Pokal",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-s21m",
+    "name": "U21 Allsvenskan Mellersta",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gbeg",
+    "name": "U21 PL Elite Group",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-aspk",
+    "name": "Azerbaycan Kuboku",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mo1p",
+    "name": "Liga 1 Play-off",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ml1p",
+    "name": "Liga 1 (Promotion)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mwp1",
+    "name": "Moldovan Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-19d9",
+    "name": "U19 Nachwuchsliga - Gr. I",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sfa1",
+    "name": "ABSA Premiership",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-orpe",
+    "name": "OL RP/Saar - Finals",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-est2",
+    "name": "Esiliiga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-kasc",
+    "name": "Kasachischer Supercup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pot3",
+    "name": "Süper Final Europa",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-letm",
+    "name": "Virsliga - Meisterrunde",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nosc",
+    "name": "Mesterfinale",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-qwep",
+    "name": "DFB-Pokal-Quali",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-be5a",
+    "name": "3de Nationale VV A",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-chsc",
+    "name": "Chinese Super Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ud2p",
+    "name": "USSF Div. 2 Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ud2l",
+    "name": "USSF Div. 2",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ufdp",
+    "name": "USL-1 Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-usfd",
+    "name": "USL-1",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ca1f",
+    "name": "CanPL Fall Season",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-can1",
+    "name": "CanPL Spring Season",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-fi2",
+    "name": "Ykkönen",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-tha2",
+    "name": "Thai League 2",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-thlc",
+    "name": "Thai League Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cbp1",
+    "name": "C-League Finals",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-khm1",
+    "name": "C. Premier League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-capl",
+    "name": "CanPL Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-usa2",
+    "name": "NASL",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-in1l",
+    "name": "Liga 1",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-eglc",
+    "name": "Egyptian League Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sr1r",
+    "name": "Super liga Relegation round",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-vlhm",
+    "name": "VL Hessen-Mitte",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-vlhn",
+    "name": "VL Hessen-Nord",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rvh1",
+    "name": "Rel. VL Hessen",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-hler",
+    "name": "Hessenliga - Finals",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rlp",
+    "name": "Rheinlandpokal",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-algp",
+    "name": "Coupe d'Algerie",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-co22",
+    "name": "Torneo DIMAYOR II",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-fi3a",
+    "name": "Kakkonen - Group A",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-wa2s",
+    "name": "Cymru South",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-walm",
+    "name": "Tier Two League Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-walp",
+    "name": "WPL Play-Off",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-g19c",
+    "name": "Kypello U19",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-kas2",
+    "name": "Pervaya Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-kaj1",
+    "name": "QJ League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-arm1",
+    "name": "Premier League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-uart",
+    "name": "UPL rel. tournament",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-tdec",
+    "name": "Liga 1 Clausura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-tdea",
+    "name": "Liga 1 Apertura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pep4",
+    "name": "Liga 2 - Gr. campeonato",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-per2",
+    "name": "Liga 2",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-perf",
+    "name": "Descentr. Fase 3",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-inka",
+    "name": "Torneo Verano",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pedp",
+    "name": "Liguilla Par",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-perc",
+    "name": "Torneo Descentralizado",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-perd",
+    "name": "Liga 1 Cl. Entsch.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-inkf",
+    "name": "Inca Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ptdi",
+    "name": "Copa del Inca",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pedi",
+    "name": "Liguilla Impar",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pers",
+    "name": "T. Descentralizado 2. Fase",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pep6",
+    "name": "Def. descenso de Liga 2",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pep5",
+    "name": "Liga 2 - Gr. descenso",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lbmi",
+    "name": "LL Bayern-Mitte",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-t1ar",
+    "name": "F:L Relegation G",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cz21",
+    "name": "Juniorska liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c2p2",
+    "name": "Fase Final TBD II",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ltvp",
+    "name": "Lithuanian Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-csuc",
+    "name": "Supercopa de Chile",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ar2t",
+    "name": "Prim. Nacional - Promotion Stage",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nirc",
+    "name": "Irish Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nirf",
+    "name": "Playoff Premier League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-irpc",
+    "name": "President's Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-jgd2",
+    "name": "ÖFB Jugendliga U18",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-jgd3",
+    "name": "ÖFB Jugendliga U16",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-quc1",
+    "name": "Qatar Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-li1",
+    "name": "A Lyga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-kg1l",
+    "name": "Kyrgyz Premier League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-kgpo",
+    "name": "Kyrgyzstan Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-f1ce",
+    "name": "Veikkausliiga Europa Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-f1cl",
+    "name": "Veikkausliiga Championship Group",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ykcp",
+    "name": "Ykköscup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-achq",
+    "name": "AFC Challenge L. Qualif.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pvcr",
+    "name": "Prva liga Championship round",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pob2",
+    "name": "Endrunde 2.Division",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bo1c",
+    "name": "División Profesional Clausura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-b1ap",
+    "name": "División Profesional Apertura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-e6np",
+    "name": "NL North Play-offs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rplz",
+    "name": "FNL-2 Group 3",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mt1n",
+    "name": "Premier League Opening Round",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rpls",
+    "name": "PFL South",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-co2t",
+    "name": "Torneo DIMAYOR",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-wal2",
+    "name": "Cymru North",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ukrs",
+    "name": "Ukrainian Super Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ukrm",
+    "name": "Premier Liga - Meisterrunde",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-uarp",
+    "name": "Rel. Premier Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-kazm",
+    "name": "Premier League Championship-Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-19d6",
+    "name": "U19 Nachwuchsliga - Gr. F",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-arpo",
+    "name": "Armenian Independence Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-2cyp",
+    "name": "2. Division Releg.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cyp2",
+    "name": "2. Division",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-alp3",
+    "name": "Kat. Superiore Final",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-albs",
+    "name": "Superkupa e Shqipërisë",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ko1",
+    "name": "Superliga e Kosovës",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ol2",
+    "name": "OL Niedersachsen/Bremen",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brcc",
+    "name": "Troféu Farroupilha",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-uasc",
+    "name": "UAE Super Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-uaep",
+    "name": "UAE President's Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-hocp",
+    "name": "LNPHN Clausura Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-hoc1",
+    "name": "Liga Nacional Clausura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cph1",
+    "name": "Copa Presidente",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-hoap",
+    "name": "LNPHN Apertura Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ho1a",
+    "name": "Liga Nacional Apertura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lhae",
+    "name": "LL Hannover - Finals",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-e3fi",
+    "name": "2ª B - Fase intermedia",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-swrp",
+    "name": "Nike L. - Rel. Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cssp",
+    "name": "Cesko-slovensky Superpohar",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sk2p",
+    "name": "II. Liga Promotion",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-indp",
+    "name": "ISL Play-Offs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-r2ap",
+    "name": "Liga 2 Play-Off",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lppl",
+    "name": "Serie A Tercera Etapa",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-m194",
+    "name": "Liguilla MX U19 Cl.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sbp",
+    "name": "SBFV-Rothaus-Pokal",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-a4v",
+    "name": "Eliteliga Vorarlberg",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-y047",
+    "name": "YFL U17 (2024)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ecsc",
+    "name": "Supercopa Ecuador",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cmr2",
+    "name": "Camp. Mineiro - Rel.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gi1",
+    "name": "Gibraltar Football League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-e3fd",
+    "name": "2ª B - Fase de descenso",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gbkn",
+    "name": "U21 PL Knockout",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bh2s",
+    "name": "Prva Liga RS",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-thcc",
+    "name": "Thailand Champions Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-tunp",
+    "name": "Tunisian Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mys1",
+    "name": "Super League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mysp",
+    "name": "Malaysia FA Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-isra",
+    "name": "Ligat ha'Al - Relegation round",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nlaf",
+    "name": "NLA - Final round",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-flap",
+    "name": "F:L RelegationPO",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nilc",
+    "name": "Irish League Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-allp",
+    "name": "Coupe de la Ligue d'Algérie",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nlap",
+    "name": "Play-Off U18 Eredivisie",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gn1p",
+    "name": "Championship Group",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-girc",
+    "name": "Rock Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gisc",
+    "name": "Pepe Reyes Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cir5",
+    "name": "2. Liga Inter - Gr. 5",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-17dg",
+    "name": "U17 Nachwuchsliga - Gr. G",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cbii",
+    "name": "Copa Bicentenario",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ua3p",
+    "name": "DL Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ua19",
+    "name": "U19 Premier Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rplo",
+    "name": "PFL Ost",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-acl2",
+    "name": "AFC Champions League Two",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-jpr2",
+    "name": "J2 League relegation",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-jare",
+    "name": "J1 Relegation",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ykau",
+    "name": "YKK Promotion",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ktos",
+    "name": "Kanto Soccer League (Div.1)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mec1",
+    "name": "Excellence Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-liep",
+    "name": "FL-Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mar1",
+    "name": "Botola Pro Inwi",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-marp",
+    "name": "Coupe du Trône Marocaine",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cafs",
+    "name": "CAF-Supercup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-e6sp",
+    "name": "NL South Play-offs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pl3z",
+    "name": "2 Liga - West",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-jflc",
+    "name": "JFL Championship",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-kop1",
+    "name": "Kupa e Kosovës",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-19d4",
+    "name": "U19 Nachwuchsliga - Gr. D",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-tfpl",
+    "name": "Football Premier League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-twc1",
+    "name": "Taiwan President FA Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-elsa",
+    "name": "Regionalliga Salzburg (- 2023)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-jrcl",
+    "name": "RL Champ. League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-kp3c",
+    "name": "Kakkonen Promotion C",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-fi3c",
+    "name": "Kakkonen - Group C",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-f4la",
+    "name": "Kolmonen Läntinen",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-fje",
+    "name": "A-Pojat SM Sarja Endrunde",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bce2",
+    "name": "Camp. Cearense - Releg.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-chl1",
+    "name": "Torneo Clausura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-chla",
+    "name": "Torneo Apertura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-chdp",
+    "name": "Liguilla de Promoción",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ch2c",
+    "name": "Primera B Clausura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-chi-c3-9c",
+    "name": "Torneo Transición",
+    "type": "other",
+    "country": ""
+  },
+  {
+    "id": "tm-alp2",
+    "name": "Kategoria e Parë Relegation",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-isl3",
+    "name": "2. deild",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-hbpo",
+    "name": "Bremenpokal",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sksc",
+    "name": "Slovak Super Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-r3p2",
+    "name": "2. Division A Playoff 2",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ol9",
+    "name": "Oberliga Ba-Wü",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ol1",
+    "name": "OL Hamburg/S-H",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ir12",
+    "name": "Play-Offs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mt1p",
+    "name": "Premier League Closing Round",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-splp",
+    "name": "Pro League Champ. Play-off",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ltsc",
+    "name": "Lithuanian Supercup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ko1r",
+    "name": "Relegation Superliga e Kosovës",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nedc",
+    "name": "Nedbank Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-uru3",
+    "name": "Segunda División Play-off",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ukrr",
+    "name": "Championship playoff Vyshcha Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-giil",
+    "name": "Interm. League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gbq1",
+    "name": "U21 PL Qualificationsgr. 1",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-3ptp",
+    "name": "Liga 3 - Finals",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pr1p",
+    "name": "Primera División Paraguay Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sc3m",
+    "name": "League One Meisterr.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mne2",
+    "name": "2. CFL",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cir6",
+    "name": "2. Liga Grp. 6",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c2i4",
+    "name": "2. Liga inter - Gr. 4 (- 11/12)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ajsc",
+    "name": "Trofeo de Campeones Proyección",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c2i5",
+    "name": "2. Liga inter - Gr. 5 (- 11/12)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-17la",
+    "name": "U17 Nachwuchsliga - Liga A",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-17df",
+    "name": "U17 Nachwuchsliga - Gr. F",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ses",
+    "name": "Supercupen",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-irlp",
+    "name": "Aluf haAlufim",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-t3lc",
+    "name": "T3 Champions League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mal2",
+    "name": "Challenge League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pli3",
+    "name": "Liga 3",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-tupl",
+    "name": "Ligue I Pro Playout",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-geo2",
+    "name": "Erovnuli Liga 2",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bgd1",
+    "name": "Bangladesh PL",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bgdp",
+    "name": "Federation Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-buel",
+    "name": "UECL Playoffs Efbet Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-hkfa",
+    "name": "Hong Kong FA Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-a2vi",
+    "name": "NPL Victoria",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-crpo",
+    "name": "Copa de Costa Rica",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lnr2",
+    "name": "LL Niederrhein-Gr. 2",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-a4o",
+    "name": "OÖ Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-czsc",
+    "name": "Superpohar",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-llsl",
+    "name": "Landesliga Schleswig",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gr2s",
+    "name": "Football League South",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-a4k",
+    "name": "Kärntner Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-a2re",
+    "name": "Relegation Erste Liga (- 2015)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-czj3",
+    "name": "JL - Relegation",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-f1cc",
+    "name": "Veikkausliiga Relegation Group",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-skrp",
+    "name": "II. Liga Relegation Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-obld",
+    "name": "Oberliga Südwest (- 11/12)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rekr",
+    "name": "Releg. 1.HNL",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-telk",
+    "name": "Carling Knockout",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sfal",
+    "name": "MTN8",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ukra",
+    "name": "Premier Liga - Abstiegsrunde",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-spcs",
+    "name": "Singapore Community Shield",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-insc",
+    "name": "Super Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-az1a",
+    "name": "Premyer Liqasi Abstiegsrunde",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-vz1l",
+    "name": "Liga FUTVE",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rrls",
+    "name": "Aufstiegsrunde zur Regionalliga Südwest",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pdv2",
+    "name": "Clausura Play-Off",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-crpv",
+    "name": "Apertura Play-Off",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ccac",
+    "name": "Central American Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-jpka",
+    "name": "Kansai Soccer League (Div.1)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-skjn",
+    "name": "Shakaijin Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c2i2",
+    "name": "2. Liga inter - Gr. 1 (- 11/12)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-no93",
+    "name": "Oberliga Nord",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ofbs",
+    "name": "ÖFB-Supercup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lpl",
+    "name": "Libyan Premier League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mt2p",
+    "name": "Challenge League - Finals",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mlp2",
+    "name": "BOV Challenge Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-dd2a",
+    "name": "1.DDR-Liga Staffel A",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c3p2",
+    "name": "Promotion League - Abstiegsr.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sinc",
+    "name": "Singapore League Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-siar",
+    "name": "S.League Final 2",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-simr",
+    "name": "S.League Final 1",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-phu2",
+    "name": "Abstiegsr. Nemzeti Bajnokság II",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-arrs",
+    "name": "Aufstiegsr. RL Süd",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ge2h",
+    "name": "Pirveli Liga (until 12/2016)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gepo",
+    "name": "David Kipiani Cup (bis 15/16)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ol6b",
+    "name": "Oberliga Westfalen",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-p2ar",
+    "name": "Prom. Primera B Nacional (-11/12)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-niso",
+    "name": "NISA Spring Season Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nisr",
+    "name": "NISA Spring Season",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nlcu",
+    "name": "Legends Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cole",
+    "name": "CONCACAF League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lclc",
+    "name": "Liguilla Pre Libertadores",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-chlp",
+    "name": "Torneo Clausura play-offs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-co2p",
+    "name": "Fase Final TBD I",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-vlbe",
+    "name": "Berlin-Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pn1f",
+    "name": "LPF Apertura Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-aolh",
+    "name": "Aufstiegsr. Hessenliga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-polh",
+    "name": "Relegation Hessenliga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-vzoc",
+    "name": "Clausura. Fase Final",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gbq2",
+    "name": "U21 PL Qualificationsgr. 2",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ukrl",
+    "name": "Premier Liga - Europa League Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ro3f",
+    "name": "Liga 3 Play-Off",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-l2na",
+    "name": "2. BL Nord Aufstiegsr.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-l2n",
+    "name": "2. BL North",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ar3a",
+    "name": "Asc. Fed. A & Prim. B Metro",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mals",
+    "name": "Maltese Super Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gbrp",
+    "name": "Reserve League Play Offs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-hbza",
+    "name": "Hoofdklasse B Sa",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-jflr",
+    "name": "JFL/RL Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-jpks",
+    "name": "Kyushu SL (dis.)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cash",
+    "name": "County Antrim Shield",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-aco1",
+    "name": "Copa Campeonato",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rrlb",
+    "name": "Relegation RL Bayern",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-th2p",
+    "name": "Thai League 2 Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-a1r",
+    "name": "Relegation Bundesliga (- 2021)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-escu",
+    "name": "Egyptian Super Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-brmt",
+    "name": "Campeonato Sul-Mato-Grossense",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mop2",
+    "name": "Super Liga (Phase 2)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-hlc2",
+    "name": "Hong Kong League Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-a4w",
+    "name": "Wiener Stadtliga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-17lb",
+    "name": "U17 Nachwuchsliga - Liga B",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-17db",
+    "name": "U17 Nachwuchsliga - Gr. B",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nzp1",
+    "name": "Chatham Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-slp2",
+    "name": "Clausura Final stages",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-slp1",
+    "name": "Apertura Final stages",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cl1p",
+    "name": "China League One Relegation Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cnrs",
+    "name": "CL1 Relegation Stage",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-hk22",
+    "name": "HKPL U22 League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-afqu",
+    "name": "AFC Cup Qualifiers",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cvf",
+    "name": "Clausura Finale",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sccr",
+    "name": "Supercopa de Costa Rica",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-jpp1",
+    "name": "Premier League Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-3czp",
+    "name": "CFL - Promotion Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-czj2",
+    "name": "JL - Championship",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-noap",
+    "name": "NOFV-Oberliga Abstiegsrunde",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bram",
+    "name": "Campeonato Amazonense",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-m191",
+    "name": "Liga MX U19 Apertura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-aolb",
+    "name": "Aufstiegsr. OL Ba-Wü",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-kaza",
+    "name": "Premier League Relegation-Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rulp",
+    "name": "Premier Liga Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-jsl1",
+    "name": "JSL (1965-91/92)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-inp2",
+    "name": "Piala Menpora",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gr2o",
+    "name": "B' Ethniki POFF",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lnr3",
+    "name": "LL Niederrhein-Gr. 3",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-is2p",
+    "name": "Relegation Besta deild",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-anpo",
+    "name": "Primera Divisió Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-and2",
+    "name": "Segona Divisió",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-afpq",
+    "name": "President's Cup-Qualif.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-b1p1",
+    "name": "Apertura Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bop2",
+    "name": "Copa S. Bolívar Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bol2",
+    "name": "Copa Simón Bolívar (-2024)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-kasr",
+    "name": "Relegation Premier Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-myc1",
+    "name": "Piala Malaysia",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-fiyk",
+    "name": "Ykkönen",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nzlp",
+    "name": "ISPSHP-Playoffs (- 2021)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-knpl",
+    "name": "KNL Championship ('03-'19)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-knl2",
+    "name": "Korea National League - 2nd Stage",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-knlp",
+    "name": "K2 Championship",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-knl1",
+    "name": "National League - 1st Stage",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rknl",
+    "name": "Korea National League ('11-19')",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-j6k2",
+    "name": "Kanto Soccer League (Div.2)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-isc2",
+    "name": "Indian Super Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c7pl",
+    "name": "U17 Elite Platzierungsspiele",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-jo1l",
+    "name": "Jordanian Pro League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-atmp",
+    "name": "Mittleres Playoff (- 1993)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bj3r",
+    "name": "U17-Relegation Süd/Südwest",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-jus-c3-96",
+    "name": "U19 Allsvenskan Södra",
+    "type": "other",
+    "country": ""
+  },
+  {
+    "id": "tm-irqc",
+    "name": "Iraq FA Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-irq1",
+    "name": "Iraq S. League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-olwe",
+    "name": "OL Westf. - Finals",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-tunm",
+    "name": "Ligue I Pro Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-17de",
+    "name": "U17 Nachwuchsliga - Gr. E",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-leta",
+    "name": "Relegation Virsliga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-j6ka",
+    "name": "Kansai Soccer League (Div.2)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lim",
+    "name": "A Lyga - Championship Round",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bo12",
+    "name": "Copa División Profesional",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bo1a",
+    "name": "División Profesional",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-402",
+    "name": "Final Topklasse",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-isls",
+    "name": "Meistarakeppni",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-polu",
+    "name": "BGL Ligue Relegation",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ro19",
+    "name": "L. Elitelor U19",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-niru",
+    "name": "Playout Premier League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lbno",
+    "name": "LL Bayern-N/O",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nnlp",
+    "name": "NZ National League Grand Final",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nnl1",
+    "name": "National League - North",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ykab",
+    "name": "YKK Relegation",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-balc",
+    "name": "Balkans Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-vlsb",
+    "name": "VL Südbaden",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c7po",
+    "name": "U17 Elite Playouts",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-vzoa",
+    "name": "Apertura. Fase Final",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-llm1",
+    "name": "LL Mittelrhein 1",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rhl",
+    "name": "Rheinlandliga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cosp",
+    "name": "Superliga Águila de Campeones",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-obsn",
+    "name": "NOFV-Oberliga Nord",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-beyo",
+    "name": "U18 Elite 1 PO B",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cif",
+    "name": "Apertura Finale",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-vscu",
+    "name": "Vietnamese Super Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-inpp",
+    "name": "Piala Presiden",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-1cy2",
+    "name": "2. Division Prom.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-arwn",
+    "name": "Aufstiegsr. RL West",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-17dc",
+    "name": "U17 Nachwuchsliga - Gr. C",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-hk2l",
+    "name": "Hong Kong First Division",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bk17",
+    "name": "U17 Div. 1 Championship-PO",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-hbzo",
+    "name": "Hoofdklasse B Su",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-smrs",
+    "name": "Supercoppa San Marino",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ili2",
+    "name": "Championship",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mya1",
+    "name": "Myanmar National League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lwee",
+    "name": "LL Weser-Ems - Finals",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-17dd",
+    "name": "U17 Nachwuchsliga - Gr. D",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-anrr",
+    "name": "Relegation Round",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-vsho",
+    "name": "Verbandsliga SH Süd-Ost",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sc4a",
+    "name": "League Two Abstiegsr.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ancr",
+    "name": "Championship Round",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bhsc",
+    "name": "Superkup BiH",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-qflc",
+    "name": "QFL League Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ary3",
+    "name": "Torneo Proyección",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-obss",
+    "name": "NOFV-Oberliga Süd",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cl2b",
+    "name": "Liga de Ascenso",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cl2p",
+    "name": "Liguilla Promoción",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-az1m",
+    "name": "Premyer Liqasi Meisterschaftsrunde",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lucl",
+    "name": "Coupe de la Ligue",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nire",
+    "name": "Playoff Conference League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mucu",
+    "name": "Mid Ulster Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-kp3b",
+    "name": "Kakkonen Promotion B",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-tunr",
+    "name": "Ligue Professionelle 1 - Relegation",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ascc",
+    "name": "ASEAN Club Championship",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ccls",
+    "name": "CFU Club Shield",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bo91",
+    "name": "Oberliga Berlin",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lutp",
+    "name": "Titelgruppe",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-r2bp",
+    "name": "Liga II - Seria II Play-Off",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-llhm",
+    "name": "Landesliga Hammonia",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lb1m",
+    "name": "Leb. Premier League Champ.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-evaa",
+    "name": "Eliteliga Vorarlberg Abstiegsrunde (- 2023)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-elva",
+    "name": "Eliteliga Vorarlberg (- 2023)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rser",
+    "name": "Relegation SuperLiga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rls1",
+    "name": "Rel. LL Steiermark",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-werm",
+    "name": "Wyschejschaja Liha Meisterrunde",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-jrlr",
+    "name": "Relegation Regional Leagues",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-phi1",
+    "name": "United Football League (-2016)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lib1",
+    "name": "Leb. Premier League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-arsc",
+    "name": "Armenian Supercup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-chi3",
+    "name": "Segunda División",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-geoa",
+    "name": "Umaglesi Liga Relegation Round (- 2017)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-urue",
+    "name": "Camp. Uruguayo Esp.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c1p2",
+    "name": "Copa Sudam. Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pere",
+    "name": "Liga 1 Relegation",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pusc",
+    "name": "Supercopa Peruana",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cobi",
+    "name": "Copa Bicentenario",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ure2",
+    "name": "Segunda División Profesional - Especial",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-estr",
+    "name": "Relegation Estland",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-g2sc",
+    "name": "Super League 2 Super Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-kog2",
+    "name": "Kolmonen Etelä B",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-kog3",
+    "name": "Kolmonen Etelä C",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-fikp",
+    "name": "Kakkonen Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-kcup",
+    "name": "Kakkonen Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sc4m",
+    "name": "League Two Meisterr.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-zypp",
+    "name": "Platzierungsrunde",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-uzp2",
+    "name": "Superligasi Playoff II",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-far3",
+    "name": "2. deild",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-f4fr",
+    "name": "3. deild - Final round",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-far2",
+    "name": "1. deild",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mald",
+    "name": "Championship decider",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rrlo",
+    "name": "Relegation RL Ost (- 2022)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nir3",
+    "name": "Intermediate",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nip2",
+    "name": "Playoff Championship",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nimi",
+    "name": "Meisterrunde Intermedia",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-niar",
+    "name": "Abstiegsrunde",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-grsc",
+    "name": "Greek Super Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ch3b",
+    "name": "Challenge League Barrage",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-chpl",
+    "name": "Torneo Apertura play-offs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-isp1",
+    "name": "Ligat ha'Al/Leumit play-off",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nlbf",
+    "name": "Beloften Eredivisie - Finale",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ee19",
+    "name": "U19 Eliitliiga Esiliiga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pfl1",
+    "name": "PFL",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-csc2",
+    "name": "Recopa Costa Rica",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cisp",
+    "name": "Inv. 2. Phase",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cvsp",
+    "name": "Clausura Second Stage",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lure",
+    "name": "Ehrenpromotion Relegation",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rlsa",
+    "name": "Regionalliga Salzburg Abstiegsrunde (- 2023)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-l2sa",
+    "name": "2. BL Süd Aufstiegsr.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-vz1p",
+    "name": "Liga FUTVE Final",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pofi",
+    "name": "Rel. Veikkausliiga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-k3mp",
+    "name": "K3 League Championship-Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-chl2",
+    "name": "Primera B Apertura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bo1p",
+    "name": "Div. Profesional Rel.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-burl",
+    "name": "Relegation/Promotion Playoff Efbet Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ofcp",
+    "name": "OFC President's Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cl3p",
+    "name": "League Two Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rnme",
+    "name": "RL Nord Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mysc",
+    "name": "Malaysia Super Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-n3p1",
+    "name": "PostNord-ligaen 1 Sluttsp.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nzpo",
+    "name": "ASB Charity Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ge2p",
+    "name": "Liga 1 Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mosc",
+    "name": "Moldovan Super Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-t211",
+    "name": "U21 Süper Lig",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ginc",
+    "name": "Intermediate Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-afcp",
+    "name": "AFC Challenge League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ac2q",
+    "name": "AFC CL Two Qualif.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-j6ts",
+    "name": "Tohoku Soccer League (Div.2 South)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ifdc",
+    "name": "Federation Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gep3",
+    "name": "Umaghlesi Liga - EL Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-geom",
+    "name": "Umaglesi Liga Championship Round (- 2017)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-juno",
+    "name": "U19 Allsvenskan Norra",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-aacc",
+    "name": "Afro-Asian Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-llha",
+    "name": "Landesliga Hansa",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-it4v",
+    "name": "Lega Pro 2 - D",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cnps",
+    "name": "CL1 Promotion Stage",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-iscc",
+    "name": "Super Cup Qualifiers",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-belr",
+    "name": "Relegation Belarus",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-wera",
+    "name": "Wyschejschaja Liha Abstiegsrunde",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lao1",
+    "name": "Lao League 1",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-irr1",
+    "name": "Persian Gulf Pro League Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-irn2",
+    "name": "Azadegan League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mitc",
+    "name": "Mitropacup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-qsj1",
+    "name": "Sheikh Jassim Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c1p1",
+    "name": "Liga DIMAYOR Liguilla",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-tad1",
+    "name": "Vysshaya Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pvrr",
+    "name": "Prva liga Relegation round",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-npl1",
+    "name": "Nepal Super League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-chaf",
+    "name": "Apertura Final",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-hk2f",
+    "name": "HK U22 FA Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-tads",
+    "name": "Tajik Supercup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-fi3n",
+    "name": "Kakkonen - North",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-tusc",
+    "name": "Tunesischer Supercup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ltp2",
+    "name": "Litauischer Pokal Übergangsr.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-es1h",
+    "name": "Meistriliiga (92/93 bis 97/98)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c2i1",
+    "name": "2. Liga inter - Gr. 1 (- 11/12)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-irsc",
+    "name": "Iran Super Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-egrp",
+    "name": "Relegation Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-egcp",
+    "name": "Championship Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-llm2",
+    "name": "LL Mittelrhein 2",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-llab",
+    "name": "Playoffs LL",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nlae",
+    "name": "U19 Div. 2 Spring",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-acwc",
+    "name": "Asian Cup Winner's Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-l1rl",
+    "name": "Relegation A Lyga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lll",
+    "name": "LL Lüneburg",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sinr",
+    "name": "Prime League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sfar",
+    "name": "PSL Prom.-Relega",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mfcc",
+    "name": "MFF Charity Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rupd",
+    "name": "Abst.-Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-su2l",
+    "name": "Pervaya Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-kog1",
+    "name": "Kolmonen Etelä A",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-hkse",
+    "name": "Hokushin'etsu Football League (Div.1)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-j6h2",
+    "name": "Hokushin'etsu Football League (Div.2)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-jusl",
+    "name": "U19 Allsvenskan Slutspelet",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-tohl",
+    "name": "Tohoku Soccer League (Div.1)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ilp1",
+    "name": "I-League Champ. Stage",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lpl3",
+    "name": "Libya Championship Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lpl2",
+    "name": "Qualif. Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rrlt",
+    "name": "Relegation RL Tirol",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-elta",
+    "name": "Regionalliga Tirol Abstiegsrunde (- 2023)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-aolw",
+    "name": "Aufstiegsr. OL Westf.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-kap2",
+    "name": "Cup of Kazakhstan (- 2001)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-f4kp",
+    "name": "Kolmonen Pohjoinen",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ur2s",
+    "name": "Segunda División - Segunda Fase",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lnbr",
+    "name": "LL Braunschweig",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cspc",
+    "name": "Cambodian Super Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-l2nb",
+    "name": "2. BL Nord Abstiegsr.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-osha",
+    "name": "OL Hamburg Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nipp",
+    "name": "Playoff Premiership",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-inp1",
+    "name": "Liga 1 Championship Series",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-uz2l",
+    "name": "Uzbekistan Pro Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-br94",
+    "name": "Vysheyshaya Liga 1994/95",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pdrl",
+    "name": "Primera Div. Rel.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gn2p",
+    "name": "Challenge Group",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-om1l",
+    "name": "Oman Pro League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-fi2p",
+    "name": "Ykkönen Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-leab",
+    "name": "Leumit/Alef play-off",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-p232",
+    "name": "Liga Revelação - Second Round",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cwcq",
+    "name": "Club World Cup Qu.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-sa2p",
+    "name": "First Div. Play-off",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rnab",
+    "name": "OL Niedersachsen Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nsc",
+    "name": "NIFL Charity Shield",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-alon",
+    "name": "Aufstiegsrunde zur OL Nord",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nfvm",
+    "name": "NFV-Championship",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pljf",
+    "name": "CYL - Final round",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-isrp",
+    "name": "Ligat ha'Al - Middle Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-g2po",
+    "name": "Relegation B'",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-fip1",
+    "name": "Regions Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-aolr",
+    "name": "Aufstiegsr. OL RLP/Saar",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-npp1",
+    "name": "Nepal Super League Championship",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-arro",
+    "name": "Aufstiegsrunde zur RL Nordost",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-llhb",
+    "name": "Landesliga Bremen",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-m3p2",
+    "name": "Amateur League Finals",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mal3",
+    "name": "National Amateur League I",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-uzsc",
+    "name": "Uzbekistan Supercup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-shsl",
+    "name": "Shikoku Soccer League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mnp1",
+    "name": "Relegation 1. CFL",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-chal",
+    "name": "NLA - Entscheidungsspiele",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pflm",
+    "name": "PFL Final Series",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-chde",
+    "name": "Copa Sudamericana playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lb1a",
+    "name": "Leb. Premier League Rel.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ilp3",
+    "name": "Liga 2 Relegation Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-cl3c",
+    "name": "League Two C",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-far4",
+    "name": "3. deild",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pljw",
+    "name": "CYL - East",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pljz",
+    "name": "CYL - West",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-vec1",
+    "name": "Copa Venezuela",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-hk1a",
+    "name": "Hong Kong Relegation Group",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rnrl",
+    "name": "Rel. RL Nord",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-f3ka",
+    "name": "Kakkonen Relegation A",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-jcsl",
+    "name": "Chugoku Soccer League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ncp1",
+    "name": "Prim. Apertura Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nc1a",
+    "name": "Liga Primera Apertura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ncp2",
+    "name": "Prim. Clausura Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nc1c",
+    "name": "Liga Primera Clausura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ijsc",
+    "name": "Supercoppa U17",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-al21",
+    "name": "Kategoria Superiore U21",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-alpo",
+    "name": "Relegation Kategoria Superiore",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-azf2",
+    "name": "Azadegan League Final Round (- 2015)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rbde",
+    "name": "Relegation Betri-Deildin",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-elsc",
+    "name": "Supercopa de El Salvador",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-luaa",
+    "name": "Abstiegsgr. A",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nlev",
+    "name": "U19 Div. 2 Fall",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-f3kb",
+    "name": "Kakkonen Relegation B",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ir1h",
+    "name": "Azadegan League (- 2001)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nimc",
+    "name": "Meisterrunde",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-il2p",
+    "name": "Liga 2 Promotion Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-b1p2",
+    "name": "Clausura Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-uzr",
+    "name": "Relegation Superligasi",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-josc",
+    "name": "Jordan Super Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-agsc",
+    "name": "Supercoupe d'Algérie",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-domp",
+    "name": "Liga Dominicana - Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-skko",
+    "name": "Superkupa e Kosovës",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gzo1",
+    "name": "Gozo League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gfac",
+    "name": "GFA Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mtpo",
+    "name": "AL Promotion Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-fi3",
+    "name": "Kakkonen - East",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pljr",
+    "name": "Baraże o udział w CLJ",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-p2pl",
+    "name": "Liga 2 Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-3np2",
+    "name": "3 NAT PO Degradatie",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bnoe",
+    "name": "LL Bayern NO - Finals",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-aols",
+    "name": "Aufstiegsr. OL SH",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-phpo",
+    "name": "Copa Paulino Alcantara",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-vlmv",
+    "name": "VL Meckl.-Vorpommern",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-vn2a",
+    "name": "Liga FUTVE 2",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mlac",
+    "name": "National Amateur Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-krsc",
+    "name": "Kyrgyzstan Super Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-2rhr",
+    "name": "Relegation Prva NL",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lpl1",
+    "name": "Rel. Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bi19",
+    "name": "Premijer Liga BiH U19",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-c2i6",
+    "name": "2. Liga inter - Gr. 6 (- 11/12)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ascq",
+    "name": "ASEAN Club Championship Qu.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-irn6",
+    "name": "Tehran Hazfi Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-tosl",
+    "name": "Tokai Soccer League (Div.1)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-fi3r",
+    "name": "Ykkönen Relegation Group",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-e17s",
+    "name": "U17 Eliitliiga Sügisring",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ee17",
+    "name": "U-17 Eliitliiga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-alln",
+    "name": "Playoffs OL",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lpb8",
+    "name": "Ligapokal LL Bayern SO",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-domc",
+    "name": "Copa de la Liga Dominicana",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-dfvs",
+    "name": "DFV-Supercup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-vsae",
+    "name": "VL Sachsen-Anhalt - Finals",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-mazr",
+    "name": "Relegation PMFL",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-vn2c",
+    "name": "Liga FUTVE 2. 2da Fase",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-hosc",
+    "name": "Supercopa de Honduras",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-es17",
+    "name": "U17 Eliitliiga Esiliiga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ilpl",
+    "name": "2nd Division League Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-grd",
+    "name": "Gibraltar Reserves Division",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lip2",
+    "name": "Liga 1 ACL Playoff 2",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-majc",
+    "name": "Jubilee Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gzf1",
+    "name": "Gozo League Finals",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rvlb",
+    "name": "Rel. zur VL Baden",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-llle",
+    "name": "LL Lüneburg - Finals",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-alpw",
+    "name": "U19 Ligapokal West",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-k4mp",
+    "name": "K4 League promotion playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-etp1",
+    "name": "Premier League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-vzp3",
+    "name": "Liga FUTVE 2 - Fase Final",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bh1l",
+    "name": "Bhutan Premier League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lap1",
+    "name": "LFF Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-n3p2",
+    "name": "PostNord-ligaen 2 Sluttsp.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-arbl",
+    "name": "Aufstiegsr. Berlin-Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-shmr",
+    "name": "OL Schleswig-Holstein Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bi17",
+    "name": "Premijer Liga BiH U17",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-elme",
+    "name": "U19 Eliitliiga Meistriliiga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-itj8",
+    "name": "Under 17 20/21",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-elmp",
+    "name": "U19 Eliitliiga Meistriliiga Playoffs",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-gi2",
+    "name": "Gibraltar Second Division",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-g2dc",
+    "name": "Second Division Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-alp1",
+    "name": "Kategoria e Parë Promotion",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-a4or",
+    "name": "Rel. OÖ Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-iksc",
+    "name": "Iraqi Super Cup",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-fi4r",
+    "name": "Relegation Ykkösliiga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-alp4",
+    "name": "Re. Kategoria e Parë",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-hfa4",
+    "name": "Hong Kong FA Cup Jun.",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ugl1",
+    "name": "Uganda Premier League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-bnwe",
+    "name": "LL Bayern NW - Finals",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-ipl2",
+    "name": "League 2 - Playoff",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-irn3",
+    "name": "League 2",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-hk1m",
+    "name": "Hong Kong Championship Group",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-quon",
+    "name": "Qualif. Oberliga NDS",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-su1a",
+    "name": "VLA (- 1991)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-blpw",
+    "name": "U17 Ligapokal West",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-v2cp",
+    "name": "Liga FUTVE 2. 2da Fase-Octagonal",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-lh21",
+    "name": "Landesliga Hamburg",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-pra1",
+    "name": "Liga Puerto Rico Apertura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-prc1",
+    "name": "Liga Puerto Rico Clausura",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-nola",
+    "name": "Aufstiegsr. NOFV-Oberliga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-a4kr",
+    "name": "Relegation Kärntner Liga",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-j6t2",
+    "name": "Tokai Soccer League (Div.2)",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-rvls",
+    "name": "Rel. zur VL Südwest",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-tpl2",
+    "name": "Ligue I Pro Playoff II",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-psbl",
+    "name": "Bayernliga Platzierungsspiele",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-j1yl",
+    "name": "J. Youth League",
+    "type": "domestic_league",
+    "country": ""
+  },
+  {
+    "id": "tm-fp3a",
+    "name": "Kakkonen Promotion A",
+    "type": "domestic_league",
+    "country": ""
+  }
+]
