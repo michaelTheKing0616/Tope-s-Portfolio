@@ -257,6 +257,8 @@ export async function buildFromArchive(footballBase, curatedPlayers) {
   const competitions = [...competitionsMap.values()];
   const clubsExtended = [...clubsMap.values()];
   const eraBaselines = buildEraBaselinesFromStats(statMap, footballBase.eraBaselines);
+  const mergedIds = new Set(playersExtended.map((p) => p.id));
+  const mergedNorms = new Set(playersExtended.map((p) => normalizeName(p.name)));
 
   return {
     playersExtended,
@@ -265,6 +267,8 @@ export async function buildFromArchive(footballBase, curatedPlayers) {
     clubsExtended,
     eraBaselines,
     playerAliases: aliases,
+    mergedIds,
+    mergedNorms,
     meta: {
       archiveProfiles: profiles.length,
       archivePerformances: perfRows,

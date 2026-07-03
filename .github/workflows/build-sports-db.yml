@@ -2,11 +2,6 @@ name: Build SPORTVERSE database
 
 on:
   workflow_dispatch:
-    inputs:
-      use_archive:
-        description: "Download full TM archive from SPORTVERSE_ARCHIVE_URL secret (if set)"
-        type: boolean
-        default: false
   push:
     branches: [main, master]
     paths:
@@ -14,7 +9,7 @@ on:
       - "sportverse/packages/sports-db/**"
       - ".github/workflows/build-sports-db.yml"
   schedule:
-    # Weekly refresh — football-datasets + TM CDN
+    # Weekly refresh
     - cron: "0 4 * * 0"
 
 concurrency:
@@ -44,11 +39,21 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Optional — fetch full Transfermarkt archive
-        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.use_archive == true }}
+      - name: Fetch Transfermarkt archive from Google Drive
         env:
           ARCHIVE_URL: ${{ secrets.SPORTVERSE_ARCHIVE_URL }}
-        run: node scripts/download-archive-url.mjs
+        run: |
+          if [ -z "$ARCHIVE_URL" ]; then
+            echo "::warning::SPORTVERSE_ARCHIVE_URL secret is not set."
+            echo "CI will build the smaller football-datasets + TM CDN pool only."
+            echo "Add your Google Drive share link as secret SPORTVERSE_ARCHIVE_URL for the full archive."
+            exit 0
+          fi
+          echo "→ SPORTVERSE_ARCHIVE_URL is set — downloading archive…"
+          python3 -m pip install -q gdown
+          node scripts/download-archive-url.mjs
+          echo "Archive CSV files: $(find sportverse/archive -name '*.csv' | wc -l)"
+          ls -lh sportverse/archive/player_profiles/player_profiles.csv
 
       - name: Build sports-db JSON (ETL)
         env:
@@ -56,12 +61,17 @@ jobs:
         run: node scripts/seed-external-data.mjs --clone --build --tm-cdn-fallback
 
       - name: Verify required artifacts
-        run: node scripts/netlify-prebuild.mjs
-        env:
-          SKIP_DATA_SEED: "1"
+        run: node -e "import('./scripts/verify-sports-db-artifacts.mjs').then(m=>m.verifySportsDbArtifacts())"
+
+      - name: Install SPORTVERSE dependencies
+        run: npm install
+        working-directory: sportverse
 
       - name: Package tarball for release
         run: node scripts/package-sports-db.mjs
+
+      - name: Verify release bundle size
+        run: node -e "import('./scripts/verify-sports-db-artifacts.mjs').then(m=>m.verifySportsDbArtifacts({ tarballPath: 'sports-db-data.tar.gz' }))"
 
       - name: Upload workflow artifact (90-day retention)
         uses: actions/upload-artifact@v4

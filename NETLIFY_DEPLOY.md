@@ -55,7 +55,7 @@ Workflow: `.github/workflows/build-sports-db.yml`
 **Run it once** (then weekly on schedule):
 
 1. GitHub → **Actions** → **Build SPORTVERSE database** → **Run workflow**
-2. Optional: enable **use_archive** if you set repo secret `SPORTVERSE_ARCHIVE_URL` (see **Host the archive zip** below)
+2. Ensure secret **`SPORTVERSE_ARCHIVE_URL`** is set (Google Drive share link) — CI downloads it automatically every run
 3. CI runs ETL, packages `sports-db-data.tar.gz`, publishes to release **`sports-db-latest`**
 
 After CI succeeds, Netlify redeploy downloads the bundle instead of re-running ETL.
@@ -84,7 +84,7 @@ Uses `python -m gdown` (Windows) or `python3 -m gdown` (Linux/CI). Requires Pyth
 
 Zip layout: folders `player_profiles/`, `player_performances/`, etc. at the **root** of the zip (zip from inside `sportverse/archive/`).
 
-**Run CI with archive:** Actions → Build SPORTVERSE database → check **use_archive** → Run.
+**Run CI:** Actions → Build SPORTVERSE database → Run (no checkbox — archive is used automatically when the secret is set).
 
 | Build type | What you get |
 |---|---|

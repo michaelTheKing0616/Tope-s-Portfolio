@@ -20,7 +20,9 @@ const zipPath = join(cacheDir, "sportverse-archive.zip");
 function getUrl() {
   const url = process.env.ARCHIVE_URL ?? process.argv[2];
   if (!url?.trim()) {
-    throw new Error("Set ARCHIVE_URL env var or pass URL as first argument");
+    throw new Error(
+      "ARCHIVE_URL is empty — set GitHub secret SPORTVERSE_ARCHIVE_URL to your Google Drive share link",
+    );
   }
   return url.trim();
 }

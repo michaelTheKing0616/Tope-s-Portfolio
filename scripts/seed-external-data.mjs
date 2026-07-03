@@ -36,10 +36,12 @@ function cloneRepos() {
 }
 
 async function buildJson(options = {}) {
+  const hasArchive = existsSync(ARCHIVE_PROFILES);
   const useTmCdn =
-    options.tmCdnFallback === true ||
-    args.has("--tm-cdn-fallback") ||
-    (!existsSync(ARCHIVE_PROFILES) && args.has("--build"));
+    !hasArchive &&
+    (options.tmCdnFallback === true ||
+      args.has("--tm-cdn-fallback") ||
+      args.has("--build"));
 
   const curated = loadCuratedPlayers();
   const footballBase = buildFromFootballDatasets(curated);
@@ -48,7 +50,7 @@ async function buildJson(options = {}) {
   let built = footballBase;
   let archiveMeta = null;
 
-  if (existsSync(ARCHIVE_PROFILES)) {
+  if (hasArchive) {
     console.log("Ingesting Transfermarkt archive CSVs…");
     built = await buildFromArchive(footballBase, curated);
     archiveMeta = built.meta;
@@ -134,7 +136,9 @@ export async function runSeedPipeline(options = {}) {
       console.log("football-datasets missing — cloning now…");
       cloneRepos();
     }
-    const built = await buildJson({ tmCdnFallback: tmCdnFallback || !existsSync(ARCHIVE_PROFILES) });
+    const built = await buildJson({
+      tmCdnFallback: tmCdnFallback || args.has("--tm-cdn-fallback"),
+    });
     if (importSql) buildSql(built);
     return built;
   }
