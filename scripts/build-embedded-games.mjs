@@ -46,7 +46,7 @@ cpSync(distDir, outDir, { recursive: true });
 const dataSrc = join(sportverseRoot, "packages", "sports-db", "data");
 const dataDest = join(outDir, "data");
 if (existsSync(dataSrc)) {
-  const { copied, chunked } = copySportsDbDataForDeploy(dataSrc, dataDest);
+  const { copied, chunked } = copySportsDbDataForDeploy(dataSrc, dataDest, { split: false });
   if (chunked.length) {
     console.log(`  Chunked (not deployed as monolith): ${chunked.join(", ")}`);
   }

@@ -9,9 +9,11 @@ import { fileURLToPath } from "node:url";
 import { runSeedPipeline } from "./seed-external-data.mjs";
 import { downloadSportsDbBundle } from "./download-sports-db-bundle.mjs";
 import { verifySportsDbArtifacts } from "./verify-sports-db-artifacts.mjs";
+import { splitSportsDbForDeploy } from "./split-sports-db-for-deploy.mjs";
 
 const root = resolve(fileURLToPath(new URL(".", import.meta.url)), "..");
 const sportverseRoot = join(root, "sportverse");
+const dataDir = join(sportverseRoot, "packages", "sports-db", "data");
 
 function installSportverse() {
   console.log("\n→ Installing SPORTVERSE workspace dependencies…");
@@ -39,6 +41,9 @@ async function main() {
 
   verifySportsDbArtifacts();
   installSportverse();
+
+  console.log("\n→ Splitting large JSON for Netlify deploy (once)…");
+  splitSportsDbForDeploy(dataDir);
 
   console.log("\n✓ Netlify prebuild complete — ready for build:games\n");
 }

@@ -55,7 +55,9 @@ async function fetchJsonArray(base: string, fileName: string): Promise<unknown[]
       Array.from({ length: manifest.chunkCount }, (_, i) => {
         const chunkPath = `${base}data/chunks/${baseName}/${String(i).padStart(3, "0")}.json`;
         return fetch(chunkPath).then((r) => {
-          if (!r.ok) throw new Error(`Failed to load ${baseName} chunk ${i} (${r.status})`);
+          if (!r.ok) {
+            throw new Error(`Failed to load ${baseName} chunk ${i} from ${chunkPath} (${r.status})`);
+          }
           return r.json() as Promise<unknown[]>;
         });
       }),
@@ -63,8 +65,13 @@ async function fetchJsonArray(base: string, fileName: string): Promise<unknown[]
     return parts.flat();
   }
 
-  const res = await fetch(`${base}data/${fileName}`);
-  if (!res.ok) throw new Error(`Failed to load ${fileName} (${res.status})`);
+  const monolithUrl = `${base}data/${fileName}`;
+  const res = await fetch(monolithUrl);
+  if (!res.ok) {
+    throw new Error(
+      `Failed to load ${fileName}: manifest ${manifestUrl} (${manifestRes.status}), monolith ${monolithUrl} (${res.status})`,
+    );
+  }
   return res.json() as Promise<unknown[]>;
 }
 

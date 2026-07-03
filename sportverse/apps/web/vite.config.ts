@@ -20,7 +20,8 @@ const workspacePackages = [
 function copySportsDbData() {
   const src = resolve(root, "packages/sports-db/data");
   const dest = resolve(__dirname, "public/data");
-  copySportsDbDataForDeploy(src, dest);
+  // Chunks are built once in prebuild; avoid parsing 300MB+ JSON again during Vite build.
+  copySportsDbDataForDeploy(src, dest, { split: false });
 }
 
 export default defineConfig({

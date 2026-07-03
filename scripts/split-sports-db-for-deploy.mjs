@@ -18,6 +18,7 @@ export const CHUNKED_FILES = ["season-stats.json", "players-extended.json"];
 export function splitSportsDbForDeploy(dataDir, options = {}) {
   const maxChunkBytes = options.maxChunkBytes ?? MAX_CHUNK_BYTES;
   const files = options.files ?? CHUNKED_FILES;
+  const force = options.force === true;
   const chunksRoot = join(dataDir, "chunks");
   mkdirSync(chunksRoot, { recursive: true });
 
@@ -27,13 +28,23 @@ export function splitSportsDbForDeploy(dataDir, options = {}) {
     const sourcePath = join(dataDir, fileName);
     if (!existsSync(sourcePath)) continue;
 
+    const baseName = fileName.replace(/\.json$/i, "");
+    const manifestPath = join(chunksRoot, `${baseName}.manifest.json`);
+
+    if (!force && existsSync(manifestPath)) {
+      const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
+      if (manifest.totalItems && existsSync(join(chunksRoot, baseName, "000.json"))) {
+        results.push({ fileName, chunked: true, skipped: true, chunkCount: manifest.chunkCount });
+        continue;
+      }
+    }
+
     const size = statSync(sourcePath).size;
     if (size <= maxChunkBytes) {
       results.push({ fileName, chunked: false, bytes: size });
       continue;
     }
 
-    const baseName = fileName.replace(/\.json$/i, "");
     const chunkDir = join(chunksRoot, baseName);
     rmSync(chunkDir, { recursive: true, force: true });
     mkdirSync(chunkDir, { recursive: true });
@@ -105,10 +116,12 @@ export function getChunkedBasenames(dataDir) {
 }
 
 /** Split large arrays if needed, then copy deploy-safe files to dest. */
-export function copySportsDbDataForDeploy(src, dest) {
+export function copySportsDbDataForDeploy(src, dest, options = {}) {
   if (!existsSync(src)) return { copied: 0, chunked: [] };
 
-  splitSportsDbForDeploy(src);
+  if (options.split !== false && options.skipSplit !== true) {
+    splitSportsDbForDeploy(src);
+  }
   mkdirSync(dest, { recursive: true });
 
   const skipMonoliths = getChunkedBasenames(src);
