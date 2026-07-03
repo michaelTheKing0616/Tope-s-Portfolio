@@ -3,15 +3,19 @@
  * Tarball all sports-db JSON for GitHub Release upload (Netlify downloads this bundle).
  */
 import { execSync } from "node:child_process";
-import { existsSync, readdirSync, statSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { tmpdir } from "node:os";
+import { gzipSync } from "node:zlib";
 import { verifySportsDbArtifacts } from "./verify-sports-db-artifacts.mjs";
 
 const root = resolve(fileURLToPath(new URL(".", import.meta.url)), "..");
 const dataDir = join(root, "sportverse/packages/sports-db/data");
 const outTar = join(root, "sports-db-data.tar.gz");
+
+/** Large JSON served via GitHub Release + gzip in the browser (Netlify cannot host 300MB+). */
+const CDN_GZIP_FILES = ["season-stats.json", "players-extended.json"];
 
 async function main() {
   verifySportsDbArtifacts();
@@ -37,6 +41,17 @@ async function main() {
   const tarMb = (statSync(outTar).size / 1024 / 1024).toFixed(2);
   const rawMb = (manifest.files.reduce((sum, f) => sum + f.bytes, 0) / 1024 / 1024).toFixed(1);
   console.log(`✓ Packaged ${files.length} JSON files → sports-db-data.tar.gz (${tarMb} MB compressed, ${rawMb} MB raw JSON)`);
+
+  for (const name of CDN_GZIP_FILES) {
+    const src = join(dataDir, name);
+    if (!existsSync(src)) continue;
+    const outGz = join(root, `${name}.gz`);
+    const raw = readFileSync(src);
+    writeFileSync(outGz, gzipSync(raw, { level: 9 }));
+    const gzMb = (statSync(outGz).size / 1024 / 1024).toFixed(2);
+    console.log(`✓ ${name}.gz (${gzMb} MB) — browser CDN asset for Netlify`);
+  }
+
   console.log(JSON.stringify(manifest, null, 2));
 }
 

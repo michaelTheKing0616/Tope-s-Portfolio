@@ -44,7 +44,43 @@ interface ChunkManifest {
   totalItems: number;
 }
 
+function sportsDbCdnBase(): string | undefined {
+  const cdn = (import.meta as ImportMeta & { env?: { VITE_SPORTS_DB_CDN?: string } }).env
+    ?.VITE_SPORTS_DB_CDN?.trim();
+  if (!cdn) return undefined;
+  return cdn.endsWith("/") ? cdn : `${cdn}/`;
+}
+
+async function fetchGzJsonArray(url: string): Promise<unknown[]> {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Failed to load ${url} (${res.status})`);
+  if (typeof DecompressionStream === "undefined") {
+    throw new Error("gzip decompression is not supported in this browser");
+  }
+  const stream = res.body!.pipeThrough(new DecompressionStream("gzip"));
+  const text = await new Response(stream).text();
+  const data = JSON.parse(text) as unknown;
+  if (!Array.isArray(data)) throw new Error(`${url} did not contain a JSON array`);
+  return data;
+}
+
 async function fetchJsonArray(base: string, fileName: string): Promise<unknown[]> {
+  const cdn = sportsDbCdnBase();
+  if (cdn) {
+    const gzUrl = `${cdn}${fileName}.gz`;
+    try {
+      const data = await fetchGzJsonArray(gzUrl);
+      if (data.length) return data;
+      throw new Error(`${gzUrl} returned an empty array`);
+    } catch (err) {
+      const detail = err instanceof Error ? err.message : String(err);
+      throw new Error(
+        `Failed to load ${fileName} from CDN (${gzUrl}): ${detail}. ` +
+          `Run GitHub Actions "Build SPORTVERSE database" to publish ${fileName}.gz on release sports-db-latest.`,
+      );
+    }
+  }
+
   const baseName = fileName.replace(/\.json$/i, "");
   const manifestUrl = `${base}data/chunks/${baseName}.manifest.json`;
   const manifestRes = await fetch(manifestUrl);

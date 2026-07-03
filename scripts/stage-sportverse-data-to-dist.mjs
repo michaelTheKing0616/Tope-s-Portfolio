@@ -26,6 +26,13 @@ function logDir(label, dir) {
 }
 
 function verifyDistData() {
+  if (process.env.VITE_SPORTS_DB_CDN) {
+    console.log(
+      `  ✓ CDN mode (VITE_SPORTS_DB_CDN) — large JSON loaded from GitHub Release in browser`,
+    );
+    return;
+  }
+
   verifyChunkManifests(dataDest);
 
   const statsManifest = join(dataDest, "chunks/season-stats.manifest.json");
@@ -64,8 +71,12 @@ async function main() {
   );
 
   console.log("→ Splitting large JSON (if not already chunked)…");
-  splitSportsDbForDeploy(dataSrc);
-  verifyChunkManifests(dataSrc);
+  if (!process.env.VITE_SPORTS_DB_CDN) {
+    splitSportsDbForDeploy(dataSrc);
+    verifyChunkManifests(dataSrc);
+  } else {
+    console.log("  Skipping split — large files served from GitHub Release CDN");
+  }
 
   const { copied, chunked } = copySportsDbDataForDeploy(dataSrc, dataDest, { split: false });
   if (chunked.length) {

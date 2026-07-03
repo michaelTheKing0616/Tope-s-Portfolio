@@ -29,3 +29,4 @@
   NODE_VERSION = "20"
   NODE_OPTIONS = "--max-old-space-size=4096"
   SPORTS_DB_REPO = "michaelTheKing0616/Tope-s-Portfolio"
+  VITE_SPORTS_DB_CDN = "https://github.com/michaelTheKing0616/Tope-s-Portfolio/releases/download/sports-db-latest"

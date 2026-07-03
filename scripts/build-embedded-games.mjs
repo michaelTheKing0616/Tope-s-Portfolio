@@ -31,7 +31,12 @@ if (!existsSync(join(sportverseRoot, "node_modules"))) {
 }
 
 console.log(`→ Building SPORTVERSE web app (base: ${basePath})…`);
-run("npm run build", webDir, { VITE_BASE_PATH: basePath });
+const viteEnv = { VITE_BASE_PATH: basePath };
+if (process.env.VITE_SPORTS_DB_CDN) {
+  viteEnv.VITE_SPORTS_DB_CDN = process.env.VITE_SPORTS_DB_CDN;
+  console.log(`  CDN data: ${process.env.VITE_SPORTS_DB_CDN}`);
+}
+run("npm run build", webDir, viteEnv);
 
 if (!existsSync(distDir)) {
   console.error("Build failed: dist folder missing at", distDir);
