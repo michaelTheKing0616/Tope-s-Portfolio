@@ -109,13 +109,24 @@ Zip layout: folders `player_profiles/`, `player_performances/`, etc. at the **ro
 | `players-extended.json` | ~36 MB | included |
 | **Tarball total** | ~360 MB raw JSON | **~25–30 MB compressed** ← normal |
 
-A **25.4 MB download** is correct when CI logs show `season-stats.json (319 MB)` and `totalPlayers: 98437`. Netlify **build** extracts the tarball locally, then splits large JSON into **8MB chunks** under `data/chunks/` for deploy (Netlify cannot serve single files >~10MB).
+A **25.4 MB download** is correct when CI logs show `season-stats.json (319 MB)` and `totalPlayers: 98437`. Netlify **build** extracts the tarball locally for build-time checks.
 
-Release URL (Netlify default):
+### Runtime data (production)
+
+Netlify cannot reliably host **300MB+** of chunk files. Production loads large JSON from **GitHub Releases** in the browser:
+
+| Asset | URL |
+|---|---|
+| `season-stats.json.gz` | `…/releases/download/sports-db-latest/season-stats.json.gz` |
+| `players-extended.json.gz` | `…/releases/download/sports-db-latest/players-extended.json.gz` |
+
+Set in `netlify.toml`: `VITE_SPORTS_DB_CDN` (baked into the Vite build). Small JSON (`competitions.json`, etc.) still ships from Netlify.
+
+**After changing CI packaging**, re-run **Actions → Build SPORTVERSE database** so the `.gz` assets exist on release `sports-db-latest`.
+
+Release tarball (build-time download):
 
 `https://github.com/michaelTheKing0616/Tope-s-Portfolio/releases/download/sports-db-latest/sports-db-data.tar.gz`
-
-Override with env `SPORTS_DB_BUNDLE_URL` on Netlify if needed.
 
 ---
 
@@ -128,10 +139,9 @@ Override with env `SPORTS_DB_BUNDLE_URL` on Netlify if needed.
 | `/play/sportverse/#/draftballer/wheel` | Wheel draft works |
 | `/play/sportverse/#/draftballer/room` | Snake draft vs bot |
 | `/play/sportverse/#/draftballer/auction` | Auction draft |
-| `/play/sportverse/data/season-stats.json` | **404 is OK** — served as `data/chunks/season-stats/*.json` |
-| `/play/sportverse/data/chunks/season-stats.manifest.json` | Present (chunk manifest) |
-| `/play/sportverse/data/chunks/season-stats/000.json` | Present (~8MB chunk) |
-| `/play/sportverse/data/engine-calibration.json` | Present |
+| `/play/sportverse/data/season-stats.json` | **404 is OK** — loaded from GitHub Release `.gz` at runtime |
+| `/play/sportverse/data/chunks/season-stats.manifest.json` | **404 is OK** in CDN mode |
+| `/play/sportverse/data/engine-calibration.json` | Present on Netlify |
 
 ---
 
