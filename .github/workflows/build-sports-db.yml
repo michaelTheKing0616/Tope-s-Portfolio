@@ -41,10 +41,14 @@ jobs:
         run: npm ci
 
       - name: Optional — fetch full Transfermarkt archive
-        if: ${{ github.event.inputs.use_archive == true && secrets.SPORTVERSE_ARCHIVE_URL != '' }}
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.use_archive == true }}
         env:
           ARCHIVE_URL: ${{ secrets.SPORTVERSE_ARCHIVE_URL }}
         run: |
+          if [ -z "$ARCHIVE_URL" ]; then
+            echo "::error::use_archive was enabled but SPORTVERSE_ARCHIVE_URL secret is not set."
+            exit 1
+          fi
           mkdir -p sportverse/archive
           curl -fsSL "$ARCHIVE_URL" -o /tmp/sportverse-archive.zip
           unzip -q /tmp/sportverse-archive.zip -d sportverse/archive
