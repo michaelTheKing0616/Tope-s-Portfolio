@@ -113,16 +113,17 @@ A **25.4 MB download** is correct when CI logs show `season-stats.json (319 MB)`
 
 ### Runtime data (production)
 
-Netlify cannot reliably host **300MB+** of chunk files. Production loads large JSON from **GitHub Releases** in the browser:
+Netlify cannot reliably host **300MB+** of chunk files. Production loads large JSON via a **same-origin proxy** (`/api/sports-db/…`) that fetches gzip chunks from GitHub Releases (browsers cannot fetch GitHub release URLs directly — CORS).
 
-| Asset | URL |
+| Asset | Served via |
 |---|---|
-| `season-stats.json.gz` | `…/releases/download/sports-db-latest/season-stats.json.gz` |
-| `players-extended.json.gz` | `…/releases/download/sports-db-latest/players-extended.json.gz` |
+| `season-stats` | `/api/sports-db/season-stats.chunks.json` + `season-stats-NNN.json.gz` |
+| `players-extended` | `/api/sports-db/players-extended.chunks.json` + chunks |
+| Small JSON | Netlify static `/play/sportverse/data/` |
 
-Set in `netlify.toml`: `VITE_SPORTS_DB_CDN` (baked into the Vite build). Small JSON (`competitions.json`, etc.) still ships from Netlify.
+Set in `netlify.toml`: `VITE_SPORTS_DB_CDN=/api/sports-db` (baked into Vite build). Implemented by `netlify/functions/sports-db-gz.mjs`.
 
-**After changing CI packaging**, re-run **Actions → Build SPORTVERSE database** so the `.gz` assets exist on release `sports-db-latest`.
+**After changing CI packaging**, re-run **Actions → Build SPORTVERSE database** so `sportverse-cdn/` chunks exist on release `sports-db-latest`.
 
 Release tarball (build-time download):
 

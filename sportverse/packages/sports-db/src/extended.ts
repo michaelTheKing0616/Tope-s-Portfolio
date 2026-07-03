@@ -44,11 +44,27 @@ interface ChunkManifest {
   totalItems: number;
 }
 
+interface GzChunkManifest {
+  source: string;
+  files: string[];
+  totalItems: number;
+}
+
 function sportsDbCdnBase(): string | undefined {
   const cdn = (import.meta as ImportMeta & { env?: { VITE_SPORTS_DB_CDN?: string } }).env
     ?.VITE_SPORTS_DB_CDN?.trim();
   if (!cdn) return undefined;
+  if (cdn.startsWith("/")) {
+    return cdn.endsWith("/") ? cdn : `${cdn}/`;
+  }
   return cdn.endsWith("/") ? cdn : `${cdn}/`;
+}
+
+function resolveCdnUrl(cdn: string, file: string): string {
+  if (cdn.startsWith("/")) {
+    return `${cdn}${file}`;
+  }
+  return `${cdn}${file}`;
 }
 
 async function fetchGzJsonArray(url: string): Promise<unknown[]> {
@@ -64,19 +80,35 @@ async function fetchGzJsonArray(url: string): Promise<unknown[]> {
   return data;
 }
 
+async function fetchJsonArrayFromCdn(cdn: string, fileName: string): Promise<unknown[]> {
+  const baseName = fileName.replace(/\.json$/i, "");
+  const manifestUrl = resolveCdnUrl(cdn, `${baseName}.chunks.json`);
+  const manifestRes = await fetch(manifestUrl);
+
+  if (manifestRes.ok) {
+    const manifest = (await manifestRes.json()) as GzChunkManifest;
+    const parts = await Promise.all(
+      manifest.files.map((file) => fetchGzJsonArray(resolveCdnUrl(cdn, file))),
+    );
+    return parts.flat();
+  }
+
+  const gzUrl = resolveCdnUrl(cdn, `${fileName}.gz`);
+  return fetchGzJsonArray(gzUrl);
+}
+
 async function fetchJsonArray(base: string, fileName: string): Promise<unknown[]> {
   const cdn = sportsDbCdnBase();
   if (cdn) {
-    const gzUrl = `${cdn}${fileName}.gz`;
     try {
-      const data = await fetchGzJsonArray(gzUrl);
+      const data = await fetchJsonArrayFromCdn(cdn, fileName);
       if (data.length) return data;
-      throw new Error(`${gzUrl} returned an empty array`);
+      throw new Error(`CDN returned empty array for ${fileName}`);
     } catch (err) {
       const detail = err instanceof Error ? err.message : String(err);
       throw new Error(
-        `Failed to load ${fileName} from CDN (${gzUrl}): ${detail}. ` +
-          `Run GitHub Actions "Build SPORTVERSE database" to publish ${fileName}.gz on release sports-db-latest.`,
+        `Failed to load ${fileName} from CDN (${cdn}): ${detail}. ` +
+          `Re-run GitHub Actions "Build SPORTVERSE database" to publish sportverse-cdn/ chunks.`,
       );
     }
   }

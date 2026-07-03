@@ -88,7 +88,6 @@ jobs:
           body: Auto-built JSON bundle for Netlify deploy. Rebuilt by GitHub Actions.
           files: |
             sports-db-data.tar.gz
-            season-stats.json.gz
-            players-extended.json.gz
+            sportverse-cdn/**
           overwrite_files: true
           make_latest: true

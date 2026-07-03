@@ -8,6 +8,12 @@
   to = "/play/sportverse/"
   status = 301
 
+[[redirects]]
+  from = "/api/sports-db/:file"
+  to = "/.netlify/functions/sports-db-gz?file=:file"
+  status = 200
+  force = true
+
 # Hashed JS/CSS — long cache
 [[headers]]
   for = "/play/sportverse/assets/*"
@@ -29,4 +35,7 @@
   NODE_VERSION = "20"
   NODE_OPTIONS = "--max-old-space-size=4096"
   SPORTS_DB_REPO = "michaelTheKing0616/Tope-s-Portfolio"
-  VITE_SPORTS_DB_CDN = "https://github.com/michaelTheKing0616/Tope-s-Portfolio/releases/download/sports-db-latest"
+  VITE_SPORTS_DB_CDN = "/api/sports-db"
+
+[functions.sports-db-gz]
+  timeout = 26
