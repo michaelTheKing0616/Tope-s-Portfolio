@@ -91,6 +91,12 @@ function downloadWithGdown(url, dest) {
   });
 }
 
+function extractZip(zip, dest) {
+  const py = pythonCommand();
+  const script = join(root, "scripts/extract-archive-zip.py");
+  execSync(`${py} "${script}" "${zip}" "${dest}"`, { stdio: "inherit", shell: true });
+}
+
 function verifyAndExtract(zip) {
   const size = statSync(zip).size;
   if (size < MIN_ZIP_BYTES) {
@@ -103,15 +109,7 @@ function verifyAndExtract(zip) {
   rmSync(archiveDir, { recursive: true, force: true });
   mkdirSync(archiveDir, { recursive: true });
 
-  const isWin = process.platform === "win32";
-  if (isWin) {
-    execSync(
-      `powershell -NoProfile -Command "Expand-Archive -Path '${zip.replace(/'/g, "''")}' -DestinationPath '${archiveDir.replace(/'/g, "''")}' -Force"`,
-      { stdio: "inherit" },
-    );
-  } else {
-    execSync(`unzip -q "${zip}" -d "${archiveDir}"`, { stdio: "inherit", shell: true });
-  }
+  extractZip(zip, archiveDir);
 
   const profiles = join(archiveDir, "player_profiles/player_profiles.csv");
   if (!existsSync(profiles)) {

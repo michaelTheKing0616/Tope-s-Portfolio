@@ -64,6 +64,15 @@ After CI succeeds, Netlify redeploy downloads the bundle instead of re-running E
 
 Upload `sportverse-archive.zip` (~82 MB) to any of these, then paste the URL into secret **`SPORTVERSE_ARCHIVE_URL`**.
 
+**Create a CI-safe zip (required — do not use `Compress-Archive`):**
+
+```powershell
+cd "C:\Users\HP\Desktop\Web portfolio"
+node scripts/package-archive-zip.mjs
+```
+
+This uses `tar -a` so paths use forward slashes and Linux CI can extract the zip.
+
 | Host | How to upload | Secret URL example |
 |---|---|---|
 | **Google Drive** (easiest if already uploaded) | Share → Anyone with link | `https://drive.google.com/file/d/YOUR_ID/view?usp=sharing` |

@@ -8,6 +8,7 @@
     "start": "astro dev",
     "prebuild:data": "node scripts/netlify-prebuild.mjs",
     "package:sports-db": "node scripts/package-sports-db.mjs",
+    "package:archive-zip": "node scripts/package-archive-zip.mjs",
     "download:sports-db": "node -e \"import('./scripts/download-sports-db-bundle.mjs').then(m=>m.downloadSportsDbBundle())\"",
     "build:games": "node scripts/build-embedded-games.mjs",
     "build": "npm run prebuild:data && npm run build:games && astro build",
