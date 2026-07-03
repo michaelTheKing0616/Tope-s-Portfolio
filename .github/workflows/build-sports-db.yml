@@ -1,0 +1,82 @@
+name: Build SPORTVERSE database
+
+on:
+  workflow_dispatch:
+    inputs:
+      use_archive:
+        description: "Download full TM archive from SPORTVERSE_ARCHIVE_URL secret (if set)"
+        type: boolean
+        default: false
+  push:
+    branches: [main, master]
+    paths:
+      - "scripts/**"
+      - "sportverse/packages/sports-db/**"
+      - ".github/workflows/build-sports-db.yml"
+  schedule:
+    # Weekly refresh — football-datasets + TM CDN
+    - cron: "0 4 * * 0"
+
+concurrency:
+  group: sports-db-build
+  cancel-in-progress: false
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install root dependencies
+        run: npm ci
+
+      - name: Optional — fetch full Transfermarkt archive
+        if: ${{ github.event.inputs.use_archive == true && secrets.SPORTVERSE_ARCHIVE_URL != '' }}
+        env:
+          ARCHIVE_URL: ${{ secrets.SPORTVERSE_ARCHIVE_URL }}
+        run: |
+          mkdir -p sportverse/archive
+          curl -fsSL "$ARCHIVE_URL" -o /tmp/sportverse-archive.zip
+          unzip -q /tmp/sportverse-archive.zip -d sportverse/archive
+          echo "Archive files:" && find sportverse/archive -name "*.csv" | head -20
+
+      - name: Build sports-db JSON (ETL)
+        env:
+          NODE_OPTIONS: --max-old-space-size=6144
+        run: node scripts/seed-external-data.mjs --clone --build --tm-cdn-fallback
+
+      - name: Verify required artifacts
+        run: node scripts/netlify-prebuild.mjs
+        env:
+          SKIP_DATA_SEED: "1"
+
+      - name: Package tarball for release
+        run: node scripts/package-sports-db.mjs
+
+      - name: Upload workflow artifact (90-day retention)
+        uses: actions/upload-artifact@v4
+        with:
+          name: sports-db-data
+          path: sports-db-data.tar.gz
+          retention-days: 90
+
+      - name: Publish GitHub Release bundle
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release view sports-db-latest >/dev/null 2>&1 || \
+            gh release create sports-db-latest \
+              --title "SPORTVERSE database (latest)" \
+              --notes "Auto-built JSON bundle for Netlify deploy. Tag moves on each CI run."
+          gh release upload sports-db-latest sports-db-data.tar.gz --clobber
+          echo "Release asset: https://github.com/${{ github.repository }}/releases/download/sports-db-latest/sports-db-data.tar.gz"

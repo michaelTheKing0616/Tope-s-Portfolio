@@ -37,13 +37,40 @@ Environment variables (optional):
 
 ## What `prebuild:data` does
 
-1. **Clone** `https://github.com/datasets/football-datasets.git` → `sportverse/data/raw/`
-2. **ETL** — World Cup + top-5 leagues base dataset
-3. **Transfermarkt CDN fallback** — downloads compressed player/stats feed (replaces local `sportverse/archive/` which is not in git)
-4. **Writes** `sportverse/packages/sports-db/data/season-stats.json` and related JSON
-5. **Keeps** git-tracked calibration files (`engine-calibration.json`, `player-transfers.json`, etc.) when archive is absent
-6. **Verifies** all required files exist before continuing
-7. **Installs** SPORTVERSE monorepo dependencies
+1. **Try GitHub Release bundle** — downloads `sports-db-data.tar.gz` from the `sports-db-latest` release (built by CI; fast path ~1–2 min)
+2. **Fallback ETL** if no release yet:
+   - Clone `https://github.com/datasets/football-datasets.git` → `sportverse/data/raw/`
+   - World Cup + top-5 leagues base dataset
+   - Transfermarkt CDN fallback (replaces local `sportverse/archive/` which is not in git)
+3. **Writes** `sportverse/packages/sports-db/data/season-stats.json` and related JSON
+4. **Verifies** all required files exist before continuing
+5. **Installs** SPORTVERSE monorepo dependencies
+
+---
+
+## GitHub Actions — build the complete database
+
+Workflow: `.github/workflows/build-sports-db.yml`
+
+**Run it once** (then weekly on schedule):
+
+1. GitHub → **Actions** → **Build SPORTVERSE database** → **Run workflow**
+2. Optional: enable **use_archive** if you set repo secret `SPORTVERSE_ARCHIVE_URL` (zip of `sportverse/archive/` CSVs hosted elsewhere)
+3. CI runs ETL, packages `sports-db-data.tar.gz`, publishes to release **`sports-db-latest`**
+
+After CI succeeds, Netlify redeploy downloads the bundle instead of re-running ETL.
+
+| Build type | What you get |
+|---|---|
+| **Default CI** | football-datasets + TM CDN (~50k players, full season-stats for deploy) |
+| **CI + archive secret** | Full Transfermarkt archive pool (~90k+ players, richest stats) |
+| **Local `--build` with archive** | Same as archive CI; 287MB season-stats stays local/gitignored |
+
+Release URL (Netlify default):
+
+`https://github.com/michaelTheKing0616/Tope-s-Portfolio/releases/download/sports-db-latest/sports-db-data.tar.gz`
+
+Override with env `SPORTS_DB_BUNDLE_URL` on Netlify if needed.
 
 ---
 
@@ -99,6 +126,8 @@ Netlify deploy is **fully playable** for all modes; local archive is **maximum r
 
 | Symptom | Fix |
 |---|---|
+| `season-stats.json (404)` | Run GitHub Actions **Build SPORTVERSE database**, wait for release, redeploy Netlify |
+| `Extended data not loaded` | Same — data JSON missing from deploy; confirm `/play/sportverse/data/players-extended.json` returns 200 |
 | Build fails “Missing season-stats.json” | Check Netlify logs for CDN/clone errors; increase timeout |
 | “Transfermarkt CDN ETL failed” | Transient network — retry deploy |
 | Out of memory | `NODE_OPTIONS=--max-old-space-size=4096` is in `netlify.toml` |

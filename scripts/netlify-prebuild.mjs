@@ -8,6 +8,7 @@ import { existsSync, statSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { runSeedPipeline } from "./seed-external-data.mjs";
+import { downloadSportsDbBundle } from "./download-sports-db-bundle.mjs";
 
 const root = resolve(fileURLToPath(new URL(".", import.meta.url)), "..");
 const dataDir = join(root, "sportverse/packages/sports-db/data");
@@ -53,12 +54,19 @@ async function main() {
   console.log(" DRAFTBALLER / SPORTVERSE — Netlify prebuild");
   console.log("═══════════════════════════════════════════════════════");
 
-  await runSeedPipeline({
-    cloneFootballDatasets: true,
-    buildJson: true,
-    tmCdnFallback: true,
-    importSql: false,
-  });
+  if (process.env.SKIP_DATA_SEED === "1") {
+    console.log("SKIP_DATA_SEED=1 — skipping data download/ETL");
+  } else {
+    const fromRelease = await downloadSportsDbBundle({ optional: true });
+    if (!fromRelease) {
+      await runSeedPipeline({
+        cloneFootballDatasets: true,
+        buildJson: true,
+        tmCdnFallback: true,
+        importSql: false,
+      });
+    }
+  }
 
   verifyDataArtifacts();
   installSportverse();

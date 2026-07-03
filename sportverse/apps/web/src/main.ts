@@ -138,13 +138,15 @@ const DRAFTBALLER_ROUTES: Route[] = [
   "draftballer-mini-league",
 ];
 
+const ROUTES_NEEDING_DB: Route[] = [...DRAFTBALLER_ROUTES, "quiz"];
+
 async function render() {
   const { route, param, sub } = parseRoute();
   platform.getProfile();
 
   try {
-    if (DRAFTBALLER_ROUTES.includes(route)) {
-      showLoading("DRAFTBALLER");
+    if (ROUTES_NEEDING_DB.includes(route)) {
+      showLoading(route === "quiz" ? "SPORTS IQ" : "DRAFTBALLER");
       const base = import.meta.env.BASE_URL ?? "/";
       await ensureExtendedDataLoaded(base);
       setAwardsData(getAwards(), getIconicMoments());

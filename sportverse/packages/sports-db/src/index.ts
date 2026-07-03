@@ -116,7 +116,10 @@ export function getDraftPlayers() {
 }
 
 export function getPlayer(id: string): Player | undefined {
-  return getExtendedPlayer(id) ?? getCuratedPlayers().find((p) => p.id === id);
+  if (isExtendedDataLoaded()) {
+    return getExtendedPlayer(id) ?? getCuratedPlayers().find((p) => p.id === id);
+  }
+  return getCuratedPlayers().find((p) => p.id === id);
 }
 
 export function getClubs(): Club[] {

@@ -6,7 +6,7 @@ const games = [
     title: "SPORTVERSE",
     tag: "Flagship",
     blurb:
-      "Football IQ, Goalkeeper Instinct, and five Sports IQ quiz modes — 1000+ rounds each. One XP profile, daily challenges, leaderboards.",
+      "Football IQ, Goalkeeper Instinct, DRAFTBALLER, and five Sports IQ quiz modes — one XP profile, daily challenges, leaderboards.",
     href: "/play/sportverse/",
     cta: "Play SPORTVERSE",
     featured: true,
@@ -22,44 +22,144 @@ const games = [
 ---
 
 <Base title="Play — Temitope Olaitan" description="Play SPORTVERSE and interactive demos from one portfolio site.">
-  <section class="mx-auto max-w-4xl px-6 py-16">
-    <p class="text-sm uppercase tracking-widest text-emerald-400/90">Interactive</p>
-    <h1 class="mt-2 font-display text-4xl font-bold tracking-tight text-white md:text-5xl">Play</h1>
-    <p class="mt-4 max-w-2xl text-lg text-slate-300">
-      All games ship inside this portfolio — one deploy, one URL. No separate app installs required.
-    </p>
+  <section class="play-head">
+    <div class="shell-wide">
+      <div class="section-label" data-reveal>Interactive</div>
+      <h1 class="play-head__title" data-reveal data-reveal-delay="0.06">Play</h1>
+      <p class="play-head__lead" data-reveal data-reveal-delay="0.12">
+        All games ship inside this portfolio — one deploy, one URL. No separate app installs required.
+      </p>
+    </div>
+  </section>
 
-    <div class="mt-12 grid gap-6">
+  <section class="play-body shell-wide">
+    <div class="play-grid">
       {
-        games.map((game) => (
+        games.map((game, idx) => (
           <article
-            class:list={[
-              "rounded-2xl border p-8 transition hover:border-emerald-500/40",
-              game.featured ? "border-emerald-500/30 bg-emerald-950/20" : "border-white/10 bg-white/5",
-            ]}
+            class:list={["play-card", { "play-card--featured": game.featured }]}
+            data-reveal
+            data-reveal-delay={String(0.08 + idx * 0.06)}
           >
-            <span class="text-xs font-medium uppercase tracking-wider text-emerald-400">{game.tag}</span>
-            <h2 class="mt-2 text-2xl font-semibold text-white">{game.title}</h2>
-            <p class="mt-3 text-slate-300">{game.blurb}</p>
-            <a
-              href={game.href}
-              class="mt-6 inline-flex items-center rounded-lg bg-emerald-500 px-5 py-2.5 text-sm font-semibold text-slate-950 hover:bg-emerald-400"
-            >
-              {game.cta} →
+            <span class="play-card__tag">{game.tag}</span>
+            <h2 class="play-card__title">{game.title}</h2>
+            <p class="play-card__blurb">{game.blurb}</p>
+            <a href={game.href} class:list={["play-card__cta", { "btn-gold": game.featured, "btn-outline": !game.featured }]}>
+              {game.cta} &rarr;
             </a>
           </article>
         ))
       }
     </div>
 
-    <div class="mt-12 rounded-xl border border-white/10 bg-white/5 p-6 text-sm text-slate-400">
+    <aside class="play-note" data-reveal data-reveal-delay="0.2">
       <p>
-        <strong class="text-slate-200">Local dev:</strong> run <code class="text-emerald-300">npm run build:games</code> then
-        <code class="text-emerald-300">npm run dev</code> — open <a href="/play/sportverse/" class="text-emerald-400 underline">/play/sportverse/</a>
+        <strong>DRAFTBALLER direct:</strong>
+        <a href="/play/sportverse/#/draftballer" class="link-underline">/play/sportverse/#/draftballer</a>
       </p>
-      <p class="mt-2">
-        <strong class="text-slate-200">Deploy:</strong> see <code class="text-emerald-300">UNIFIED_PLAY_DEPLOY.md</code> for Netlify/Vercel setup.
+      <p class="play-note__sub">
+        Data is built by GitHub Actions and bundled on each Netlify deploy. See <code>NETLIFY_DEPLOY.md</code>.
       </p>
-    </div>
+    </aside>
   </section>
 </Base>
+
+<style>
+  .play-head {
+    padding: clamp(120px, 16vw, 180px) 0 clamp(40px, 6vw, 64px);
+    background: linear-gradient(180deg, #efede8, var(--smoke));
+  }
+  .play-head__title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(2.6rem, 7vw, 5rem);
+    font-weight: 300;
+    line-height: 1.02;
+    color: var(--ink);
+    margin: 22px 0 22px;
+  }
+  .play-head__lead {
+    max-width: 64ch;
+    font-size: 15.5px;
+    line-height: 1.75;
+    color: var(--mid);
+  }
+
+  .play-body {
+    padding-bottom: clamp(64px, 10vw, 120px);
+  }
+  .play-grid {
+    display: grid;
+    gap: 24px;
+    margin-top: 8px;
+  }
+  @media (min-width: 720px) {
+    .play-grid {
+      grid-template-columns: 1.2fr 1fr;
+    }
+  }
+
+  .play-card {
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    padding: 32px;
+    background: #fff;
+  }
+  .play-card--featured {
+    border-color: rgba(184, 149, 74, 0.35);
+    background: linear-gradient(145deg, #fff 0%, #faf7f0 100%);
+  }
+  .play-card__tag {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .play-card__title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .play-card__blurb {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--mid);
+    margin-bottom: 24px;
+    max-width: 52ch;
+  }
+  .play-card__cta {
+    margin-top: 4px;
+  }
+
+  .play-note {
+    margin-top: 40px;
+    padding: 20px 24px;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--mid);
+  }
+  .play-note strong {
+    color: var(--ink);
+  }
+  .play-note a {
+    color: #8a6a23;
+  }
+  .play-note code {
+    font-family: ui-monospace, monospace;
+    font-size: 12px;
+    background: rgba(184, 149, 74, 0.12);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #6a521f;
+  }
+  .play-note__sub {
+    margin-top: 10px;
+    font-size: 13px;
+  }
+</style>
