@@ -179,8 +179,14 @@ function buildSql(built) {
   console.log("Wrote SQL seed:", SQL_OUT);
 }
 
-if (args.has("--help") || args.size === 0) {
-  console.log(`
+// CLI dispatch must only run when executed directly — this module is also imported
+// by ensure-sports-db-data.mjs / stage scripts, and process.exit(0) at module scope
+// would silently kill those importers before they do any work.
+const isMain = process.argv[1]?.endsWith("seed-external-data.mjs");
+
+if (isMain) {
+  if (args.has("--help") || args.size === 0) {
+    console.log(`
 SPORTVERSE / DRAFTBALLER data seed
 
   node scripts/seed-external-data.mjs --clone              Clone football-datasets
@@ -194,23 +200,24 @@ Raw data: sportverse/data/raw/ (gitignored)
 Archive:  sportverse/archive/ (local TM CSVs)
 Output:   sportverse/packages/sports-db/data/*.json
 `);
-  process.exit(0);
-}
+    process.exit(0);
+  }
 
-if (args.has("--clone")) cloneRepos();
+  if (args.has("--clone")) cloneRepos();
 
-if (args.has("--calibration-only")) {
-  runSeedPipeline({ calibrationOnly: true }).catch((err) => {
-    console.error(err);
-    process.exit(1);
-  });
-} else if (args.has("--build") || args.has("--import-sql")) {
-  runSeedPipeline({
-    buildJson: true,
-    tmCdnFallback: args.has("--tm-cdn-fallback"),
-    importSql: args.has("--import-sql"),
-  }).catch((err) => {
-    console.error(err);
-    process.exit(1);
-  });
+  if (args.has("--calibration-only")) {
+    runSeedPipeline({ calibrationOnly: true }).catch((err) => {
+      console.error(err);
+      process.exit(1);
+    });
+  } else if (args.has("--build") || args.has("--import-sql")) {
+    runSeedPipeline({
+      buildJson: true,
+      tmCdnFallback: args.has("--tm-cdn-fallback"),
+      importSql: args.has("--import-sql"),
+    }).catch((err) => {
+      console.error(err);
+      process.exit(1);
+    });
+  }
 }
