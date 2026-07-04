@@ -113,23 +113,23 @@ A **25.4 MB download** is correct when CI logs show `season-stats.json (319 MB)`
 
 ### Runtime data (production)
 
-Netlify cannot reliably host **300MB+** of chunk files. Production loads large JSON via a **same-origin proxy** (`/api/sports-db/…`) that fetches gzip chunks from GitHub Releases (browsers cannot fetch GitHub release URLs directly — CORS).
+Large JSON is **not** fetched from GitHub at runtime (CORS + size limits). During **Netlify build**:
 
-| Asset | Served via |
-|---|---|
-| `season-stats` | `/api/sports-db/season-stats.chunks.json` + `season-stats-NNN.json.gz` |
-| `players-extended` | `/api/sports-db/players-extended.chunks.json` + chunks |
-| Small JSON | Netlify static `/play/sportverse/data/` |
+1. `prebuild:data` downloads `sports-db-data.tar.gz` and extracts JSON locally
+2. `stage:sports-db-cdn` gzip-chunks `season-stats.json` + `players-extended.json` into `public/api/sports-db/` (~22 MB total gzip)
+3. Astro copies `public/` → `dist/` — browser loads same-origin `/api/sports-db/…`
 
-Set in `netlify.toml`: `VITE_SPORTS_DB_CDN=/api/sports-db` (baked into Vite build). Implemented by `netlify/functions/sports-db-gz.mjs`.
+| Asset | Format | URL |
+|---|---|---|
+| `season-stats` | `{ source, files[], totalItems }` manifest + `season-stats-NNN.json.gz` arrays | `/api/sports-db/season-stats.chunks.json` |
+| `players-extended` | same gzip chunk pattern | `/api/sports-db/players-extended.chunks.json` |
+| Small JSON | plain JSON | `/play/sportverse/data/*.json` |
 
-**After changing CI packaging**, re-run **Actions → Build SPORTVERSE database** so `sportverse-cdn/` chunks exist on release `sports-db-latest`.
+Set in `netlify.toml`: `VITE_SPORTS_DB_CDN=/api/sports-db` (baked into Vite build). Chunk writer: `scripts/sports-db-gzip-chunks.mjs`.
 
-If you see `players-extended.json.gz (400)`, the release was built **before** chunk packaging, or Netlify has not redeployed the proxy function yet. Fix:
+**Local dev without CDN:** loader uses uncompressed chunks at `/play/sportverse/data/chunks/{name}.manifest.json` + `{name}/NNN.json` (different manifest shape — `chunkCount` not `files[]`).
 
-1. **Actions → Build SPORTVERSE database → Run workflow** (publishes `sportverse-cdn/*.chunks.json` + `*-NNN.json.gz`)
-2. Confirm release assets include `sportverse-cdn/players-extended.chunks.json` (not only root `players-extended.json.gz`)
-3. **Trigger Netlify deploy** after pushing `netlify/functions/sports-db-gz.mjs` (function must exist on site)
+**GitHub Release gzip assets** (`season-stats.chunks.json`, etc.) are published by CI for backup/mirror only; Netlify does not proxy them at runtime.
 
 Release tarball (build-time download):
 
@@ -146,8 +146,10 @@ Release tarball (build-time download):
 | `/play/sportverse/#/draftballer/wheel` | Wheel draft works |
 | `/play/sportverse/#/draftballer/room` | Snake draft vs bot |
 | `/play/sportverse/#/draftballer/auction` | Auction draft |
-| `/play/sportverse/data/season-stats.json` | **404 is OK** — loaded from GitHub Release `.gz` at runtime |
+| `/play/sportverse/data/season-stats.json` | **404 is OK** — large data loaded from `/api/sports-db/` gzip chunks |
 | `/play/sportverse/data/chunks/season-stats.manifest.json` | **404 is OK** in CDN mode |
+| `/api/sports-db/season-stats.chunks.json` | JSON manifest with `files[]` array |
+| `/api/sports-db/season-stats-000.json.gz` | gzip chunk (binary) |
 | `/play/sportverse/data/engine-calibration.json` | Present on Netlify |
 
 ---
@@ -190,18 +192,20 @@ Netlify deploy is **fully playable** for all modes; local archive is **maximum r
 
 | Symptom | Fix |
 |---|---|
-| `season-stats.json (404)` on live site | **Expected** if chunk deploy is active — game loads `data/chunks/season-stats/*.json`. Redeploy after pushing chunking fix. Check manifest: `/play/sportverse/data/chunks/season-stats.manifest.json` |
-| `Failed to load season-stats.json (404)` in UI | Old deploy without chunks — push latest code and redeploy Netlify; confirm build log shows `Splitting season-stats.json` |
-| `Extended data not loaded` | Chunk manifest or players chunks missing — check Netlify build logs for split step |
+| `chunk manifest … returned 400/404` | Old deploy used Netlify function proxy — push latest code; confirm build log shows `Staging sports-db gzip CDN` and `CDN mode verified` |
+| `season-stats.json (404)` under `/play/sportverse/data/` | **Expected** in CDN mode — data is at `/api/sports-db/season-stats.chunks.json` |
+| `Failed to load season-stats.json` in UI | Check `/api/sports-db/season-stats.chunks.json` returns JSON; rebuild if missing |
+| `Extended data not loaded` | CDN staging failed — check Netlify build logs for `stage:sports-db-cdn` errors |
 | Build fails “Missing season-stats.json” | Check Netlify logs for release download / ETL errors; increase timeout |
 | “Transfermarkt CDN ETL failed” | Transient network — retry deploy |
-| Out of memory | `NODE_OPTIONS=--max-old-space-size=4096` is in `netlify.toml`; chunk split needs ~4GB during build |
-| Stale game data after deploy | Hard refresh; data JSON cache is 1 hour (`netlify.toml`) |
-| Empty player pool in UI | Confirm `/play/sportverse/data/chunks/players-extended.manifest.json` or monolith returns 200 |
+| Out of memory | `NODE_OPTIONS=--max-old-space-size=4096` is in `netlify.toml`; gzip chunk step needs ~4GB during build |
+| Stale game data after deploy | Hard refresh; CDN gzip cache is 1 hour (`netlify.toml`) |
+| Empty player pool in UI | Confirm `/api/sports-db/players-extended.chunks.json` returns 200 with `files[]` |
 
 Build log should end with:
 
 ```
-✓ Netlify prebuild complete — ready for build:games
+✓ sports-db gzip CDN staged (~22 MB)
+✓ CDN mode verified — N gzip files in dist/api/sports-db/
 ✓ SPORTVERSE embedded at public/play/sportverse/
 ```

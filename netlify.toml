@@ -8,16 +8,6 @@
   to = "/play/sportverse/"
   status = 301
 
-# Path splat — query ?file=:name breaks on dots (e.g. players-extended.chunks.json).
-[[redirects]]
-  from = "/api/sports-db/*"
-  to = "/.netlify/functions/sports-db-gz/:splat"
-  status = 200
-  force = true
-
-[functions]
-  directory = "netlify/functions"
-
 # Hashed JS/CSS — long cache
 [[headers]]
   for = "/play/sportverse/assets/*"
@@ -35,11 +25,15 @@
   [headers.values]
     Cache-Control = "public, max-age=3600"
 
+# Large gzip sports-db chunks — baked into dist/api/sports-db/ at build time (~22 MB total)
+[[headers]]
+  for = "/api/sports-db/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+    Access-Control-Allow-Origin = "*"
+
 [build.environment]
   NODE_VERSION = "20"
   NODE_OPTIONS = "--max-old-space-size=4096"
   SPORTS_DB_REPO = "michaelTheKing0616/Tope-s-Portfolio"
   VITE_SPORTS_DB_CDN = "/api/sports-db"
-
-[functions.sports-db-gz]
-  timeout = 26

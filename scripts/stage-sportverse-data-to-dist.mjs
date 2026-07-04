@@ -6,6 +6,7 @@ import { existsSync, readdirSync, statSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { ensureSportsDbData, dataDir as dataSrc } from "./ensure-sports-db-data.mjs";
+import { verifySportsDbCdnDir } from "./stage-sports-db-cdn.mjs";
 import {
   copySportsDbDataForDeploy,
   MAX_CHUNK_BYTES,
@@ -27,8 +28,12 @@ function logDir(label, dir) {
 
 function verifyDistData() {
   if (process.env.VITE_SPORTS_DB_CDN) {
+    const cdnDist = join(root, "dist/api/sports-db");
+    verifySportsDbCdnDir(cdnDist);
+    const files = readdirSync(cdnDist);
+    const totalMb = (files.reduce((sum, f) => sum + statSync(join(cdnDist, f)).size, 0) / 1024 / 1024).toFixed(1);
     console.log(
-      `  ✓ CDN mode (VITE_SPORTS_DB_CDN) — large JSON loaded from GitHub Release in browser`,
+      `  ✓ CDN mode verified — ${files.length} gzip files in dist/api/sports-db/ (${totalMb} MB)`,
     );
     return;
   }

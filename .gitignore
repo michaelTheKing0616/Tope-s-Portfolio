@@ -42,8 +42,9 @@ venv/
 projects/*/dist/
 projects/*/.tatafo/
 
-# embedded game builds (regenerated via npm run build:games)
+# public/play/ is gitignored (regenerated via npm run build:games)
 public/play/
+public/api/sports-db/
 
 # DRAFTBALLER — local-only data (exceeds GitHub limits; build via scripts/seed-external-data.mjs)
 sportverse/archive/
