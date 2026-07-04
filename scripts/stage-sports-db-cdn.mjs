@@ -3,7 +3,7 @@
  * Generate gzip sports-db chunks into public/api/sports-db/ for static same-origin CDN.
  * Netlify publishes public/ → dist/ so /api/sports-db/* is served without a function proxy.
  */
-import { existsSync, readdirSync, statSync } from "node:fs";
+import { existsSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { ensureSportsDbData, dataDir as defaultDataDir } from "./ensure-sports-db-data.mjs";
@@ -42,6 +42,12 @@ async function main() {
 
   buildSportsDbGzipCdn(defaultDataDir, cdnPublicDir);
   verifySportsDbCdnDir(cdnPublicDir);
+
+  // Netlify reads _headers only from publish root — avoid application/gzip auto MIME on chunks.
+  writeFileSync(
+    join(root, "public/_headers"),
+    "/api/sports-db/*.json.gz\n  Content-Type: application/octet-stream\n  Cache-Control: public, max-age=3600\n\n/api/sports-db/*.chunks.json\n  Content-Type: application/json; charset=utf-8\n  Cache-Control: public, max-age=3600\n",
+  );
 
   const files = readdirSync(cdnPublicDir);
   const totalMb = (files.reduce((sum, f) => sum + statSync(join(cdnPublicDir, f)).size, 0) / 1024 / 1024).toFixed(1);

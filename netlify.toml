@@ -27,8 +27,16 @@
 
 # Large gzip sports-db chunks — baked into dist/api/sports-db/ at build time (~22 MB total)
 [[headers]]
-  for = "/api/sports-db/*"
+  for = "/api/sports-db/*.json.gz"
   [headers.values]
+    Content-Type = "application/octet-stream"
+    Cache-Control = "public, max-age=3600"
+    Access-Control-Allow-Origin = "*"
+
+[[headers]]
+  for = "/api/sports-db/*.chunks.json"
+  [headers.values]
+    Content-Type = "application/json; charset=utf-8"
     Cache-Control = "public, max-age=3600"
     Access-Control-Allow-Origin = "*"
 

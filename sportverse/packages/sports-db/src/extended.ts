@@ -67,14 +67,37 @@ function resolveCdnUrl(cdn: string, file: string): string {
   return `${cdn}${file}`;
 }
 
-async function fetchGzJsonArray(url: string): Promise<unknown[]> {
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`Failed to load ${url} (${res.status})`);
+function isGzipBytes(bytes: Uint8Array): boolean {
+  return bytes.length >= 2 && bytes[0] === 0x1f && bytes[1] === 0x8b;
+}
+
+async function gunzipToText(bytes: Uint8Array): Promise<string> {
   if (typeof DecompressionStream === "undefined") {
     throw new Error("gzip decompression is not supported in this browser");
   }
-  const stream = res.body!.pipeThrough(new DecompressionStream("gzip"));
-  const text = await new Response(stream).text();
+  const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"));
+  return new Response(stream).text();
+}
+
+async function fetchGzJsonArray(url: string): Promise<unknown[]> {
+  let res: Response;
+  try {
+    res = await fetch(url);
+  } catch (err) {
+    const detail = err instanceof Error ? err.message : String(err);
+    throw new Error(`network error fetching ${url}: ${detail}`);
+  }
+  if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
+
+  let text: string;
+  try {
+    const bytes = new Uint8Array(await res.arrayBuffer());
+    text = isGzipBytes(bytes) ? await gunzipToText(bytes) : new TextDecoder().decode(bytes);
+  } catch (err) {
+    const detail = err instanceof Error ? err.message : String(err);
+    throw new Error(`decompress/parse failed for ${url}: ${detail}`);
+  }
+
   const data = JSON.parse(text) as unknown;
   if (!Array.isArray(data)) throw new Error(`${url} did not contain a JSON array`);
   return data;
@@ -98,10 +121,13 @@ async function fetchJsonArrayFromCdn(cdn: string, fileName: string): Promise<unk
     throw new Error(`${manifestUrl} is invalid — "files" must be a non-empty string array`);
   }
 
-  const parts = await Promise.all(
-    manifest.files.map((file) => fetchGzJsonArray(resolveCdnUrl(cdn, file))),
-  );
-  const merged = parts.flat();
+  // Sequential chunk loads — parallel gzip decompression of 300MB+ JSON OOMs mobile browsers.
+  const merged: unknown[] = [];
+  for (const file of manifest.files) {
+    const chunk = await fetchGzJsonArray(resolveCdnUrl(cdn, file));
+    merged.push(...chunk);
+  }
+
   if (manifest.totalItems && merged.length !== manifest.totalItems) {
     console.warn(
       `[sports-db] ${baseName}: manifest totalItems=${manifest.totalItems} but loaded ${merged.length} rows`,
@@ -155,20 +181,9 @@ async function fetchJsonArray(base: string, fileName: string): Promise<unknown[]
 
 async function loadFromFetch(baseUrl: string) {
   const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
-  const [players, stats, competitions, clubs, eras, aliases, awards, moments, lsi, csi, fixtures, transfers] =
+
+  const [competitions, clubs, eras, aliases, awards, moments, lsi, csi, fixtures, transfers] =
     await Promise.all([
-    fetchJsonArray(base, "players-extended.json").then((data) => {
-      if (!Array.isArray(data) || !data.length) {
-        throw new Error("Failed to load players-extended.json (empty or invalid)");
-      }
-      return data;
-    }),
-    fetchJsonArray(base, "season-stats.json").then((data) => {
-      if (!Array.isArray(data) || !data.length) {
-        throw new Error("Failed to load season-stats.json (empty or invalid)");
-      }
-      return data;
-    }),
     fetch(`${base}data/competitions.json`).then((r) => r.json()),
     fetch(`${base}data/clubs-extended.json`).then((r) => r.json()),
     fetch(`${base}data/era-baselines.json`).then((r) => r.json()),
@@ -194,6 +209,18 @@ async function loadFromFetch(baseUrl: string) {
       .then((r) => (r.ok ? r.json() : []))
       .catch(() => []),
   ]);
+
+  // Load large gzip datasets sequentially — parallel decompression exhausts browser memory.
+  const players = await fetchJsonArray(base, "players-extended.json");
+  if (!Array.isArray(players) || !players.length) {
+    throw new Error("Failed to load players-extended.json (empty or invalid)");
+  }
+
+  const stats = await fetchJsonArray(base, "season-stats.json");
+  if (!Array.isArray(stats) || !stats.length) {
+    throw new Error("Failed to load season-stats.json (empty or invalid)");
+  }
+
   playersExtended = players as ExtendedPlayer[];
   seasonStatsList = stats as PlayerSeasonStat[];
   competitionsList = competitions as Competition[];
