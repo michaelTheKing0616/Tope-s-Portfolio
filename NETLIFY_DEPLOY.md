@@ -125,6 +125,12 @@ Set in `netlify.toml`: `VITE_SPORTS_DB_CDN=/api/sports-db` (baked into Vite buil
 
 **After changing CI packaging**, re-run **Actions → Build SPORTVERSE database** so `sportverse-cdn/` chunks exist on release `sports-db-latest`.
 
+If you see `players-extended.json.gz (400)`, the release was built **before** chunk packaging, or Netlify has not redeployed the proxy function yet. Fix:
+
+1. **Actions → Build SPORTVERSE database → Run workflow** (publishes `sportverse-cdn/*.chunks.json` + `*-NNN.json.gz`)
+2. Confirm release assets include `sportverse-cdn/players-extended.chunks.json` (not only root `players-extended.json.gz`)
+3. **Trigger Netlify deploy** after pushing `netlify/functions/sports-db-gz.mjs` (function must exist on site)
+
 Release tarball (build-time download):
 
 `https://github.com/michaelTheKing0616/Tope-s-Portfolio/releases/download/sports-db-latest/sports-db-data.tar.gz`

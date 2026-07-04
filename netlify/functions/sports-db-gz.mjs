@@ -25,9 +25,19 @@ export const handler = async (event) => {
     return { statusCode: 405, headers: corsHeaders(), body: "Method not allowed" };
   }
 
-  const file = event.queryStringParameters?.file;
+  const prefix = "/.netlify/functions/sports-db-gz/";
+  const fromPath = event.path.startsWith(prefix)
+    ? decodeURIComponent(event.path.slice(prefix.length))
+    : "";
+  const fromQuery = event.queryStringParameters?.file ?? "";
+  const file = fromPath || fromQuery;
+
   if (!file || !FILE_PATTERN.test(file)) {
-    return { statusCode: 400, headers: corsHeaders(), body: "Invalid file parameter" };
+    return {
+      statusCode: 400,
+      headers: corsHeaders(),
+      body: `Invalid file parameter (${file || "missing"}). Expected *.chunks.json or *-NNN.json.gz`,
+    };
   }
 
   const upstream = `${RELEASE_BASE}/${file}`;

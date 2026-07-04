@@ -8,11 +8,15 @@
   to = "/play/sportverse/"
   status = 301
 
+# Path splat — query ?file=:name breaks on dots (e.g. players-extended.chunks.json).
 [[redirects]]
-  from = "/api/sports-db/:file"
-  to = "/.netlify/functions/sports-db-gz?file=:file"
+  from = "/api/sports-db/*"
+  to = "/.netlify/functions/sports-db-gz/:splat"
   status = 200
   force = true
+
+[functions]
+  directory = "netlify/functions"
 
 # Hashed JS/CSS — long cache
 [[headers]]

@@ -93,8 +93,10 @@ async function fetchJsonArrayFromCdn(cdn: string, fileName: string): Promise<unk
     return parts.flat();
   }
 
-  const gzUrl = resolveCdnUrl(cdn, `${fileName}.gz`);
-  return fetchGzJsonArray(gzUrl);
+  throw new Error(
+    `chunk manifest ${manifestUrl} returned ${manifestRes.status}. ` +
+      `Re-run GitHub Actions "Build SPORTVERSE database" to publish sportverse-cdn/ on release sports-db-latest.`,
+  );
 }
 
 async function fetchJsonArray(base: string, fileName: string): Promise<unknown[]> {

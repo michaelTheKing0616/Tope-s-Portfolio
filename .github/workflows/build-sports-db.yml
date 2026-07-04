@@ -70,6 +70,12 @@ jobs:
       - name: Package tarball for release
         run: node scripts/package-sports-db.mjs
 
+      - name: Verify sportverse-cdn chunks for browser proxy
+        run: |
+          test -f sportverse-cdn/season-stats.chunks.json
+          test -f sportverse-cdn/players-extended.chunks.json
+          ls -lh sportverse-cdn/ | head -20
+
       - name: Verify release bundle size
         run: node scripts/verify-sports-db-artifacts.mjs --tarball sports-db-data.tar.gz
 
