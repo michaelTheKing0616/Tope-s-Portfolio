@@ -79,6 +79,24 @@ async function gunzipToText(bytes: Uint8Array): Promise<string> {
   return new Response(stream).text();
 }
 
+/** Merge large arrays without spread — `push(...chunk)` overflows the stack at ~100k+ items. */
+function mergeChunkInto(target: unknown[], offset: number, chunk: unknown[]): number {
+  for (let i = 0; i < chunk.length; i++) {
+    target[offset + i] = chunk[i]!;
+  }
+  return offset + chunk.length;
+}
+
+function indexSeasonStatRow(stat: PlayerSeasonStat) {
+  if (!statsByPlayer) statsByPlayer = new Map();
+  let list = statsByPlayer.get(stat.playerId);
+  if (!list) {
+    list = [];
+    statsByPlayer.set(stat.playerId, list);
+  }
+  list.push(stat);
+}
+
 async function fetchGzJsonArray(url: string): Promise<unknown[]> {
   let res: Response;
   try {
@@ -121,18 +139,36 @@ async function fetchJsonArrayFromCdn(cdn: string, fileName: string): Promise<unk
     throw new Error(`${manifestUrl} is invalid — "files" must be a non-empty string array`);
   }
 
+  const indexStats = baseName === "season-stats";
+  if (indexStats) statsByPlayer = new Map();
+
+  const expected = manifest.totalItems ?? 0;
+  const merged: unknown[] = expected > 0 ? new Array(expected) : [];
+  let offset = 0;
+
   // Sequential chunk loads — parallel gzip decompression of 300MB+ JSON OOMs mobile browsers.
-  const merged: unknown[] = [];
   for (const file of manifest.files) {
     const chunk = await fetchGzJsonArray(resolveCdnUrl(cdn, file));
-    merged.push(...chunk);
+    if (indexStats) {
+      for (let i = 0; i < chunk.length; i++) {
+        indexSeasonStatRow(chunk[i] as PlayerSeasonStat);
+      }
+    }
+    if (expected > 0) {
+      offset = mergeChunkInto(merged, offset, chunk);
+    } else {
+      for (let i = 0; i < chunk.length; i++) merged.push(chunk[i]!);
+      offset += chunk.length;
+    }
   }
 
-  if (manifest.totalItems && merged.length !== manifest.totalItems) {
+  if (expected > 0 && offset !== expected) {
+    merged.length = offset;
     console.warn(
-      `[sports-db] ${baseName}: manifest totalItems=${manifest.totalItems} but loaded ${merged.length} rows`,
+      `[sports-db] ${baseName}: manifest totalItems=${expected} but loaded ${offset} rows`,
     );
   }
+
   return merged;
 }
 
@@ -155,18 +191,26 @@ async function fetchJsonArray(base: string, fileName: string): Promise<unknown[]
 
   if (manifestRes.ok) {
     const manifest = (await manifestRes.json()) as ChunkManifest;
-    const parts = await Promise.all(
-      Array.from({ length: manifest.chunkCount }, (_, i) => {
-        const chunkPath = `${base}data/chunks/${baseName}/${String(i).padStart(3, "0")}.json`;
-        return fetch(chunkPath).then((r) => {
-          if (!r.ok) {
-            throw new Error(`Failed to load ${baseName} chunk ${i} from ${chunkPath} (${r.status})`);
-          }
-          return r.json() as Promise<unknown[]>;
-        });
-      }),
-    );
-    return parts.flat();
+    const expected = manifest.totalItems ?? 0;
+    const merged: unknown[] = expected > 0 ? new Array(expected) : [];
+    let offset = 0;
+
+    for (let i = 0; i < manifest.chunkCount; i++) {
+      const chunkPath = `${base}data/chunks/${baseName}/${String(i).padStart(3, "0")}.json`;
+      const res = await fetch(chunkPath);
+      if (!res.ok) {
+        throw new Error(`Failed to load ${baseName} chunk ${i} from ${chunkPath} (${res.status})`);
+      }
+      const chunk = (await res.json()) as unknown[];
+      if (expected > 0) {
+        offset = mergeChunkInto(merged, offset, chunk);
+      } else {
+        for (let j = 0; j < chunk.length; j++) merged.push(chunk[j]!);
+        offset += chunk.length;
+      }
+    }
+    if (expected > 0 && offset !== expected) merged.length = offset;
+    return merged;
   }
 
   const monolithUrl = `${base}data/${fileName}`;
@@ -229,7 +273,7 @@ async function loadFromFetch(baseUrl: string) {
   playerAliasesList = aliases as PlayerAlias[];
   awardsList = awards as PlayerAward[];
   iconicMomentsList = moments as IconicMoment[];
-  rebuildStatsIndex();
+  if (!statsByPlayer?.size) rebuildStatsIndex();
   seedLeagueResolver(clubsExtendedList!, competitionsList!);
   setLeagueStrengthData({
     leagueStrengthIndex: lsi as LeagueStrengthIndexEntry[],
