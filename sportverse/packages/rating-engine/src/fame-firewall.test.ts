@@ -73,16 +73,16 @@ describe("fame firewall — fameScore never moves OVR", () => {
     expect(mvPercentileForRating("fw-fame-only")).toBe(0);
   });
 
-  it("attachMvPercentilesFromPeakMv ranks by peakMv within a cohort, ignoring fameScore", () => {
+  it("attachMvPercentilesFromPeakMv scales by share of era-top MV, ignoring fameScore", () => {
     const ranked = attachMvPercentilesFromPeakMv([
       { playerId: "low-mv-high-fame", fameScore: 99, peakMv: 1_000_000, peakMvYear: 2016 },
       { playerId: "high-mv-low-fame", fameScore: 10, peakMv: 100_000_000, peakMvYear: 2016 },
       { playerId: "mid", fameScore: 50, peakMv: 20_000_000, peakMvYear: 2017 },
     ]);
     const byId = new Map(ranked.map((e) => [e.playerId, e.mvPercentile ?? 0]));
-    // Hand calc: same 2015 cohort (2015–2019), 3 players → 0 / 50 / 100
-    expect(byId.get("low-mv-high-fame")).toBe(0);
-    expect(byId.get("mid")).toBe(50);
+    // Hand calc: same 2015 cohort (2015–2019), top MV 100M → shares 1 / 20 / 100
+    expect(byId.get("low-mv-high-fame")).toBe(1);
+    expect(byId.get("mid")).toBe(20);
     expect(byId.get("high-mv-low-fame")).toBe(100);
   });
 
@@ -95,10 +95,10 @@ describe("fame firewall — fameScore never moves OVR", () => {
       { playerId: "era2020-high", fameScore: 40, peakMv: 80_000_000, peakMvYear: 2022 },
     ]);
     const byId = new Map(ranked.map((e) => [e.playerId, e.mvPercentile ?? 0]));
-    // Hand calc: each 2-player cohort → 0 and 100
-    expect(byId.get("era2005-low")).toBe(0);
+    // Hand calc: 2005 cohort top 10M → 5 and 100; 2020 cohort top 80M → 12.5 and 100
+    expect(byId.get("era2005-low")).toBe(5);
     expect(byId.get("era2005-mid")).toBe(100);
-    expect(byId.get("era2020-mid")).toBe(0);
+    expect(byId.get("era2020-mid")).toBe(12.5);
     expect(byId.get("era2020-high")).toBe(100);
   });
 });

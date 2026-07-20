@@ -3,21 +3,13 @@ import { computePlayerRating, computePoolCached, type RatingInput } from "@sport
 import { getPlayer, getSeasonStats } from "@sportverse/sports-db";
 import { buildFilteredPoolInputs, type EligibilityFilter } from "./mode-filters.js";
 import { createRng } from "./rng.js";
+import { getLegendRating } from "./legend-ratings.js";
 
-export interface LegendRatingEntry {
-  playerId: string;
-  ovr: number;
-  attributes?: Partial<import("@sportverse/draftballer-types").PlayerAttributes>;
-}
-
-let legendRatings = new Map<string, LegendRatingEntry>();
-
-export function setLegendRatings(entries: LegendRatingEntry[]): void {
-  legendRatings = new Map(entries.map((e) => [e.playerId, e]));
-}
+export type { LegendRatingEntry } from "./legend-ratings.js";
+export { setLegendRatings } from "./legend-ratings.js";
 
 function enrichInput(p: RatingInput): RatingInput {
-  const legend = legendRatings.get(p.id);
+  const legend = getLegendRating(p.id);
   if (!legend) return p;
   return {
     ...p,

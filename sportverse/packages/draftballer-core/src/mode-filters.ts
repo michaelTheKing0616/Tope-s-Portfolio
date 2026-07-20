@@ -4,6 +4,7 @@ import type { RatingInput } from "@sportverse/rating-engine";
 import { getClubsExtended, getDraftPlayers, getSeasonStats, resolveCompetitionToLeague } from "@sportverse/sports-db";
 import { isContinentalCompetition } from "./competition-ids.js";
 import { peakWeightStats } from "@sportverse/rating-engine";
+import { hasLegendRating } from "./legend-ratings.js";
 
 export interface EligibilityFilter {
   minAppearances?: number;
@@ -144,6 +145,9 @@ export function buildFilteredPoolInputs(
   const excludeFabricated = eligibility.excludeFabricated !== false && !mode.deepCuts;
   if (excludeFabricated) {
     players = players.filter((p) => {
+      // Hand-anchored legends are vetted humans, not fabricated rows —
+      // pre-digital-era greats (Garrincha, Puskás…) often lack season stats.
+      if (hasLegendRating(p.id)) return true;
       const stats = getSeasonStats(p.id);
       return stats.some((s) => s.appearances >= 5);
     });

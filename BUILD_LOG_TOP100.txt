@@ -1,104 +1,104 @@
 # Top-100 OVR — all-time-any
-Generated: 2026-07-20T08:47:30.675Z
-Pool size: 84160
+Generated: 2026-07-20T12:29:02.063Z
+Pool size: 84189
 
-  1. 99 ST Lionel Messi
-  2. 99 ST Cristiano Ronaldo
-  3. 98 AM Ronaldinho
-  4. 97 CM Paolo Maldini
-  5. 97 CM Zinedine Zidane
-  6. 97 ST Pelé
-  7. 95 ST Thierry Henry
-  8. 95 AM Diego Maradona
-  9. 94 CM Kevin De Bruyne
- 10. 94 GK Gianluigi Buffon
- 11. 94 ST Johan Cruyff
- 12. 93 ST Kylian Mbappé
- 13. 93 CB Virgil van Dijk
- 14. 93 CM Luka Modrić
- 15. 93 ST Karim Benzema
- 16. 93 CM Andrés Iniesta
- 17. 93 CM Xavi
- 18. 93 CM Andrea Pirlo
- 19. 92 ST Erling Haaland
- 20. 92 ST Mohamed Salah
- 21. 92 ST Robert Lewandowski
- 22. 92 ST Luis Suárez
- 23. 92 ST Francesco Totti
- 24. 92 GK Iker Casillas
- 25. 92 CM Roberto Carlos
- 26. 91 ST Harry Kane
- 27. 91 ST Neymar
- 28. 91 CM David Beckham
- 29. 91 CM Steven Gerrard
- 30. 91 CB Sergio Ramos
- 31. 90 ST Sadio Mané
- 32. 90 ST Didier Drogba
- 33. 90 CM Frank Lampard
- 34. 90 GK Ederson
- 35. 90 DM Casemiro
- 36. 90 CM Xabi Alonso
- 37. 89 CM Jude Bellingham
- 38. 89 GK Alisson Becker
- 39. 89 AM Bruno Fernandes
- 40. 89 GK Emiliano Martínez
- 41. 88 W  Bukayo Saka
- 42. 88 CM Pedri
- 43. 88 CM Phil Foden
- 44. 88 CM Declan Rice
- 45. 88 AM Jamal Musiala
- 46. 88 GK Roberto Abbondanzieri
- 47. 88 ST Sergio Agüero
- 48. 88 GK Enrico Albertosi
- 49. 88 GK not applicable Alisson
- 50. 88 GK Luis Arconada
- 51. 88 GK Joël Bats
- 52. 88 GK Pat Bonner
- 53. 88 GK Yassine Bounou
- 54. 88 GK not applicable Carlos
- 55. 88 GK Daniel Carnevali
- 56. 88 GK Jürgen Croy
- 57. 88 GK Rinat Dasayev
- 58. 88 ST Luuk de Jong
- 59. 88 GK Jean-Luc Ettori
- 60. 88 GK not applicable Félix
- 61. 88 GK Ubaldo Fillol
- 62. 88 GK Ronnie Hellström
- 63. 88 ST Gonzalo Higuaín
- 64. 88 ST Zlatan Ibrahimović
- 65. 88 GK Bodo Illgner
- 66. 88 ST Ciro Immobile
- 67. 88 GK Tomislav Ivković
- 68. 88 ST Robbie Keane
- 69. 88 ST Miroslav Klose
- 70. 88 GK Friedrich Koncilia
- 71. 88 GK Andreas Köpke
- 72. 88 GK Dražen Ladić
- 73. 88 GK Pablo Larios
- 74. 88 ST Henrik Larsson
- 75. 88 GK not applicable Leão
- 76. 88 GK Sepp Maier
- 77. 88 GK not applicable Marcos
- 78. 88 GK Enver Marić
- 79. 88 GK Ladislao Mazurkiewicz
- 80. 88 ST Dries Mertens
- 81. 88 GK Borislav Mihaylov
- 82. 88 GK Józef Młynarczyk
- 83. 88 ST Gerd Müller
- 84. 88 ST Thomas Müller
- 85. 88 GK Thomas N'Kono
- 86. 88 GK Gianluca Pagliuca
- 87. 88 GK Waldir Peres
- 88. 88 GK Jean-Marie Pfaff
- 89. 88 GK Nery Pumpido
- 90. 88 GK Ramón Quiroga
- 91. 88 GK Thomas Ravelli
- 92. 88 ST Marco Reus
- 93. 88 ST Arjen Robben
- 94. 88 GK Harald Schumacher
- 95. 88 GK David Seaman
- 96. 88 GK Peter Shilton
- 97. 88 GK Oleksandr Shovkovskyi
- 98. 88 GK Tony Sylva
- 99. 88 ST Dušan Tadić
-100. 88 GK Cláudio Taffarel
+  1. 96 W  Lionel Messi
+  2. 96 ST Pelé
+  3. 95 AM Diego Maradona
+  4. 95 CB Franz Beckenbauer
+  5. 95 ST Alfredo Di Stéfano
+  6. 95 ST Eusébio
+  7. 95 W  Garrincha
+  8. 95 ST Ferenc Puskás
+  9. 95 GK Lev Yashin
+ 10. 94 ST Cristiano Ronaldo
+ 11. 94 FB Paolo Maldini
+ 12. 94 AM Zinedine Zidane
+ 13. 94 ST Johan Cruyff
+ 14. 94 ST Gerd Müller
+ 15. 94 AM Michel Platini
+ 16. 94 AM Zico
+ 17. 94 ST Ronaldo
+ 18. 93 W  Ronaldinho
+ 19. 93 AM Roberto Baggio
+ 20. 93 CB Franco Baresi
+ 21. 93 ST Romário
+ 22. 93 ST Marco van Basten
+ 23. 93 AM Kaká
+ 24. 92 ST George Weah
+ 25. 92 GK Gianluigi Buffon
+ 26. 92 AM Bobby Charlton
+ 27. 92 W  Luís Figo
+ 28. 92 CM Ruud Gullit
+ 29. 92 ST Zlatan Ibrahimović
+ 30. 92 W  Jairzinho
+ 31. 92 GK Oliver Kahn
+ 32. 92 CM Lothar Matthäus
+ 33. 92 GK Manuel Neuer
+ 34. 92 AM Rivellino
+ 35. 92 ST Karl-Heinz Rummenigge
+ 36. 92 ST Hugo Sánchez
+ 37. 92 GK Peter Schmeichel
+ 38. 92 AM Sócrates
+ 39. 92 AM Rivaldo
+ 40. 91 ST Kylian Mbappé
+ 41. 91 AM Kevin De Bruyne
+ 42. 91 ST Thierry Henry
+ 43. 91 ST Samuel Eto'o
+ 44. 91 CM Andrés Iniesta
+ 45. 91 CM Xavi
+ 46. 91 DM Andrea Pirlo
+ 47. 91 ST Gabriel Batistuta
+ 48. 91 ST Dennis Bergkamp
+ 49. 91 W  Oleh Blokhin
+ 50. 91 ST Kenny Dalglish
+ 51. 91 ST Alessandro Del Piero
+ 52. 91 W  Eden Hazard
+ 53. 91 CM Toni Kroos
+ 54. 91 CB Bobby Moore
+ 55. 91 W  Pavel Nedvěd
+ 56. 91 CB Alessandro Nesta
+ 57. 91 CM Frank Rijkaard
+ 58. 91 ST Paolo Rossi
+ 59. 91 ST Andriy Shevchenko
+ 60. 91 W  Hristo Stoichkov
+ 61. 91 ST Tostão
+ 62. 91 FB Cafu
+ 63. 91 ST Raúl
+ 64. 90 ST Erling Haaland
+ 65. 90 CB Virgil van Dijk
+ 66. 90 DM Rodri
+ 67. 90 W  Vinícius Júnior
+ 68. 90 ST Robert Lewandowski
+ 69. 90 ST Karim Benzema
+ 70. 90 ST Luis Suárez
+ 71. 90 ST Francesco Totti
+ 72. 90 GK Iker Casillas
+ 73. 90 ST Sergio Agüero
+ 74. 90 CB Fabio Cannavaro
+ 75. 90 FB Roberto Carlos
+ 76. 90 GK Petr Čech
+ 77. 90 GK Thibaut Courtois
+ 78. 90 CB Rio Ferdinand
+ 79. 90 CM Gheorghe Hagi
+ 80. 90 CM N'Golo Kanté
+ 81. 90 ST Kevin Keegan
+ 82. 90 FB Philipp Lahm
+ 83. 90 CM Johan Neeskens
+ 84. 90 CB Carles Puyol
+ 85. 90 W  Franck Ribéry
+ 86. 90 W  Arjen Robben
+ 87. 90 ST Wayne Rooney
+ 88. 90 CM Paul Scholes
+ 89. 90 CB Jaap Stam
+ 90. 90 GK Edwin van der Sar
+ 91. 90 ST Ruud van Nistelrooy
+ 92. 90 DM Patrick Vieira
+ 93. 90 GK Jan Oblak
+ 94. 89 W  Mohamed Salah
+ 95. 89 ST Harry Kane
+ 96. 89 CM Luka Modrić
+ 97. 89 AM Neymar
+ 98. 89 W  Sadio Mané
+ 99. 89 CM David Beckham
+100. 89 CM Steven Gerrard

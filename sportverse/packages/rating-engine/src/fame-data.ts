@@ -17,35 +17,32 @@ export function mvEraBucket(year?: number): number {
 }
 
 /**
- * Rank players by peakMv **within era cohorts** and attach percentiles (0–100).
- * Global ranking made mid-career €10M look like elite MV (93rd %ile); era cohorts fix that.
+ * Attach an MV "percentile" (0–100) as each player's **linear share of the
+ * era-cohort top market value** — NOT a rank percentile. Rank percentiles are
+ * fatally top-heavy here: cohorts contain tens of thousands of near-zero-MV
+ * players, so a €40M journeyman ranked at the 99th percentile and the OVR
+ * blend treated him like a €200M superstar (Ben Yedder at 94 OVR).
+ * Linear share keeps discrimination where it matters: €40M vs €200M → 20.
  * FameScore is ignored — market value and fame are independent signals.
  *
- * Hand calc (same cohort): peakMv 1M / 20M / 100M → percentiles 0 / 50 / 100.
+ * Hand calc (same cohort): peakMv 1M / 20M / 100M → shares 1 / 20 / 100.
  */
 export function attachMvPercentilesFromPeakMv(entries: FameRatingEntry[]): FameRatingEntry[] {
-  const groups = new Map<number, FameRatingEntry[]>();
+  const maxByBucket = new Map<number, number>();
   for (const e of entries) {
     if (e.peakMv == null || e.peakMv <= 0) continue;
     const bucket = mvEraBucket(e.peakMvYear);
-    const list = groups.get(bucket) ?? [];
-    list.push(e);
-    groups.set(bucket, list);
+    maxByBucket.set(bucket, Math.max(maxByBucket.get(bucket) ?? 0, e.peakMv));
   }
 
-  const pctById = new Map<string, number>();
-  for (const list of groups.values()) {
-    list.sort((a, b) => (a.peakMv ?? 0) - (b.peakMv ?? 0));
-    const denom = Math.max(1, list.length - 1);
-    for (let i = 0; i < list.length; i++) {
-      pctById.set(list[i]!.playerId, (i / denom) * 100);
+  return entries.map((e) => {
+    if (e.peakMv == null || e.peakMv <= 0) {
+      return { ...e, mvPercentile: e.mvPercentile ?? 0 };
     }
-  }
-
-  return entries.map((e) => ({
-    ...e,
-    mvPercentile: pctById.get(e.playerId) ?? e.mvPercentile ?? 0,
-  }));
+    const max = maxByBucket.get(mvEraBucket(e.peakMvYear)) ?? 0;
+    const share = max > 0 ? (e.peakMv / max) * 100 : 0;
+    return { ...e, mvPercentile: share };
+  });
 }
 
 export function setFameDataForRatings(entries: FameRatingEntry[]): void {

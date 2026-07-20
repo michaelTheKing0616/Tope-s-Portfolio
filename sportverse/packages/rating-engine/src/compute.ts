@@ -224,8 +224,12 @@ export function computePlayerRating(input: RatingInput, mode: DraftModeConfig): 
   const longevity = longevityAdjustment(stats, mode.era);
   const bonus = awards + moments + legacy + longevity;
 
-  clubOvr = clamp(clubOvr + bonus * 0.6);
-  intlOvr = clamp(intlOvr + bonus * 0.4);
+  // Hand-curated anchors are exact by contract — bonuses would drift a
+  // vetted 89 to 92 and defeat the point of anchoring.
+  if (!input.manualOvr) {
+    clubOvr = clamp(clubOvr + bonus * 0.6);
+    intlOvr = clamp(intlOvr + bonus * 0.4);
+  }
 
   let ovr = lensBlend(clubOvr, intlOvr, mode.ratingLens, mode.blendFactor);
   let confidence = input.manualOvr ? 0.98 : statConfidence;
@@ -235,8 +239,12 @@ export function computePlayerRating(input: RatingInput, mode: DraftModeConfig): 
     confidence = Math.min(confidence, 0.45);
   }
 
+  if (input.manualOvr && mode.ratingLens !== "international_only") {
+    ovr = clamp(input.manualOvr);
+  }
+
   const { nudge, entry } = communityCalibrationNudge(input.id, confidence);
-  ovr = clamp(ovr + nudge);
+  if (!input.manualOvr) ovr = clamp(ovr + nudge);
 
   return {
     playerId: input.id,
