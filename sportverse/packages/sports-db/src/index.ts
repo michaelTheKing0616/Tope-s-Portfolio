@@ -59,7 +59,13 @@ import {
   getClubSeasonSquad,
   getClubSeasonEntry,
   looksLikeCompetitionId,
+  looksLikeJunkClubAlias,
+  isRecognizableWheelClub,
+  parseSeasonStartYear,
   setPrebuiltClubSeasons,
+  setWheelClubLookup,
+  WHEEL_RECOGNIZED_LEAGUE_IDS,
+  WHEEL_MIN_POOL_OVERLAP,
   type ClubSeasonKey,
 } from "./club-season-index.js";
 
@@ -117,7 +123,13 @@ export {
   getClubSeasonSquad,
   getClubSeasonEntry,
   looksLikeCompetitionId,
+  looksLikeJunkClubAlias,
+  isRecognizableWheelClub,
+  parseSeasonStartYear,
   setPrebuiltClubSeasons,
+  setWheelClubLookup,
+  WHEEL_RECOGNIZED_LEAGUE_IDS,
+  WHEEL_MIN_POOL_OVERLAP,
 };
 export type { FameEntry, FameTier, ClubSeasonKey };
 export type { ExtendedLoadProgress, ExtendedLoadProgressFn } from "./extended.js";

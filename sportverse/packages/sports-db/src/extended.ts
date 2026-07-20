@@ -21,6 +21,7 @@ import {
   rebuildClubSeasonIndex,
   resetClubSeasonIndex,
   setPrebuiltClubSeasons,
+  setWheelClubLookup,
   type ClubSeasonKey,
 } from "./club-season-index.js";
 
@@ -335,6 +336,7 @@ async function loadFromFetch(baseUrl: string, onProgress?: ExtendedLoadProgressF
   awardsList = awards as PlayerAward[];
   iconicMomentsList = moments as IconicMoment[];
   if (Array.isArray(fameRaw) && fameRaw.length) setFameIndex(fameRaw as FameEntry[]);
+  setWheelClubLookup(clubsExtendedList ?? []);
   setPrebuiltClubSeasons(Array.isArray(clubRosters) ? (clubRosters as ClubSeasonKey[]) : null);
   if (!statsByPlayer?.size) rebuildStatsIndex();
   else rebuildClubSeasonFromLoaded();
@@ -506,6 +508,7 @@ export function __setExtendedDataForTests(data: {
   awardsList = data.awards ?? [];
   iconicMomentsList = data.moments ?? [];
   if (data.fameIndex) setFameIndex(data.fameIndex);
+  setWheelClubLookup(clubsExtendedList);
   setPrebuiltClubSeasons(data.clubSeasonRosters ?? null);
   rebuildStatsIndex();
   seedLeagueResolver(clubsExtendedList, competitionsList);

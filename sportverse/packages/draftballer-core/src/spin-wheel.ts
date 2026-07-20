@@ -9,10 +9,10 @@ import type {
 } from "@sportverse/draftballer-types";
 import {
   fameTierFromScore,
-  getClubSeasonEntry,
   getDraftPlayers,
   getFameScore,
   listSpinnableClubSeasons,
+  WHEEL_MIN_POOL_OVERLAP,
 } from "@sportverse/sports-db";
 import { squadRating } from "./draft-room.js";
 import { draftPickAllowedForSlot } from "./squad-rules.js";
@@ -71,15 +71,28 @@ function clubSeasonToSegment(entry: ReturnType<typeof listSpinnableClubSeasons>[
   };
 }
 
-/** Sample wheel segments from spinnable club-seasons using seeded fame-weighted sampling. */
+/**
+ * Sample wheel segments from curated club-seasons (recognizable leagues only).
+ * Never falls back to raw career-club strings (ZB Home, youth aliases, …).
+ */
 export function buildWheelSegments(
   mode: DraftModeConfig,
-  _pool: RatedPlayerCard[],
+  pool: RatedPlayerCard[],
   seed: string,
   count = 20,
 ): WheelSegment[] {
-  const spinnable = listSpinnableClubSeasons(mode);
-  if (!spinnable.length) return buildLegacySegments(mode, _pool, count);
+  const poolIds = new Set(pool.map((p) => p.playerId));
+  const spinnable = listSpinnableClubSeasons(mode).filter((entry) => {
+    let overlap = 0;
+    for (const id of entry.playerIds) {
+      if (poolIds.has(id)) {
+        overlap++;
+        if (overlap >= WHEEL_MIN_POOL_OVERLAP) return true;
+      }
+    }
+    return false;
+  });
+  if (!spinnable.length) return [];
 
   const rng = createRng(`${seed}:segments`);
   const sampled = rng.weightedSample(
@@ -88,19 +101,6 @@ export function buildWheelSegments(
     Math.min(count, spinnable.length),
   );
   return sampled.map((entry, i) => clubSeasonToSegment(entry, i));
-}
-
-function buildLegacySegments(mode: DraftModeConfig, pool: RatedPlayerCard[], max: number): WheelSegment[] {
-  const poolIds = new Set(pool.map((p) => p.playerId));
-  const players = getDraftPlayers().filter((p) => poolIds.has(p.id));
-  const clubs = [...new Set(players.flatMap((p) => p.clubs ?? []))].sort().slice(0, max);
-  return clubs.map((club, i) => ({
-    id: `legacy_${i}`,
-    label: club,
-    sublabel: mode.decade ?? "All-Time",
-    club,
-    eraLabel: mode.decade ?? "All-Time",
-  }));
 }
 
 export function createWheelSession(
@@ -178,41 +178,32 @@ function sampleCandidates(
   return sampled;
 }
 
+/**
+ * Candidates for the current spin — always from the landed club-season squad.
+ * Position soft-match may include teammates in other roles; never other clubs.
+ */
 export function getPickCandidates(
   state: WheelBuildState,
   pool: RatedPlayerCard[],
 ): RatedPlayerCard[] {
   if (!state.spunSegment) return [];
+  const squadIds = state.spunSegment.squadPlayerIds;
+  if (!squadIds?.length) return [];
+
   const picked = new Set(state.roster);
   const seen = new Set(state.seenPlayerIds);
   const position = targetPosition(state);
-  // Index once — never scan the full pool with .find in the hot path.
   const poolMap = new Map<string, RatedPlayerCard>();
   for (const p of pool) poolMap.set(p.playerId, p);
 
-  if (state.spunSegment.squadPlayerIds?.length) {
-    const candidates = sampleCandidates(
-      state.spunSegment.squadPlayerIds,
-      poolMap,
-      picked,
-      seen,
-      position,
-      `${state.seed}:pick:${state.spinsUsed}`,
-    );
-    if (candidates.length) return candidates;
-
-    if (position === "GK") {
-      const anyGk = state.spunSegment.squadPlayerIds
-        .map((id) => poolMap.get(id))
-        .filter((c): c is RatedPlayerCard => !!c && c.position === "GK" && !picked.has(c.playerId));
-      if (!anyGk.length) {
-        return [];
-      }
-    }
-    return [];
-  }
-
-  return filterPlayersForSegment(state.spunSegment, pool, picked, position);
+  return sampleCandidates(
+    squadIds,
+    poolMap,
+    picked,
+    seen,
+    position,
+    `${state.seed}:pick:${state.spinsUsed}`,
+  );
 }
 
 export function getPickCandidatesStrict(
@@ -225,30 +216,36 @@ export function getPickCandidatesStrict(
   });
 }
 
+/**
+ * Filter pool to the spun club-season squad (or nationality slice).
+ * Club wheels require squadPlayerIds — career `clubs[]` matching is not used.
+ */
 export function filterPlayersForSegment(
   segment: WheelSegment,
   pool: RatedPlayerCard[],
   pickedIds: Set<string>,
   requiredPosition?: Position,
 ): RatedPlayerCard[] {
-  const rawById = new Map(getDraftPlayers().map((p) => [p.id, p]));
+  const poolMap = new Map(pool.map((p) => [p.playerId, p]));
 
-  const bySegment = pool.filter((card) => {
-    if (pickedIds.has(card.playerId)) return false;
-    if (segment.seasonLabel) {
-      const entry = segment.club ? getClubSeasonEntry(segment.club, segment.seasonLabel) : undefined;
-      if (entry && !entry.playerIds.includes(card.playerId)) return false;
-    }
-    const raw = rawById.get(card.playerId);
-    if (!raw) return false;
-    if (segment.nationality) return raw.nationality === segment.nationality;
-    if (segment.club) return raw.clubs?.includes(segment.club) ?? false;
-    return true;
-  });
+  let bySegment: RatedPlayerCard[];
+  if (segment.squadPlayerIds?.length) {
+    bySegment = segment.squadPlayerIds
+      .map((id) => poolMap.get(id))
+      .filter((c): c is RatedPlayerCard => !!c && !pickedIds.has(c.playerId));
+  } else if (segment.nationality) {
+    const rawById = new Map(getDraftPlayers().map((p) => [p.id, p]));
+    bySegment = pool.filter((card) => {
+      if (pickedIds.has(card.playerId)) return false;
+      return rawById.get(card.playerId)?.nationality === segment.nationality;
+    });
+  } else {
+    bySegment = [];
+  }
 
   if (!requiredPosition) return bySegment;
-  const byPos = bySegment.filter((c) => c.position === requiredPosition);
-  return byPos.length ? byPos : bySegment;
+  const byPos = bySegment.filter((c) => draftPickAllowedForSlot(c, requiredPosition, true));
+  return byPos;
 }
 
 export function spinToSegment(
@@ -256,14 +253,28 @@ export function spinToSegment(
   segmentIndex: number,
   pool: RatedPlayerCard[],
 ): WheelBuildState {
-  const segments = buildWheelSegments(state.mode, pool, state.seed, 20);
+  const segments =
+    state.segments.length > 0
+      ? state.segments
+      : buildWheelSegments(state.mode, pool, state.seed, 20);
+  if (!segments.length) {
+    return {
+      ...state,
+      segments,
+      spunSegment: null,
+      phase: "ready",
+      candidateIds: [],
+      fallback: null,
+    };
+  }
   const segment = segments[segmentIndex % segments.length]!;
   const position = targetPosition(state);
   const picked = new Set(state.roster);
   const poolMap = new Map<string, RatedPlayerCard>();
   for (const p of pool) poolMap.set(p.playerId, p);
+  const squadIds = segment.squadPlayerIds ?? [];
   const candidates = sampleCandidates(
-    segment.squadPlayerIds ?? [],
+    squadIds,
     poolMap,
     picked,
     new Set(state.seenPlayerIds),
@@ -272,8 +283,8 @@ export function spinToSegment(
   );
 
   let fallback: WheelBuildState["fallback"] = null;
-  if (segment.squadPlayerIds?.length && position === "GK") {
-    const hasGk = segment.squadPlayerIds.some((id) => {
+  if (squadIds.length && position === "GK") {
+    const hasGk = squadIds.some((id) => {
       const c = poolMap.get(id);
       return c?.position === "GK" && !picked.has(id);
     });

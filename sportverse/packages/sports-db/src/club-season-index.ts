@@ -11,20 +11,99 @@ export interface ClubSeasonKey {
   fameSum: number;
 }
 
+/**
+ * Domestic leagues casual fans recognize — top flights + well-known second tiers.
+ * Not every domestic_league id (youth / obscure tm-* tiers stay out).
+ */
+export const WHEEL_RECOGNIZED_LEAGUE_IDS = new Set([
+  // Big 5
+  "premier-league",
+  "la-liga",
+  "serie-a",
+  "bundesliga",
+  "ligue-1",
+  // Known European first divisions
+  "championship",
+  "eredivisie",
+  "primeira-liga",
+  "super-lig",
+  "scottish-premiership",
+  "pro-league",
+  // Known second tiers
+  "tm-es2", // Segunda
+  "tm-it2", // Serie B
+  "tm-fr2", // Ligue 2
+  "tm-l2", // 2. Bundesliga
+  // Americas / other recognizable top flights
+  "mls",
+  "serie-a-brazil",
+  "tm-mexa",
+  "tm-arg2",
+  "tm-argc",
+  // Familiar European sides (Shakhtar, Salzburg, Basel, Olympiacos, …)
+  "tm-ukr1",
+  "tm-ru1",
+  "tm-dk1",
+  "tm-se1",
+  "tm-gr1",
+  "tm-a1",
+  "tm-c1",
+]);
+
+/** Min squad members that must also exist in the active draft pool. */
+export const WHEEL_MIN_POOL_OVERLAP = 8;
+
 let clubSeasonIndex: Map<string, ClubSeasonKey> | null = null;
 /** Prebuilt from archive performances (team_name × season) — preferred source. */
 let prebuiltRosters: ClubSeasonKey[] | null = null;
+/** club id / lower name / slug → domestic league id */
+let clubLeagueLookup: Map<string, string> | null = null;
 
 function indexKey(clubName: string, seasonLabel: string): string {
   return `${clubName}::${seasonLabel}`;
 }
 
+function slugify(value: string): string {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+/** Parse season start year from `21/22`, `09/10`, `2009`, or `2009/10`. */
+export function parseSeasonStartYear(seasonLabel: string): number | null {
+  const s = String(seasonLabel).trim();
+  if (!s) return null;
+
+  const full = s.match(/^(\d{4})(?:\/\d{2,4})?$/);
+  if (full) {
+    const y = Number(full[1]);
+    return Number.isFinite(y) ? y : null;
+  }
+
+  const short = s.match(/^(\d{2})\/(\d{2})$/);
+  if (short) {
+    const yy = Number(short[1]);
+    if (!Number.isFinite(yy)) return null;
+    // Football seasons: 50–99 → 1950–1999; 00–49 → 2000–2049.
+    return yy >= 50 ? 1900 + yy : 2000 + yy;
+  }
+
+  const head = Number(s.replace(/\/.*/, ""));
+  return Number.isFinite(head) ? head : null;
+}
+
 function seasonInModeRange(seasonLabel: string, mode: DraftModeConfig): boolean {
-  const y = Number(String(seasonLabel).replace(/\/.*/, ""));
+  const y = parseSeasonStartYear(seasonLabel);
   if (mode.era === "single_year" && mode.year) {
-    return seasonLabel === String(mode.year) || String(seasonLabel).startsWith(String(mode.year));
+    return (
+      seasonLabel === String(mode.year) ||
+      String(seasonLabel).startsWith(String(mode.year)) ||
+      y === mode.year
+    );
   }
   if (mode.era === "decade" && mode.decade) {
+    if (y == null) return false;
     const decade = mode.decade;
     if (decade === "1990s") return y >= 1990 && y < 2000;
     if (decade === "2000s") return y >= 2000 && y < 2010;
@@ -32,7 +111,7 @@ function seasonInModeRange(seasonLabel: string, mode: DraftModeConfig): boolean 
     if (decade === "2020s") return y >= 2020;
   }
   if (mode.era === "custom_range" && mode.yearFrom != null && mode.yearTo != null) {
-    return Number.isFinite(y) && y >= mode.yearFrom && y <= mode.yearTo;
+    return y != null && y >= mode.yearFrom && y <= mode.yearTo;
   }
   return true;
 }
@@ -64,6 +143,62 @@ export function looksLikeCompetitionId(name: string): boolean {
   ]);
   if (leagueLike.has(s)) return true;
   return false;
+}
+
+/** TM abbreviation aliases that are not fan-facing club brands (e.g. ZB Home). */
+export function looksLikeJunkClubAlias(name: string): boolean {
+  const s = name.trim();
+  if (!s || s === "---") return true;
+  if (/^(ZB|HB|AKA)\s/i.test(s)) return true;
+  // Premier League 2 / U23 style labels if they leak in as club names
+  if (/premier league 2/i.test(s)) return true;
+  return false;
+}
+
+/** Build name/id → league lookup from clubs-extended. Call whenever clubs load. */
+export function setWheelClubLookup(clubs: Club[]): void {
+  const map = new Map<string, string>();
+  for (const c of clubs) {
+    if (!c.league) continue;
+    map.set(c.id, c.league);
+    map.set(c.name.toLowerCase(), c.league);
+    map.set(slugify(c.name), c.league);
+    // Common "FC X" / "X FC" variants
+    const bare = c.name
+      .replace(/\b(fc|cf|afc|sc|ac|as|ss|ud|cd|rc)\b/gi, "")
+      .replace(/\s+/g, " ")
+      .trim()
+      .toLowerCase();
+    if (bare && bare !== c.name.toLowerCase()) map.set(bare, c.league);
+    if (bare) map.set(slugify(bare), c.league);
+  }
+  clubLeagueLookup = map;
+}
+
+export function resolveClubLeague(clubName: string, clubId?: string): string | null {
+  if (!clubLeagueLookup) return null;
+  if (clubId) {
+    const byId = clubLeagueLookup.get(clubId);
+    if (byId) return byId;
+  }
+  const lower = clubName.toLowerCase();
+  if (clubLeagueLookup.has(lower)) return clubLeagueLookup.get(lower)!;
+  const slug = slugify(clubName);
+  if (clubLeagueLookup.has(slug)) return clubLeagueLookup.get(slug)!;
+  const bare = clubName
+    .replace(/\b(fc|cf|afc|sc|ac|as|ss|ud|cd|rc)\b/gi, "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase();
+  if (bare && clubLeagueLookup.has(bare)) return clubLeagueLookup.get(bare)!;
+  if (bare && clubLeagueLookup.has(slugify(bare))) return clubLeagueLookup.get(slugify(bare))!;
+  return null;
+}
+
+export function isRecognizableWheelClub(clubName: string, clubId?: string): boolean {
+  if (looksLikeCompetitionId(clubName) || looksLikeJunkClubAlias(clubName)) return false;
+  const league = resolveClubLeague(clubName, clubId);
+  return !!league && WHEEL_RECOGNIZED_LEAGUE_IDS.has(league);
 }
 
 /**
@@ -108,7 +243,7 @@ function titleCaseSlug(slug: string): string {
 }
 
 function finalizeEntry(clubName: string, seasonLabel: string, playerIds: string[]): ClubSeasonKey | null {
-  if (looksLikeCompetitionId(clubName)) return null;
+  if (looksLikeCompetitionId(clubName) || looksLikeJunkClubAlias(clubName)) return null;
   const famousCount = playerIds.filter((id) => getFameScore(id) >= 55).length;
   if (playerIds.length < 14 || playerIds.length > 40 || famousCount < 3) return null;
   const fameSum = playerIds.reduce((s, id) => s + getFameScore(id), 0);
@@ -125,15 +260,18 @@ function finalizeEntry(clubName: string, seasonLabel: string, playerIds: string[
 export function setPrebuiltClubSeasons(entries: ClubSeasonKey[] | null): void {
   prebuiltRosters = entries?.length ? entries : null;
   if (clubSeasonIndex) {
-    // Re-merge into existing index when already built from stats.
     mergePrebuiltInto(clubSeasonIndex);
+  } else if (prebuiltRosters) {
+    const index = new Map<string, ClubSeasonKey>();
+    mergePrebuiltInto(index);
+    clubSeasonIndex = index;
   }
 }
 
 function mergePrebuiltInto(index: Map<string, ClubSeasonKey>): void {
   if (!prebuiltRosters) return;
   for (const e of prebuiltRosters) {
-    if (looksLikeCompetitionId(e.clubName)) continue;
+    if (looksLikeCompetitionId(e.clubName) || looksLikeJunkClubAlias(e.clubName)) continue;
     if (e.playerIds.length < 14 || e.playerIds.length > 40) continue;
     index.set(indexKey(e.clubName, e.seasonLabel), {
       ...e,
@@ -147,6 +285,8 @@ export function rebuildClubSeasonIndex(
   clubsExtended: Club[],
   playerClubsById: Map<string, string[]>,
 ): void {
+  setWheelClubLookup(clubsExtended);
+
   // Club id / name slug → display name only. NEVER league → club.
   const clubSlugToName = new Map<string, string>();
   for (const c of clubsExtended) {
@@ -193,8 +333,10 @@ export function listSpinnableClubSeasons(mode: DraftModeConfig): ClubSeasonKey[]
   const out: ClubSeasonKey[] = [];
   for (const entry of clubSeasonIndex.values()) {
     if (!seasonInModeRange(entry.seasonLabel, mode)) continue;
+    if (!isRecognizableWheelClub(entry.clubName, entry.clubId)) continue;
     if (mode.competitionScope === "single_league" && mode.leagueId) {
-      // league filter applied loosely — club metadata may not always have league
+      const league = resolveClubLeague(entry.clubName, entry.clubId);
+      if (league !== mode.leagueId) continue;
     }
     out.push(entry);
   }

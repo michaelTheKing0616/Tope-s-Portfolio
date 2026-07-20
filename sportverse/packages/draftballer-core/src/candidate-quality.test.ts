@@ -32,7 +32,7 @@ describe("candidate quality property tests — Phase 4", () => {
     expect(obscure / candidates.length).toBeLessThanOrEqual(0.3);
   });
 
-  it("every spinnable club-season squad has ≥14 players", () => {
+  it("every spinnable club-season squad has ≥14 players from a recognizable league", () => {
     const mode = getPresetMode("all-time-any");
     const list = listSpinnableClubSeasons(mode);
     if (!list.length) {
@@ -42,6 +42,7 @@ describe("candidate quality property tests — Phase 4", () => {
     for (const entry of list) {
       expect(entry.playerIds.length).toBeGreaterThanOrEqual(14);
       expect(looksLikeCompetitionId(entry.clubName)).toBe(false);
+      expect(entry.clubName).not.toMatch(/^ZB\s/i);
     }
   });
 

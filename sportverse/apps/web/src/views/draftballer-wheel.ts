@@ -3,8 +3,8 @@ import {
   buildDraftPool,
   createWheelSession,
   currentFormationSlot,
-  filterPlayersForSegment,
   getPickCandidates,
+  getPickCandidatesStrict,
   getPresetMode,
   listWheelFormationIds,
   pickPlayerForSlot,
@@ -12,6 +12,7 @@ import {
   spinToSegment,
   dailyChallengeSeed,
   saveSquadForSeason,
+  useReroll,
 } from "@sportverse/draftballer-core";
 import { computeSquadRating } from "@sportverse/rating-engine";
 import { playerCardHtml } from "./draftballer-hub.js";
@@ -165,12 +166,26 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
 
     const slot = currentFormationSlot(state);
     const segment = state.spunSegment;
-    const picked = new Set(state.roster);
     const candidates = segment ? getPickCandidates(state, pool) : [];
-    const exactPosCount =
-      segment && slot
-        ? filterPlayersForSegment(segment, pool, picked, slot.position).length
-        : candidates.length;
+    const exactPosCount = segment ? getPickCandidatesStrict(state, pool).length : 0;
+
+    if (!state.segments.length && state.phase === "ready") {
+      root.innerHTML = `
+        <div class="shell db-root db-wheel-page">
+          <button class="btn btn--ghost" id="back">← Exit</button>
+          <header class="db-hero">
+            <p class="db-hero__label">${mode.title ?? "Spin & Build"} · Wheel Draft</p>
+            <h1 class="db-hero__title" style="font-size:clamp(1.8rem,5vw,2.8rem)">NO CLUBS READY</h1>
+            <p style="color:var(--db-muted);max-width:48ch;margin:0 auto">
+              No recognizable club-seasons matched this mode’s pool. Try All-Time · Any League, or another era.
+            </p>
+            <button class="btn btn--ghost" id="hub" style="margin-top:1rem">DRAFTBALLER Hub</button>
+          </header>
+        </div>`;
+      root.querySelector("#back")?.addEventListener("click", () => navigate("draftballer"));
+      root.querySelector("#hub")?.addEventListener("click", () => navigate("draftballer"));
+      return;
+    }
 
     root.innerHTML = `
       <div class="shell db-root db-wheel-page">
@@ -179,12 +194,12 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
           <p class="db-hero__label">${mode.title ?? "Spin & Build"} · Wheel Draft</p>
           <h1 class="db-hero__title" style="font-size:clamp(1.8rem,5vw,2.8rem)">SPIN · PICK · BUILD</h1>
           <p style="color:var(--db-muted);font-size:0.85rem;max-width:52ch;margin:0 auto">
-            Spin for a club or nation + era, draft into your formation — same loop as
+            Spin a recognizable club + season, then draft only from that squad — same loop as
             <strong style="color:var(--db-gold-hi)">38-0</strong>.
           </p>
           <ol class="db-wheel-steps">
             <li>Spin the wheel</li>
-            <li>Draft a player from that slice</li>
+            <li>Draft a player from that club</li>
             <li>Fill all 11 slots</li>
           </ol>
         </header>
@@ -246,9 +261,21 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
               <p style="color:var(--db-muted);font-size:0.85rem;margin:0">
                 Pick a <strong style="color:var(--db-ink)">${slot?.position ?? ""}</strong> from
                 <strong style="color:var(--db-gold-hi)">${segment.label}</strong>
-                ${exactPosCount === 0 ? " · <span style='color:#f5a623'>no exact matches — showing alternatives</span>" : ""}
+                ${
+                  candidates.length === 0
+                    ? " · <span style='color:#f5a623'>squad empty in this pool — respin</span>"
+                    : exactPosCount === 0
+                      ? " · <span style='color:#f5a623'>no exact position — showing club teammates only</span>"
+                      : ""
+                }
               </p>
-              <button class="btn btn--ghost db-random-pick" id="random-pick" type="button">Random pick</button>
+              ${
+                candidates.length
+                  ? `<button class="btn btn--ghost db-random-pick" id="random-pick" type="button">Random pick</button>`
+                  : state.rerollsLeft > 0
+                    ? `<button class="btn btn--ghost" id="respin-empty" type="button">Respin (${state.rerollsLeft} left)</button>`
+                    : ""
+              }
             </div>
             <div class="db-pool-grid" id="pick-pool">
               ${candidates
@@ -328,6 +355,16 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
         draw();
       } catch {
         /* invalid pick */
+      }
+    });
+
+    root.querySelector("#respin-empty")?.addEventListener("click", () => {
+      if (state.phase !== "picking" || state.rerollsLeft <= 0) return;
+      try {
+        state = useReroll(state, pool);
+        draw();
+      } catch {
+        /* no rerolls */
       }
     });
 
