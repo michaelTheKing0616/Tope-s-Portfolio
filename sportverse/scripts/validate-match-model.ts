@@ -2,8 +2,9 @@
 /**
  * Match model validation harness — Engine v4 §4.
  * Usage: npx tsx sportverse/scripts/validate-match-model.ts
+ * Writes packages/sports-db/data/sim-validation-report.json for the hub trust badge.
  */
-import { readFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
@@ -45,9 +46,25 @@ function mockSquad(ovr: number): RatedPlayerCard[] {
   }));
 }
 
+/** Deterministic shuffle — same fixtures every run for a given corpus. */
+function seededHoldout(fixtures: CrossLeagueFixture[], max: number): CrossLeagueFixture[] {
+  const arr = [...fixtures];
+  let h = 0x9e3779b9;
+  for (let i = arr.length - 1; i > 0; i--) {
+    h = Math.imul(h ^ (i + 1), 0x85ebca6b) >>> 0;
+    const j = h % (i + 1);
+    const tmp = arr[i]!;
+    arr[i] = arr[j]!;
+    arr[j] = tmp;
+  }
+  return arr.slice(0, Math.min(max, arr.length));
+}
+
 function main(): void {
   const fixtures = load<CrossLeagueFixture[]>("cross-league-fixtures.json");
-  const holdout = fixtures.slice(0, Math.min(40, fixtures.length));
+  // Expand beyond the old n=40 proxy — seeded sample of up to 200 fixtures.
+  const HOLDOUT_N = 200;
+  const holdout = seededHoldout(fixtures, HOLDOUT_N);
 
   const scored = holdout.map((f) => {
     const homeOvr = f.leagueAId === "premier-league" ? 78 : 70;
@@ -66,12 +83,24 @@ function main(): void {
   });
 
   const report = buildValidationReport(scored);
-  console.log("Match model validation (cross-league holdout proxy):");
-  console.log(`  fixtures: ${report.count}`);
+  console.log("Match model validation (cross-league holdout):");
+  console.log(`  fixtures: ${report.count} (of ${fixtures.length} available)`);
   console.log(`  RPS: ${report.rps.toFixed(4)} (benchmark ${SOCcer_PREDICTION_CHALLENGE_2017_BENCHMARK.rps})`);
   console.log(`  Brier: ${report.brier.toFixed(4)}`);
   console.log(`  Log-loss: ${report.logLoss.toFixed(4)}`);
   console.log(`  Accuracy: ${(report.accuracy * 100).toFixed(1)}% (benchmark ${(SOCcer_PREDICTION_CHALLENGE_2017_BENCHMARK.accuracy * 100).toFixed(1)}%)`);
+
+  const artifact = {
+    ...report,
+    generatedAt: new Date().toISOString(),
+    note: `Cross-league holdout n=${report.count} (seeded sample of ${fixtures.length}) — directional vs 2017 Soccer Prediction Challenge, not an identical task.`,
+    corpusSize: fixtures.length,
+    benchmarkRps: SOCcer_PREDICTION_CHALLENGE_2017_BENCHMARK.rps,
+    benchmarkAccuracy: SOCcer_PREDICTION_CHALLENGE_2017_BENCHMARK.accuracy,
+  };
+  const outPath = resolve(dataDir, "sim-validation-report.json");
+  writeFileSync(outPath, `${JSON.stringify(artifact, null, 2)}\n`, "utf8");
+  console.log(`  wrote ${outPath}`);
 }
 
 main();

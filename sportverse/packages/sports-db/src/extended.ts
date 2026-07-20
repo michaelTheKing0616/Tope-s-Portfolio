@@ -16,6 +16,13 @@ import { setLeagueStrengthData } from "./league-strength-data.js";
 import { loadEngineCalibrationFromFetch } from "./engine-calibration.js";
 import { resetProceduralQuizCache } from "./procedural-quiz.js";
 import { seedLeagueResolver } from "./league-resolver.js";
+import { setFameIndex, type FameEntry } from "./fame.js";
+import {
+  rebuildClubSeasonIndex,
+  resetClubSeasonIndex,
+  setPrebuiltClubSeasons,
+  type ClubSeasonKey,
+} from "./club-season-index.js";
 
 let playersExtended: ExtendedPlayer[] | null = null;
 let seasonStatsList: PlayerSeasonStat[] | null = null;
@@ -36,6 +43,14 @@ function rebuildStatsIndex() {
     list.push(s);
     statsByPlayer.set(s.playerId, list);
   }
+  resetClubSeasonIndex();
+  rebuildClubSeasonFromLoaded();
+}
+
+function rebuildClubSeasonFromLoaded() {
+  if (!statsByPlayer || !playersExtended) return;
+  const playerClubs = new Map(playersExtended.map((p) => [p.id, p.clubs ?? []]));
+  rebuildClubSeasonIndex(statsByPlayer, clubsExtendedList ?? [], playerClubs);
 }
 
 interface ChunkManifest {
@@ -172,12 +187,39 @@ async function fetchJsonArrayFromCdn(cdn: string, fileName: string): Promise<unk
   return merged;
 }
 
-async function fetchJsonArray(base: string, fileName: string): Promise<unknown[]> {
+export interface ExtendedLoadProgress {
+  file: string;
+  chunk: number;
+  totalChunks: number;
+  label: string;
+}
+
+export type ExtendedLoadProgressFn = (p: ExtendedLoadProgress) => void;
+
+async function fetchJsonArray(
+  base: string,
+  fileName: string,
+  onProgress?: ExtendedLoadProgressFn,
+): Promise<unknown[]> {
   const cdn = sportsDbCdnBase();
   if (cdn) {
     try {
+      onProgress?.({
+        file: fileName,
+        chunk: 0,
+        totalChunks: 1,
+        label: `Loading ${fileName} (CDN)…`,
+      });
       const data = await fetchJsonArrayFromCdn(cdn, fileName);
-      if (data.length) return data;
+      if (data.length) {
+        onProgress?.({
+          file: fileName,
+          chunk: 1,
+          totalChunks: 1,
+          label: `Loaded ${fileName}`,
+        });
+        return data;
+      }
       throw new Error(`CDN returned empty array for ${fileName}`);
     } catch (err) {
       const detail = err instanceof Error ? err.message : String(err);
@@ -194,8 +236,15 @@ async function fetchJsonArray(base: string, fileName: string): Promise<unknown[]
     const expected = manifest.totalItems ?? 0;
     const merged: unknown[] = expected > 0 ? new Array(expected) : [];
     let offset = 0;
+    const total = manifest.chunkCount;
 
-    for (let i = 0; i < manifest.chunkCount; i++) {
+    for (let i = 0; i < total; i++) {
+      onProgress?.({
+        file: fileName,
+        chunk: i + 1,
+        totalChunks: total,
+        label: `${baseName} chunk ${i + 1}/${total}`,
+      });
       const chunkPath = `${base}data/chunks/${baseName}/${String(i).padStart(3, "0")}.json`;
       const res = await fetch(chunkPath);
       if (!res.ok) {
@@ -213,6 +262,12 @@ async function fetchJsonArray(base: string, fileName: string): Promise<unknown[]
     return merged;
   }
 
+  onProgress?.({
+    file: fileName,
+    chunk: 1,
+    totalChunks: 1,
+    label: `Loading ${fileName}…`,
+  });
   const monolithUrl = `${base}data/${fileName}`;
   const res = await fetch(monolithUrl);
   if (!res.ok) {
@@ -223,10 +278,10 @@ async function fetchJsonArray(base: string, fileName: string): Promise<unknown[]
   return res.json() as Promise<unknown[]>;
 }
 
-async function loadFromFetch(baseUrl: string) {
+async function loadFromFetch(baseUrl: string, onProgress?: ExtendedLoadProgressFn) {
   const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
 
-  const [competitions, clubs, eras, aliases, awards, moments, lsi, csi, fixtures, transfers] =
+  const [competitions, clubs, eras, aliases, awards, moments, lsi, csi, fixtures, transfers, fameRaw, clubRosters] =
     await Promise.all([
     fetch(`${base}data/competitions.json`).then((r) => r.json()),
     fetch(`${base}data/clubs-extended.json`).then((r) => r.json()),
@@ -252,15 +307,21 @@ async function loadFromFetch(baseUrl: string) {
     fetch(`${base}data/player-transfers.json`)
       .then((r) => (r.ok ? r.json() : []))
       .catch(() => []),
+    fetch(`${base}data/fame-index.json`)
+      .then((r) => (r.ok ? r.json() : []))
+      .catch(() => []),
+    fetch(`${base}data/club-season-rosters.json`)
+      .then((r) => (r.ok ? r.json() : []))
+      .catch(() => []),
   ]);
 
   // Load large gzip datasets sequentially — parallel decompression exhausts browser memory.
-  const players = await fetchJsonArray(base, "players-extended.json");
+  const players = await fetchJsonArray(base, "players-extended.json", onProgress);
   if (!Array.isArray(players) || !players.length) {
     throw new Error("Failed to load players-extended.json (empty or invalid)");
   }
 
-  const stats = await fetchJsonArray(base, "season-stats.json");
+  const stats = await fetchJsonArray(base, "season-stats.json", onProgress);
   if (!Array.isArray(stats) || !stats.length) {
     throw new Error("Failed to load season-stats.json (empty or invalid)");
   }
@@ -273,7 +334,10 @@ async function loadFromFetch(baseUrl: string) {
   playerAliasesList = aliases as PlayerAlias[];
   awardsList = awards as PlayerAward[];
   iconicMomentsList = moments as IconicMoment[];
+  if (Array.isArray(fameRaw) && fameRaw.length) setFameIndex(fameRaw as FameEntry[]);
+  setPrebuiltClubSeasons(Array.isArray(clubRosters) ? (clubRosters as ClubSeasonKey[]) : null);
   if (!statsByPlayer?.size) rebuildStatsIndex();
+  else rebuildClubSeasonFromLoaded();
   seedLeagueResolver(clubsExtendedList!, competitionsList!);
   setLeagueStrengthData({
     leagueStrengthIndex: lsi as LeagueStrengthIndexEntry[],
@@ -285,7 +349,10 @@ async function loadFromFetch(baseUrl: string) {
 }
 
 /** Load extended datasets once via fetch (browser + Node API). */
-export async function ensureExtendedDataLoaded(baseUrl?: string): Promise<void> {
+export async function ensureExtendedDataLoaded(
+  baseUrl?: string,
+  onProgress?: ExtendedLoadProgressFn,
+): Promise<void> {
   if (playersExtended) return;
   if (loadPromise) return loadPromise;
 
@@ -294,7 +361,7 @@ export async function ensureExtendedDataLoaded(baseUrl?: string): Promise<void> 
     (import.meta as ImportMeta & { env?: { BASE_URL?: string } }).env?.BASE_URL ??
     "/";
 
-  loadPromise = loadFromFetch(base);
+  loadPromise = loadFromFetch(base, onProgress);
   return loadPromise;
 }
 
@@ -426,6 +493,8 @@ export function __setExtendedDataForTests(data: {
   confederationStrengthIndex?: ConfederationStrengthIndexEntry[];
   crossLeagueFixtures?: CrossLeagueFixture[];
   playerTransfers?: PlayerTransfer[];
+  fameIndex?: FameEntry[];
+  clubSeasonRosters?: ClubSeasonKey[];
 }) {
   playersExtended = data.players;
   seasonStatsList = data.stats;
@@ -436,6 +505,8 @@ export function __setExtendedDataForTests(data: {
   playerAliasesList = data.aliases ?? [];
   awardsList = data.awards ?? [];
   iconicMomentsList = data.moments ?? [];
+  if (data.fameIndex) setFameIndex(data.fameIndex);
+  setPrebuiltClubSeasons(data.clubSeasonRosters ?? null);
   rebuildStatsIndex();
   seedLeagueResolver(clubsExtendedList, competitionsList);
   setLeagueStrengthData({

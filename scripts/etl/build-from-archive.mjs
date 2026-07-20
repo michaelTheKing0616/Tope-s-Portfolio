@@ -29,12 +29,13 @@ function upsertStat(map, row) {
   const key = statKey(row.playerId, row.seasonLabel, row.competitionId, row.context);
   const existing = map.get(key);
   if (!existing || row.confidence > existing.confidence || row.appearances > existing.appearances) {
-    map.set(key, row);
+    map.set(key, { ...row, clubName: row.clubName || existing?.clubName });
   } else if (existing) {
     existing.appearances += row.appearances;
     existing.goals += row.goals;
     existing.assists += row.assists;
     existing.minutes += row.minutes;
+    if (row.clubName && !existing.clubName) existing.clubName = row.clubName;
   }
 }
 
@@ -199,6 +200,10 @@ export async function buildFromArchive(footballBase, curatedPlayers) {
     const apps = Number(row.nb_on_pitch) || Number(row.nb_in_group) || 0;
     if (apps < 1) return;
 
+    const clubName = String(row.team_name ?? "")
+      .replace(/\s*\(\d+\)\s*$/, "")
+      .replace(/\s+/g, " ")
+      .trim();
     upsertStat(statMap, {
       playerId,
       seasonLabel: row.season_name || "unknown",
@@ -210,6 +215,7 @@ export async function buildFromArchive(footballBase, curatedPlayers) {
       minutes: Math.round(Number(row.minutes_played) || apps * 75),
       confidence: 0.94,
       goalsConceded: Math.round(Number(row.goals_conceded) || 0),
+      ...(clubName ? { clubName } : {}),
     });
   });
 

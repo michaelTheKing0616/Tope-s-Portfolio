@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "fittedAt": "2026-07-03T12:29:57.783Z",
+  "source": "archive-calibration-etl",
+  "aggregationBridge": {
+    "alphaIntercept": -0.5328177860565637,
+    "alphaSlope": 0.9464309646337429,
+    "betaIntercept": -1.117590100487217,
+    "betaSlope": 1.1836017644757637,
+    "calibrationMae": {
+      "alphaMae": 0.05930734181988523,
+      "betaMae": 0.18313287174462986
+    },
+    "rowCount": 800
+  },
+  "leagueBridging": {
+    "scalingBase": 0.98,
+    "scalingSlope": 0.15,
+    "scalingMin": 0.75,
+    "scalingMax": 1.15,
+    "shiftSlope": 2,
+    "shiftMin": -3,
+    "shiftMax": 3,
+    "transferSampleSize": 4058
+  },
+  "lsi": {
+    "weights": {
+      "elo": 0.44999999999999996,
+      "transfer": 0.15,
+      "talent": 0.15000000000000002,
+      "nat": 0.25
+    },
+    "sigmaLsi": 0.08,
+    "shrinkageK": 30,
+    "holdoutAccuracy": 0.59
+  }
+}

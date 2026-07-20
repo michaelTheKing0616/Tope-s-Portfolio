@@ -1,0 +1,93 @@
+{
+  "builtAt": "2026-07-19T06:27:20.254Z",
+  "files": [
+    {
+      "name": "awards.json",
+      "bytes": 1840
+    },
+    {
+      "name": "career-paths.json",
+      "bytes": 294
+    },
+    {
+      "name": "clubs-extended.json",
+      "bytes": 229547
+    },
+    {
+      "name": "clubs.json",
+      "bytes": 9580
+    },
+    {
+      "name": "competitions.json",
+      "bytes": 186083
+    },
+    {
+      "name": "confederation-strength-index.json",
+      "bytes": 1416
+    },
+    {
+      "name": "cross-league-fixtures.json",
+      "bytes": 136225
+    },
+    {
+      "name": "engine-calibration.json",
+      "bytes": 858
+    },
+    {
+      "name": "era-baselines.json",
+      "bytes": 1210735
+    },
+    {
+      "name": "iconic_moments.json",
+      "bytes": 1096
+    },
+    {
+      "name": "league-strength-index.json",
+      "bytes": 113298
+    },
+    {
+      "name": "legacy-reputation.json",
+      "bytes": 426
+    },
+    {
+      "name": "partnership-pairs.json",
+      "bytes": 530
+    },
+    {
+      "name": "player-aliases.json",
+      "bytes": 317922
+    },
+    {
+      "name": "player-calibration.json",
+      "bytes": 581
+    },
+    {
+      "name": "player-transfers.json",
+      "bytes": 2272079
+    },
+    {
+      "name": "players-extended.json",
+      "bytes": 37987448
+    },
+    {
+      "name": "players.json",
+      "bytes": 33783
+    },
+    {
+      "name": "season-stats.json",
+      "bytes": 334671225
+    },
+    {
+      "name": "speed-questions.json",
+      "bytes": 6067
+    },
+    {
+      "name": "team-season-records.json",
+      "bytes": 1832345
+    },
+    {
+      "name": "true-false.json",
+      "bytes": 5856
+    }
+  ]
+}

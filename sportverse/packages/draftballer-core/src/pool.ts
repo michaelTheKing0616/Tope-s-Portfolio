@@ -1,31 +1,45 @@
-import type { DraftModeConfig, RatedPlayerCard } from "@sportverse/draftballer-types";
-import { computePoolCached, type RatingInput } from "@sportverse/rating-engine";
-import { getDraftPlayers, getSeasonStats } from "@sportverse/sports-db";
+import type { DraftModeConfig, RatedPlayerCard, Position } from "@sportverse/draftballer-types";
+import { computePlayerRating, computePoolCached, type RatingInput } from "@sportverse/rating-engine";
+import { getPlayer, getSeasonStats } from "@sportverse/sports-db";
 import { buildFilteredPoolInputs, type EligibilityFilter } from "./mode-filters.js";
+import { createRng } from "./rng.js";
 
-const LEGEND_OVERRIDES: Record<string, number> = {
-  messi: 93,
-  ronaldo: 92,
-  mbappe: 91,
-  haaland: 90,
-  "de-bruyne": 91,
-  modric: 89,
-  benzema: 90,
-  lewandowski: 90,
-  maldini: 94,
-  maradona: 95,
-  pele: 96,
-  zidane: 94,
-  ronaldinho: 93,
-  henry: 91,
-  "van-dijk": 90,
-  salah: 89,
-  neymar: 89,
-  bellingham: 88,
-};
+export interface LegendRatingEntry {
+  playerId: string;
+  ovr: number;
+  attributes?: Partial<import("@sportverse/draftballer-types").PlayerAttributes>;
+}
+
+let legendRatings = new Map<string, LegendRatingEntry>();
+
+export function setLegendRatings(entries: LegendRatingEntry[]): void {
+  legendRatings = new Map(entries.map((e) => [e.playerId, e]));
+}
 
 function enrichInput(p: RatingInput): RatingInput {
-  return { ...p, manualOvr: LEGEND_OVERRIDES[p.id] };
+  const legend = legendRatings.get(p.id);
+  if (!legend) return p;
+  return {
+    ...p,
+    manualOvr: legend.ovr,
+    manualAttributes: legend.attributes,
+  };
+}
+
+/** Rate a single player under an arbitrary mode (compare view / offline). */
+export function ratePlayerById(playerId: string, mode: DraftModeConfig): RatedPlayerCard | null {
+  const p = getPlayer(playerId);
+  if (!p) return null;
+  const input = enrichInput({
+    id: p.id,
+    name: p.name,
+    nationality: p.nationality,
+    position: p.position,
+    clubs: p.clubs,
+    seasonStats: getSeasonStats(p.id),
+    seasonLabel: mode.ratingBasis === "season" && mode.year != null ? String(mode.year) : undefined,
+  });
+  return computePlayerRating(input, mode);
 }
 
 export function buildDraftPool(
@@ -47,7 +61,6 @@ export function poolSummary(cards: RatedPlayerCard[]) {
   };
 }
 
-/** Histogram for architect preview API. */
 export function poolHistogram(cards: RatedPlayerCard[]) {
   const buckets = { bronze: 0, silver: 0, gold: 0, gold_plus: 0, prismatic: 0 };
   for (const c of cards) buckets[c.tier] = (buckets[c.tier] ?? 0) + 1;
@@ -57,4 +70,26 @@ export function poolHistogram(cards: RatedPlayerCard[]) {
 export function previewPool(mode: DraftModeConfig, eligibility: EligibilityFilter = {}) {
   const cards = buildDraftPool(mode, eligibility);
   return { ...poolSummary(cards), histogram: poolHistogram(cards) };
+}
+
+/** Fame-stratified seeded sample for classic room UI grids. */
+export function samplePoolForRoom(
+  pool: RatedPlayerCard[],
+  seed: string,
+  perPosition = 12,
+): RatedPlayerCard[] {
+  const rng = createRng(`${seed}:room-grid`);
+  const groups: Partial<Record<Position, RatedPlayerCard[]>> = {};
+  for (const card of pool) {
+    const list = groups[card.position] ?? [];
+    list.push(card);
+    groups[card.position] = list;
+  }
+  const out: RatedPlayerCard[] = [];
+  for (const pos of Object.keys(groups) as Position[]) {
+    const list = groups[pos] ?? [];
+    const weight = (c: RatedPlayerCard) => Math.max(1, c.fameScore ?? 0);
+    out.push(...rng.weightedSample(list, weight, Math.min(perPosition, list.length)));
+  }
+  return rng.shuffle(out);
 }

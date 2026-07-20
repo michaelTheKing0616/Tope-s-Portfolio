@@ -1,0 +1,57 @@
+[
+  {
+    "playerId": "messi",
+    "seasonLabel": "2018-19",
+    "competitionId": "es1",
+    "context": "CLUB",
+    "appearances": 34,
+    "goals": 36,
+    "assists": 13,
+    "minutes": 2900,
+    "confidence": 0.98
+  },
+  {
+    "playerId": "ronaldo",
+    "seasonLabel": "2018-19",
+    "competitionId": "it1",
+    "context": "CLUB",
+    "appearances": 31,
+    "goals": 21,
+    "assists": 8,
+    "minutes": 2700,
+    "confidence": 0.98
+  },
+  {
+    "playerId": "mbappe",
+    "seasonLabel": "2022-23",
+    "competitionId": "fr1",
+    "context": "CLUB",
+    "appearances": 34,
+    "goals": 29,
+    "assists": 5,
+    "minutes": 2800,
+    "confidence": 0.95
+  },
+  {
+    "playerId": "haaland",
+    "seasonLabel": "2022-23",
+    "competitionId": "gb1",
+    "context": "CLUB",
+    "appearances": 30,
+    "goals": 36,
+    "assists": 8,
+    "minutes": 2500,
+    "confidence": 0.95
+  },
+  {
+    "playerId": "de-bruyne",
+    "seasonLabel": "2021-22",
+    "competitionId": "gb1",
+    "context": "CLUB",
+    "appearances": 30,
+    "goals": 15,
+    "assists": 8,
+    "minutes": 2400,
+    "confidence": 0.94
+  }
+]

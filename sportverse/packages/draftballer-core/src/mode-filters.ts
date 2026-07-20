@@ -9,6 +9,7 @@ export interface EligibilityFilter {
   minAppearances?: number;
   nationality?: string;
   legendsOnly?: boolean;
+  excludeFabricated?: boolean;
 }
 
 function seasonToDecade(seasonLabel: string): string {
@@ -137,6 +138,14 @@ export function buildFilteredPoolInputs(
     players = players.filter((p) => {
       const apps = getSeasonStats(p.id).reduce((s, r) => s + r.appearances, 0);
       return apps >= minApps;
+    });
+  }
+
+  const excludeFabricated = eligibility.excludeFabricated !== false && !mode.deepCuts;
+  if (excludeFabricated) {
+    players = players.filter((p) => {
+      const stats = getSeasonStats(p.id);
+      return stats.some((s) => s.appearances >= 5);
     });
   }
 

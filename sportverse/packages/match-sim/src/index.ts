@@ -10,7 +10,13 @@ export { generateOpponents } from "./opponent.js";
 export { simulateSeason, SEASON_LENGTH } from "./season.js";
 export { predictSeasonOutlook, gradeSeasonVsPrediction } from "./season-prediction.js";
 export { commentaryFor } from "./commentary.js";
-export { commentaryForV2, fitCommentary, tacticalPreviewHeadline } from "./commentary-v2.js";
+export {
+  commentaryForV2,
+  fitCommentary,
+  tacticalPreviewHeadline,
+  overloadCommentary,
+  tacticalIdentityHint,
+} from "./commentary-v2.js";
 export {
   buildCommentaryProfile,
   seededGoalCommentary,
@@ -24,8 +30,22 @@ export {
 } from "./commentary-seeded.js";
 export { listEraProfiles, getEraProfile, resolveEraProfile, ERA_PROFILES } from "./era-profiles.js";
 export { computePlayerMeta, computeSquadMeta } from "./player-meta.js";
-export { computePhysicalityFitTerm, buildFitSummary, zoneOverloadModifier as computeZoneModifier } from "./fit-model.js";
-export { FORMATIONS, getFormation, listFormations, zonePresence, zoneOverloadModifier, formationsForEra } from "./formations.js";
+export {
+  computePhysicalityFitTerm,
+  buildFitSummary,
+  computeSquadFitReport,
+  squadAveragePhysicalityFit,
+  fitPreviewHeadline,
+} from "./fit-model.js";
+export {
+  FORMATIONS,
+  getFormation,
+  listFormations,
+  zonePresence,
+  zoneOverloadModifier,
+  zoneOverloadModifier as computeZoneModifier,
+  formationsForEra,
+} from "./formations.js";
 export { simulateEraLab } from "./era-lab.js";
 export { resolveWeather } from "./weather.js";
 export {

@@ -1,6 +1,7 @@
 import type { DraftFormat, DraftRoomFSM } from "@sportverse/draftballer-types";
+import { resolveApiBase } from "@sportverse/platform";
 
-const API_BASE = (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, "") ?? "";
+const API_BASE = resolveApiBase();
 
 export function isDraftApiEnabled(): boolean {
   return API_BASE.length > 0;

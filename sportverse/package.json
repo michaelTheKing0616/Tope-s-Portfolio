@@ -6,8 +6,7 @@
   "workspaces": [
     "apps/*",
     "packages/*",
-    "services/*",
-    "games/*"
+    "services/*"
   ],
   "scripts": {
     "dev": "npm run dev -w @sportverse/web",
@@ -16,6 +15,7 @@
     "build:api": "npm run build -w @sportverse/api",
     "build:all": "npm run build -w @sportverse/sports-db && npm run build -w @sportverse/platform && npm run build -w @sportverse/quiz-engine && npm run build -w @sportverse/sim-core && npm run build -w @sportverse/api && npm run build -w @sportverse/web",
     "test": "vitest run",
+    "test:api": "vitest run services/api/src/api.test.ts",
     "benchmark:pool": "npx tsx scripts/benchmark-pool.ts",
     "typecheck": "tsc -b"
   },

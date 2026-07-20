@@ -1,6 +1,13 @@
 import type { DraftModeConfig } from "@sportverse/draftballer-types";
-import { PRESET_MODES, buildDraftPool, poolSummary } from "@sportverse/draftballer-core";
-import { setAwardsData } from "@sportverse/rating-engine";
+import {
+  PRESET_MODES,
+  buildDraftPool,
+  encodeModeShare,
+  modeShareUrl,
+  poolSummary,
+  decodeModeShare,
+} from "@sportverse/draftballer-core";
+import { lensBlend, setAwardsData } from "@sportverse/rating-engine";
 import { getAwards, getIconicMoments } from "@sportverse/sports-db";
 import { playerCardHtml } from "./draftballer-hub.js";
 import { renderDraftballerWheel } from "./draftballer-wheel.js";
@@ -12,6 +19,7 @@ export function renderDraftballerArchitect(root: HTMLElement, navigate: Navigate
   let minApps = 0;
   let nationality = "";
   let legendsOnly = false;
+  let deepCuts = mode.deepCuts ?? false;
   let primeYearsOnly = false;
   let positionLocked = false;
   let yearFrom = 1990;
@@ -32,9 +40,9 @@ export function renderDraftballerArchitect(root: HTMLElement, navigate: Navigate
       <div class="shell db-root">
         <button class="btn btn--ghost" id="back">← Modes</button>
         <header class="db-hero">
-          <p class="db-hero__label">Draft Architect</p>
-          <h1 class="db-hero__title">BUILD YOUR POOL</h1>
-          <p class="db-hero__sub">Four filter axes — era, competition, eligibility, rating lens.</p>
+          <p class="db-hero__label">Draft Architect · Pro Mode</p>
+          <h1 class="db-hero__title">BUILD YOUR OWN</h1>
+          <p class="db-hero__sub">Four filter axes — era, competition, eligibility, rating lens. Share a preset code.</p>
         </header>
 
         <div class="db-architect-grid">
@@ -113,7 +121,29 @@ export function renderDraftballerArchitect(root: HTMLElement, navigate: Navigate
               <input type="checkbox" id="raw-domestic" ${mode.rawDomesticDominance ? "checked" : ""} />
               Raw Domestic Dominance (skip league bridging)
             </label>
-            <p style="color:var(--db-muted);font-size:0.75rem;margin-top:4px">When off, cross-league LSI bridging applies in Any League / All-Time modes.</p>
+            <label style="margin-top:8px;display:flex;align-items:center;gap:8px;cursor:pointer">
+              <input type="checkbox" id="deep-cuts" ${deepCuts ? "checked" : ""} />
+              Deep cuts (include fabricated / low-confidence players)
+            </label>
+            <p style="color:var(--db-muted);font-size:0.75rem;margin-top:4px">When Raw Domestic is off, cross-league LSI bridging applies in Any League / All-Time modes.</p>
+            ${
+              preview.top[0]
+                ? (() => {
+                    const card = preview.top[0]!;
+                    const live = lensBlend(
+                      card.breakdown.clubOvrRaw,
+                      card.breakdown.intlOvrRaw,
+                      mode.ratingLens,
+                      mode.blendFactor,
+                    );
+                    return `<div class="db-live-blend" style="margin-top:12px;padding-top:10px;border-top:1px solid var(--db-border)">
+                      <p class="db-stat-label">Live blend preview</p>
+                      <p style="margin:4px 0"><strong>${card.name}</strong> · instant OVR <strong style="color:var(--db-gold)" data-live-blend-ovr>${live}</strong></p>
+                      <p style="font-size:0.75rem;color:var(--db-muted)">Club ${card.breakdown.clubOvrRaw} · Intl ${card.breakdown.intlOvrRaw} · pure client arithmetic</p>
+                    </div>`;
+                  })()
+                : ""
+            }
           </section>
         </div>
 
@@ -128,6 +158,7 @@ export function renderDraftballerArchitect(root: HTMLElement, navigate: Navigate
           <button class="btn" id="start-wheel" style="margin-top:12px;width:100%">Spin & Build (Wheel)</button>
           <button class="btn btn--ghost" id="start" style="margin-top:8px;width:100%">Snake Draft vs Bot</button>
           <button class="btn btn--ghost" id="start-mp" style="margin-top:8px;width:100%">Multiplayer Lobby</button>
+          <button class="btn btn--ghost" id="share-mode" style="margin-top:8px;width:100%">Copy preset share code</button>
         </div>
       </div>`;
 
@@ -135,6 +166,7 @@ export function renderDraftballerArchitect(root: HTMLElement, navigate: Navigate
     const update = () => {
       mode = {
         ...mode,
+        deepCuts,
         primeYearsOnly,
         positionLocked,
         yearFrom: mode.era === "custom_range" ? yearFrom : undefined,
@@ -161,6 +193,10 @@ export function renderDraftballerArchitect(root: HTMLElement, navigate: Navigate
     });
     root.querySelector("#raw-domestic")?.addEventListener("change", (e) => {
       mode = { ...mode, rawDomesticDominance: (e.target as HTMLInputElement).checked };
+      update();
+    });
+    root.querySelector("#deep-cuts")?.addEventListener("change", (e) => {
+      deepCuts = (e.target as HTMLInputElement).checked;
       update();
     });
     root.querySelector("#era")?.addEventListener("change", (e) => {
@@ -231,6 +267,16 @@ export function renderDraftballerArchitect(root: HTMLElement, navigate: Navigate
       sessionStorage.setItem("db_mode", JSON.stringify(mode));
       navigate("draftballer", "mp-lobby");
     });
+    root.querySelector("#share-mode")?.addEventListener("click", async () => {
+      const code = encodeModeShare(mode);
+      const url = modeShareUrl(code);
+      try {
+        await navigator.clipboard.writeText(url);
+        (root.querySelector("#share-mode") as HTMLButtonElement).textContent = "Copied share link!";
+      } catch {
+        prompt("Copy this preset link:", url);
+      }
+    });
   }
 
   draw();
@@ -240,4 +286,31 @@ export function renderDraftballerQuick(root: HTMLElement, modeId: string, naviga
   const mode = PRESET_MODES.find((m) => m.id === modeId) ?? PRESET_MODES[0]!;
   sessionStorage.setItem("db_mode", JSON.stringify(mode));
   renderDraftballerWheel(root, navigate);
+}
+
+/** Import Architect preset from `#/draftballer/mode-code/:code`. */
+export function renderDraftballerModeCode(root: HTMLElement, code: string, navigate: Navigate) {
+  try {
+    const mode = decodeModeShare(code);
+    sessionStorage.setItem("db_mode", JSON.stringify(mode));
+    root.innerHTML = `
+      <div class="shell db-root">
+        <p class="db-hero__label">Preset imported</p>
+        <h1 class="db-hero__title">${mode.title}</h1>
+        <p style="color:var(--db-muted)">${mode.blurb}</p>
+        <button class="btn" id="wheel">Spin & Build</button>
+        <button class="btn btn--ghost" id="architect">Open in Architect</button>
+        <button class="btn btn--ghost" id="hub">Hub</button>
+      </div>`;
+    root.querySelector("#wheel")?.addEventListener("click", () => navigate("draftballer", "wheel"));
+    root.querySelector("#architect")?.addEventListener("click", () => navigate("draftballer", "architect"));
+    root.querySelector("#hub")?.addEventListener("click", () => navigate("draftballer"));
+  } catch {
+    root.innerHTML = `
+      <div class="shell db-root">
+        <p class="db-hero__label">Invalid preset code</p>
+        <button class="btn" id="hub">Hub</button>
+      </div>`;
+    root.querySelector("#hub")?.addEventListener("click", () => navigate("draftballer"));
+  }
 }

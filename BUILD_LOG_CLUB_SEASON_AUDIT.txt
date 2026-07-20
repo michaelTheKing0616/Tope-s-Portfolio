@@ -1,0 +1,45 @@
+# Club-season audit — 2026-07-20
+Spinnable club-seasons: 2651
+
+✓ FC Zürich · 09/10 · n=17 · fameSum=747 · GK? true
+  top: Ricardo Rodríguez (64), Admir Mehmedi (58), Josip Drmić (55), Ludovic Magnin (53), Johan Vonlanthen (51), Hannu Tihinen (50), Almen Abdi (50), Marco Schönbächler (48)
+✓ Zenit St. Petersburg · 08/09 · n=19 · fameSum=959 · GK? true
+  top: Fernando Meira (60), Andrey Arshavin (60), Igor Denisov (58), Fatih Tekke (56), Alessandro Rosina (55), Szabolcs Huszti (55), Aleksey Ionov (55), Sergey Kornilenko (53)
+✓ Portsmouth FC · 09/10 · n=38 · fameSum=1904 · GK? true
+  top: Nwankwo Kanu (92), Niko Kranjčar (58), Tommy Smith (57), Kevin-Prince Boateng (57), Tal Ben Haim (57), David James (57), Asmir Begović (56), Nadir Belhadj (55)
+✓ FC Sochaux-Montbéliard · 08/09 · n=20 · fameSum=907 · GK? true
+  top: Ivan Perišić (64), Mevlüt Erdinç (56), Valter Birsa (55), Ryad Boudebouz (54), Stéphane Dalmat (53), Marvin Martin (53), Nicolas Maurice-Belay (49), Yassin Mikari (49)
+✓ CD Cruz Azul · 10/11 · n=17 · fameSum=785 · GK? true
+  top: Gerardo Torrado (58), Néstor Araujo (57), Javier Aquino (55), Jesús Corona (53), Julio César Domínguez (50), Emanuel Villa (50), Fausto Pinto (49), Hugo Droguett (49)
+✓ Real Sociedad · 17/18 · n=28 · fameSum=1436 · GK? true
+  top: Héctor Moreno (60), Carlos Vela (59), Mikel Oyarzabal (58), Carlos Martínez (57), Iñigo Martínez (56), Sergio Canales (56), Willian José (55), Asier Illarramendi (54)
+✓ US Palermo · 14/15 · n=32 · fameSum=1473 · GK? true
+  top: Paulo Dybala (57), Robin Quaison (56), Giancarlo González (55), Édgar Barreto (55), Enzo Maresca (55), Andrea Belotti (54), Emerson (54), Franco Vázquez (53)
+✓ Bologna FC 1909 · 18/19 · n=30 · fameSum=1417 · GK? true
+  top: Rodrigo Palacio (56), Giancarlo González (55), Mattias Svanberg (55), Mattia Destro (55), Danilo (54), Riccardo Orsolini (54), Andrea Poli (54), Roberto Soriano (54)
+✓ Real Zaragoza · 12/13 · n=37 · fameSum=1579 · GK? true
+  top: Álvaro González (64), Hélder Postiga (60), Romaric (56), Leo Franco (54), Cristian Săpunaru (53), Roberto (51), Ivan Obradović (51), Apoño (49)
+✓ Stoke City · 12/13 · n=28 · fameSum=1427 · GK? true
+  top: Michael Owen (61), Thomas Sörensen (59), Glenn Whelan (58), Peter Crouch (58), Kenwyne Jones (57), Asmir Begović (56), Wilson Palacios (56), Steven Nzonzi (56)
+✓ Hamburger SV · 08/09 · n=22 · fameSum=1160 · GK? true
+  top: Paolo Guerrero (61), Nigel de Jong (60), Vincent Kompany (60), Piotr Trochowski (57), Eric Maxim Choupo-Moting (57), Mladen Petric (56), David Jarolím (56), Jonathan Pitroipa (55)
+✓ Real Madrid · 05/06 · n=31 · fameSum=1821 · GK? true
+  top: Sergio Ramos (92), Zinedine Zidane (92), David Beckham (92), Iker Casillas (92), Raúl (64), Roberto Carlos (64), Robinho (61), Ronaldo (60)
+✓ AS Monaco · 25/26 · n=23 · fameSum=1174 · GK? true
+  top: Lukas Hradecky (59), Takumi Minamino (58), Eric Dier (57), Aleksandr Golovin (57), Denis Zakaria (57), Thilo Kehrer (56), Folarin Balogun (54), Jordan Teze (53)
+✓ Trabzonspor · 20/21 · n=36 · fameSum=1470 · GK? true
+  top: João Pereira (64), Anastasios Bakasetas (58), Yunus Mallı (55), Djaniny (54), Abdülkadir Ömür (54), Uğurcan Çakır (54), Benik Afobe (52), Vitor Hugo (51)
+✓ Olympique Lyon · 16/17 · n=29 · fameSum=1496 · GK? true
+  top: Memphis Depay (62), Alexandre Lacazette (59), Mathieu Valbuena (58),  (58), Maxwel Cornet (56), Nabil Fekir (55), Lucas Tousart (55), Anthony Lopes (55)
+✓ Paris Saint-Germain · 19/20 · n=35 · fameSum=1950 · GK? true
+  top: Kylian Mbappé (92), Neymar (92), Ángel Di María (66), Edinson Cavani (65), Idrissa Gueye (60), Keylor Navas (60), Thiago Silva (59), Pablo Sarabia (59)
+✓ FC Porto · 15/16 · n=35 · fameSum=1836 · GK? true
+  top: Iker Casillas (92), André Silva (63), Héctor Herrera (61), Maxi Pereira (61), Danilo Pereira (60), Jesús Corona (59), Vincent Aboubakar (59), Rúben Neves (59)
+✓ Málaga CF · 12/13 · n=33 · fameSum=1618 · GK? true
+  top: Roque Santa Cruz (63), Joaquín (60), Isco (60), Diego Lugano (58), Jérémy Toulalan (58), Martín Demichelis (57), Javier Saviola (57), Carlos Kameni (57)
+✓ Villarreal CF · 11/12 · n=34 · fameSum=1679 · GK? true
+  top: Carlos Marchena (59), Giuseppe Rossi (57), Cristián Zapata (57), Borja Valero (56), Nilmar (55), Diego López (55), Marcos Senna (55), Gonzalo Rodríguez (54)
+✓ Basaksehir FK · 15/16 · n=27 · fameSum=1156 · GK? true
+  top: Emre Belözoğlu (64), Edin Višća (58), Volkan Babacan (58), Alexandru Epureanu (57), Semih Şentürk (57), Márcio Mossoró (52), Mahmut Tekdemir (51), Bekir İrtegün (51)
+
+Competition-id leaks in sample: 0/20

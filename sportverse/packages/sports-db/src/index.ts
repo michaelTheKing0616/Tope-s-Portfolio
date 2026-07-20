@@ -45,6 +45,23 @@ import {
   setLeagueStrengthData,
 } from "./league-strength-data.js";
 import { resolveCompetitionToLeague, seedLeagueResolver } from "./league-resolver.js";
+import {
+  getFameScore,
+  getFameEntry,
+  getFameIndex,
+  fameTierFromScore,
+  setFameIndex,
+  type FameEntry,
+  type FameTier,
+} from "./fame.js";
+import {
+  listSpinnableClubSeasons,
+  getClubSeasonSquad,
+  getClubSeasonEntry,
+  looksLikeCompetitionId,
+  setPrebuiltClubSeasons,
+  type ClubSeasonKey,
+} from "./club-season-index.js";
 
 export type { CareerPathEntry, Club, Player, SpeedQuestion, TrueFalseStatement };
 export type {
@@ -91,7 +108,19 @@ export {
   lsiConfidenceLabel,
   resolveCompetitionToLeague,
   seedLeagueResolver,
+  getFameScore,
+  getFameEntry,
+  getFameIndex,
+  fameTierFromScore,
+  setFameIndex,
+  listSpinnableClubSeasons,
+  getClubSeasonSquad,
+  getClubSeasonEntry,
+  looksLikeCompetitionId,
+  setPrebuiltClubSeasons,
 };
+export type { FameEntry, FameTier, ClubSeasonKey };
+export type { ExtendedLoadProgress, ExtendedLoadProgressFn } from "./extended.js";
 
 const validationErrors = validateCuratedBank();
 if (validationErrors.length > 0) {

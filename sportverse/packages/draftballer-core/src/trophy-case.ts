@@ -49,6 +49,33 @@ export function trophiesFromSeason(result: SeasonSimResult, modeTitle: string): 
       earnedAt: now,
     });
   }
+  if (result.isPerfect) {
+    earned.push({
+      id: "achievement_first_38_0",
+      title: "First 38-0",
+      detail: "The impossible dream — achieved",
+      earnedAt: now,
+    });
+  }
+  return earned;
+}
+
+export function checkDraftAchievements(players: import("@sportverse/draftballer-types").RatedPlayerCard[]): TrophyEntry[] {
+  const earned: TrophyEntry[] = [];
+  const now = new Date().toISOString();
+  const icons = players.filter((p) => p.fameTier === "icon").length;
+  const avg = players.reduce((s, p) => s + p.ovr, 0) / (players.length || 1);
+  const brazilians = players.filter((p) => p.nationality.includes("Brazil")).length;
+
+  if (icons === 0) {
+    earned.push({ id: `no_icons_${now.slice(0, 10)}`, title: "No Icons Needed", detail: "Unbeaten without a single icon", earnedAt: now });
+  }
+  if (brazilians >= 5) {
+    earned.push({ id: `all_brazil_${now.slice(0, 10)}`, title: "All-Brazilian XI", detail: "Samba squad assembled", earnedAt: now });
+  }
+  if (avg < 80 && players.length >= 11) {
+    earned.push({ id: `sub80_${now.slice(0, 10)}`, title: "Against the Odds", detail: `Won with ${Math.round(avg)} avg OVR`, earnedAt: now });
+  }
   return earned;
 }
 

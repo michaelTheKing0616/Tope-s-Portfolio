@@ -8,16 +8,37 @@ export function saveSquadForSeason(
   pool: RatedPlayerCard[],
   squadOvr: number,
   source: SavedSquadPayload["source"],
+  extras: {
+    seed?: string;
+    formationId?: string;
+    tacticalIdentity?: SavedSquadPayload["tacticalIdentity"];
+    eraContext?: SavedSquadPayload["eraContext"];
+    simulationMode?: SavedSquadPayload["simulationMode"];
+  } = {},
 ): void {
   const players = playerIds.map((id) => pool.find((p) => p.playerId === id)).filter(Boolean) as RatedPlayerCard[];
-  const payload = {
+  const payload: SavedSquadPayload & { players: RatedPlayerCard[] } = {
     mode,
     playerIds,
     squadOvr,
     source,
+    seed: extras.seed,
+    formationId: extras.formationId ?? mode.formationId ?? "4-3-3",
+    tacticalIdentity: extras.tacticalIdentity,
+    eraContext: extras.eraContext,
+    simulationMode: extras.simulationMode,
     players,
   };
   sessionStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+}
+
+/** Merge Match Conditions into the persisted squad without rewriting the XI. */
+export function patchSquadSimConditions(
+  patch: Pick<SavedSquadPayload, "eraContext" | "simulationMode" | "tacticalIdentity" | "formationId">,
+): void {
+  const current = loadSquadForSeason();
+  if (!current) return;
+  sessionStorage.setItem(STORAGE_KEY, JSON.stringify({ ...current, ...patch }));
 }
 
 export function loadSquadForSeason(): (SavedSquadPayload & { players: RatedPlayerCard[] }) | null {

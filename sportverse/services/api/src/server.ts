@@ -13,7 +13,7 @@ import {
   getIconicMoments,
   __setExtendedDataForTests,
 } from "@sportverse/sports-db";
-import { readFileSync } from "node:fs";
+import { readFileSync, existsSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
@@ -28,6 +28,7 @@ import {
   serverResolveBlind,
   startPicking,
   advanceToPoolReady,
+  resolveDailyChallengeModeId,
 } from "@sportverse/draftballer-core";
 import { computePlayerRating, setAwardsData, setCalibrationData, poolCacheStats } from "@sportverse/rating-engine";
 import type { SimMatchConfig, SimSquadInputV2 } from "@sportverse/draftballer-types";
@@ -78,11 +79,10 @@ export function createApp(store: PlayerStore) {
 
   app.get("/api/daily", (c) => {
     const day = new Date().toISOString().slice(0, 10);
-    const modes = ["all-time-any", "decade-2010s", "premier-league", "continental-cl"];
-    const idx = day.split("-").reduce((a, b) => a + Number(b), 0) % modes.length;
+    const modeId = resolveDailyChallengeModeId(day);
     return c.json({
-      modeId: modes[idx],
-      mode: modes[idx],
+      modeId,
+      mode: modeId,
       seed: day,
       bonusXp: 50,
       leaderboard: getDailyScores(day),
@@ -422,9 +422,22 @@ function bootstrapSportsDb() {
       return [];
     }
   };
+  const readSeasonStats = () => {
+    const primary = resolve(dataDir, "season-stats.json");
+    const fixture = resolve(dataDir, "season-stats.fixture.json");
+    if (existsSync(primary)) {
+      return JSON.parse(readFileSync(primary, "utf8"));
+    }
+    if (existsSync(fixture)) {
+      console.warn("[api] Using season-stats.fixture.json — run prebuild:data for full ratings pool");
+      return JSON.parse(readFileSync(fixture, "utf8"));
+    }
+    console.warn("[api] season-stats.json missing — draft ratings will be limited");
+    return [];
+  };
   __setExtendedDataForTests({
     players: JSON.parse(readFileSync(resolve(dataDir, "players-extended.json"), "utf8")),
-    stats: JSON.parse(readFileSync(resolve(dataDir, "season-stats.json"), "utf8")),
+    stats: readSeasonStats(),
     competitions: JSON.parse(readFileSync(resolve(dataDir, "competitions.json"), "utf8")),
     clubs: JSON.parse(readFileSync(resolve(dataDir, "clubs-extended.json"), "utf8")),
     eras: JSON.parse(readFileSync(resolve(dataDir, "era-baselines.json"), "utf8")),

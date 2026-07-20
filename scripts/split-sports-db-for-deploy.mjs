@@ -154,6 +154,16 @@ export function copySportsDbDataForDeploy(src, dest, options = {}) {
     cpSync(chunksSrc, join(dest, "chunks"), { recursive: true });
   }
 
+  const destStats = join(dest, "season-stats.json");
+  if (!existsSync(destStats) && !existsSync(join(dest, "chunks", "season-stats.manifest.json"))) {
+    const fixture = join(src, "season-stats.fixture.json");
+    if (existsSync(fixture)) {
+      cpSync(fixture, destStats);
+      copied += 1;
+      console.warn("  Using season-stats.fixture.json for embedded dev build");
+    }
+  }
+
   return { copied, chunked: [...skipMonoliths] };
 }
 

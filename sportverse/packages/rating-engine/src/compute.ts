@@ -1,14 +1,12 @@
-import type {
-  DraftModeConfig,
-  PlayerAttributes,
-  RatedPlayerCard,
-} from "@sportverse/draftballer-types";
+import type { DraftModeConfig, PlayerAttributes, RatedPlayerCard, FameTier } from "@sportverse/draftballer-types";
 import type { PlayerSeasonStat } from "@sportverse/sports-db";
 import { mapQuizPosition, ovrFromAttributes, tierFromOvr } from "./position-weights.js";
 import { ovrFromSeasonStats } from "./stats-rating.js";
 import { lensBlend } from "./lens-blend.js";
 import { awardBonus, bigMomentBonus, legacyReputationBonus, longevityAdjustment } from "./awards.js";
 import { communityCalibrationNudge } from "./calibration.js";
+import { durabilityForRating, fameScoreForRating, mvPercentileForRating } from "./fame-data.js";
+import { applyPositionAttributeCaps } from "./position-weights.js";
 
 export interface RatingInput {
   id: string;
@@ -19,10 +17,21 @@ export interface RatingInput {
   seasonStats?: PlayerSeasonStat[];
   /** Optional hand-tuned override for verified legends */
   manualOvr?: number;
+  manualAttributes?: Partial<PlayerAttributes>;
+  /** Target season for season-basis ratings */
+  seasonLabel?: string;
 }
 
 function clamp(n: number, min = 1, max = 99): number {
   return Math.max(min, Math.min(max, Math.round(n)));
+}
+
+function fameTierFromScore(score: number): FameTier {
+  if (score >= 92) return "icon";
+  if (score >= 75) return "star";
+  if (score >= 55) return "known";
+  if (score >= 35) return "cult";
+  return "obscure";
 }
 
 function seeded(seed: string): () => number {
@@ -36,7 +45,7 @@ function seeded(seed: string): () => number {
   };
 }
 
-function deriveAttributes(input: RatingInput, position: ReturnType<typeof mapQuizPosition>): PlayerAttributes {
+function deriveAttributes(input: RatingInput, position: ReturnType<typeof mapQuizPosition>): { attrs: PlayerAttributes; fabricated: boolean } {
   const rng = seeded(`${input.id}:${position}`);
   const clubDepth = Math.min(8, input.clubs?.length ?? 1);
   const base = 62 + clubDepth * 2.5;
@@ -54,15 +63,23 @@ function deriveAttributes(input: RatingInput, position: ReturnType<typeof mapQui
 
   const bump = archetype[position] ?? {};
   const jitter = () => (rng() - 0.5) * 8;
+  const durability = durabilityForRating(input.id);
 
-  return {
+  let attrs: PlayerAttributes = {
     pac: clamp(base + (bump.pac ?? 0) + jitter()),
     sho: clamp(base + (bump.sho ?? 0) + jitter()),
     pas: clamp(base + (bump.pas ?? 0) + jitter()),
     dri: clamp(base + (bump.dri ?? 0) + jitter()),
     def: clamp(base + (bump.def ?? 0) + jitter()),
-    phy: clamp(base + (bump.phy ?? 0) + jitter()),
+    phy: clamp(base + (bump.phy ?? 0) + jitter() + (durability - 0.5) * 10),
   };
+
+  if (input.manualAttributes) {
+    attrs = { ...attrs, ...input.manualAttributes };
+  }
+
+  attrs = applyPositionAttributeCaps(position, attrs, input.seasonStats ?? []);
+  return { attrs, fabricated: true };
 }
 
 function contextMode(mode: DraftModeConfig, context: "club" | "intl"): DraftModeConfig {
@@ -80,31 +97,80 @@ function contextMode(mode: DraftModeConfig, context: "club" | "intl"): DraftMode
   };
 }
 
+function filterStatsForSeason(stats: PlayerSeasonStat[], seasonLabel?: string): PlayerSeasonStat[] {
+  if (!seasonLabel) return stats;
+  const y = Number(seasonLabel.replace(/\/.*/, ""));
+  return stats.filter((s) => {
+    if (s.seasonLabel === seasonLabel) return true;
+    const sy = Number(String(s.seasonLabel).replace(/\/.*/, ""));
+    return Number.isFinite(sy) && Number.isFinite(y) && Math.abs(sy - y) <= 1;
+  });
+}
+
 function ratingFromStats(
   stats: PlayerSeasonStat[] | undefined,
   position: ReturnType<typeof mapQuizPosition>,
   mode: DraftModeConfig,
   context: "club" | "intl",
+  seasonLabel?: string,
 ) {
   if (!stats?.length) return null;
+  const filtered = seasonLabel ? filterStatsForSeason(stats, seasonLabel) : stats;
+  const useStats = filtered.length ? filtered : stats;
   return ovrFromSeasonStats(
-    stats,
+    useStats,
     position,
     contextMode(mode, context),
     context === "intl" ? "international" : "club",
   );
 }
 
-/** Compute OVR for a player under the given draft mode config (rating engine v4). */
+/** Cap for role-archetype (fabricated) ratings — UNCALIBRATED — EXPERT PRIOR (Rating Engine v5). */
+export const FABRICATED_OVR_CAP = 72;
+
+/** Outfield MV scouting-consensus blend weight — UNCALIBRATED — EXPERT PRIOR (capped; labeled in breakdown). */
+export const MV_BLEND_WEIGHT_OUTFIELD = 0.2;
+/** GK MV blend weight — UNCALIBRATED — EXPERT PRIOR. */
+export const MV_BLEND_WEIGHT_GK = 0.15;
+
+export function mvBlendWeightForPosition(position: ReturnType<typeof mapQuizPosition>): number {
+  return position === "GK" ? MV_BLEND_WEIGHT_GK : MV_BLEND_WEIGHT_OUTFIELD;
+}
+
+/**
+ * Blend base OVR with era-normalized MV percentile.
+ * Hand calc: base=80, pct=50 → mvOvr=round(55+22)=77; weight=0.2 → 80*0.8+77*0.2=79.4→79.
+ */
+export function mvOvrBlend(
+  baseOvr: number,
+  playerId: string,
+  position: ReturnType<typeof mapQuizPosition>,
+): { ovr: number; delta: number; weight: number; percentile: number } {
+  const pct = mvPercentileForRating(playerId);
+  const weight = mvBlendWeightForPosition(position);
+  if (pct <= 0) return { ovr: baseOvr, delta: 0, weight, percentile: 0 };
+  const mvOvr = clamp(55 + pct * 0.44);
+  const blended = clamp(baseOvr * (1 - weight) + mvOvr * weight);
+  return { ovr: blended, delta: blended - baseOvr, weight, percentile: pct };
+}
+
+/** Compute OVR for a player under the given draft mode config (rating engine v5). */
 export function computePlayerRating(input: RatingInput, mode: DraftModeConfig): RatedPlayerCard {
   const position = mapQuizPosition(input.position);
   const stats = input.seasonStats ?? [];
+  const seasonLabel = mode.ratingBasis === "season" ? input.seasonLabel : undefined;
+  const fameScore = fameScoreForRating(input.id);
 
-  const clubFromStats = ratingFromStats(stats, position, mode, "club");
-  const intlFromStats = ratingFromStats(stats, position, mode, "intl");
+  const clubFromStats = ratingFromStats(stats, position, mode, "club", seasonLabel);
+  const intlFromStats = ratingFromStats(stats, position, mode, "intl", seasonLabel);
 
-  const attrs = clubFromStats?.attrs ?? intlFromStats?.attrs ?? deriveAttributes(input, position);
-  const statConfidence = Math.max(clubFromStats?.confidence ?? 0, intlFromStats?.confidence ?? 0, 0.72);
+  const derived = clubFromStats?.attrs ?? intlFromStats?.attrs
+    ? { attrs: clubFromStats?.attrs ?? intlFromStats!.attrs, fabricated: false }
+    : deriveAttributes(input, position);
+
+  let attrs = derived.attrs;
+  let fabricated = derived.fabricated;
+  const statConfidence = Math.max(clubFromStats?.confidence ?? 0, intlFromStats?.confidence ?? 0, fabricated ? 0.45 : 0.72);
   const microBreakdown = clubFromStats?.microBreakdown ?? intlFromStats?.microBreakdown;
   const gkAttributes = clubFromStats?.gkAttributes ?? intlFromStats?.gkAttributes;
   const leagueContext =
@@ -123,6 +189,19 @@ export function computePlayerRating(input: RatingInput, mode: DraftModeConfig): 
     intlOvr = clamp(clubOvr - 6 + (seeded(`${input.id}:intl`)() > 0.7 ? 4 : 0));
   }
 
+  let mvBlendDelta: number | undefined;
+  let mvBlendWeight: number | undefined;
+  let mvBlendPct: number | undefined;
+  if (!input.manualOvr) {
+    const mv = mvOvrBlend(clubOvr, input.id, position);
+    clubOvr = mv.ovr;
+    if (mv.percentile > 0) {
+      mvBlendDelta = mv.delta;
+      mvBlendWeight = mv.weight;
+      mvBlendPct = mv.percentile;
+    }
+  }
+
   const awards = awardBonus(input.id, mode.ratingLens);
   const moments = bigMomentBonus(input.id, mode.ratingLens);
   const legacy = legacyReputationBonus(input.id);
@@ -133,7 +212,13 @@ export function computePlayerRating(input: RatingInput, mode: DraftModeConfig): 
   intlOvr = clamp(intlOvr + bonus * 0.4);
 
   let ovr = lensBlend(clubOvr, intlOvr, mode.ratingLens, mode.blendFactor);
-  const confidence = input.manualOvr ? 0.98 : statConfidence;
+  let confidence = input.manualOvr ? 0.98 : statConfidence;
+
+  if (fabricated && !input.manualOvr) {
+    ovr = Math.min(ovr, FABRICATED_OVR_CAP);
+    confidence = Math.min(confidence, 0.45);
+  }
+
   const { nudge, entry } = communityCalibrationNudge(input.id, confidence);
   ovr = clamp(ovr + nudge);
 
@@ -144,6 +229,8 @@ export function computePlayerRating(input: RatingInput, mode: DraftModeConfig): 
     position,
     ovr,
     tier: tierFromOvr(ovr),
+    fameScore,
+    fameTier: fameTierFromScore(fameScore),
     attributes: attrs,
     confidence,
     gkAttributes,
@@ -158,8 +245,23 @@ export function computePlayerRating(input: RatingInput, mode: DraftModeConfig): 
       blendFactor: mode.blendFactor,
       microBreakdown,
       leagueContext,
+      fabricated: fabricated || undefined,
+      fabricatedCap: fabricated && !input.manualOvr ? FABRICATED_OVR_CAP : undefined,
+      ratingBasis: mode.ratingBasis ?? "prime",
+      seasonLabel,
+      mvBlend: mvBlendPct,
+      mvBlendDelta,
+      mvBlendWeight,
+      legendOverride: input.manualOvr != null || undefined,
     },
   };
+}
+
+export function ovrForSeason(input: RatingInput, seasonLabel: string, mode: DraftModeConfig): number {
+  return computePlayerRating(
+    { ...input, seasonLabel },
+    { ...mode, ratingBasis: "season" },
+  ).ovr;
 }
 
 export function computePool(players: RatingInput[], mode: DraftModeConfig): RatedPlayerCard[] {

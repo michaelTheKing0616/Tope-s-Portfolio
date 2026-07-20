@@ -1,9 +1,14 @@
-import { getPresetMode, loadSquadForSeason } from "@sportverse/draftballer-core";
-import { platform } from "@sportverse/platform";
+import {
+  getPresetMode,
+  loadSquadForSeason,
+  recordDailyPlay,
+  resolveDailyChallenge,
+} from "@sportverse/draftballer-core";
+import { platform, resolveApiBase } from "@sportverse/platform";
 
 type Navigate = (route: string, param?: string) => void;
 
-const API_BASE = (import.meta.env?.VITE_API_URL as string | undefined) ?? "http://localhost:8792";
+const API_BASE = resolveApiBase();
 
 export interface DailyLeaderboardEntry {
   name: string;
@@ -20,15 +25,12 @@ export interface DailyChallengeResponse {
 }
 
 export function getDailyChallengeMode() {
-  const day = new Date().toISOString().slice(0, 10);
-  const modes = ["all-time-any", "premier-league", "international", "decade-2010s", "club-only"];
-  const idx = day.split("-").reduce((a, b) => a + Number(b), 0) % modes.length;
-  const modeId = modes[idx]!;
-  return { day, mode: getPresetMode(modeId), modeId };
+  return resolveDailyChallenge();
 }
 
 /** GET /api/daily — today's challenge + leaderboard. */
 export async function fetchDailyBoard(): Promise<DailyChallengeResponse | null> {
+  if (!API_BASE) return null;
   try {
     const res = await fetch(`${API_BASE}/api/daily`);
     if (!res.ok) return null;
@@ -43,6 +45,7 @@ export async function fetchDailyBoard(): Promise<DailyChallengeResponse | null> 
  * Body: `{ name: string, ovr: number }` → `{ ok: true, rank: number }`
  */
 export async function submitDailyScore(name: string, ovr: number): Promise<{ ok: boolean; rank?: number }> {
+  if (!API_BASE) return { ok: false };
   try {
     const res = await fetch(`${API_BASE}/api/daily/score`, {
       method: "POST",
@@ -72,8 +75,11 @@ function leaderboardHtml(entries: DailyLeaderboardEntry[]): string {
     </ol>`;
 }
 
-export function renderDraftballerDaily(root: HTMLElement, navigate: Navigate) {
-  const { day, mode } = getDailyChallengeMode();
+export async function renderDraftballerDaily(root: HTMLElement, navigate: Navigate) {
+  const apiDaily = await fetchDailyBoard();
+  const offline = getDailyChallengeMode();
+  const day = apiDaily?.seed ?? offline.day;
+  const mode = apiDaily ? getPresetMode(apiDaily.modeId) : offline.mode;
   const profile = platform.getProfile();
   const saved = loadSquadForSeason();
   const isDailySquad = saved?.mode.id === `daily-${day}`;
@@ -117,6 +123,7 @@ export function renderDraftballerDaily(root: HTMLElement, navigate: Navigate) {
 
   root.querySelector("#back")?.addEventListener("click", () => navigate("draftballer"));
   root.querySelector("#start")?.addEventListener("click", () => {
+    recordDailyPlay(day);
     sessionStorage.setItem("db_mode", JSON.stringify({ ...mode, id: `daily-${day}` }));
     navigate("draftballer", "wheel");
   });

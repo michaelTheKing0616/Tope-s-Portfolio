@@ -83,3 +83,24 @@ npm test
 ```
 
 Output: `sportverse/packages/sports-db/data/engine-calibration.json` (copied to web `public/data` on build).
+
+## Identity Merge v2 — Phase 1 (resolved 2026-07-20 polish)
+
+| Item | Resolution |
+|---|---|
+| Compare player picker capped at 400 | **Fixed:** search-as-you-type via `searchPlayers` (full archive, 40 hits) |
+| Validation holdout n=40 | **Expanded:** seeded holdout n=200 of 500 cross-league fixtures (honest corpus accuracy; first-40 slice was luckier) |
+
+## Identity Merge v2 — Phase 4 (resolved 2026-07-20)
+
+| Item | Resolution |
+|---|---|
+| season-stats omit club/team | **Fixed:** ETL writes `clubName`; `enrich-season-stats-clubs.mjs` backfilled ~1.85M rows. Wheel still prefers `club-season-rosters.json`. |
+| Mid-list OVR inflation (Okazaki/Govou) | **Fixed:** (1) era-cohort MV percentiles; (2) peak-window min 10 apps — cup-cameo GPG spikes no longer dominate. Top-100 re-audited in `BUILD_LOG_TOP100.txt`. |
+
+## Identity Merge v2 — Phase 5 (resolved 2026-07-20)
+
+| Item | Resolution |
+|---|---|
+| Lighthouse mobile ≥85 | **Met:** Performance **89** (A11y 97, BP 96, SEO 100) on `/play/sportverse/` — see `BUILD_LOG.md` / `BUILD_LOG_LIGHTHOUSE.json` |
+| Candidate perf &lt;50ms | **Met:** median of 5 warmed `getPickCandidates` calls &lt;50ms (poolMap + fame cache) |

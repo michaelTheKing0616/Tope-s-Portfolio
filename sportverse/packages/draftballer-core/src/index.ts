@@ -1,4 +1,5 @@
 export * from "./modes.js";
+export * from "./daily-challenge.js";
 export * from "./pool.js";
 export * from "./mode-filters.js";
 export * from "./competition-ids.js";
@@ -12,5 +13,11 @@ export * from "./spin-wheel.js";
 export * from "./squad-session.js";
 export * from "./sim-session.js";
 export * from "./trophy-case.js";
+export * from "./hub-progress.js";
+export * from "./player-profile.js";
 export * from "./squad-rules.js";
-export * from "./bot-banter.js";
+export * from "./bot-drafter.js";
+export * from "./chemistry.js";
+export * from "./rng.js";
+export * from "./team-identity.js";
+export { setLegendRatings } from "./pool.js";

@@ -13,7 +13,8 @@ import {
 } from "@sportverse/draftballer-core";
 import { setAwardsData } from "@sportverse/rating-engine";
 import { getAwards, getIconicMoments } from "@sportverse/sports-db";
-import { playerCardHtml } from "./draftballer-hub.js";
+import { bindIdentityPicker, identityPickerHtml } from "./draftballer-identity.js";
+import { mountStagedReveal } from "../lib/staged-reveal.js";
 
 type Navigate = (route: string, param?: string) => void;
 
@@ -56,22 +57,31 @@ export function renderDraftballerBlind(root: HTMLElement, navigate: Navigate) {
       const youRating = squadRating(room.rosters[0]!, poolMap);
       const botRating = squadRating(room.rosters[1]!, poolMap);
       const winner = youRating >= botRating ? "You win the blind draft!" : "Bot wins the blind draft!";
+      const yourCards = room.rosters[0]!.map((id) => poolMap.get(id)!).filter(Boolean);
       root.innerHTML = `
         <div class="shell db-root">
           <div class="result" style="text-align:center">
             <p class="db-hero__label">Blind Draft Complete</p>
             <h2 class="db-hero__title" style="font-size:2.5rem">${winner}</h2>
             <p>Your squad OVR: <strong style="color:var(--db-gold)">${youRating}</strong> · Bot: ${botRating}</p>
-            <div class="db-pool-grid" style="margin:16px 0">${room.rosters[0]!.map((id) => playerCardHtml(poolMap.get(id)!, true)).join("")}</div>
+            <p class="db-reveal-hint">Revealing your XI — highest OVR last</p>
+            <div id="blind-reveal" style="margin:16px 0"></div>
+            ${identityPickerHtml("balanced")}
             <button class="btn" id="simulate">Simulate Season</button>
             <button class="btn" id="again">Blind draft again</button>
             <button class="btn btn--ghost" id="hub">Hub</button>
           </div>
         </div>`;
+      const revealEl = root.querySelector("#blind-reveal") as HTMLElement | null;
+      if (revealEl) mountStagedReveal(revealEl, yourCards);
+      const getIdentity = bindIdentityPicker(root);
       root.querySelector("#simulate")?.addEventListener("click", () => {
         const ids = room.rosters[0]!;
         const cards = ids.map((id) => poolMap.get(id)!).filter(Boolean);
-        saveSquadForSeason(mode, ids, cards, youRating, "blind");
+        saveSquadForSeason(mode, ids, cards, youRating, "blind", {
+          tacticalIdentity: getIdentity(),
+          formationId: mode.formationId,
+        });
         navigate("draftballer", "season");
       });
       root.querySelector("#again")?.addEventListener("click", () => renderDraftballerBlind(root, navigate));

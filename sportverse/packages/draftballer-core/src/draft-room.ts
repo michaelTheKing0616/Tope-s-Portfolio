@@ -1,7 +1,36 @@
-import type { DraftFormat, DraftModeConfig, DraftPick, DraftRoomState, RatedPlayerCard } from "@sportverse/draftballer-types";
+import type { DraftFormat, DraftModeConfig, DraftPick, DraftRoomState, Position, RatedPlayerCard } from "@sportverse/draftballer-types";
 import { computeSquadRating } from "@sportverse/rating-engine";
 import { initialAuctionBudgets } from "./draft-auction.js";
 import { initBlindRound } from "./draft-blind.js";
+import { draftPickAllowedForSlot } from "./squad-rules.js";
+
+export type DraftPickError = { error: "position_full" | "player_not_in_pool" | "squad_full" | "draft_complete" };
+
+const DEFAULT_FORMATION: Position[] = ["GK", "CB", "CB", "FB", "FB", "CM", "CM", "AM", "W", "W", "ST"];
+
+export function formationSlots(squadSize = 11): { id: string; position: Position }[] {
+  const positions = DEFAULT_FORMATION.slice(0, squadSize);
+  while (positions.length < squadSize) positions.push("CM");
+  return positions.map((position, i) => ({ id: `slot_${i}`, position, playerId: undefined }));
+}
+
+export function openFormationSlots(roster: string[], pool: Map<string, RatedPlayerCard>, squadSize = 11): Position[] {
+  const slots = formationSlots(squadSize);
+  const filled = roster.map((id) => pool.get(id)).filter(Boolean) as RatedPlayerCard[];
+  const posCounts: Partial<Record<Position, number>> = {};
+  for (const p of filled) posCounts[p.position] = (posCounts[p.position] ?? 0) + 1;
+
+  const needed: Position[] = [];
+  for (const slot of slots) {
+    const have = posCounts[slot.position] ?? 0;
+    const required = slots.filter((s) => s.position === slot.position).length;
+    if (have < required) {
+      needed.push(slot.position);
+      posCounts[slot.position] = have + 1;
+    }
+  }
+  return needed;
+}
 
 export function createDraftRoom(
   mode: DraftModeConfig,
@@ -49,14 +78,21 @@ export function makePick(
   playerId: string,
   pool: Map<string, RatedPlayerCard>,
   drafterIndex?: number,
-): DraftRoomState {
+): DraftRoomState | DraftPickError {
   const drafter = drafterIndex ?? activeDrafter(room);
-  if (room.status !== "picking") throw new Error("Draft complete");
-  if (!room.poolIds.includes(playerId)) throw new Error("Player not in pool");
-  if (room.rosters[drafter]!.length >= room.squadSize) throw new Error("Squad full");
+  if (room.status !== "picking") return { error: "draft_complete" };
+  if (!room.poolIds.includes(playerId)) return { error: "player_not_in_pool" };
+  if (room.rosters[drafter]!.length >= room.squadSize) return { error: "squad_full" };
 
   const card = pool.get(playerId);
   if (!card) throw new Error("Unknown player");
+
+  if (room.mode.positionLocked !== false) {
+    const open = openFormationSlots(room.rosters[drafter]!, pool, room.squadSize);
+    if (open.length && !open.some((pos) => draftPickAllowedForSlot(card, pos, true))) {
+      return { error: "position_full" };
+    }
+  }
 
   const round = Math.floor(room.currentPickIndex / room.drafterCount) + 1;
   const pick: DraftPick = {

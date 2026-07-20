@@ -106,12 +106,14 @@ export function renderExpectationGradeHtml(grade: SeasonExpectationGrade): strin
     </section>`;
 }
 
-/** Enhanced fit report with conversational summaries. */
+/** Enhanced fit report — sorted by |delta|, top 5 shown, expandable to full XI. */
 export function renderFitReportHtml(fitReport: FitReportLine[], headline?: string): string {
   if (!fitReport.length) return "";
-  const sorted = [...fitReport].sort((a, b) => a.effectiveDelta - b.effectiveDelta);
+  const sorted = [...fitReport].sort(
+    (a, b) => Math.abs(b.effectiveDelta) - Math.abs(a.effectiveDelta),
+  );
   const strugglers = sorted.filter((f) => f.effectiveDelta <= -4);
-  const standouts = sorted.filter((f) => f.effectiveDelta >= 4).reverse();
+  const standouts = sorted.filter((f) => f.effectiveDelta >= 4);
 
   let summary = "";
   if (strugglers.length) {
@@ -119,6 +121,20 @@ export function renderFitReportHtml(fitReport: FitReportLine[], headline?: strin
   } else if (standouts.length) {
     summary = `${standouts[0]!.playerName} thrived here (+${standouts[0]!.effectiveDelta} vs base profile).`;
   }
+
+  const rowHtml = (f: FitReportLine) => {
+    const cls =
+      f.effectiveDelta >= 4 ? "db-fit-row--good" : f.effectiveDelta <= -4 ? "db-fit-row--bad" : "";
+    return `<li class="db-fit-row ${cls}">
+      <span class="db-fit-row__name">${f.playerName}</span>
+      <span class="db-fit-row__base">OVR ${f.baseOvr}</span>
+      <span class="db-fit-row__delta">${f.effectiveDelta >= 0 ? "+" : ""}${f.effectiveDelta}</span>
+      <span class="db-fit-row__summary">${f.summary}</span>
+    </li>`;
+  };
+
+  const top = sorted.slice(0, 5);
+  const rest = sorted.slice(5);
 
   return `
     <section class="panel db-report db-report--fit" aria-labelledby="fit-report-heading">
@@ -128,19 +144,16 @@ export function renderFitReportHtml(fitReport: FitReportLine[], headline?: strin
         ${summary ? `<p class="db-report__lede">${summary}</p>` : ""}
       </header>
       <ul class="db-fit-list db-report__fit-list">
-        ${sorted
-          .slice(0, 11)
-          .map((f) => {
-            const cls =
-              f.effectiveDelta >= 4 ? "db-fit-row--good" : f.effectiveDelta <= -4 ? "db-fit-row--bad" : "";
-            return `<li class="db-fit-row ${cls}">
-              <span class="db-fit-row__name">${f.playerName}</span>
-              <span class="db-fit-row__delta">${f.effectiveDelta >= 0 ? "+" : ""}${f.effectiveDelta}</span>
-              <span class="db-fit-row__summary">${f.summary}</span>
-            </li>`;
-          })
-          .join("")}
+        ${top.map(rowHtml).join("")}
       </ul>
+      ${
+        rest.length
+          ? `<details class="db-fit-expand">
+              <summary>Show full XI (${sorted.length})</summary>
+              <ul class="db-fit-list db-report__fit-list">${rest.map(rowHtml).join("")}</ul>
+            </details>`
+          : ""
+      }
     </section>`;
 }
 

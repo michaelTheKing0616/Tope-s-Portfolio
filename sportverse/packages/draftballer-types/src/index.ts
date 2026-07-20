@@ -5,6 +5,10 @@ export type RatingTier = "bronze" | "silver" | "gold" | "gold_plus" | "prismatic
 export type EraFilter = "single_year" | "decade" | "all_time" | "custom_range";
 export type CompetitionScope = "single_league" | "any_league" | "continental" | "international" | "custom";
 export type RatingLens = "club_only" | "international_only" | "blended" | "best_context";
+export type RatingBasis = "prime" | "season";
+export type FameTier = "icon" | "star" | "known" | "cult" | "obscure";
+export type DraftOrderMode = "squad_first" | "position_first";
+export type DraftDifficulty = "easy" | "normal" | "hard";
 
 export interface DraftModeConfig {
   id: string;
@@ -28,6 +32,18 @@ export interface DraftModeConfig {
   primeYearsOnly?: boolean;
   /** Enforce position-locked picks in draft rooms. */
   positionLocked?: boolean;
+  /** Rate players at career peak or specific season context. */
+  ratingBasis?: RatingBasis;
+  /** Include low-confidence fabricated ratings (hipster mode). */
+  deepCuts?: boolean;
+  /** Squad-first vs position-first wheel draft. */
+  draftOrder?: DraftOrderMode;
+  /** Easy / normal / hard — controls rerolls and blind mode defaults. */
+  difficulty?: DraftDifficulty;
+  /** Hide OVR during draft (trust your gut). */
+  blindRatings?: boolean;
+  /** Formation id from match-sim (default 4-3-3). */
+  formationId?: string;
 }
 
 export interface PlayerAttributes {
@@ -56,8 +72,13 @@ export interface RatedPlayerCard {
   position: Position;
   ovr: number;
   tier: RatingTier;
+  fameScore: number;
+  fameTier: FameTier;
   attributes: PlayerAttributes;
   confidence: number;
+  /** Card context line e.g. "Henry · Arsenal · 2003-04" */
+  contextLine?: string;
+  hookLine?: string;
   breakdown: {
     clubOvrRaw: number;
     intlOvrRaw: number;
@@ -86,6 +107,19 @@ export interface RatedPlayerCard {
       skipReason?: string;
       lens: "club" | "international";
     };
+    fabricated?: boolean;
+    /** Cap applied when attributes are role-archetype estimates (currently 72). */
+    fabricatedCap?: number;
+    ratingBasis?: RatingBasis;
+    seasonLabel?: string;
+    /** Era-normalized peak market-value percentile (0–100). Display / audit only alongside delta. */
+    mvBlend?: number;
+    /** OVR points contributed by the labeled MV scouting-consensus blend (after round). */
+    mvBlendDelta?: number;
+    /** Weight used in MV blend (0.2 outfield / 0.15 GK). */
+    mvBlendWeight?: number;
+    /** True when OVR came from legend-ratings.json manual override. */
+    legendOverride?: boolean;
   };
   gkAttributes?: GKAttributes;
 }
@@ -135,14 +169,18 @@ export interface DraftRoomState {
   blindRound?: BlindRoundState | null;
 }
 
-/** One slice on the spin wheel — club+era (38-0 style) or nationality+era. */
+/** One slice on the spin wheel — club+season (38-0 style) or nationality+era. */
 export interface WheelSegment {
   id: string;
   label: string;
   sublabel: string;
   club?: string;
+  clubId?: string;
+  seasonLabel?: string;
   nationality?: string;
   eraLabel?: string;
+  fameSum?: number;
+  squadPlayerIds?: string[];
 }
 
 export interface FormationSlot {
@@ -156,6 +194,7 @@ export type WheelPhase = "ready" | "spinning" | "picking" | "complete";
 /** Spin-and-build session (38-0 style randomizer draft). */
 export interface WheelBuildState {
   mode: DraftModeConfig;
+  seed: string;
   segments: WheelSegment[];
   formation: FormationSlot[];
   roster: string[];
@@ -164,6 +203,11 @@ export interface WheelBuildState {
   phase: WheelPhase;
   spinsUsed: number;
   squadSize: number;
+  rerollsLeft: number;
+  seenPlayerIds: string[];
+  candidateIds: string[];
+  fallback?: "respin_free" | "out_of_position" | null;
+  selectedSlotIndex?: number;
 }
 
 /** Squad input for match/season simulation (bible §7.1). */
@@ -218,10 +262,18 @@ export interface SeasonSimResult {
   isUnbeaten: boolean;
   isPerfect: boolean;
   seed: string;
+  chemistry?: number;
+  areaRatings?: { att: number; mid: number; def: number; gk: number; chem: number };
+  teamIdentity?: string;
+  notableResults?: { opponent: string; score: string; headline: string }[];
   /** Pre-sim layman preview shown before the engine runs. */
   prediction?: SeasonPrediction;
   /** Post-sim comparison of actual vs predicted. */
   expectationGrade?: SeasonExpectationGrade;
+  /** Aggregated / era-preview Fit Report for the user's XI. */
+  seasonFitReport?: import("./sim-types.js").FitReportLine[];
+  /** Era profile id used for this season sim (seed discipline). */
+  eraProfileId?: string;
 }
 
 /** Superficial pre-sim forecast from raw squad OVR (pundit-style). */
@@ -276,9 +328,15 @@ export interface SavedSquadPayload {
   mode: DraftModeConfig;
   playerIds: string[];
   squadOvr: number;
-  source: "wheel" | "snake" | "linear" | "auction" | "blind" | "mp";
+  source: "wheel" | "snake" | "linear" | "auction" | "blind" | "mp" | "challenge";
   formationId?: string;
+  seed?: string;
   tacticalIdentity?: import("./sim-types.js").TacticalIdentity;
+  /** Simulation era choice from Match Conditions (Phase 2). */
+  eraContext?: import("./sim-types.js").EraContextConfig;
+  /** `realistic` = era fit ON; `prime_powers` = raw OVR. */
+  simulationMode?: import("./sim-types.js").SimulationMode;
+  seasonResult?: Pick<SeasonSimResult, "won" | "drawn" | "lost" | "points" | "teamIdentity">;
 }
 
 export interface RoundRobinFixture {
