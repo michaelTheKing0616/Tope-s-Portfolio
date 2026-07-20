@@ -3,8 +3,10 @@ import {
   buildWheelSegments,
   createWheelSession,
   getPickCandidates,
+  minPickCandidatesForPosition,
   pickPlayerForSlot,
   randomSegmentIndex,
+  spinToPlayableSegment,
   spinToSegment,
   swapFormationSlots,
   wheelSquadRating,
@@ -48,11 +50,12 @@ describe("spin-wheel", () => {
     expect(state.segments.length).toBeGreaterThan(0);
     let checked = 0;
     for (let i = 0; i < state.segments.length && checked < 6; i++) {
-      state = spinToSegment({ ...state, phase: "ready", spunSegment: null }, i, pool);
+      state = spinToPlayableSegment({ ...state, phase: "ready", spunSegment: null }, i, pool);
       const squad = new Set(state.spunSegment?.squadPlayerIds ?? []);
       const pos = state.formation[state.currentSlotIndex]?.position;
       const candidates = getPickCandidates(state, pool);
       if (!candidates.length) continue;
+      expect(candidates.length).toBeGreaterThanOrEqual(minPickCandidatesForPosition(pos));
       checked++;
       for (const c of candidates) {
         expect(squad.has(c.playerId)).toBe(true);

@@ -1,6 +1,10 @@
 import "./styles.css";
 import "./styles/draftballer.css";
+import { registerSW } from "virtual:pwa-register";
 import { platform } from "@sportverse/platform";
+
+// Force clients onto the newest build — stale SW was serving the old grid wheel UI.
+registerSW({ immediate: true });
 import { ensureExtendedDataLoaded, poolCounts } from "@sportverse/sports-db";
 import { renderHub } from "./views/hub.js";
 import { renderQuiz } from "./views/quiz.js";

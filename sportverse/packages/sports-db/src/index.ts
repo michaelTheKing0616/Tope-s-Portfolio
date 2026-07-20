@@ -66,6 +66,7 @@ import {
   setWheelClubLookup,
   WHEEL_RECOGNIZED_LEAGUE_IDS,
   WHEEL_MIN_POOL_OVERLAP,
+  WHEEL_MIN_FAME_SUM,
   type ClubSeasonKey,
 } from "./club-season-index.js";
 
@@ -130,6 +131,7 @@ export {
   setWheelClubLookup,
   WHEEL_RECOGNIZED_LEAGUE_IDS,
   WHEEL_MIN_POOL_OVERLAP,
+  WHEEL_MIN_FAME_SUM,
 };
 export type { FameEntry, FameTier, ClubSeasonKey };
 export type { ExtendedLoadProgress, ExtendedLoadProgressFn } from "./extended.js";

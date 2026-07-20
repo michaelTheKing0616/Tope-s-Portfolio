@@ -16,42 +16,36 @@ export interface ClubSeasonKey {
  * Not every domestic_league id (youth / obscure tm-* tiers stay out).
  */
 export const WHEEL_RECOGNIZED_LEAGUE_IDS = new Set([
-  // Big 5
+  // Big 5 + known second tiers fans actually know
   "premier-league",
   "la-liga",
   "serie-a",
   "bundesliga",
   "ligue-1",
-  // Known European first divisions
   "championship",
+  "tm-es2", // Segunda
+  "tm-it2", // Serie B
+  "tm-fr2", // Ligue 2
+  "tm-l2", // 2. Bundesliga
+  // Other top flights with household clubs
   "eredivisie",
   "primeira-liga",
   "super-lig",
   "scottish-premiership",
   "pro-league",
-  // Known second tiers
-  "tm-es2", // Segunda
-  "tm-it2", // Serie B
-  "tm-fr2", // Ligue 2
-  "tm-l2", // 2. Bundesliga
-  // Americas / other recognizable top flights
   "mls",
   "serie-a-brazil",
   "tm-mexa",
-  "tm-arg2",
-  "tm-argc",
-  // Familiar European sides (Shakhtar, Salzburg, Basel, Olympiacos, …)
+  "tm-argc", // Argentine first division brands (River, Boca, …)
   "tm-ukr1",
-  "tm-ru1",
-  "tm-dk1",
-  "tm-se1",
-  "tm-gr1",
-  "tm-a1",
-  "tm-c1",
+  "tm-a1", // Austria (Salzburg, …)
 ]);
 
 /** Min squad members that must also exist in the active draft pool. */
-export const WHEEL_MIN_POOL_OVERLAP = 8;
+export const WHEEL_MIN_POOL_OVERLAP = 12;
+
+/** Drop obscure club-seasons even if league is recognized. */
+export const WHEEL_MIN_FAME_SUM = 900;
 
 let clubSeasonIndex: Map<string, ClubSeasonKey> | null = null;
 /** Prebuilt from archive performances (team_name × season) — preferred source. */
@@ -334,6 +328,7 @@ export function listSpinnableClubSeasons(mode: DraftModeConfig): ClubSeasonKey[]
   for (const entry of clubSeasonIndex.values()) {
     if (!seasonInModeRange(entry.seasonLabel, mode)) continue;
     if (!isRecognizableWheelClub(entry.clubName, entry.clubId)) continue;
+    if (entry.fameSum < WHEEL_MIN_FAME_SUM) continue;
     if (mode.competitionScope === "single_league" && mode.leagueId) {
       const league = resolveClubLeague(entry.clubName, entry.clubId);
       if (league !== mode.leagueId) continue;

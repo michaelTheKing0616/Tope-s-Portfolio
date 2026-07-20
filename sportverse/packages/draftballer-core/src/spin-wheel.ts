@@ -19,6 +19,13 @@ import { squadRating } from "./draft-room.js";
 import { draftPickAllowedForSlot } from "./squad-rules.js";
 import { createRng, randomSessionSeed } from "./rng.js";
 
+/** Prefer a real choice set — thin squads trigger a free search for another club. */
+export function minPickCandidatesForPosition(position: Position | undefined): number {
+  if (!position) return 4;
+  if (position === "GK") return 3;
+  return 6;
+}
+
 /** Position shapes mirrored from match-sim/formations.ts (dependency boundary — keep in sync). */
 const FORMATION_SHAPES: Record<string, Position[]> = {
   "2-3-5": ["GK", "CB", "CB", "CM", "CM", "CM", "ST", "ST", "ST", "ST", "ST"],
@@ -81,7 +88,7 @@ export function buildWheelSegments(
   mode: DraftModeConfig,
   pool: RatedPlayerCard[],
   seed: string,
-  count = 20,
+  count = 24,
 ): WheelSegment[] {
   const poolIds = new Set(pool.map((p) => p.playerId));
   const spinnable = listSpinnableClubSeasons(mode).filter((entry) => {
@@ -155,14 +162,18 @@ function sampleCandidates(
   }
   if (!eligible.length) return [];
 
-  const rng = createRng(`${seed}:candidates`);
-  // Cache fame once per eligible row — avoid repeated index lookups in weight/sort.
   const fame = new Map(eligible.map((c) => [c.playerId, getFameScore(c.playerId)]));
+  // Small squads: show everyone eligible (no thinning to 1 card).
+  if (eligible.length <= 16) {
+    return [...eligible].sort((a, b) => (fame.get(b.playerId) ?? 0) - (fame.get(a.playerId) ?? 0));
+  }
+
+  const rng = createRng(`${seed}:candidates`);
   const weight = (c: RatedPlayerCard) =>
     Math.max(1, fame.get(c.playerId) ?? 0) * (seen.has(c.playerId) ? 0.3 : 1);
 
   const stars = eligible.filter((c) => (fame.get(c.playerId) ?? 0) >= 75);
-  const sampled = rng.weightedSample(eligible, weight, Math.min(16, eligible.length));
+  const sampled = rng.weightedSample(eligible, weight, 16);
 
   if (stars.length >= 2) {
     const guaranteed = rng.sample(stars, 2);
@@ -175,7 +186,7 @@ function sampleCandidates(
   ).length;
   if (sampled.length && obscureCount / sampled.length > 0.3) {
     const known = eligible.filter((c) => (fame.get(c.playerId) ?? 0) >= 35);
-    return rng.weightedSample(known.length ? known : eligible, weight, Math.min(16, eligible.length));
+    return rng.weightedSample(known.length ? known : eligible, weight, 16);
   }
 
   return sampled;
@@ -259,7 +270,7 @@ export function spinToSegment(
   const segments =
     state.segments.length > 0
       ? state.segments
-      : buildWheelSegments(state.mode, pool, state.seed, 20);
+      : buildWheelSegments(state.mode, pool, state.seed, 24);
   if (!segments.length) {
     return {
       ...state,
@@ -285,8 +296,9 @@ export function spinToSegment(
     `${state.seed}:spin:${state.spinsUsed + 1}`,
   );
 
+  const minNeed = minPickCandidatesForPosition(position);
   let fallback: WheelBuildState["fallback"] = null;
-  if (squadIds.length && position && candidates.length === 0) {
+  if (squadIds.length && position && candidates.length < minNeed) {
     fallback = state.rerollsLeft > 0 ? "respin_free" : "out_of_position";
   }
 
@@ -299,6 +311,43 @@ export function spinToSegment(
     candidateIds: candidates.map((c) => c.playerId),
     fallback,
   };
+}
+
+/**
+ * Land on a club that actually offers a real pick pool for the active slot.
+ * Retries other wheel slices without burning player-facing rerolls.
+ */
+export function spinToPlayableSegment(
+  state: WheelBuildState,
+  segmentIndex: number,
+  pool: RatedPlayerCard[],
+  maxTries = 16,
+): WheelBuildState {
+  let next = spinToSegment(state, segmentIndex, pool);
+  let exclude = segmentIndex;
+  let tries = 0;
+  const minNeed = minPickCandidatesForPosition(targetPosition(next));
+
+  while (getPickCandidates(next, pool).length < minNeed && tries < maxTries) {
+    tries++;
+    const idx = randomSegmentIndex(next.segments, next.seed, next.spinsUsed + tries * 17, exclude);
+    exclude = idx;
+    next = spinToSegment(
+      { ...next, phase: "ready", spunSegment: null, fallback: null },
+      idx,
+      pool,
+    );
+  }
+
+  if (getPickCandidates(next, pool).length < minNeed) {
+    next = {
+      ...next,
+      fallback: next.rerollsLeft > 0 ? "respin_free" : "out_of_position",
+    };
+  } else {
+    next = { ...next, fallback: null };
+  }
+  return next;
 }
 
 export function useReroll(state: WheelBuildState, pool: RatedPlayerCard[]): WheelBuildState {

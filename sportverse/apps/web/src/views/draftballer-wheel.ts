@@ -9,12 +9,15 @@ import {
   pickPlayerForSlot,
   randomSegmentIndex,
   selectFormationSlot,
-  spinToSegment,
+  spinToPlayableSegment,
   swapFormationSlots,
   dailyChallengeSeed,
   saveSquadForSeason,
   useReroll,
 } from "@sportverse/draftballer-core";
+
+/** Bust stale PWA caches — bump when wheel UX changes. */
+const WHEEL_UI_BUILD = "pitch-v3";
 import { getFormation } from "@sportverse/match-sim";
 import { computeSquadRating } from "@sportverse/rating-engine";
 import { playerCardHtml } from "./draftballer-hub.js";
@@ -303,7 +306,7 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
       <div class="shell db-root db-wheel-page">
         <button class="btn btn--ghost" id="back">← Exit</button>
         <header class="db-hero" style="padding-bottom:0.75rem;margin-bottom:0.75rem">
-          <p class="db-hero__label">${mode.title ?? "Spin & Build"} · Wheel Draft</p>
+          <p class="db-hero__label" data-wheel-ui="${WHEEL_UI_BUILD}">${mode.title ?? "Spin & Build"} · Wheel Draft</p>
           <h1 class="db-hero__title" style="font-size:clamp(1.8rem,5vw,2.8rem)">SPIN · PICK · BUILD</h1>
           <p style="color:var(--db-muted);font-size:0.85rem;max-width:52ch;margin:0 auto">
             Spin a recognizable club + season, draft that squad onto the pitch — same loop as
@@ -311,8 +314,8 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
           </p>
           <ol class="db-wheel-steps">
             <li>Spin the wheel</li>
-            <li>Draft a player from that club</li>
-            <li>Fill all 11 slots · swap legal positions anytime</li>
+            <li>Draft from a full club shortlist</li>
+            <li>Place on the pitch · swap legal positions anytime</li>
           </ol>
         </header>
 
@@ -475,8 +478,8 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
       const wrapEl = root.querySelector(".db-wheel-wrap") as HTMLElement | null;
       if (!wheelEl) {
         spinning = false;
-        state = spinToSegment(state, spinTargetIndex, pool);
-        lastLandedIndex = spinTargetIndex;
+        state = spinToPlayableSegment(state, spinTargetIndex, pool);
+        lastLandedIndex = state.segments.findIndex((s) => s.id === state.spunSegment?.id);
         draw();
         return;
       }
@@ -508,24 +511,17 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
             wheelEl.style.transform = `rotate(${wheelRotation}deg)`;
           }, 160);
         }
-        state = spinToSegment({ ...state, phase: "ready" }, spinTargetIndex, pool);
-        lastLandedIndex = spinTargetIndex;
+        state = spinToPlayableSegment({ ...state, phase: "ready" }, spinTargetIndex, pool);
+        lastLandedIndex = state.segments.findIndex((s) => s.id === state.spunSegment?.id);
+        if (lastLandedIndex < 0) lastLandedIndex = spinTargetIndex;
+        spinTargetIndex = lastLandedIndex;
         playDraftSound("land");
-        if (landed && (landed.fameSum ?? 0) >= ICON_FAME_SUM_FLASH) {
+        const finalLanded = state.spunSegment ?? landed;
+        if (finalLanded && (finalLanded.fameSum ?? 0) >= ICON_FAME_SUM_FLASH) {
           wrapEl?.classList.add("db-wheel-wrap--gold-flash");
           playDraftSound("crowd");
         }
         spinning = false;
-
-        // Auto-respin once when the club has no legal players for the slot.
-        if (
-          state.fallback === "respin_free" &&
-          getPickCandidates(state, pool).length === 0 &&
-          state.rerollsLeft > 0
-        ) {
-          state = useReroll(state, pool);
-          lastLandedIndex = state.segments.findIndex((s) => s.id === state.spunSegment?.id);
-        }
         draw();
       }, spinMs + 80);
     });
