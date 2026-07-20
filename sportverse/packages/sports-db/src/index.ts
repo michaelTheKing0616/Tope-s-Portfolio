@@ -133,6 +133,11 @@ export {
 };
 export type { FameEntry, FameTier, ClubSeasonKey };
 export type { ExtendedLoadProgress, ExtendedLoadProgressFn } from "./extended.js";
+export {
+  competitionDisplayName,
+  clubDisplayName,
+  seasonContextLabel,
+} from "./display-names.js";
 
 const validationErrors = validateCuratedBank();
 if (validationErrors.length > 0) {

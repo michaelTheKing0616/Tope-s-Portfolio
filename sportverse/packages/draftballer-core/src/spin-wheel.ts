@@ -8,6 +8,7 @@ import type {
   WheelSegment,
 } from "@sportverse/draftballer-types";
 import {
+  clubDisplayName,
   fameTierFromScore,
   getDraftPlayers,
   getFameScore,
@@ -59,11 +60,12 @@ function difficultyRerolls(mode: DraftModeConfig): number {
 }
 
 function clubSeasonToSegment(entry: ReturnType<typeof listSpinnableClubSeasons>[0], idx: number): WheelSegment {
+  const label = clubDisplayName(entry.clubName);
   return {
-    id: `cs_${idx}`,
-    label: entry.clubName,
+    id: `cs_${entry.clubId}_${entry.seasonLabel}_${idx}`,
+    label,
     sublabel: entry.seasonLabel,
-    club: entry.clubName,
+    club: label,
     clubId: entry.clubId,
     seasonLabel: entry.seasonLabel,
     fameSum: entry.fameSum,
@@ -147,10 +149,11 @@ function sampleCandidates(
     .map((id) => poolMap.get(id))
     .filter((c): c is RatedPlayerCard => !!c && !picked.has(c.playerId));
 
+  // Never fall back to other positions — empty pool triggers respin UX.
   if (position) {
-    const byPos = eligible.filter((c) => draftPickAllowedForSlot(c, position, true));
-    if (byPos.length) eligible = byPos;
+    eligible = eligible.filter((c) => draftPickAllowedForSlot(c, position, true));
   }
+  if (!eligible.length) return [];
 
   const rng = createRng(`${seed}:candidates`);
   // Cache fame once per eligible row — avoid repeated index lookups in weight/sort.
@@ -283,13 +286,8 @@ export function spinToSegment(
   );
 
   let fallback: WheelBuildState["fallback"] = null;
-  if (squadIds.length && position === "GK") {
-    const hasGk = squadIds.some((id) => {
-      const c = poolMap.get(id);
-      return c?.position === "GK" && !picked.has(id);
-    });
-    if (!hasGk && state.rerollsLeft > 0) fallback = "respin_free";
-    else if (!hasGk) fallback = "out_of_position";
+  if (squadIds.length && position && candidates.length === 0) {
+    fallback = state.rerollsLeft > 0 ? "respin_free" : "out_of_position";
   }
 
   return {
@@ -305,8 +303,15 @@ export function spinToSegment(
 
 export function useReroll(state: WheelBuildState, pool: RatedPlayerCard[]): WheelBuildState {
   if (state.rerollsLeft <= 0) throw new Error("No rerolls left");
-  const rng = createRng(`${state.seed}:reroll:${state.spinsUsed}`);
-  const idx = Math.floor(rng.next() * state.segments.length);
+  const currentIdx = state.spunSegment
+    ? state.segments.findIndex((s) => s.id === state.spunSegment!.id)
+    : -1;
+  const idx = randomSegmentIndex(
+    state.segments,
+    state.seed,
+    state.spinsUsed + 7919,
+    currentIdx >= 0 ? currentIdx : undefined,
+  );
   return {
     ...spinToSegment({ ...state, rerollsLeft: state.rerollsLeft - 1 }, idx, pool),
     rerollsLeft: state.rerollsLeft - 1,
@@ -328,11 +333,16 @@ export function pickPlayerForSlot(
 
   let slotIndex = state.currentSlotIndex;
   if (state.mode.draftOrder === "squad_first") {
-    const pos = card.position;
-    const open = state.formation.findIndex((s, i) => !s.playerId && draftPickAllowedForSlot(card, s.position, true));
+    const open = state.formation.findIndex((s) => !s.playerId && draftPickAllowedForSlot(card, s.position, true));
     if (open >= 0) slotIndex = open;
   } else if (state.selectedSlotIndex != null) {
     slotIndex = state.selectedSlotIndex;
+  }
+
+  const targetSlot = state.formation[slotIndex];
+  if (!targetSlot) throw new Error("No formation slot");
+  if (!draftPickAllowedForSlot(card, targetSlot.position, true)) {
+    throw new Error(`${card.name} cannot play ${targetSlot.position}`);
   }
 
   const formation = state.formation.map((slot, i) =>
@@ -373,9 +383,66 @@ export function currentFormationSlot(state: WheelBuildState): FormationSlot | un
   return state.formation[state.currentSlotIndex];
 }
 
-export function randomSegmentIndex(segments: WheelSegment[], seed: string): number {
-  const rng = createRng(`${seed}:spin-index`);
-  return Math.floor(rng.next() * segments.length);
+/** Salt must change each spin (e.g. spinsUsed) so consecutive spins differ. */
+export function randomSegmentIndex(
+  segments: WheelSegment[],
+  seed: string,
+  spinSalt = 0,
+  excludeIndex?: number,
+): number {
+  if (!segments.length) return 0;
+  if (segments.length === 1) return 0;
+  const rng = createRng(`${seed}:spin-index:${spinSalt}`);
+  let idx = Math.floor(rng.next() * segments.length);
+  if (excludeIndex != null && excludeIndex >= 0 && idx === excludeIndex) {
+    idx = (idx + 1 + Math.floor(rng.next() * (segments.length - 1))) % segments.length;
+  }
+  return idx;
+}
+
+/**
+ * Swap two filled slots when each player can legally play the other's position.
+ */
+export function swapFormationSlots(
+  state: WheelBuildState,
+  slotIndexA: number,
+  slotIndexB: number,
+  pool: RatedPlayerCard[],
+): WheelBuildState {
+  if (slotIndexA === slotIndexB) return state;
+  const a = state.formation[slotIndexA];
+  const b = state.formation[slotIndexB];
+  if (!a?.playerId || !b?.playerId) throw new Error("Both slots must be filled to swap");
+  const poolMap = new Map(pool.map((p) => [p.playerId, p]));
+  const playerA = poolMap.get(a.playerId);
+  const playerB = poolMap.get(b.playerId);
+  if (!playerA || !playerB) throw new Error("Unknown player in formation");
+  if (!draftPickAllowedForSlot(playerA, b.position, true)) {
+    throw new Error(`${playerA.name} cannot play ${b.position}`);
+  }
+  if (!draftPickAllowedForSlot(playerB, a.position, true)) {
+    throw new Error(`${playerB.name} cannot play ${a.position}`);
+  }
+  const formation = state.formation.map((slot, i) => {
+    if (i === slotIndexA) return { ...slot, playerId: b.playerId };
+    if (i === slotIndexB) return { ...slot, playerId: a.playerId };
+    return slot;
+  });
+  return { ...state, formation };
+}
+
+export function selectFormationSlot(state: WheelBuildState, slotIndex: number): WheelBuildState {
+  if (slotIndex < 0 || slotIndex >= state.formation.length) return state;
+  const slot = state.formation[slotIndex]!;
+  if (slot.playerId) {
+    return { ...state, selectedSlotIndex: slotIndex };
+  }
+  return {
+    ...state,
+    selectedSlotIndex: slotIndex,
+    currentSlotIndex: slotIndex,
+    mode: { ...state.mode, draftOrder: "position_first" },
+  };
 }
 
 export function normalizeSegmentsForWheel(segments: WheelSegment[], max = 24): WheelSegment[] {

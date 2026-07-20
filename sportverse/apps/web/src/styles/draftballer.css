@@ -471,6 +471,105 @@
   text-overflow: ellipsis;
 }
 
+/* —— Wheel interactive pitch (38-0 style overlay) —— */
+.db-wheel-pitch {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  max-height: 420px;
+  margin-top: 8px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(212, 175, 55, 0.25);
+}
+.db-wheel-pitch__field {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(18, 48, 28, 0.95), rgba(12, 32, 20, 0.98)),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 11%,
+      rgba(255, 255, 255, 0.03) 11%,
+      rgba(255, 255, 255, 0.03) 12%
+    );
+}
+.db-wheel-pitch__half {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 50%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.18);
+}
+.db-wheel-pitch__circle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 28%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 50%;
+}
+.db-wheel-pitch__slot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 52px;
+  min-height: 44px;
+  padding: 4px 2px;
+  border-radius: 999px;
+  border: 1.5px dashed rgba(255, 255, 255, 0.35);
+  background: rgba(10, 14, 18, 0.72);
+  color: var(--db-ink);
+  cursor: pointer;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+}
+.db-wheel-pitch__slot--filled {
+  border-style: solid;
+  border-color: var(--db-emerald-hi);
+  background: rgba(31, 138, 87, 0.35);
+}
+.db-wheel-pitch__slot--active {
+  border-color: var(--db-gold-hi);
+  box-shadow: 0 0 14px rgba(212, 175, 55, 0.45);
+}
+.db-wheel-pitch__slot--swap {
+  border-color: #7eb6ff;
+  box-shadow: 0 0 14px rgba(126, 182, 255, 0.45);
+}
+.db-wheel-pitch__pos {
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  color: var(--db-muted);
+  text-transform: uppercase;
+}
+.db-wheel-pitch__name {
+  font-size: 0.62rem;
+  font-weight: 700;
+  max-width: 48px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.db-wheel-pitch__hint {
+  font-size: 0.7rem;
+  color: var(--db-muted);
+  margin: 8px 0 0;
+  text-align: center;
+}
+@media (max-width: 480px) {
+  .db-wheel-pitch__slot { width: 44px; min-height: 40px; }
+  .db-wheel-pitch__name { font-size: 0.55rem; max-width: 40px; }
+}
+
 .db-pick-section { margin-top: 1.5rem; }
 .db-pick-header {
   display: flex;

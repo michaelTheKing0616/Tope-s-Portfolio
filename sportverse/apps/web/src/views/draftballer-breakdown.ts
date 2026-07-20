@@ -1,6 +1,10 @@
 import type { RatedPlayerCard } from "@sportverse/draftballer-types";
 import { NO_POPULARITY_BONUS_RULE, lensBlend, FABRICATED_OVR_CAP } from "@sportverse/rating-engine";
-import { getSeasonStats } from "@sportverse/sports-db";
+import {
+  competitionDisplayName,
+  getSeasonStats,
+  seasonContextLabel,
+} from "@sportverse/sports-db";
 import { attributeRadarSvg, playerCardDetailHtml } from "../lib/player-card.js";
 
 let overlayEl: HTMLElement | null = null;
@@ -172,7 +176,7 @@ export function showRatingBreakdown(card: RatedPlayerCard, onClose?: () => void,
                 </p>
                 ${
                   !bd.leagueContext.skipped
-                    ? `<p style="font-size:0.75rem;color:var(--db-muted)">${bd.leagueContext.competitionId} · ${bd.leagueContext.seasonLabel} · scale ${bd.leagueContext.scalingFactor} · shift ${bd.leagueContext.baselineShift >= 0 ? "+" : ""}${bd.leagueContext.baselineShift}</p>`
+                    ? `<p style="font-size:0.75rem;color:var(--db-muted)">${competitionDisplayName(bd.leagueContext.competitionId)} · ${bd.leagueContext.seasonLabel} · scale ${bd.leagueContext.scalingFactor} · shift ${bd.leagueContext.baselineShift >= 0 ? "+" : ""}${bd.leagueContext.baselineShift}</p>`
                     : ""
                 }
               </div>`
@@ -195,7 +199,7 @@ export function showRatingBreakdown(card: RatedPlayerCard, onClose?: () => void,
           ? `<div class="db-modal-section"><strong>Club seasons</strong><ul class="db-stat-list">${clubRows
               .map(
                 (s) =>
-                  `<li>${s.seasonLabel} · ${s.competitionId} · ${s.appearances} apps · ${s.goals}G ${s.assists}A</li>`,
+                  `<li>${seasonContextLabel(s)} · ${s.appearances} apps · ${s.goals}G ${s.assists}A</li>`,
               )
               .join("")}</ul></div>`
           : ""

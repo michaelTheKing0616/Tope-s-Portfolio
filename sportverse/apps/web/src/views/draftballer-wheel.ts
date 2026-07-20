@@ -4,16 +4,18 @@ import {
   createWheelSession,
   currentFormationSlot,
   getPickCandidates,
-  getPickCandidatesStrict,
   getPresetMode,
   listWheelFormationIds,
   pickPlayerForSlot,
   randomSegmentIndex,
+  selectFormationSlot,
   spinToSegment,
+  swapFormationSlots,
   dailyChallengeSeed,
   saveSquadForSeason,
   useReroll,
 } from "@sportverse/draftballer-core";
+import { getFormation } from "@sportverse/match-sim";
 import { computeSquadRating } from "@sportverse/rating-engine";
 import { playerCardHtml } from "./draftballer-hub.js";
 import { bindPlayerCardBreakdownsWithPool } from "./draftballer-breakdown.js";
@@ -42,7 +44,6 @@ function scheduleSpinTicks(durationMs: number, onTick: () => void): () => void {
     const t = Math.min(1, (now - start) / durationMs);
     if (now >= start + nextAt) {
       onTick();
-      // Early: ~55ms; late: ~220ms — tension as it slows.
       nextAt += 55 + t * t * 165;
     }
     if (t < 1) requestAnimationFrame(step);
@@ -53,8 +54,18 @@ function scheduleSpinTicks(durationMs: number, onTick: () => void): () => void {
   };
 }
 
-function wheelSegmentHtml(segments: WheelBuildState["segments"], activeIndex: number | null): string {
-  const n = segments.length;
+function shortClubLabel(label: string): string {
+  const parts = label.trim().split(/\s+/);
+  if (parts.length <= 2) return label;
+  return parts.slice(0, 2).join(" ");
+}
+
+function wheelSegmentHtml(
+  segments: WheelBuildState["segments"],
+  activeIndex: number | null,
+  rotationDeg: number,
+): string {
+  const n = Math.max(1, segments.length);
   const slice = 360 / n;
   const colors = ["#1c2128", "#12161c", "#1a2332", "#151a22"];
 
@@ -73,35 +84,122 @@ function wheelSegmentHtml(segments: WheelBuildState["segments"], activeIndex: nu
       const x = 50 + r * Math.cos(rad);
       const y = 50 + r * Math.sin(rad);
       const highlight = activeIndex === i ? " db-wheel-label--active" : "";
-      return `<span class="db-wheel-label${highlight}" style="--a:${angle}deg;left:${x}%;top:${y}%">${seg.label.split(" ")[0]}</span>`;
+      return `<span class="db-wheel-label${highlight}" style="--a:${angle}deg;left:${x}%;top:${y}%">${shortClubLabel(seg.label)}</span>`;
     })
     .join("");
 
   return `
     <div class="db-wheel-wrap">
       <div class="db-wheel-pointer" aria-hidden="true"></div>
-      <div class="db-wheel" id="wheel" style="background:conic-gradient(from -90deg, ${gradientStops})">
+      <div class="db-wheel" id="wheel" style="background:conic-gradient(from -90deg, ${gradientStops});transform:rotate(${rotationDeg}deg)">
         ${labels}
       </div>
       <div class="db-wheel-hub">SPIN</div>
     </div>`;
 }
 
-function formationHtml(state: WheelBuildState, poolMap: Map<string, RatedPlayerCard>): string {
+/** Interactive pitch — formation coords from match-sim, overlays drafted players. */
+function pitchHtml(
+  state: WheelBuildState,
+  poolMap: Map<string, RatedPlayerCard>,
+  opts: { swapHint?: boolean; swapFrom?: number | null } = {},
+): string {
+  const formationId = state.mode.formationId ?? "4-3-3";
+  const form = getFormation(formationId);
+  const activeIdx =
+    state.mode.draftOrder === "position_first" && state.selectedSlotIndex != null
+      ? state.selectedSlotIndex
+      : state.currentSlotIndex;
+
+  const dots = state.formation
+    .map((slot, i) => {
+      const coord = form.slots[i] ?? form.slots[0]!;
+      const filled = slot.playerId ? poolMap.get(slot.playerId) : null;
+      const active = i === activeIdx && state.phase !== "complete";
+      const swapSel = opts.swapFrom === i;
+      const last = filled ? filled.name.split(" ").pop() : "—";
+      const classes = [
+        "db-wheel-pitch__slot",
+        filled ? "db-wheel-pitch__slot--filled" : "",
+        active ? "db-wheel-pitch__slot--active" : "",
+        swapSel ? "db-wheel-pitch__slot--swap" : "",
+      ]
+        .filter(Boolean)
+        .join(" ");
+      return `
+        <button type="button" class="${classes}" data-slot="${i}"
+          style="left:${coord.y}%;top:${100 - coord.x}%"
+          title="${slot.position}${filled ? ` · ${filled.name}` : " · empty"}">
+          <span class="db-wheel-pitch__pos">${slot.position}</span>
+          <span class="db-wheel-pitch__name">${last}</span>
+        </button>`;
+    })
+    .join("");
+
   return `
-    <div class="db-formation">
-      ${state.formation
-        .map((slot, i) => {
-          const filled = slot.playerId ? poolMap.get(slot.playerId) : null;
-          const active = i === state.currentSlotIndex && state.phase !== "complete";
-          return `
-            <div class="db-formation-slot ${active ? "db-formation-slot--active" : ""} ${filled ? "db-formation-slot--filled" : ""}" data-pos="${slot.position}">
-              <span class="db-formation-pos">${slot.position}</span>
-              <span class="db-formation-name">${filled ? filled.name.split(" ").pop() : "—"}</span>
-            </div>`;
-        })
-        .join("")}
-    </div>`;
+    <div class="db-wheel-pitch" aria-label="${formationId} pitch">
+      <div class="db-wheel-pitch__field" aria-hidden="true">
+        <div class="db-wheel-pitch__half"></div>
+        <div class="db-wheel-pitch__circle"></div>
+      </div>
+      ${dots}
+    </div>
+    <p class="db-wheel-pitch__hint">
+      ${
+        opts.swapHint
+          ? "Tap a filled player, then another legal slot to swap · empty slot sets next pick"
+          : "Tap a slot to set the next pick position"
+      }
+    </p>`;
+}
+
+function bindPitchInteractions(
+  root: HTMLElement,
+  getState: () => WheelBuildState,
+  setState: (s: WheelBuildState) => void,
+  pool: RatedPlayerCard[],
+  redraw: () => void,
+  swapFromRef: { current: number | null },
+) {
+  root.querySelectorAll<HTMLElement>(".db-wheel-pitch__slot").forEach((el) => {
+    el.addEventListener("click", () => {
+      const idx = Number(el.dataset.slot);
+      if (!Number.isFinite(idx)) return;
+      const state = getState();
+      const slot = state.formation[idx];
+      if (!slot) return;
+
+      // Empty slot → target for next spin/pick
+      if (!slot.playerId) {
+        swapFromRef.current = null;
+        setState(selectFormationSlot(state, idx));
+        redraw();
+        return;
+      }
+
+      // Filled: start or complete a legal swap
+      if (swapFromRef.current == null) {
+        swapFromRef.current = idx;
+        redraw();
+        return;
+      }
+
+      if (swapFromRef.current === idx) {
+        swapFromRef.current = null;
+        redraw();
+        return;
+      }
+
+      try {
+        setState(swapFormationSlots(state, swapFromRef.current, idx, pool));
+        playDraftSound("land");
+      } catch {
+        playDraftSound("tick");
+      }
+      swapFromRef.current = null;
+      redraw();
+    });
+  });
 }
 
 export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, challengeSeed?: string) {
@@ -115,7 +213,10 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
   bindPlayerCardBreakdownsWithPool(root, pool);
   let state = createWheelSession(mode, pool, seed);
   let spinTargetIndex = 0;
+  let lastLandedIndex: number | undefined;
   let wheelRotation = 0;
+  let spinning = false;
+  const swapFromRef: { current: number | null } = { current: null };
 
   function draw() {
     if (state.phase === "complete") {
@@ -129,7 +230,7 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
             <p class="db-hero__label">Squad Complete</p>
             <h2 class="db-hero__title" style="font-size:2.2rem">YOUR XI</h2>
             <p style="color:var(--db-muted)">Squad Rating <strong style="color:var(--db-gold);font-size:1.4rem">${rating}</strong> · ${formationId} · Seed: ${state.seed.slice(0, 12)}…</p>
-            ${formationHtml(state, poolMap)}
+            ${pitchHtml(state, poolMap, { swapHint: true, swapFrom: swapFromRef.current })}
             ${
               blind
                 ? `<p class="db-reveal-hint">Blind reveal — highest OVR last</p><div id="wheel-reveal" style="margin:16px 0"></div>`
@@ -147,6 +248,16 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
         const revealEl = root.querySelector("#wheel-reveal") as HTMLElement | null;
         if (revealEl) mountStagedReveal(revealEl, players);
       }
+      bindPitchInteractions(
+        root,
+        () => state,
+        (s) => {
+          state = s;
+        },
+        pool,
+        draw,
+        swapFromRef,
+      );
       const getIdentity = bindIdentityPicker(root);
       root.querySelector("#simulate")?.addEventListener("click", () => {
         saveSquadForSeason(mode, state.roster, pool, rating, "wheel", {
@@ -167,7 +278,6 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
     const slot = currentFormationSlot(state);
     const segment = state.spunSegment;
     const candidates = segment ? getPickCandidates(state, pool) : [];
-    const exactPosCount = segment ? getPickCandidatesStrict(state, pool).length : 0;
 
     if (!state.segments.length && state.phase === "ready") {
       root.innerHTML = `
@@ -187,6 +297,8 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
       return;
     }
 
+    const showWheel = state.phase === "ready" || state.phase === "spinning" || state.phase === "picking";
+
     root.innerHTML = `
       <div class="shell db-root db-wheel-page">
         <button class="btn btn--ghost" id="back">← Exit</button>
@@ -194,19 +306,27 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
           <p class="db-hero__label">${mode.title ?? "Spin & Build"} · Wheel Draft</p>
           <h1 class="db-hero__title" style="font-size:clamp(1.8rem,5vw,2.8rem)">SPIN · PICK · BUILD</h1>
           <p style="color:var(--db-muted);font-size:0.85rem;max-width:52ch;margin:0 auto">
-            Spin a recognizable club + season, then draft only from that squad — same loop as
+            Spin a recognizable club + season, draft that squad onto the pitch — same loop as
             <strong style="color:var(--db-gold-hi)">38-0</strong>.
           </p>
           <ol class="db-wheel-steps">
             <li>Spin the wheel</li>
             <li>Draft a player from that club</li>
-            <li>Fill all 11 slots</li>
+            <li>Fill all 11 slots · swap legal positions anytime</li>
           </ol>
         </header>
 
         <div class="db-wheel-layout">
           <div class="db-wheel-col">
-            ${state.phase === "ready" || state.phase === "spinning" ? wheelSegmentHtml(state.segments, state.phase === "picking" ? spinTargetIndex : null) : ""}
+            ${
+              showWheel
+                ? wheelSegmentHtml(
+                    state.segments,
+                    state.phase === "picking" ? spinTargetIndex : null,
+                    wheelRotation,
+                  )
+                : ""
+            }
             ${
               segment
                 ? `
@@ -219,19 +339,22 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
             }
             ${
               state.phase === "ready"
-                ? `<button class="btn db-spin-btn" id="spin">Spin the wheel</button>
+                ? `<button class="btn db-spin-btn" id="spin" ${spinning ? "disabled" : ""}>Spin the wheel</button>
                    <p class="db-wheel-hint">Rerolls left: ${state.rerollsLeft} · Pick ${slot?.position ?? "—"} next · ${state.roster.length}/${state.squadSize}</p>`
                 : state.phase === "spinning"
                   ? `<p class="db-wheel-hint db-wheel-hint--spin">Spinning…</p>`
-                  : state.fallback
-                    ? `<p class="db-wheel-hint">No GK in this squad — ${state.fallback === "respin_free" ? "free respin available" : "out-of-position penalty applies"}</p>`
-                    : ""
+                  : state.fallback === "respin_free"
+                    ? `<p class="db-wheel-hint">No ${slot?.position ?? "fit"} in this squad — <strong>respin</strong> for a new club</p>
+                       <button class="btn db-spin-btn" id="respin-empty" type="button">Respin (${state.rerollsLeft} left)</button>`
+                    : state.fallback === "out_of_position"
+                      ? `<p class="db-wheel-hint">No ${slot?.position ?? "fit"} in this squad and no rerolls left — pick another slot on the pitch</p>`
+                      : ""
             }
           </div>
 
           <div class="db-wheel-col">
-            <div class="panel" style="background:var(--db-panel);border-color:var(--db-border)">
-              <strong>Formation</strong>
+            <div class="panel" style="background:var(--db-panel);border-color:var(--db-border);width:100%">
+              <strong>Pitch · ${state.mode.formationId ?? "4-3-3"}</strong>
               ${
                 state.phase === "ready" && state.roster.length === 0
                   ? `<label class="db-stat-label" style="display:block;margin:8px 0 4px">Shape</label>
@@ -243,12 +366,16 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
                          )
                          .join("")}
                      </select>`
-                  : `<p style="font-size:0.75rem;color:var(--db-muted);margin:4px 0">${state.mode.formationId ?? "4-3-3"}</p>`
+                  : ""
               }
-              <p style="font-size:0.75rem;color:var(--db-muted);margin:4px 0 10px">
-                ${state.phase === "picking" ? `Choose a ${slot?.position ?? ""} from the squad below` : `Next slot: ${slot?.position ?? "—"}`}
+              <p style="font-size:0.75rem;color:var(--db-muted);margin:8px 0 10px">
+                ${
+                  state.phase === "picking"
+                    ? `Choose a <strong style="color:var(--db-ink)">${slot?.position ?? ""}</strong> from the club below`
+                    : `Next: <strong style="color:var(--db-ink)">${slot?.position ?? "—"}</strong>`
+                }
               </p>
-              ${formationHtml(state, poolMap)}
+              ${pitchHtml(state, poolMap, { swapHint: state.roster.length > 0, swapFrom: swapFromRef.current })}
             </div>
           </div>
         </div>
@@ -263,10 +390,8 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
                 <strong style="color:var(--db-gold-hi)">${segment.label}</strong>
                 ${
                   candidates.length === 0
-                    ? " · <span style='color:#f5a623'>squad empty in this pool — respin</span>"
-                    : exactPosCount === 0
-                      ? " · <span style='color:#f5a623'>no exact position — showing club teammates only</span>"
-                      : ""
+                    ? " · <span style='color:#f5a623'>no matching players — respin for another club</span>"
+                    : ""
                 }
               </p>
               ${
@@ -290,6 +415,17 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
 
     root.querySelector("#back")?.addEventListener("click", () => navigate("draftballer"));
 
+    bindPitchInteractions(
+      root,
+      () => state,
+      (s) => {
+        state = s;
+      },
+      pool,
+      draw,
+      swapFromRef,
+    );
+
     root.querySelector("#formationPick")?.addEventListener("change", (e) => {
       if (state.roster.length > 0) return;
       const formationId = (e.target as HTMLSelectElement).value;
@@ -297,39 +433,74 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
       sessionStorage.setItem("db_mode", JSON.stringify(nextMode));
       Object.assign(mode, nextMode);
       state = createWheelSession(nextMode, pool, state.seed);
+      swapFromRef.current = null;
       draw();
     });
 
+    const runRespin = () => {
+      if (state.rerollsLeft <= 0) return;
+      try {
+        state = useReroll(state, pool);
+        lastLandedIndex = state.segments.findIndex((s) => s.id === state.spunSegment?.id);
+        spinTargetIndex = lastLandedIndex >= 0 ? lastLandedIndex : 0;
+        draw();
+      } catch {
+        /* no rerolls */
+      }
+    };
+
     root.querySelector("#spin")?.addEventListener("click", () => {
-      if (state.phase !== "ready") return;
-      spinTargetIndex = randomSegmentIndex(state.segments, state.seed);
+      if (state.phase !== "ready" || spinning) return;
+      spinning = true;
+      spinTargetIndex = randomSegmentIndex(
+        state.segments,
+        state.seed,
+        state.spinsUsed,
+        lastLandedIndex,
+      );
       state = { ...state, phase: "spinning" };
 
       const n = state.segments.length;
       const slice = 360 / n;
       const targetAngle = 360 - (spinTargetIndex * slice + slice / 2);
-      // Cosmetics only — not gameplay RNG.
       const extraSpins = 5 + Math.floor(Math.random() * 3);
-      wheelRotation += extraSpins * 360 + targetAngle - (wheelRotation % 360);
+      const currentMod = ((wheelRotation % 360) + 360) % 360;
+      const delta = (targetAngle - currentMod + 360) % 360;
+      const nextRotation = wheelRotation + extraSpins * 360 + delta;
 
       const spinMs = prefersReducedMotion() ? 200 : SPIN_MS;
       draw();
 
       const wheelEl = root.querySelector("#wheel") as HTMLElement | null;
       const wrapEl = root.querySelector(".db-wheel-wrap") as HTMLElement | null;
-      if (wheelEl) {
-        wheelEl.style.transition = `transform ${spinMs}ms cubic-bezier(0.22, 1, 0.36, 1)`;
-        wheelEl.style.transform = `rotate(${wheelRotation}deg)`;
+      if (!wheelEl) {
+        spinning = false;
+        state = spinToSegment(state, spinTargetIndex, pool);
+        lastLandedIndex = spinTargetIndex;
+        draw();
+        return;
       }
+
+      // Pin current angle with no transition, then animate on next frames.
+      wheelEl.style.transition = "none";
+      wheelEl.style.transform = `rotate(${wheelRotation}deg)`;
+      void wheelEl.offsetWidth;
 
       const cancelTicks = prefersReducedMotion()
         ? () => undefined
         : scheduleSpinTicks(spinMs, () => playDraftSound("tick"));
 
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          wheelRotation = nextRotation;
+          wheelEl.style.transition = `transform ${spinMs}ms cubic-bezier(0.22, 1, 0.36, 1)`;
+          wheelEl.style.transform = `rotate(${wheelRotation}deg)`;
+        });
+      });
+
       window.setTimeout(() => {
         cancelTicks();
         const landed = state.segments[spinTargetIndex];
-        // Near-miss wobble then settle (skipped under reduced motion).
         if (wheelEl && !prefersReducedMotion()) {
           wheelEl.style.transition = "transform 180ms ease-in-out";
           wheelEl.style.transform = `rotate(${wheelRotation + 4}deg)`;
@@ -337,11 +508,23 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
             wheelEl.style.transform = `rotate(${wheelRotation}deg)`;
           }, 160);
         }
-        state = spinToSegment(state, spinTargetIndex, pool);
+        state = spinToSegment({ ...state, phase: "ready" }, spinTargetIndex, pool);
+        lastLandedIndex = spinTargetIndex;
         playDraftSound("land");
         if (landed && (landed.fameSum ?? 0) >= ICON_FAME_SUM_FLASH) {
           wrapEl?.classList.add("db-wheel-wrap--gold-flash");
           playDraftSound("crowd");
+        }
+        spinning = false;
+
+        // Auto-respin once when the club has no legal players for the slot.
+        if (
+          state.fallback === "respin_free" &&
+          getPickCandidates(state, pool).length === 0 &&
+          state.rerollsLeft > 0
+        ) {
+          state = useReroll(state, pool);
+          lastLandedIndex = state.segments.findIndex((s) => s.id === state.spunSegment?.id);
         }
         draw();
       }, spinMs + 80);
@@ -352,20 +535,15 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
       const pick = candidates[Math.floor(Math.random() * candidates.length)]!;
       try {
         state = pickPlayerForSlot(state, pick.playerId, pool);
+        swapFromRef.current = null;
         draw();
       } catch {
         /* invalid pick */
       }
     });
 
-    root.querySelector("#respin-empty")?.addEventListener("click", () => {
-      if (state.phase !== "picking" || state.rerollsLeft <= 0) return;
-      try {
-        state = useReroll(state, pool);
-        draw();
-      } catch {
-        /* no rerolls */
-      }
+    root.querySelectorAll("#respin-empty").forEach((btn) => {
+      btn.addEventListener("click", runRespin);
     });
 
     root.querySelectorAll("#pick-pool .db-player-card").forEach((el) => {
@@ -373,6 +551,7 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
         const id = (el as HTMLElement).dataset.id!;
         try {
           state = pickPlayerForSlot(state, id, pool);
+          swapFromRef.current = null;
           draw();
         } catch {
           /* invalid pick */
