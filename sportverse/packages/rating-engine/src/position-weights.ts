@@ -20,7 +20,9 @@ export function mapQuizPosition(position?: string): Position {
   if (p.includes("attacking mid")) return "AM";
   if (p.includes("midfield") || p.includes("midfielder")) return "CM";
   if (p.includes("winger") || p.includes("wing")) return "W";
-  if (p.includes("forward") || p.includes("striker")) return "ST";
+  if (p.includes("forward") || p.includes("striker") || p.includes("attack")) return "ST";
+  // Coarse "Defender" (no side info) reads as centre-back, not midfielder.
+  if (p.includes("defend")) return "CB";
   return "CM";
 }
 

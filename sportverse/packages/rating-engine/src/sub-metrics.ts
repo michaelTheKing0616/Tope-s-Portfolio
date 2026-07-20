@@ -2,6 +2,7 @@ import type { PlayerSeasonStat } from "@sportverse/sports-db";
 import type { DraftModeConfig, Position } from "@sportverse/draftballer-types";
 import { getEraBaselines } from "@sportverse/sports-db";
 import { peakWeightStats } from "./peak-weighting.js";
+import { repairSeasonMinutesRows } from "./minutes.js";
 
 export type SubMetricKey =
   | "goals_per_90"
@@ -27,7 +28,7 @@ function clamp(n: number, min = 0, max = 1): number {
 }
 
 function filterStats(stats: PlayerSeasonStat[], mode: DraftModeConfig): PlayerSeasonStat[] {
-  let rows = stats;
+  let rows = repairSeasonMinutesRows(stats);
   if (mode.ratingLens === "club_only") rows = rows.filter((s) => s.context === "CLUB");
   if (mode.ratingLens === "international_only") rows = rows.filter((s) => s.context === "NATIONAL_TEAM");
   if (mode.era === "all_time" || mode.era === "decade") rows = peakWeightStats(rows, 4);

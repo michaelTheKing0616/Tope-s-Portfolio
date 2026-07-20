@@ -19,11 +19,15 @@ import { squadRating } from "./draft-room.js";
 import { draftPickAllowedForSlot } from "./squad-rules.js";
 import { createRng, randomSessionSeed } from "./rng.js";
 
-/** Prefer a real choice set — thin squads trigger a free search for another club. */
+/**
+ * Prefer a real choice set — thin squads never make it onto the wheel.
+ * Club squads carry ~2-3 GKs and ~4+ per outfield role, so these floors keep
+ * most recognizable club-seasons spinnable while guaranteeing a choice.
+ */
 export function minPickCandidatesForPosition(position: Position | undefined): number {
   if (!position) return 4;
-  if (position === "GK") return 3;
-  return 6;
+  if (position === "GK") return 2;
+  return 4;
 }
 
 /** Position shapes mirrored from match-sim/formations.ts (dependency boundary — keep in sync). */
@@ -80,23 +84,44 @@ function clubSeasonToSegment(entry: ReturnType<typeof listSpinnableClubSeasons>[
   };
 }
 
+export interface WheelSegmentFilter {
+  /** Only include club-seasons with enough eligible players for this slot. */
+  position?: Position;
+  /** Players already drafted — they cannot be picked again. */
+  excludePlayerIds?: ReadonlySet<string>;
+}
+
 /**
  * Sample wheel segments from curated club-seasons (recognizable leagues only).
  * Never falls back to raw career-club strings (ZB Home, youth aliases, …).
+ * With a position filter, every returned segment is guaranteed to offer at
+ * least minPickCandidatesForPosition eligible players — landing on a club
+ * with "no matching players" becomes impossible by construction.
  */
 export function buildWheelSegments(
   mode: DraftModeConfig,
   pool: RatedPlayerCard[],
   seed: string,
   count = 24,
+  filter: WheelSegmentFilter = {},
 ): WheelSegment[] {
-  const poolIds = new Set(pool.map((p) => p.playerId));
+  const poolById = new Map(pool.map((p) => [p.playerId, p]));
+  const position = filter.position;
+  const excluded = filter.excludePlayerIds;
+  const minNeed = minPickCandidatesForPosition(position);
+
   const spinnable = listSpinnableClubSeasons(mode).filter((entry) => {
     let overlap = 0;
+    let eligibleForSlot = 0;
     for (const id of entry.playerIds) {
-      if (poolIds.has(id)) {
-        overlap++;
-        if (overlap >= WHEEL_MIN_POOL_OVERLAP) return true;
+      const card = poolById.get(id);
+      if (!card) continue;
+      overlap++;
+      if (position && !excluded?.has(id) && draftPickAllowedForSlot(card, position, true)) {
+        eligibleForSlot++;
+      }
+      if (overlap >= WHEEL_MIN_POOL_OVERLAP && (!position || eligibleForSlot >= minNeed)) {
+        return true;
       }
     }
     return false;
@@ -112,6 +137,32 @@ export function buildWheelSegments(
   return sampled.map((entry, i) => clubSeasonToSegment(entry, i));
 }
 
+/**
+ * Rebuild the wheel for the slot the player is about to fill, so every visible
+ * slice is a club-season that can actually supply that position. No-op when the
+ * segments were already built for the same slot state.
+ */
+export function ensureSegmentsForSlot(
+  state: WheelBuildState,
+  pool: RatedPlayerCard[],
+): WheelBuildState {
+  const position = targetPosition(state);
+  const key = `${position ?? "any"}:${state.roster.length}`;
+  if (state.segmentsSlotKey === key && state.segments.length) return state;
+
+  const excludePlayerIds = new Set(state.roster);
+  let segments = buildWheelSegments(state.mode, pool, `${state.seed}:${key}`, 24, {
+    position,
+    excludePlayerIds,
+  });
+  if (!segments.length) {
+    // Late-draft safety: better a wheel that may need a free internal respin
+    // than an empty wheel.
+    segments = buildWheelSegments(state.mode, pool, state.seed, 24);
+  }
+  return { ...state, segments, segmentsSlotKey: key };
+}
+
 export function createWheelSession(
   mode: DraftModeConfig,
   pool: RatedPlayerCard[],
@@ -119,10 +170,10 @@ export function createWheelSession(
 ): WheelBuildState {
   const formationId = mode.formationId ?? "4-3-3";
   const formation = formationSlotsFromId(formationId);
-  return {
+  const state: WheelBuildState = {
     mode: { ...mode, formationId },
     seed,
-    segments: buildWheelSegments(mode, pool, seed),
+    segments: [],
     formation,
     roster: [],
     currentSlotIndex: 0,
@@ -135,6 +186,7 @@ export function createWheelSession(
     candidateIds: [],
     fallback: null,
   };
+  return ensureSegmentsForSlot(state, pool);
 }
 
 function targetPosition(state: WheelBuildState): Position | undefined {
@@ -157,8 +209,13 @@ function sampleCandidates(
     .filter((c): c is RatedPlayerCard => !!c && !picked.has(c.playerId));
 
   // Never fall back to other positions — empty pool triggers respin UX.
+  // Prefer natural fits: soft-eligible teammates only pad thin exact pools.
   if (position) {
-    eligible = eligible.filter((c) => draftPickAllowedForSlot(c, position, true));
+    const exact = eligible.filter((c) => c.position === position);
+    eligible =
+      exact.length >= minPickCandidatesForPosition(position)
+        ? exact
+        : eligible.filter((c) => draftPickAllowedForSlot(c, position, true));
   }
   if (!eligible.length) return [];
 
@@ -486,12 +543,18 @@ export function selectFormationSlot(state: WheelBuildState, slotIndex: number): 
   if (slot.playerId) {
     return { ...state, selectedSlotIndex: slotIndex };
   }
-  return {
+  const next: WheelBuildState = {
     ...state,
     selectedSlotIndex: slotIndex,
     currentSlotIndex: slotIndex,
     mode: { ...state.mode, draftOrder: "position_first" },
   };
+  // Retargeting mid-pick returns to the wheel so it can rebuild for the new
+  // position — never a dead end, never burns a reroll.
+  if (state.phase === "picking") {
+    return { ...next, phase: "ready", spunSegment: null, candidateIds: [], fallback: null };
+  }
+  return next;
 }
 
 export function normalizeSegmentsForWheel(segments: WheelSegment[], max = 24): WheelSegment[] {

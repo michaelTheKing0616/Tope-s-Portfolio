@@ -208,6 +208,8 @@ export interface WheelBuildState {
   candidateIds: string[];
   fallback?: "respin_free" | "out_of_position" | null;
   selectedSlotIndex?: number;
+  /** Cache key of the slot the current segments were built for (position-aware wheel). */
+  segmentsSlotKey?: string;
 }
 
 /** Squad input for match/season simulation (bible §7.1). */

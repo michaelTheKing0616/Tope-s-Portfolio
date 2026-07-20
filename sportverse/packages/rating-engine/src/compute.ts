@@ -128,18 +128,34 @@ function ratingFromStats(
 /** Cap for role-archetype (fabricated) ratings — UNCALIBRATED — EXPERT PRIOR (Rating Engine v5). */
 export const FABRICATED_OVR_CAP = 72;
 
-/** Outfield MV scouting-consensus blend weight — UNCALIBRATED — EXPERT PRIOR (capped; labeled in breakdown). */
+/** Outfield MV scouting-consensus base blend weight — UNCALIBRATED — EXPERT PRIOR (labeled in breakdown). */
 export const MV_BLEND_WEIGHT_OUTFIELD = 0.2;
-/** GK MV blend weight — UNCALIBRATED — EXPERT PRIOR. */
+/** GK MV base blend weight — UNCALIBRATED — EXPERT PRIOR. */
 export const MV_BLEND_WEIGHT_GK = 0.15;
+/**
+ * Extra weight granted quadratically as MV percentile approaches 100 —
+ * UNCALIBRATED — EXPERT PRIOR. Goal/assist proxies cannot see defensive or
+ * off-ball quality, so era-top market value (the market's scouting consensus)
+ * must be able to pull elite defenders/wingers out of the 60s.
+ */
+export const MV_BLEND_PCT_BONUS = 0.3;
+export const MV_BLEND_WEIGHT_MAX = 0.5;
 
-export function mvBlendWeightForPosition(position: ReturnType<typeof mapQuizPosition>): number {
-  return position === "GK" ? MV_BLEND_WEIGHT_GK : MV_BLEND_WEIGHT_OUTFIELD;
+export function mvBlendWeightForPosition(
+  position: ReturnType<typeof mapQuizPosition>,
+  percentile = 0,
+): number {
+  const base = position === "GK" ? MV_BLEND_WEIGHT_GK : MV_BLEND_WEIGHT_OUTFIELD;
+  const pctUnit = Math.max(0, Math.min(1, percentile / 100));
+  return Math.min(MV_BLEND_WEIGHT_MAX, base + MV_BLEND_PCT_BONUS * pctUnit * pctUnit);
 }
 
 /**
- * Blend base OVR with era-normalized MV percentile.
- * Hand calc: base=80, pct=50 → mvOvr=round(55+22)=77; weight=0.2 → 80*0.8+77*0.2=79.4→79.
+ * Blend base OVR with era-normalized MV percentile. Weight rises with the
+ * percentile itself (see MV_BLEND_PCT_BONUS) — still fame-firewall-safe
+ * because MV percentile is independent of fameScore.
+ * Hand calc: base=80, pct=50 → mvOvr=round(55+22)=77;
+ * weight=0.2+0.3*0.25=0.275 → 80*0.725+77*0.275=79.175→79.
  */
 export function mvOvrBlend(
   baseOvr: number,
@@ -147,7 +163,7 @@ export function mvOvrBlend(
   position: ReturnType<typeof mapQuizPosition>,
 ): { ovr: number; delta: number; weight: number; percentile: number } {
   const pct = mvPercentileForRating(playerId);
-  const weight = mvBlendWeightForPosition(position);
+  const weight = mvBlendWeightForPosition(position, pct);
   if (pct <= 0) return { ovr: baseOvr, delta: 0, weight, percentile: 0 };
   const mvOvr = clamp(55 + pct * 0.44);
   const blended = clamp(baseOvr * (1 - weight) + mvOvr * weight);

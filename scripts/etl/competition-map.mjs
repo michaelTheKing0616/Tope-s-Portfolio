@@ -57,17 +57,31 @@ export function seasonNameToYear(seasonName) {
   return y;
 }
 
-export function mapArchivePosition(mainPosition, positionField) {
-  const raw = `${mainPosition} ${positionField}`.toLowerCase();
+/**
+ * Keep Transfermarkt position granularity — the rating engine maps these to
+ * FB/CB/DM/AM/W slots. Collapsing to "Defender"/"Midfielder" destroys the
+ * draft pool's role data (the original mapArchivePosition bug).
+ */
+export function refineArchivePosition(mainPosition, positionField) {
+  const raw = `${mainPosition ?? ""} ${positionField ?? ""}`.toLowerCase();
   if (raw.includes("goalkeeper") || raw.includes("keeper")) return "Goalkeeper";
-  if (raw.includes("centre-back") || raw.includes("center-back") || raw.includes("centre back")) return "Defender";
-  if (raw.includes("back") || raw.includes("wing-back")) return "Defender";
-  if (raw.includes("defensive mid")) return "Midfielder";
-  if (raw.includes("attacking mid") || raw.includes("offensive mid")) return "Midfielder";
+  if (raw.includes("centre-back") || raw.includes("center-back") || raw.includes("centre back")) return "Centre-Back";
+  if (raw.includes("right-back") || raw.includes("right back")) return "Right-Back";
+  if (raw.includes("left-back") || raw.includes("left back")) return "Left-Back";
+  if (raw.includes("wing-back") || raw.includes("wingback")) return "Wing-Back";
+  if (raw.includes("defensive mid")) return "Defensive Midfielder";
+  if (raw.includes("attacking mid") || raw.includes("offensive mid")) return "Attacking Midfielder";
+  if (raw.includes("left midfield") || raw.includes("right midfield")) return "Winger";
+  if (raw.includes("central mid") || raw.includes("centre mid") || raw.includes("center mid")) return "Central Midfielder";
+  if (raw.includes("winger") || raw.includes("wing")) return "Winger";
+  if (raw.includes("second striker")) return "Second Striker";
+  if (raw.includes("centre-forward") || raw.includes("center-forward") || raw.includes("striker")) return "Striker";
+  if (raw.includes("forward") || raw.includes("attack")) return "Forward";
   if (raw.includes("midfield")) return "Midfielder";
-  if (raw.includes("winger") || raw.includes("wing")) return "Forward";
-  if (raw.includes("forward") || raw.includes("striker")) return "Forward";
-  if (raw.includes("attack")) return "Forward";
   if (raw.includes("defender")) return "Defender";
-  return "Midfielder";
+  return null;
+}
+
+export function mapArchivePosition(mainPosition, positionField) {
+  return refineArchivePosition(mainPosition, positionField) ?? "Midfielder";
 }

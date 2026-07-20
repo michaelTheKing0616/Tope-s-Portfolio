@@ -58,11 +58,11 @@ export function draftPickAllowedForSlot(
 ): boolean {
   if (!strict) return true;
   if (player.position === requiredPosition) return true;
+  // No FB←W: a winger is not a fullback (user-visible correctness rule).
   const soft: Partial<Record<Position, Position[]>> = {
     CM: ["DM", "AM"],
     AM: ["CM", "W"],
     W: ["AM", "FB"],
-    FB: ["W"],
     ST: ["AM"],
   };
   return soft[requiredPosition]?.includes(player.position) ?? false;

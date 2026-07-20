@@ -12,6 +12,7 @@ import {
   type LeagueContextBreakdown,
 } from "./league-strength.js";
 import { computeRatingConfidence } from "./attribute-confidence.js";
+import { repairSeasonMinutesRows } from "./minutes.js";
 import type { PlayerAttributes as MacroAttrs } from "@sportverse/draftballer-types";
 
 function clamp(n: number, min = 1, max = 99): number {
@@ -31,7 +32,7 @@ function seasonToDecade(seasonLabel: string): string {
 }
 
 function filterStats(stats: PlayerSeasonStat[], mode: DraftModeConfig): PlayerSeasonStat[] {
-  let rows = stats;
+  let rows = repairSeasonMinutesRows(stats);
   if (mode.ratingLens === "club_only") rows = rows.filter((s) => s.context === "CLUB");
   if (mode.ratingLens === "international_only") rows = rows.filter((s) => s.context === "NATIONAL_TEAM");
   if (mode.competitionScope === "single_league" && mode.leagueId) {

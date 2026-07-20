@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   buildWheelSegments,
   createWheelSession,
+  ensureSegmentsForSlot,
   getPickCandidates,
   minPickCandidatesForPosition,
   pickPlayerForSlot,
@@ -30,6 +31,49 @@ describe("spin-wheel", () => {
       expect(looksLikeJunkClubAlias(seg.label)).toBe(false);
       expect(seg.label).not.toMatch(/^ZB\s/i);
       expect(seg.label).not.toMatch(/^tm[-_]/i);
+    }
+  });
+
+  it("position-filtered segments always supply enough players for the slot", () => {
+    const minNeed = minPickCandidatesForPosition("FB");
+    const segments = buildWheelSegments(mode, pool, "test-fb-filter", 24, { position: "FB" });
+    expect(segments.length).toBeGreaterThan(0);
+    const poolMap = new Map(pool.map((p) => [p.playerId, p]));
+    for (const seg of segments) {
+      const eligible = (seg.squadPlayerIds ?? [])
+        .map((id) => poolMap.get(id))
+        .filter((c) => c && draftPickAllowedForSlot(c, "FB", true));
+      expect(eligible.length).toBeGreaterThanOrEqual(minNeed);
+    }
+  });
+
+  it("every wheel slice is playable — landing never yields an empty pool", () => {
+    let state = createWheelSession(mode, pool, "test-no-dead-ends");
+    state = ensureSegmentsForSlot(state, pool);
+    const pos = state.formation[state.currentSlotIndex]?.position;
+    const minNeed = minPickCandidatesForPosition(pos);
+    for (let i = 0; i < state.segments.length; i++) {
+      const spun = spinToSegment({ ...state, phase: "ready", spunSegment: null }, i, pool);
+      expect(getPickCandidates(spun, pool).length).toBeGreaterThanOrEqual(minNeed);
+    }
+  });
+
+  it("FB slots never surface wingers", () => {
+    let state = createWheelSession(mode, pool, "test-fb-strict");
+    const fbSlot = state.formation.findIndex((s) => s.position === "FB");
+    expect(fbSlot).toBeGreaterThanOrEqual(0);
+    state = {
+      ...state,
+      currentSlotIndex: fbSlot,
+      selectedSlotIndex: fbSlot,
+      mode: { ...state.mode, draftOrder: "position_first" },
+    };
+    state = ensureSegmentsForSlot(state, pool);
+    state = spinToSegment(state, 0, pool);
+    const candidates = getPickCandidates(state, pool);
+    expect(candidates.length).toBeGreaterThan(0);
+    for (const c of candidates) {
+      expect(c.position).toBe("FB");
     }
   });
 

@@ -104,15 +104,25 @@ describe("fame firewall — fameScore never moves OVR", () => {
 });
 
 describe("mvOvrBlend — hand-calculated", () => {
-  it("base 80, pct 50, outfield weight 0.2 → OVR 79, delta -1", () => {
+  it("base 80, pct 50 → weight 0.275, OVR 79, delta -1", () => {
     // mvOvr = round(55 + 50*0.44) = round(77) = 77
-    // blended = round(80*0.8 + 77*0.2) = round(64 + 15.4) = round(79.4) = 79
+    // weight = 0.2 + 0.3*(0.5^2) = 0.275
+    // blended = round(80*0.725 + 77*0.275) = round(58 + 21.175) = round(79.175) = 79
     setFameDataForRatings([{ playerId: "mv-calc", fameScore: 0, mvPercentile: 50 }]);
     const r = mvOvrBlend(80, "mv-calc", "ST");
     expect(r.percentile).toBe(50);
-    expect(r.weight).toBe(0.2);
+    expect(r.weight).toBeCloseTo(0.275, 5);
     expect(r.ovr).toBe(79);
     expect(r.delta).toBe(-1);
+  });
+
+  it("era-top MV percentile carries max weight — pulls a stats-blind 60 toward elite", () => {
+    // weight = min(0.5, 0.2 + 0.3*1) = 0.5; mvOvr = round(55 + 44) = 99
+    // blended = round(60*0.5 + 99*0.5) = round(79.5) = 80
+    setFameDataForRatings([{ playerId: "mv-top", fameScore: 0, mvPercentile: 100 }]);
+    const r = mvOvrBlend(60, "mv-top", "FB");
+    expect(r.weight).toBe(0.5);
+    expect(r.ovr).toBe(80);
   });
 });
 

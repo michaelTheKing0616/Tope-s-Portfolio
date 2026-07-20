@@ -3,6 +3,7 @@ import {
   buildDraftPool,
   createWheelSession,
   currentFormationSlot,
+  ensureSegmentsForSlot,
   getPickCandidates,
   getPresetMode,
   listWheelFormationIds,
@@ -17,7 +18,7 @@ import {
 } from "@sportverse/draftballer-core";
 
 /** Bust stale PWA caches — bump when wheel UX changes. */
-const WHEEL_UI_BUILD = "pitch-v3";
+const WHEEL_UI_BUILD = "pitch-v4";
 import { getFormation } from "@sportverse/match-sim";
 import { computeSquadRating } from "@sportverse/rating-engine";
 import { playerCardHtml } from "./draftballer-hub.js";
@@ -276,6 +277,12 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
       root.querySelector("#again")?.addEventListener("click", () => renderDraftballerWheel(root, navigate));
       root.querySelector("#hub")?.addEventListener("click", () => navigate("draftballer"));
       return;
+    }
+
+    // Rebuild the wheel for the upcoming slot so every slice can supply that
+    // position — a spin can no longer land on a club with no eligible players.
+    if (state.phase === "ready") {
+      state = ensureSegmentsForSlot(state, pool);
     }
 
     const slot = currentFormationSlot(state);
