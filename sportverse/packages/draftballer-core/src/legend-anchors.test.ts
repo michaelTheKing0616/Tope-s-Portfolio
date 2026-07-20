@@ -18,6 +18,7 @@ describe("legend rating anchors", () => {
     ["Lionel Messi", 96],
     ["Zico", 94],
     ["Garrincha", 95],
+    ["Jan Oblak", 92],
   ];
 
   it.each(expected)("%s is anchored at exactly %i", (name, ovr) => {

@@ -5,7 +5,7 @@ export type RatingTier = "bronze" | "silver" | "gold" | "gold_plus" | "prismatic
 export type EraFilter = "single_year" | "decade" | "all_time" | "custom_range";
 export type CompetitionScope = "single_league" | "any_league" | "continental" | "international" | "custom";
 export type RatingLens = "club_only" | "international_only" | "blended" | "best_context";
-export type RatingBasis = "prime" | "season";
+export type RatingBasis = "prime" | "season" | "ea_current";
 export type FameTier = "icon" | "star" | "known" | "cult" | "obscure";
 export type DraftOrderMode = "squad_first" | "position_first";
 export type DraftDifficulty = "easy" | "normal" | "hard";
@@ -120,6 +120,12 @@ export interface RatedPlayerCard {
     mvBlendWeight?: number;
     /** True when OVR came from legend-ratings.json manual override. */
     legendOverride?: boolean;
+    /** EA FC 26 current-season calibrated OVR (external reference). */
+    eaCalibrationOvr?: number;
+    /** Points stats peak exceeded EA current snapshot (prime uplift signal). */
+    eaPeakUplift?: number;
+    /** Prime-era bump above EA current snapshot (all-time modes). */
+    eaPrimeUplift?: number;
   };
   gkAttributes?: GKAttributes;
 }

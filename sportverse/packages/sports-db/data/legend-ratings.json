@@ -120,6 +120,10 @@
   "ovr": 92
  },
  {
+  "playerId": "neuer",
+  "ovr": 92
+ },
+ {
   "playerId": "not-applicable-jairzinho",
   "ovr": 92
  },
@@ -141,6 +145,10 @@
  },
  {
   "playerId": "ruud-gullit",
+  "ovr": 92
+ },
+ {
+  "playerId": "tm-121483",
   "ovr": 92
  },
  {
@@ -169,6 +177,10 @@
  },
  {
   "playerId": "bobby-moore",
+  "ovr": 91
+ },
+ {
+  "playerId": "courtois",
   "ovr": 91
  },
  {
@@ -349,10 +361,6 @@
  },
  {
   "playerId": "thibaut-courtois",
-  "ovr": 90
- },
- {
-  "playerId": "tm-121483",
   "ovr": 90
  },
  {
@@ -552,6 +560,10 @@
   "ovr": 89
  },
  {
+  "playerId": "ter-stegen",
+  "ovr": 89
+ },
+ {
   "playerId": "thiago-silva",
   "ovr": 89
  },
@@ -629,6 +641,10 @@
  },
  {
   "playerId": "claude-makelele",
+  "ovr": 88
+ },
+ {
+  "playerId": "donnarumma",
   "ovr": 88
  },
  {

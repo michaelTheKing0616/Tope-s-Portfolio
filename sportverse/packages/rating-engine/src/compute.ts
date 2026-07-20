@@ -7,6 +7,7 @@ import { awardBonus, bigMomentBonus, legacyReputationBonus, longevityAdjustment 
 import { communityCalibrationNudge } from "./calibration.js";
 import { durabilityForRating, fameScoreForRating, mvPercentileForRating } from "./fame-data.js";
 import { applyPositionAttributeCaps } from "./position-weights.js";
+import { blendWithEaCalibration, getEaRating } from "./ea-ratings.js";
 
 export interface RatingInput {
   id: string;
@@ -188,7 +189,7 @@ export function computePlayerRating(input: RatingInput, mode: DraftModeConfig): 
   let fabricated = derived.fabricated;
   const statConfidence = Math.max(clubFromStats?.confidence ?? 0, intlFromStats?.confidence ?? 0, fabricated ? 0.45 : 0.72);
   const microBreakdown = clubFromStats?.microBreakdown ?? intlFromStats?.microBreakdown;
-  const gkAttributes = clubFromStats?.gkAttributes ?? intlFromStats?.gkAttributes;
+  let gkAttributes = clubFromStats?.gkAttributes ?? intlFromStats?.gkAttributes;
   const leagueContext =
     mode.ratingLens === "international_only"
       ? intlFromStats?.leagueContext
@@ -199,6 +200,34 @@ export function computePlayerRating(input: RatingInput, mode: DraftModeConfig): 
   let clubOvr = input.manualOvr ?? clubFromStats?.ovr ?? intlFromStats?.ovr ?? ovrFromAttributes(position, attrs);
   let intlOvr = intlFromStats?.ovr ?? clubFromStats?.ovr ?? clamp(clubOvr - 6);
 
+  let eaCalibrationOvr: number | undefined;
+  let eaPeakUplift: number | undefined;
+  let eaPrimeUpliftPts: number | undefined;
+  const eaEntry = !input.manualOvr ? getEaRating(input.id) : undefined;
+  const eaCurrentSnapshot = mode.ratingBasis === "ea_current";
+  if (eaEntry) {
+    if (eaEntry.attributes) {
+      attrs = eaEntry.attributes;
+      fabricated = false;
+    }
+    if (eaEntry.gkAttributes) {
+      gkAttributes = {
+        div: eaEntry.gkAttributes.diving,
+        han: eaEntry.gkAttributes.handling,
+        kic: eaEntry.gkAttributes.kicking,
+        pos: eaEntry.gkAttributes.positioning,
+        ref: eaEntry.gkAttributes.reflexes,
+        spd: 50,
+      };
+      fabricated = false;
+    }
+    const blended = blendWithEaCalibration(clubOvr, eaEntry, { eaCurrentSnapshot });
+    clubOvr = blended.ovr;
+    eaCalibrationOvr = blended.eaOvr;
+    eaPeakUplift = blended.peakUplift;
+    eaPrimeUpliftPts = blended.primeUplift;
+  }
+
   if (intlFromStats) {
     intlOvr = intlFromStats.ovr;
   } else if (!stats.some((s) => s.context === "NATIONAL_TEAM")) {
@@ -208,7 +237,8 @@ export function computePlayerRating(input: RatingInput, mode: DraftModeConfig): 
   let mvBlendDelta: number | undefined;
   let mvBlendWeight: number | undefined;
   let mvBlendPct: number | undefined;
-  if (!input.manualOvr) {
+  // EA FC 26 already encodes market consensus — MV blend must not pull calibrated players below EA floor.
+  if (!input.manualOvr && !eaCurrentSnapshot && !eaEntry) {
     const mv = mvOvrBlend(clubOvr, input.id, position);
     clubOvr = mv.ovr;
     if (mv.percentile > 0) {
@@ -226,7 +256,8 @@ export function computePlayerRating(input: RatingInput, mode: DraftModeConfig): 
 
   // Hand-curated anchors are exact by contract — bonuses would drift a
   // vetted 89 to 92 and defeat the point of anchoring.
-  if (!input.manualOvr) {
+  // EA current snapshot is also exact — no award/nudge drift.
+  if (!input.manualOvr && !eaCurrentSnapshot) {
     clubOvr = clamp(clubOvr + bonus * 0.6);
     intlOvr = clamp(intlOvr + bonus * 0.4);
   }
@@ -234,7 +265,7 @@ export function computePlayerRating(input: RatingInput, mode: DraftModeConfig): 
   let ovr = lensBlend(clubOvr, intlOvr, mode.ratingLens, mode.blendFactor);
   let confidence = input.manualOvr ? 0.98 : statConfidence;
 
-  if (fabricated && !input.manualOvr) {
+  if (fabricated && !input.manualOvr && !eaEntry) {
     ovr = Math.min(ovr, FABRICATED_OVR_CAP);
     confidence = Math.min(confidence, 0.45);
   }
@@ -244,7 +275,18 @@ export function computePlayerRating(input: RatingInput, mode: DraftModeConfig): 
   }
 
   const { nudge, entry } = communityCalibrationNudge(input.id, confidence);
-  if (!input.manualOvr) ovr = clamp(ovr + nudge);
+  if (!input.manualOvr && !eaCurrentSnapshot && !eaEntry) ovr = clamp(ovr + nudge);
+
+  // EA FC 26 current-season mode: published OVR is authoritative.
+  if (eaCurrentSnapshot && eaEntry) {
+    ovr = eaEntry.ovr;
+    clubOvr = eaEntry.ovr;
+  }
+
+  // All-time/prime: never finish below EA floor + prime uplift for matched players.
+  if (eaEntry && !input.manualOvr && !eaCurrentSnapshot && eaPrimeUpliftPts != null) {
+    ovr = Math.max(ovr, eaEntry.ovr + eaPrimeUpliftPts);
+  }
 
   return {
     playerId: input.id,
@@ -277,6 +319,9 @@ export function computePlayerRating(input: RatingInput, mode: DraftModeConfig): 
       mvBlendDelta,
       mvBlendWeight,
       legendOverride: input.manualOvr != null || undefined,
+      eaCalibrationOvr,
+      eaPeakUplift,
+      eaPrimeUplift: eaPrimeUpliftPts,
     },
   };
 }

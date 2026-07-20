@@ -96,11 +96,28 @@ async function buildJson(options = {}) {
   writeFileSync(resolve(OUT_DIR, "awards.json"), JSON.stringify(awards, null, 2));
   writeFileSync(resolve(OUT_DIR, "iconic_moments.json"), JSON.stringify(iconicMoments, null, 2));
 
+  // Enrich iconic moments from football-datasets World Cup scorers (non-destructive merge).
+  try {
+    const { buildWorldCupMoments } = await import("./etl/build-worldcup-moments.mjs");
+    buildWorldCupMoments();
+  } catch (err) {
+    console.warn("World Cup moments enrichment skipped:", err.message ?? err);
+  }
+
   if (existsSync(ARCHIVE_PROFILES)) {
     await buildFameIndex();
     await buildPartnershipPairs();
     await buildClubSeasonRosters();
     await enrichSeasonStatsClubs();
+  }
+
+  // EA FC 26 calibration index (requires players-extended + fame-index).
+  try {
+    const { execSync } = await import("node:child_process");
+    execSync("node scripts/etl/build-ea-fc26-index.mjs", { cwd: ROOT, stdio: "inherit" });
+    execSync("node scripts/etl/fit-ea-position-weights.mjs", { cwd: ROOT, stdio: "inherit" });
+  } catch (err) {
+    console.warn("EA FC 26 index build skipped:", err.message ?? err);
   }
 
   console.log("ETL complete:", {

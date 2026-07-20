@@ -8,6 +8,7 @@ import {
   setLegacyReputationData,
   setPartnershipPairs,
   setFameDataForRatings,
+  setEaFc26Index,
 } from "@sportverse/rating-engine";
 import { setLegendRatings } from "@sportverse/draftballer-core";
 
@@ -65,3 +66,4 @@ setPartnershipPairs(partnerships);
 // Fame firewall: MV percentile from peakMv ranks only — never fameScore.
 setFameDataForRatings(attachMvPercentilesFromPeakMv(fameIndex));
 setLegendRatings(readOptional("legend-ratings.json"));
+setEaFc26Index(readOptional("ea-fc26-index.json"));

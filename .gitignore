@@ -51,6 +51,8 @@ public/_headers
 sportverse/archive/
 sportverse/archive.zip
 sportverse/data/raw/
+sportverse/cards/
 sportverse/packages/sports-db/data/season-stats.json
 sportverse/apps/web/public/data/season-stats.json
 sportverse-cdn/
+BUILD_LOG_*.txt

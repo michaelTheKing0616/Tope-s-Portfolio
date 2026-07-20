@@ -110,7 +110,14 @@ export function renderDraftballerArchitect(root: HTMLElement, navigate: Navigate
           <section class="panel db-architect-panel">
             <h2>Rating lens</h2>
             <label>Club ←→ International (${Math.round(mode.blendFactor * 100)}% intl)</label>
-            <input type="range" id="blend" min="0" max="100" value="${Math.round(mode.blendFactor * 100)}" />
+            <input type="range" id="blend" min="0" max="100" value="${Math.round(mode.blendFactor * 100)}" ${mode.ratingLens === "blended" ? "" : "disabled"} />
+            <p style="font-size:0.75rem;color:var(--db-muted);margin:4px 0 0">
+              ${
+                mode.ratingLens === "blended"
+                  ? "Slider sets blend weight between club and international raws."
+                  : `${mode.ratingLens.replace(/_/g, " ")} ignores blend — select Blended to use the slider.`
+              }
+            </p>
             <select id="lens" class="btn btn--ghost btn--block" style="margin-top:8px">
               <option value="blended" ${mode.ratingLens === "blended" ? "selected" : ""}>Blended</option>
               <option value="club_only" ${mode.ratingLens === "club_only" ? "selected" : ""}>Club only</option>
@@ -183,12 +190,16 @@ export function renderDraftballerArchitect(root: HTMLElement, navigate: Navigate
       draw();
     };
     root.querySelector("#blend")?.addEventListener("input", (e) => {
+      if (mode.ratingLens !== "blended") return;
       const v = Number((e.target as HTMLInputElement).value) / 100;
-      mode = { ...mode, blendFactor: v, ratingLens: v <= 0.05 ? "club_only" : v >= 0.95 ? "international_only" : mode.ratingLens };
+      mode = { ...mode, blendFactor: v };
       update();
     });
     root.querySelector("#lens")?.addEventListener("change", (e) => {
-      mode = { ...mode, ratingLens: (e.target as HTMLSelectElement).value as DraftModeConfig["ratingLens"] };
+      const ratingLens = (e.target as HTMLSelectElement).value as DraftModeConfig["ratingLens"];
+      const blendFactor =
+        ratingLens === "club_only" ? 0 : ratingLens === "international_only" ? 1 : mode.blendFactor;
+      mode = { ...mode, ratingLens, blendFactor };
       update();
     });
     root.querySelector("#raw-domestic")?.addEventListener("change", (e) => {

@@ -36,6 +36,7 @@ import {
   attachMvPercentilesFromPeakMv,
   setAwardsData,
   setFameDataForRatings,
+  setEaFc26Index,
 } from "@sportverse/rating-engine";
 import { getAwards, getIconicMoments, getFameIndex } from "@sportverse/sports-db";
 import { setLegendRatings } from "@sportverse/draftballer-core";
@@ -198,6 +199,12 @@ async function render() {
       try {
         const legendRes = await fetch(`${base}data/legend-ratings.json`);
         if (legendRes.ok) setLegendRatings(await legendRes.json());
+      } catch {
+        /* optional */
+      }
+      try {
+        const eaRes = await fetch(`${base}data/ea-fc26-index.json`);
+        if (eaRes.ok) setEaFc26Index(await eaRes.json());
       } catch {
         /* optional */
       }

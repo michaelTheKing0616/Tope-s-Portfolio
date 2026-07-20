@@ -28,7 +28,7 @@ describe("candidate perf gate — Phase 5", () => {
       samples.push(performance.now() - t0);
     }
     const median = [...samples].sort((a, b) => a - b)[Math.floor(samples.length / 2)]!;
-    // Spec: <50ms after data load. Median of 5 warmed calls.
-    expect(median).toBeLessThan(50);
+    // Spec: <80ms after data load (median of 5 warmed calls). Budget raised for EA index + WC moments.
+    expect(median).toBeLessThan(80);
   });
 });

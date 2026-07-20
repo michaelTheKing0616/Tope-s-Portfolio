@@ -24,8 +24,27 @@ function confidenceLabel(c: number): string {
   return "Low — limited records";
 }
 
+function eaCalibrationHtml(bd: RatedPlayerCard["breakdown"]): string {
+  if (bd.eaCalibrationOvr == null) return "";
+  const prime = bd.eaPrimeUplift != null && bd.eaPrimeUplift > 0 ? ` · prime +${bd.eaPrimeUplift}` : "";
+  const peak = bd.eaPeakUplift != null && bd.eaPeakUplift > 0 ? ` · stats peak +${Math.round(bd.eaPeakUplift * 0.45)}` : "";
+  const basis =
+    bd.ratingBasis === "ea_current"
+      ? "EA FC 26 current snapshot (exact)"
+      : "EA FC 26 calibrated floor";
+  return `<div style="grid-column:1/-1" class="db-modal-section">
+    <strong>EA FC 26 calibration</strong>
+    <p style="font-size:0.85rem;color:var(--db-muted);margin:6px 0 0">
+      ${basis} · EA current <strong style="color:var(--db-gold)">${bd.eaCalibrationOvr}</strong>${prime}${peak}
+    </p>
+  </div>`;
+}
+
 function ratingBasisHtml(bd: RatedPlayerCard["breakdown"]): string {
   const basis = bd.ratingBasis ?? "prime";
+  if (basis === "ea_current") {
+    return `<div style="grid-column:1/-1"><span class="db-stat-label">Rating basis</span><strong>EA FC 26 current snapshot</strong></div>`;
+  }
   if (basis === "season" && bd.seasonLabel) {
     return `<div style="grid-column:1/-1"><span class="db-stat-label">Rating basis</span><strong>Rated as of ${bd.seasonLabel} season</strong></div>`;
   }
@@ -113,6 +132,7 @@ export function showRatingBreakdown(card: RatedPlayerCard, onClose?: () => void,
   const clubRows = stats.filter((s) => s.context === "CLUB").slice(0, 6);
   const intlRows = stats.filter((s) => s.context === "NATIONAL_TEAM").slice(0, 6);
   const bd = card.breakdown;
+  const blendActive = bd.lens === "blended";
   const blendedOvr = instantBlendOvr(card, bd.blendFactor);
 
   overlayEl = document.createElement("div");
@@ -130,8 +150,14 @@ export function showRatingBreakdown(card: RatedPlayerCard, onClose?: () => void,
       <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start;margin:12px 0">
         <div style="flex:1;min-width:180px">
           <label class="db-stat-label">Live lens blend (${Math.round(bd.blendFactor * 100)}% intl)</label>
-          <input type="range" id="bd-blend" min="0" max="100" value="${Math.round(bd.blendFactor * 100)}" style="width:100%" />
-          <p style="font-size:0.8rem;color:var(--db-muted);margin-top:4px">Instant OVR: <strong data-blend-ovr style="color:var(--db-gold)">${blendedOvr}</strong></p>
+          <input type="range" id="bd-blend" min="0" max="100" value="${Math.round(bd.blendFactor * 100)}" style="width:100%" ${blendActive ? "" : "disabled"} />
+          <p style="font-size:0.8rem;color:var(--db-muted);margin-top:4px">
+            ${
+              blendActive
+                ? `Instant OVR: <strong data-blend-ovr style="color:var(--db-gold)">${blendedOvr}</strong>`
+                : `Blend applies only in <strong>blended</strong> lens (current: ${bd.lens.replace(/_/g, " ")}).`
+            }
+          </p>
           ${
             pool?.length
               ? `<label class="db-stat-label" style="margin-top:8px;display:block">Quick delta vs</label>
@@ -159,6 +185,7 @@ export function showRatingBreakdown(card: RatedPlayerCard, onClose?: () => void,
         <div><span class="db-stat-label">Lens</span><strong>${bd.lens.replace(/_/g, " ")}</strong></div>
         <div><span class="db-stat-label">Blend</span><strong>${Math.round(bd.blendFactor * 100)}%</strong></div>
         ${ratingBasisHtml(bd)}
+        ${eaCalibrationHtml(bd)}
         ${mvBlendHtml(bd)}
         ${fabricatedHtml(bd, card.confidence)}
         ${legendHtml(bd)}
@@ -238,10 +265,13 @@ export function showRatingBreakdown(card: RatedPlayerCard, onClose?: () => void,
   );
 
   overlayEl.querySelector("#bd-blend")?.addEventListener("input", (e) => {
+    if (bd.lens !== "blended") return;
     const blend = Number((e.target as HTMLInputElement).value) / 100;
-    const ovr = lensBlend(bd.clubOvrRaw, bd.intlOvrRaw, bd.lens, blend);
+    const ovr = lensBlend(bd.clubOvrRaw, bd.intlOvrRaw, "blended", blend);
     const blendEl = overlayEl?.querySelector("[data-blend-ovr]");
     const liveEl = overlayEl?.querySelector("[data-live-ovr]");
+    const blendLabel = overlayEl?.querySelector("label.db-stat-label");
+    if (blendLabel) blendLabel.textContent = `Live lens blend (${Math.round(blend * 100)}% intl)`;
     if (blendEl) blendEl.textContent = String(ovr);
     if (liveEl) liveEl.textContent = String(ovr);
   });

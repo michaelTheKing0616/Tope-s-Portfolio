@@ -83,7 +83,12 @@ function sidePanelHtml(side: "a" | "b", state: SideState, card: RatedPlayerCard 
           .join("")}
       </select>
       <label class="db-stat-label" style="margin-top:8px;display:block">Intl blend (${Math.round(state.blendFactor * 100)}%)</label>
-      <input type="range" min="0" max="100" value="${Math.round(state.blendFactor * 100)}" data-field="blendFactor" style="width:100%" />
+      <input type="range" min="0" max="100" value="${Math.round(state.blendFactor * 100)}" data-field="blendFactor" style="width:100%" ${state.lens === "blended" ? "" : "disabled"} />
+      ${
+        state.lens !== "blended"
+          ? `<p class="db-compare-hint">Blend applies only when lens is <strong>blended</strong>.</p>`
+          : ""
+      }
       <label class="db-stat-label" style="margin-top:8px;display:block">Basis</label>
       <select class="btn btn--ghost btn--block" data-field="ratingBasis">
         <option value="prime" ${state.ratingBasis === "prime" ? "selected" : ""}>Career peak</option>
@@ -184,8 +189,14 @@ export function renderDraftballerCompare(root: HTMLElement, navigate: Navigate, 
         const target = side === "a" ? sideA : sideB;
         if (field === "playerId") target.playerId = value;
         else if (field === "query") target.query = value;
-        else if (field === "lens") target.lens = value as RatingLens;
-        else if (field === "blendFactor") target.blendFactor = Number(value) / 100;
+        else if (field === "lens") {
+          target.lens = value as RatingLens;
+          target.blendFactor =
+            value === "club_only" ? 0 : value === "international_only" ? 1 : target.blendFactor;
+        } else if (field === "blendFactor") {
+          if (target.lens !== "blended") return;
+          target.blendFactor = Number(value) / 100;
+        }
         else if (field === "ratingBasis") target.ratingBasis = value as "prime" | "season";
         else if (field === "year") target.year = Number(value) || 2004;
         if (side === "a") sideA = { ...target };

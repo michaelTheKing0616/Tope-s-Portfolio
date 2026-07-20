@@ -77,6 +77,16 @@ export const PRESET_MODES: DraftModeConfig[] = [
     blendFactor: 0.5,
   },
   {
+    id: "ea-current",
+    title: "EA FC 26 · Current",
+    blurb: "Live EA FC 26 snapshot — exactly as rated today, no prime uplift.",
+    era: "all_time",
+    competitionScope: "any_league",
+    ratingLens: "club_only",
+    blendFactor: 0,
+    ratingBasis: "ea_current",
+  },
+  {
     id: "custom",
     title: "Draft Architect",
     blurb: "Build your own era, scope, and rating lens.",
