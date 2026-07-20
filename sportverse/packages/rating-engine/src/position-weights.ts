@@ -43,3 +43,29 @@ export function tierFromOvr(ovr: number): import("@sportverse/draftballer-types"
   if (ovr >= 65) return "silver";
   return "bronze";
 }
+
+const ATTR_CAPS: Partial<Record<Position, Partial<Record<keyof PlayerAttributes, number>>>> = {
+  CB: { sho: 68 },
+  ST: { def: 55 },
+  GK: { sho: 55, dri: 55, pas: 55 },
+};
+
+export function applyPositionAttributeCaps(
+  position: Position,
+  attrs: PlayerAttributes,
+  stats: { goals?: number; appearances?: number }[],
+): PlayerAttributes {
+  const out = { ...attrs };
+  const caps = ATTR_CAPS[position];
+  if (caps) {
+    for (const [k, max] of Object.entries(caps) as [keyof PlayerAttributes, number][]) {
+      if (out[k] > max) out[k] = max;
+    }
+  }
+  if (position === "CB") {
+    const apps = stats.reduce((s, r) => s + (r.appearances ?? 0), 0);
+    const goals = stats.reduce((s, r) => s + (r.goals ?? 0), 0);
+    if (apps > 0 && goals / apps <= 0.15 && out.sho > 68) out.sho = 68;
+  }
+  return out;
+}

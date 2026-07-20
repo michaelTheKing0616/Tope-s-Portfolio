@@ -13,4 +13,5 @@ export * from "./constants.js";
 export * from "./calibration.js";
 export * from "./gk-rating.js";
 export * from "./league-strength.js";
+export * from "./fame-data.js";
 export type { RatingInput } from "./compute.js";

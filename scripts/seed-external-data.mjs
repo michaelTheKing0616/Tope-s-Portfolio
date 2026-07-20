@@ -11,6 +11,9 @@ import { buildFromTransfermarkt } from "./etl/build-from-transfermarkt.mjs";
 import { buildFromArchive } from "./etl/build-from-archive.mjs";
 import { buildAllCalibrationData } from "./etl/build-calibration-data.mjs";
 import { buildAwardsAndMoments } from "./etl/seed-awards.mjs";
+import { buildFameIndex, buildPartnershipPairs } from "./etl/build-fame-index.mjs";
+import { buildClubSeasonRosters } from "./etl/build-club-season-index.mjs";
+import { enrichSeasonStatsClubs } from "./etl/enrich-season-stats-clubs.mjs";
 import { loadCuratedPlayers, OUT_DIR, RAW_DIR, ARCHIVE_DIR } from "./etl/utils.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -92,6 +95,13 @@ async function buildJson(options = {}) {
   writeFileSync(resolve(OUT_DIR, "player-aliases.json"), JSON.stringify(built.playerAliases ?? [], null, 2));
   writeFileSync(resolve(OUT_DIR, "awards.json"), JSON.stringify(awards, null, 2));
   writeFileSync(resolve(OUT_DIR, "iconic_moments.json"), JSON.stringify(iconicMoments, null, 2));
+
+  if (existsSync(ARCHIVE_PROFILES)) {
+    await buildFameIndex();
+    await buildPartnershipPairs();
+    await buildClubSeasonRosters();
+    await enrichSeasonStatsClubs();
+  }
 
   console.log("ETL complete:", {
     ...built.meta,

@@ -1,40 +1,12 @@
 import type { RatedPlayerCard } from "@sportverse/draftballer-types";
-import { NO_POPULARITY_BONUS_RULE, lensBlend } from "@sportverse/rating-engine";
+import { NO_POPULARITY_BONUS_RULE, lensBlend, FABRICATED_OVR_CAP } from "@sportverse/rating-engine";
 import { getSeasonStats } from "@sportverse/sports-db";
+import { attributeRadarSvg, playerCardDetailHtml } from "../lib/player-card.js";
 
 let overlayEl: HTMLElement | null = null;
-let compareCard: RatedPlayerCard | null = null;
 
 function radarSvg(attrs: RatedPlayerCard["attributes"], size = 160): string {
-  const keys: (keyof RatedPlayerCard["attributes"])[] = ["pac", "sho", "pas", "dri", "def", "phy"];
-  const cx = size / 2;
-  const cy = size / 2;
-  const r = size * 0.38;
-  const rings = [0.25, 0.5, 0.75, 1].map(
-    (f) =>
-      `<polygon points="${keys
-        .map((_, i) => {
-          const a = (Math.PI * 2 * i) / keys.length - Math.PI / 2;
-          return `${cx + Math.cos(a) * r * f},${cy + Math.sin(a) * r * f}`;
-        })
-        .join(" ")}" fill="none" stroke="rgba(255,255,255,0.08)" />`,
-  );
-  const pts = keys
-    .map((k, i) => {
-      const a = (Math.PI * 2 * i) / keys.length - Math.PI / 2;
-      const v = attrs[k] / 99;
-      return `${cx + Math.cos(a) * r * v},${cy + Math.sin(a) * r * v}`;
-    })
-    .join(" ");
-  const labels = keys
-    .map((k, i) => {
-      const a = (Math.PI * 2 * i) / keys.length - Math.PI / 2;
-      const lx = cx + Math.cos(a) * (r + 14);
-      const ly = cy + Math.sin(a) * (r + 14);
-      return `<text x="${lx}" y="${ly}" text-anchor="middle" fill="var(--db-muted)" font-size="9">${k.toUpperCase()}</text>`;
-    })
-    .join("");
-  return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-label="Attribute radar">${rings.join("")}<polygon points="${pts}" fill="rgba(212,175,55,0.25)" stroke="var(--db-gold)" stroke-width="1.5"/>${labels}</svg>`;
+  return attributeRadarSvg(attrs, size, { labels: true });
 }
 
 function instantBlendOvr(card: RatedPlayerCard, blend: number): number {
@@ -46,6 +18,55 @@ function confidenceLabel(c: number): string {
   if (c >= 0.75) return "Good — multiple seasons";
   if (c >= 0.65) return "Estimated — partial data";
   return "Low — limited records";
+}
+
+function ratingBasisHtml(bd: RatedPlayerCard["breakdown"]): string {
+  const basis = bd.ratingBasis ?? "prime";
+  if (basis === "season" && bd.seasonLabel) {
+    return `<div style="grid-column:1/-1"><span class="db-stat-label">Rating basis</span><strong>Rated as of ${bd.seasonLabel} season</strong></div>`;
+  }
+  return `<div style="grid-column:1/-1"><span class="db-stat-label">Rating basis</span><strong>Career peak, best-4-season window</strong></div>`;
+}
+
+function mvBlendHtml(bd: RatedPlayerCard["breakdown"]): string {
+  if (bd.mvBlend == null || bd.mvBlend <= 0) return "";
+  const delta = bd.mvBlendDelta ?? 0;
+  const weightPct = Math.round((bd.mvBlendWeight ?? 0.2) * 100);
+  const sign = delta >= 0 ? "+" : "";
+  return `<div style="grid-column:1/-1" class="db-modal-section">
+    <strong>Market-value scouting consensus</strong>
+    <p style="font-size:0.85rem;color:var(--db-muted);margin:6px 0 0">
+      ${sign}${delta.toFixed(1)} OVR · ${weightPct}% weight · era-normalized percentile <strong style="color:var(--db-gold)">${Math.round(bd.mvBlend)}</strong>
+    </p>
+  </div>`;
+}
+
+function fabricatedHtml(bd: RatedPlayerCard["breakdown"], confidence: number): string {
+  if (!bd.fabricated) return "";
+  const cap = bd.fabricatedCap ?? FABRICATED_OVR_CAP;
+  return `<div style="grid-column:1/-1" class="db-modal-section">
+    <strong>Limited data</strong>
+    <p style="font-size:0.85rem;color:var(--db-muted);margin:6px 0 0">
+      Attributes estimated from role archetype; capped at ${cap}, confidence ${confidence.toFixed(2)}
+    </p>
+  </div>`;
+}
+
+function legendHtml(bd: RatedPlayerCard["breakdown"]): string {
+  if (!bd.legendOverride) return "";
+  return `<div style="grid-column:1/-1" class="db-modal-section">
+    <strong>Legend rating</strong>
+    <p style="font-size:0.85rem;color:var(--db-muted);margin:6px 0 0">
+      Hand-calibrated legend rating — see legend-ratings.json
+    </p>
+  </div>`;
+}
+
+function fameTierChip(card: RatedPlayerCard): string {
+  const tier = card.fameTier ?? "obscure";
+  return `<span class="db-fame-chip" title="Fame affects visibility in pools, never this rating">
+    Fame ${tier} (${Math.round(card.fameScore ?? 0)}) — visibility only, never this rating
+  </span>`;
 }
 
 function microBreakdownHtml(
@@ -98,16 +119,18 @@ export function showRatingBreakdown(card: RatedPlayerCard, onClose?: () => void,
       <p class="db-hero__label" id="breakdown-title">Rating breakdown</p>
       <h2 class="db-modal-name">${card.name}</h2>
       <p class="db-modal-meta">${card.position} · OVR <strong style="color:var(--db-gold)" data-live-ovr>${card.ovr}</strong> · ${confidenceLabel(card.confidence)}</p>
+      ${fameTierChip(card)}
+
+      ${playerCardDetailHtml(card)}
 
       <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start;margin:12px 0">
-        ${radarSvg(card.attributes)}
         <div style="flex:1;min-width:180px">
           <label class="db-stat-label">Live lens blend (${Math.round(bd.blendFactor * 100)}% intl)</label>
           <input type="range" id="bd-blend" min="0" max="100" value="${Math.round(bd.blendFactor * 100)}" style="width:100%" />
           <p style="font-size:0.8rem;color:var(--db-muted);margin-top:4px">Instant OVR: <strong data-blend-ovr style="color:var(--db-gold)">${blendedOvr}</strong></p>
           ${
             pool?.length
-              ? `<label class="db-stat-label" style="margin-top:8px;display:block">Compare to</label>
+              ? `<label class="db-stat-label" style="margin-top:8px;display:block">Quick delta vs</label>
                  <select id="bd-compare" class="btn btn--ghost btn--block">
                    <option value="">— select player —</option>
                    ${pool
@@ -119,6 +142,7 @@ export function showRatingBreakdown(card: RatedPlayerCard, onClose?: () => void,
                  <div id="bd-compare-panel" style="margin-top:8px"></div>`
               : ""
           }
+          <button class="btn btn--ghost btn--block" id="bd-compare-nav" type="button" style="margin-top:10px">Compare contexts →</button>
         </div>
       </div>
 
@@ -130,6 +154,10 @@ export function showRatingBreakdown(card: RatedPlayerCard, onClose?: () => void,
         <div><span class="db-stat-label">Calibration</span><strong>${bd.calibrationNudge != null ? (bd.calibrationNudge >= 0 ? "+" : "") + bd.calibrationNudge : "—"}</strong></div>
         <div><span class="db-stat-label">Lens</span><strong>${bd.lens.replace(/_/g, " ")}</strong></div>
         <div><span class="db-stat-label">Blend</span><strong>${Math.round(bd.blendFactor * 100)}%</strong></div>
+        ${ratingBasisHtml(bd)}
+        ${mvBlendHtml(bd)}
+        ${fabricatedHtml(bd, card.confidence)}
+        ${legendHtml(bd)}
         ${bd.calibrationReason ? `<div style="grid-column:1/-1"><span class="db-stat-label">Calibration note</span><strong style="font-size:0.8rem">${bd.calibrationReason}</strong></div>` : ""}
         ${
           bd.leagueContext
@@ -234,6 +262,11 @@ export function showRatingBreakdown(card: RatedPlayerCard, onClose?: () => void,
       </div>`;
   });
 
+  overlayEl.querySelector("#bd-compare-nav")?.addEventListener("click", () => {
+    close();
+    location.hash = `#/draftballer/compare/${encodeURIComponent(card.playerId)}`;
+  });
+
   document.body.appendChild(overlayEl);
 }
 
@@ -256,6 +289,8 @@ export function bindPlayerCardBreakdowns(root: HTMLElement): void {
       position: pos as RatedPlayerCard["position"],
       ovr,
       tier,
+      fameScore: 0,
+      fameTier: "obscure",
       confidence: 0.8,
       attributes: {
         pac: parse("PAC "),

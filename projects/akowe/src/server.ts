@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import { Hono } from "hono";
 import { serve } from "@hono/node-server";
 import { writeFileSync, mkdirSync } from "node:fs";
-import { join } from "node:path";
+import { join, basename } from "node:path";
 import { loadConfig, MeetingStore, MemoryMeetingStore, type IMeetingStore } from "./store.js";
 import { createTranscriptionProvider } from "./transcribe.js";
 import { createSummarizationProvider } from "./summarize.js";
@@ -85,7 +85,8 @@ export function createApp(deps = createDeps()) {
     let audioPath: string | undefined;
     if (body.audioBase64) {
       const buf = Buffer.from(body.audioBase64, "base64");
-      audioPath = join(uploadDir, `${meeting.id}-${body.filename ?? "audio.webm"}`);
+      const safeName = basename(body.filename ?? "audio.webm").replace(/[^a-zA-Z0-9._-]/g, "_");
+      audioPath = join(uploadDir, `${meeting.id}-${safeName}`);
       writeFileSync(audioPath, buf);
     }
     const result = await transcribe.transcribe({ text: body.text, audioPath });

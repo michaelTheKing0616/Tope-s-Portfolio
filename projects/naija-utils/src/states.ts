@@ -1,4 +1,4 @@
-/** The 36 Nigerian states plus the FCT, with capitals and geopolitical zones. */
+/** The 36 Nigerian states plus the Federal Capital Territory (37 entries), with capitals and zones. */
 
 export type GeopoliticalZone =
   | "North-Central"

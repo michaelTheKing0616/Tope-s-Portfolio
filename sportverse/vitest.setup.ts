@@ -1,8 +1,15 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { __setExtendedDataForTests } from "@sportverse/sports-db";
-import { setAwardsData, setLegacyReputationData, setPartnershipPairs } from "@sportverse/rating-engine";
+import {
+  attachMvPercentilesFromPeakMv,
+  setAwardsData,
+  setLegacyReputationData,
+  setPartnershipPairs,
+  setFameDataForRatings,
+} from "@sportverse/rating-engine";
+import { setLegendRatings } from "@sportverse/draftballer-core";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)));
 const dataDir = resolve(root, "packages/sports-db/data");
@@ -15,9 +22,26 @@ const readOptional = (file: string) => {
   }
 };
 
+function readSeasonStats() {
+  const primary = resolve(dataDir, "season-stats.json");
+  const fixture = resolve(dataDir, "season-stats.fixture.json");
+  if (existsSync(primary)) {
+    return JSON.parse(readFileSync(primary, "utf8"));
+  }
+  if (existsSync(fixture)) {
+    console.warn("[vitest] Using season-stats.fixture.json — run prebuild:data for full test coverage");
+    return JSON.parse(readFileSync(fixture, "utf8"));
+  }
+  return [];
+}
+
+const fameFixture = readOptional("fame-index.fixture.json");
+const fameFull = readOptional("fame-index.json");
+const fameIndex = fameFull.length ? fameFull : fameFixture;
+
 __setExtendedDataForTests({
   players: JSON.parse(readFileSync(resolve(dataDir, "players-extended.json"), "utf8")),
-  stats: JSON.parse(readFileSync(resolve(dataDir, "season-stats.json"), "utf8")),
+  stats: readSeasonStats(),
   competitions: JSON.parse(readFileSync(resolve(dataDir, "competitions.json"), "utf8")),
   clubs: JSON.parse(readFileSync(resolve(dataDir, "clubs-extended.json"), "utf8")),
   eras: JSON.parse(readFileSync(resolve(dataDir, "era-baselines.json"), "utf8")),
@@ -27,6 +51,8 @@ __setExtendedDataForTests({
   confederationStrengthIndex: readOptional("confederation-strength-index.json"),
   crossLeagueFixtures: readOptional("cross-league-fixtures.json"),
   playerTransfers: readOptional("player-transfers.json"),
+  fameIndex,
+  clubSeasonRosters: readOptional("club-season-rosters.json"),
 });
 
 const awards = readOptional("awards.json");
@@ -36,3 +62,6 @@ const partnerships = readOptional("partnership-pairs.json");
 setAwardsData(awards, moments);
 setLegacyReputationData(legacyRep);
 setPartnershipPairs(partnerships);
+// Fame firewall: MV percentile from peakMv ranks only — never fameScore.
+setFameDataForRatings(attachMvPercentilesFromPeakMv(fameIndex));
+setLegendRatings(readOptional("legend-ratings.json"));

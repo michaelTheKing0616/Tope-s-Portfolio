@@ -50,6 +50,14 @@ export function verifySportsDbArtifacts(options = {}) {
     { name: "cross-league-fixtures.json", minBytes: 100 },
   ];
 
+  const optional = [{ name: "fame-index.json", minBytes: 100 }];
+  for (const { name, minBytes } of optional) {
+    const path = join(dataDir, name);
+    if (existsSync(path) && statSync(path).size >= minBytes) {
+      console.log(`  ✓ ${name} (${(statSync(path).size / 1024).toFixed(1)} KB)`);
+    }
+  }
+
   for (const { name, minBytes } of checks) {
     const path = join(dataDir, name);
     if (!existsSync(path)) {

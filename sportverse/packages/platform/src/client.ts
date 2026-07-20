@@ -6,12 +6,10 @@ import {
   type RewardGrant,
   updateStreak,
 } from "./types.js";
+import { resolveApiBase } from "./api-base.js";
+import { resolveDailyChallengeSeed } from "./daily-challenge.js";
 
-export * from "./types.js";
-
-const API_BASE = typeof window !== "undefined"
-  ? (import.meta.env?.VITE_API_URL as string | undefined) ?? "http://localhost:8792"
-  : "http://localhost:8792";
+const API_BASE = resolveApiBase();
 
 const STORAGE_KEY = "sportverse_profile";
 const FETCH_TIMEOUT_MS = 2_500;
@@ -60,6 +58,7 @@ export class PlatformClient {
 
   async syncProfile(): Promise<PlayerProfile> {
     const p = this.getProfile();
+    if (!this.baseUrl) return p;
     try {
       const res = await fetchWithTimeout(`${this.baseUrl}/api/players/${p.id}`, {
         method: "PUT",
@@ -87,27 +86,42 @@ export class PlatformClient {
   }
 
   async fetchLeaderboard(): Promise<LeaderboardEntry[]> {
-    try {
-      const res = await fetchWithTimeout(`${this.baseUrl}/api/leaderboard`);
-      if (res.ok) return (await res.json()) as LeaderboardEntry[];
-    } catch {
-      /* ignore */
+    if (this.baseUrl) {
+      try {
+        const res = await fetchWithTimeout(`${this.baseUrl}/api/leaderboard`);
+        if (res.ok) return (await res.json()) as LeaderboardEntry[];
+      } catch {
+        /* ignore */
+      }
     }
     const p = this.getProfile();
     return [{ playerId: p.id, displayName: p.displayName, xp: p.xp, level: p.level }];
   }
 
-  async getDailyChallenge(): Promise<{ mode: string; seed: string; bonusXp: number }> {
-    try {
-      const res = await fetchWithTimeout(`${this.baseUrl}/api/daily`);
-      if (res.ok) return (await res.json()) as { mode: string; seed: string; bonusXp: number };
-    } catch {
-      /* ignore */
+  async getDailyChallenge(): Promise<{ modeId: string; mode: string; seed: string; bonusXp: number }> {
+    if (this.baseUrl) {
+      try {
+        const res = await fetchWithTimeout(`${this.baseUrl}/api/daily`);
+        if (res.ok) {
+          const body = (await res.json()) as {
+            modeId?: string;
+            mode: string;
+            seed: string;
+            bonusXp: number;
+          };
+          return {
+            modeId: body.modeId ?? body.mode,
+            mode: body.mode,
+            seed: body.seed,
+            bonusXp: body.bonusXp,
+          };
+        }
+      } catch {
+        /* ignore */
+      }
     }
-    const modes = ["who-am-i", "speed-round", "true-false", "guess-club", "career-path"];
-    const day = new Date().toISOString().slice(0, 10);
-    const idx = day.split("-").reduce((a, b) => a + Number(b), 0) % modes.length;
-    return { mode: modes[idx]!, seed: day, bonusXp: 50 };
+    const { day, modeId } = resolveDailyChallengeSeed();
+    return { modeId, mode: modeId, seed: day, bonusXp: 50 };
   }
 }
 

@@ -10,10 +10,15 @@ Set `PUBLIC_SITE_URL` in your deploy environment (see [`.env.example`](./.env.ex
 ```bash
 npm install
 npm run dev          # http://localhost:4321
-npm run build        # output → dist/
+npm run build        # full production build (downloads sports-db, embeds SPORTVERSE, builds site)
+npm run build:skip-data   # faster local build if sports-db already fetched
 npm run preview      # serve the production build locally
+npm run test:projects     # portfolio subproject tests (auto-installs deps)
+npm run test:sportverse   # SPORTVERSE unit tests
 npm run extract:portrait   # one-off: extract images from legacy HTML
 ```
+
+**Fresh clone:** `npm run build` downloads the sports-db release bundle automatically (~25 MB gzip). For offline dev without the bundle, tests use `season-stats.fixture.json`; run `npm run build:skip-data` after `npm install` in `sportverse/`.
 
 ## What's in this repo
 

@@ -1,14 +1,21 @@
-import type { SeasonSimResult } from "@sportverse/draftballer-types";
+import type { SeasonSimResult, SimMatchConfig } from "@sportverse/draftballer-types";
 import {
   buildDraftPool,
   loadSimConfig,
   loadSquadBuilderState,
   loadSquadForSeason,
+  patchSquadSimConditions,
+  recordSeasonProgress,
   recordSeasonTrophies,
+  saveSimConfig,
 } from "@sportverse/draftballer-core";
 import {
+  fitPreviewHeadline,
   generateOpponents,
+  getEraProfile,
+  listEraProfiles,
   predictSeasonOutlook,
+  resolveEraProfile,
   simulateMatchV2,
   simulateSeason,
 } from "@sportverse/match-sim";
@@ -46,6 +53,34 @@ function seasonHero(result: SeasonSimResult): string {
     <p class="db-season-tagline">${result.points} pts · GD ${result.goalDifference >= 0 ? "+" : ""}${result.goalDifference}</p>`;
 }
 
+function draftEraProfileId(mode: { decade?: string; year?: number; era?: string }): string {
+  if (mode.decade) {
+    const map: Record<string, string> = {
+      "1950s": "1950s-60s",
+      "1960s": "1950s-60s",
+      "1970s": "1970s-80s",
+      "1980s": "1970s-80s",
+      "1990s": "1990s",
+      "2000s": "2000s",
+      "2010s": "2010s",
+      "2020s": "2020s",
+    };
+    return map[mode.decade] ?? "2020s";
+  }
+  if (mode.year != null) {
+    const y = mode.year;
+    if (y < 1970) return "1950s-60s";
+    if (y < 1990) return "1970s-80s";
+    if (y < 2000) return "1990s";
+    if (y < 2010) return "2000s";
+    if (y < 2020) return "2010s";
+    return "2020s";
+  }
+  return "2020s";
+}
+
+type EraChoice = "match_draft" | "modern" | string;
+
 export function renderDraftballerSeason(root: HTMLElement, navigate: Navigate) {
   const saved = loadSquadForSeason();
   if (!saved || !saved.players.length) {
@@ -60,52 +95,130 @@ export function renderDraftballerSeason(root: HTMLElement, navigate: Navigate) {
   }
 
   const rivalPool = buildDraftPool(saved.mode);
-  const seed = `season_${saved.mode.id}_${saved.playerIds.join("-")}`;
+  const draftSeed = saved.seed ?? `season_${saved.mode.id}_${saved.playerIds.join("-")}`;
   const config = loadSimConfig();
   const builder = loadSquadBuilderState();
-  const simConfig = {
-    ...config,
-    formationHomeId: saved.formationId ?? builder.formationId ?? config.formationHomeId,
-    tacticalIdentityHome: saved.tacticalIdentity ?? builder.tacticalIdentity ?? config.tacticalIdentityHome,
-  };
-  const userSquad = {
+
+  let eraChoice: EraChoice = "match_draft";
+  if (saved.eraContext?.profileId === "2020s" && saved.eraContext.mode === "neutral_modern") {
+    eraChoice = "modern";
+  } else if (saved.eraContext?.profileId && saved.eraContext.mode === "custom") {
+    eraChoice = saved.eraContext.profileId;
+  } else if (config.eraContext.profileId && config.eraContext.mode === "custom") {
+    eraChoice = config.eraContext.profileId;
+  }
+
+  let realisticFit = (saved.simulationMode ?? config.simulationMode) !== "prime_powers";
+
+  function resolveEraContext(): SimMatchConfig["eraContext"] {
+    if (eraChoice === "match_draft") {
+      return {
+        mode: "match_higher_draft",
+        profileId: draftEraProfileId(saved.mode),
+      };
+    }
+    if (eraChoice === "modern") {
+      return { mode: "neutral_modern", profileId: "2020s" };
+    }
+    return { mode: "custom", profileId: eraChoice };
+  }
+
+  function buildSimConfig(): SimMatchConfig {
+    return {
+      ...config,
+      simulationMode: realisticFit ? "realistic" : "prime_powers",
+      eraContext: resolveEraContext(),
+      formationHomeId: saved.formationId ?? builder.formationId ?? config.formationHomeId,
+      tacticalIdentityHome:
+        saved.tacticalIdentity ?? builder.tacticalIdentity ?? config.tacticalIdentityHome,
+    };
+  }
+
+  function persistConditions(): void {
+    const simConfig = buildSimConfig();
+    patchSquadSimConditions({
+      eraContext: simConfig.eraContext,
+      simulationMode: simConfig.simulationMode,
+      formationId: simConfig.formationHomeId,
+      tacticalIdentity: simConfig.tacticalIdentityHome,
+    });
+    saveSimConfig(simConfig);
+  }
+
+  const userSquadBase = {
     name: saved.mode.title ?? "Your XI",
     playerIds: saved.playerIds,
     players: saved.players,
     squadOvr: saved.squadOvr,
-    formationId: simConfig.formationHomeId,
-    tacticalIdentity: simConfig.tacticalIdentityHome,
     draftMode: saved.mode,
   };
 
-  const allOpponents = generateOpponents(userSquad, 38, seed, rivalPool);
+  const previewOpponents = generateOpponents(
+    { ...userSquadBase, formationId: buildSimConfig().formationHomeId },
+    38,
+    draftSeed,
+    rivalPool,
+  );
   const opponentAvgOvr =
-    allOpponents.length > 0
-      ? Math.round(allOpponents.reduce((s, o) => s + o.squadOvr, 0) / allOpponents.length)
+    previewOpponents.length > 0
+      ? Math.round(previewOpponents.reduce((s, o) => s + o.squadOvr, 0) / previewOpponents.length)
       : 72;
-  const preview = predictSeasonOutlook(userSquad, opponentAvgOvr);
+  const preview = predictSeasonOutlook(
+    { ...userSquadBase, squadOvr: saved.squadOvr },
+    opponentAvgOvr,
+  );
 
   let result: SeasonSimResult | null = null;
   let simRunning = false;
 
   function drawPreSim() {
+    const simConfig = buildSimConfig();
+    const era = resolveEraProfile(simConfig.eraContext, saved.mode.decade);
+    const fitLine =
+      simConfig.simulationMode === "realistic"
+        ? fitPreviewHeadline(saved.players, era)
+        : "Prime Powers: pure base OVR — era fit disabled";
+
+    const decadeOptions = listEraProfiles()
+      .filter((p) => !p.id.includes("serie") && !p.id.includes("world-cup"))
+      .map(
+        (p) =>
+          `<option value="${p.id}" ${eraChoice === p.id ? "selected" : ""}>${p.label}</option>`,
+      )
+      .join("");
+
     root.innerHTML = `
       <div class="shell db-root db-season-page">
         <button class="btn btn--ghost" id="back">← Hub</button>
         <header class="db-hero">
           <p class="db-hero__label">${saved.mode.title} · Season Preview</p>
           <h1 class="db-hero__title">Before the whistle blows</h1>
-          <p class="db-hero__sub">Read the layman's take first — then run the full 38-game simulation with era fit, tactics, fatigue, and Dixon–Coles match modelling.</p>
+          <p class="db-hero__sub">Draft era ≠ simulation era. Set match conditions, then run the 38-game season.</p>
         </header>
 
         ${renderSeasonPredictionHtml(preview)}
 
-        <div class="panel db-report">
-          <p class="db-hero__label">Simulation setup</p>
-          <ul class="db-report__bullets">
-            <li><strong>Mode:</strong> ${simConfig.simulationMode === "realistic" ? `Realistic (${simConfig.eraContext.profileId ?? "modern"} era)` : "Prime Powers (raw OVR)"}</li>
+        <div class="panel db-report db-match-conditions">
+          <p class="db-hero__label">Match Conditions</p>
+          <h2 class="db-report__title">Simulation era</h2>
+          <label class="db-stat-label">Era context</label>
+          <select id="eraChoice" class="btn btn--ghost btn--block">
+            <option value="match_draft" ${eraChoice === "match_draft" ? "selected" : ""}>Match my draft era</option>
+            <option value="modern" ${eraChoice === "modern" ? "selected" : ""}>Modern (2020s)</option>
+            <optgroup label="Decade picker">
+              ${decadeOptions}
+            </optgroup>
+          </select>
+          <label class="db-stat-label" style="margin-top:12px;display:flex;gap:8px;align-items:center">
+            <input type="checkbox" id="realisticFit" ${realisticFit ? "checked" : ""} />
+            Realistic Era Fit (recommended)
+          </label>
+          <p style="font-size:0.8rem;color:var(--db-muted);margin:4px 0 0">Off = Prime Powers (pure base OVR, no era penalties)</p>
+          <p class="db-fit-preview" style="margin-top:12px;color:var(--db-gold);font-size:0.95rem">${fitLine}</p>
+          <ul class="db-report__bullets" style="margin-top:12px">
             <li><strong>Formation:</strong> ${simConfig.formationHomeId} · ${simConfig.tacticalIdentityHome.replace("_", " ")}</li>
             <li><strong>Squad OVR:</strong> ${saved.squadOvr} · ${saved.players.length} players drafted</li>
+            <li><strong>Resolved era:</strong> ${era.label}</li>
           </ul>
         </div>
 
@@ -113,21 +226,42 @@ export function renderDraftballerSeason(root: HTMLElement, navigate: Navigate) {
           <button class="btn db-season-sim-btn" id="runSim" ${simRunning ? "disabled" : ""}>
             ${simRunning ? "Simulating…" : "Run 38-game season simulation"}
           </button>
-          <button class="btn btn--ghost" id="setup">Adjust sim conditions</button>
+          <button class="btn btn--ghost" id="setup">Full sim setup</button>
           <button class="btn btn--ghost" id="squad">Squad builder</button>
         </div>
       </div>`;
 
     root.querySelector("#back")?.addEventListener("click", () => navigate("draftballer"));
-    root.querySelector("#setup")?.addEventListener("click", () => navigate("draftballer", "sim-setup"));
+    root.querySelector("#setup")?.addEventListener("click", () => {
+      persistConditions();
+      navigate("draftballer", "sim-setup");
+    });
     root.querySelector("#squad")?.addEventListener("click", () => navigate("draftballer", "squad-builder"));
+    root.querySelector("#eraChoice")?.addEventListener("change", (e) => {
+      eraChoice = (e.target as HTMLSelectElement).value as EraChoice;
+      persistConditions();
+      drawPreSim();
+    });
+    root.querySelector("#realisticFit")?.addEventListener("change", (e) => {
+      realisticFit = (e.target as HTMLInputElement).checked;
+      persistConditions();
+      drawPreSim();
+    });
     root.querySelector("#runSim")?.addEventListener("click", () => {
       if (simRunning) return;
       simRunning = true;
+      persistConditions();
       drawPreSim();
+      const simConfig = buildSimConfig();
+      const userSquad = {
+        ...userSquadBase,
+        formationId: simConfig.formationHomeId,
+        tacticalIdentity: simConfig.tacticalIdentityHome,
+      };
       setTimeout(() => {
-        result = simulateSeason(userSquad, seed, { rivalPool, config: simConfig });
+        result = simulateSeason(userSquad, draftSeed, { rivalPool, config: simConfig });
         recordSeasonTrophies(result, saved.mode.title ?? "Season");
+        recordSeasonProgress(result);
         drawPostSim();
       }, 0);
     });
@@ -136,16 +270,30 @@ export function renderDraftballerSeason(root: HTMLElement, navigate: Navigate) {
   function drawPostSim() {
     if (!result) return;
 
-    const [sampleOpp] = generateOpponents(userSquad, 1, `${seed}:sample`, rivalPool);
-    const sampleMatch = simulateMatchV2(userSquad, sampleOpp!, `${seed}:sample`, 1, { config: simConfig });
+    const simConfig = buildSimConfig();
+    const era = getEraProfile(result.eraProfileId === "prime_powers" ? "2020s" : result.eraProfileId ?? "2020s");
+    const [sampleOpp] = generateOpponents(
+      { ...userSquadBase, formationId: simConfig.formationHomeId },
+      1,
+      `${result.seed}:sample`,
+      rivalPool,
+    );
+    const sampleMatch = simulateMatchV2(
+      { ...userSquadBase, formationId: simConfig.formationHomeId, tacticalIdentity: simConfig.tacticalIdentityHome },
+      sampleOpp!,
+      `${result.seed}:sample`,
+      1,
+      { config: simConfig },
+    );
     const highlightFixtures = result.fixtures.filter((f) => f.result === "L" || f.goalsFor >= 3).slice(0, 8);
     const mvp = saved.players.find((p) => p.playerId === result!.mvpPlayerId);
+    const fitReport = result.seasonFitReport?.length ? result.seasonFitReport : sampleMatch.fitReport;
 
     root.innerHTML = `
       <div class="shell db-root db-season-page">
         <button class="btn btn--ghost" id="back">← Hub</button>
         <header class="db-hero">
-          <p class="db-hero__label">${saved.mode.title} · Season Complete</p>
+          <p class="db-hero__label">${saved.mode.title} · Season Complete · ${era.label}</p>
           ${seasonHero(result)}
           <p style="color:var(--db-muted);font-size:0.85rem">
             ${result.goalsFor} scored · ${result.goalsAgainst} conceded · Squad OVR ${saved.squadOvr}
@@ -163,16 +311,17 @@ export function renderDraftballerSeason(root: HTMLElement, navigate: Navigate) {
 
         ${renderSeasonAnalysisHtml(result)}
 
+        ${renderFitReportHtml(fitReport, `Season Fit Report · ${era.label}`)}
+
         ${
           mvp
             ? `<div class="panel db-mvp-panel">
                 <p class="db-hero__label">Season MVP</p>
                 ${playerCardHtml(mvp, true)}
+                <button class="btn btn--ghost btn--block" id="mvp-compare" type="button" style="margin-top:10px">Compare contexts →</button>
               </div>`
             : ""
         }
-
-        ${renderFitReportHtml(sampleMatch.fitReport, sampleMatch.preMatchHeadline ?? "Representative match fit (MD1 sample)")}
 
         <div class="db-fixtures panel">
           <strong>All 38 fixtures</strong>
@@ -214,26 +363,42 @@ export function renderDraftballerSeason(root: HTMLElement, navigate: Navigate) {
         </details>
 
         <div class="db-season-actions">
-          <button class="btn" id="share">Share result</button>
-          <button class="btn btn--ghost" id="again">Simulate again</button>
-          <button class="btn btn--ghost" id="h2h">Instant H2H</button>
-          <button class="btn btn--ghost" id="mini">Mini league</button>
+          <button class="btn" id="share" type="button">Share</button>
+          <button class="btn" id="runBack" type="button">Run It Back</button>
+          <button class="btn btn--ghost" id="newDraft" type="button">New Draft</button>
+          <details class="db-overflow-menu">
+            <summary>More</summary>
+            <div class="db-overflow-menu__body">
+              <button class="btn btn--ghost btn--block" id="eraLab" type="button">Era Lab</button>
+              <button class="btn btn--ghost btn--block" id="h2h" type="button">Instant H2H</button>
+              <button class="btn btn--ghost btn--block" id="mini" type="button">Mini league</button>
+            </div>
+          </details>
         </div>
       </div>`;
 
     bindPlayerCardBreakdownsWithPool(root, rivalPool);
     root.querySelector("#back")?.addEventListener("click", () => navigate("draftballer"));
-    root.querySelector("#again")?.addEventListener("click", () => {
+    root.querySelector("#mvp-compare")?.addEventListener("click", () => {
+      if (mvp) navigate("draftballer", `compare/${mvp.playerId}`);
+    });
+    root.querySelector("#eraLab")?.addEventListener("click", () => {
+      persistConditions();
+      navigate("draftballer", "era-lab");
+    });
+    root.querySelector("#runBack")?.addEventListener("click", () => {
+      // Same squad + seed — re-open Match Conditions (determinism preserved).
       result = null;
       simRunning = false;
       drawPreSim();
     });
+    root.querySelector("#newDraft")?.addEventListener("click", () => navigate("draftballer", "wheel"));
     root.querySelector("#h2h")?.addEventListener("click", () => navigate("draftballer", "h2h"));
     root.querySelector("#mini")?.addEventListener("click", () => navigate("draftballer", "mini-league"));
     root.querySelector("#share")?.addEventListener("click", async () => {
       const url = buildShareCardDataUrl(
         result!,
-        saved.mode.title ?? "Season",
+        `${saved.mode.title ?? "Season"} · ${era.label}`,
         saved.squadOvr,
         result!.mvpPlayerName,
       );

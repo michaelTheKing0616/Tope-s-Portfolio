@@ -30,3 +30,24 @@ export function squadShareUrl(code: string): string {
   const base = typeof window !== "undefined" ? window.location.origin + window.location.pathname : "";
   return `${base}#/draftballer/import/${encodeURIComponent(code)}`;
 }
+
+/** Serialize DraftModeConfig as share code (checksum.base64). */
+export function encodeModeShare(mode: DraftModeConfig): string {
+  const json = JSON.stringify(mode);
+  const b64 = typeof btoa !== "undefined" ? btoa(json) : Buffer.from(json, "utf8").toString("base64");
+  return `${checksum(b64)}.${b64}`;
+}
+
+export function decodeModeShare(code: string): DraftModeConfig {
+  const decoded = decodeURIComponent(code);
+  const [sum, b64] = decoded.split(".");
+  if (!sum || !b64 || checksum(b64) !== sum) throw new Error("Invalid mode share code");
+  const json =
+    typeof atob !== "undefined" ? atob(b64) : Buffer.from(b64, "base64").toString("utf8");
+  return JSON.parse(json) as DraftModeConfig;
+}
+
+export function modeShareUrl(code: string): string {
+  const base = typeof window !== "undefined" ? window.location.origin + window.location.pathname : "";
+  return `${base}#/draftballer/mode-code/${encodeURIComponent(code)}`;
+}

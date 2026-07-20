@@ -2,6 +2,7 @@ import type { Server as HttpServer } from "node:http";
 import { Server } from "socket.io";
 import type { DraftFormat, DraftModeConfig, RatedPlayerCard } from "@sportverse/draftballer-types";
 import {
+  activeDrafter,
   buildDraftPool,
   getPresetMode,
   serverApplyPick,
@@ -19,6 +20,13 @@ import { persistRoom } from "./persistence/draft-rooms-persist.js";
 const PICK_TIMER_MS = 45_000;
 const TTL_MS = 2 * 60 * 60 * 1000;
 
+/** socket.id → seat assignment */
+const socketSeats = new Map<string, { code: string; drafterIndex: number | null }>();
+/** room code → drafterIndex → socket.id */
+const roomSeatHolders = new Map<string, Map<number, string>>();
+/** room code → drafterIndex → auto-pick timer */
+const pendingAutoPick = new Map<string, Map<number, ReturnType<typeof setTimeout>>>();
+
 function roomCode(): string {
   return Math.random().toString(36).slice(2, 8).toUpperCase();
 }
@@ -30,6 +38,43 @@ function persist(code: string, fsm: NonNullable<ReturnType<typeof getRoom>>): vo
 
 function cardFromPool(pool: RatedPlayerCard[], playerId: string): RatedPlayerCard | undefined {
   return pool.find((p) => p.playerId === playerId);
+}
+
+function clearAutoPick(code: string, drafterIndex: number): void {
+  const timer = pendingAutoPick.get(code)?.get(drafterIndex);
+  if (timer) clearTimeout(timer);
+  pendingAutoPick.get(code)?.delete(drafterIndex);
+}
+
+function releaseSeat(code: string, socketId: string): void {
+  const holders = roomSeatHolders.get(code);
+  if (!holders) return;
+  for (const [idx, sid] of holders) {
+    if (sid === socketId) holders.delete(idx);
+  }
+}
+
+function assignSeat(code: string, socketId: string, drafterCount: number): number | null {
+  const holders = roomSeatHolders.get(code) ?? new Map<number, string>();
+  const taken = new Set(holders.keys());
+  for (let i = 0; i < drafterCount; i++) {
+    if (!taken.has(i)) {
+      holders.set(i, socketId);
+      roomSeatHolders.set(code, holders);
+      return i;
+    }
+  }
+  return null;
+}
+
+function registerSeat(code: string, socketId: string, drafterIndex: number | null): void {
+  socketSeats.set(socketId, { code, drafterIndex });
+  if (drafterIndex !== null) {
+    const holders = roomSeatHolders.get(code) ?? new Map<number, string>();
+    holders.set(drafterIndex, socketId);
+    roomSeatHolders.set(code, holders);
+    clearAutoPick(code, drafterIndex);
+  }
 }
 
 export function attachDraftSocket(httpServer: HttpServer): Server {
@@ -67,6 +112,7 @@ export function attachDraftSocket(httpServer: HttpServer): Server {
         );
         joinedCode = code;
         drafterIndex = 0;
+        registerSeat(code, socket.id, 0);
         socket.join(code);
         ack?.({ ok: true, code, fsm, format: payload.format ?? "snake" });
         io.to(code).emit("room_state", fsm);
@@ -74,17 +120,26 @@ export function attachDraftSocket(httpServer: HttpServer): Server {
     );
 
     socket.on("join_room", (payload: { code: string; spectator?: boolean }, ack) => {
-      const fsm = getRoom(payload.code.toUpperCase());
+      const code = payload.code.toUpperCase();
+      const fsm = getRoom(code);
       if (!fsm) {
         ack?.({ ok: false, error: "Room not found" });
         return;
       }
       poolCards = buildDraftPool(fsm.state.mode);
-      joinedCode = payload.code.toUpperCase();
+      joinedCode = code;
       if (payload.spectator) {
         drafterIndex = null;
+        registerSeat(code, socket.id, null);
       } else {
-        drafterIndex = Math.min(fsm.state.rosters.length - 1, fsm.state.picks.length % fsm.state.drafterCount);
+        const seat = assignSeat(code, socket.id, fsm.state.drafterCount);
+        if (seat === null) {
+          ack?.({ ok: false, error: "Room full" });
+          joinedCode = null;
+          return;
+        }
+        drafterIndex = seat;
+        registerSeat(code, socket.id, seat);
       }
       socket.join(joinedCode);
       ack?.({ ok: true, drafterIndex, spectator: payload.spectator ?? false, fsm });
@@ -230,20 +285,37 @@ export function attachDraftSocket(httpServer: HttpServer): Server {
     });
 
     socket.on("disconnect", () => {
-      if (!joinedCode) return;
-      setTimeout(() => {
-        const fsm = getRoom(joinedCode!);
+      const seat = socketSeats.get(socket.id);
+      socketSeats.delete(socket.id);
+      if (!seat) return;
+
+      const { code, drafterIndex: idx } = seat;
+      releaseSeat(code, socket.id);
+
+      if (idx === null) return;
+
+      const timer = setTimeout(() => {
+        pendingAutoPick.get(code)?.delete(idx);
+        const fsm = getRoom(code);
         if (!fsm || fsm.phase !== "PICKING") return;
         if (fsm.state.format !== "snake" && fsm.state.format !== "linear") return;
+        if (roomSeatHolders.get(code)?.has(idx)) return;
+        if (activeDrafter(fsm.state) !== idx) return;
+
         const autoId = fsm.state.poolIds[0];
         if (!autoId) return;
-        const idx = fsm.state.currentPickIndex % fsm.state.drafterCount;
-        const card = cardFromPool(poolCards, autoId);
+        const cards = buildDraftPool(fsm.state.mode);
+        const card = cards.find((p) => p.playerId === autoId);
         const { fsm: next } = serverApplyPick(fsm, autoId, idx, card?.name ?? autoId, card?.ovr ?? 70);
-        persist(joinedCode!, next);
-        io.to(joinedCode!).emit("pick_confirmed", { auto: true, playerId: autoId });
-        io.to(joinedCode!).emit("room_state", next);
+        persist(code, next);
+        io.to(code).emit("pick_confirmed", { auto: true, playerId: autoId });
+        io.to(code).emit("room_state", next);
+        if (next.phase === "COMPLETE") io.to(code).emit("room_complete", next.state);
       }, PICK_TIMER_MS);
+
+      const timers = pendingAutoPick.get(code) ?? new Map<number, ReturnType<typeof setTimeout>>();
+      timers.set(idx, timer);
+      pendingAutoPick.set(code, timers);
     });
   });
 

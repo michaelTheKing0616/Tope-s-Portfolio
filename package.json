@@ -18,7 +18,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "extract:portrait": "node scripts/extract-portrait.mjs",
-    "test:projects": "npm run test --prefix projects/kobo && npm run test --prefix projects/tatafo && npm run test --prefix projects/pulse && npm run test --prefix projects/ayo-master && npm run test --prefix projects/naija-utils"
+    "test:projects": "node scripts/test-projects.mjs",
+    "test:sportverse": "npm test --prefix sportverse"
   },
   "dependencies": {
     "@astrojs/tailwind": "^5.1.2",

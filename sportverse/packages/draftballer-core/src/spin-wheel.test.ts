@@ -15,18 +15,18 @@ describe("spin-wheel", () => {
   const pool = buildDraftPool(mode);
 
   it("builds wheel segments from pool clubs", () => {
-    const segments = buildWheelSegments(mode, pool);
+    const segments = buildWheelSegments(mode, pool, "test-segments");
     expect(segments.length).toBeGreaterThanOrEqual(6);
     expect(segments.length).toBeLessThanOrEqual(24);
     expect(segments[0]?.label).toBeTruthy();
   });
 
   it("runs spin → pick → complete flow", () => {
-    let state = createWheelSession(mode, pool);
+    let state = createWheelSession(mode, pool, "test-seed");
     expect(state.phase).toBe("ready");
     expect(state.segments.length).toBeGreaterThan(0);
 
-    state = spinToSegment(state, 0);
+    state = spinToSegment(state, 0, pool);
     expect(state.phase).toBe("picking");
     expect(state.spunSegment).toBeTruthy();
 
@@ -39,10 +39,10 @@ describe("spin-wheel", () => {
   });
 
   it("computes squad rating when complete", () => {
-    let state = createWheelSession(mode, pool);
+    let state = createWheelSession(mode, pool, "test-complete");
 
     for (let i = 0; i < state.squadSize; i++) {
-      state = spinToSegment(state, i % state.segments.length);
+      state = spinToSegment(state, i % state.segments.length, pool);
       const candidates = getPickCandidates(state, pool);
       state = pickPlayerForSlot(state, candidates[0]!.playerId, pool);
     }

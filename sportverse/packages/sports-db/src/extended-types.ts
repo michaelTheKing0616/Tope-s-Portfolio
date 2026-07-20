@@ -13,6 +13,8 @@ export interface PlayerSeasonStat {
   shots?: number;
   goalsConceded?: number;
   goalsAgainst?: number;
+  /** Club display name from archive performances.team_name (when available). */
+  clubName?: string;
 }
 
 export interface Competition {

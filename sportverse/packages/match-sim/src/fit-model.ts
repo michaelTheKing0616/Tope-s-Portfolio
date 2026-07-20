@@ -1,13 +1,19 @@
 import type {
   EraProfile,
+  FitReportLine,
   PlayerAttributes,
   PlayerMetaAttributes,
   PitchZone,
+  RatedPlayerCard,
   TacticalIdentity,
 } from "@sportverse/draftballer-types";
+import { computePlayerMeta } from "./player-meta.js";
 
+/** Physicality fit scale — UNCALIBRATED — EXPERT PRIOR (Sim Engine v2 §2). */
 const ALPHA = 1.0;
+/** Technical dampener scale — UNCALIBRATED — EXPERT PRIOR. */
 const BETA = 0.25;
+/** Fatigue toll scale — UNCALIBRATED — EXPERT PRIOR. */
 const GAMMA = 0.035;
 
 function norm(v: number): number {
@@ -143,12 +149,77 @@ export function buildFitSummary(
   if (delta <= -4) tags.push("underperformed");
 
   let summary: string;
-  if (delta >= 4) summary = `Overperformed by +${delta}: thrived in these conditions.`;
-  else if (delta <= -4)
+  if (delta <= -4 && tags.includes("technical_mismatch")) {
+    summary = `Bullied off the ball in this era's tackling conditions (${delta}).`;
+  } else if (delta >= 4 && era.physicality_intensity >= 0.7) {
+    summary = `Thrived in the physical battle (+${delta}).`;
+  } else if (delta >= 4) {
+    summary = `Overperformed by +${delta}: thrived in these conditions.`;
+  } else if (delta <= -4) {
     summary = `Underperformed by ${delta}: struggled in this era's conditions.`;
-  else summary = `Performed close to base rating (${delta >= 0 ? "+" : ""}${delta}).`;
+  } else {
+    summary = `Performed close to base rating (${delta >= 0 ? "+" : ""}${delta}).`;
+  }
 
   return { delta, summary, tags };
+}
+
+function ovrFromAttrs(attrs: PlayerAttributes): number {
+  return Math.round((attrs.pac + attrs.sho + attrs.pas + attrs.dri + attrs.def + attrs.phy) / 6);
+}
+
+/**
+ * Per-player era fit without running a match — used for pre-sim preview + season Fit Report.
+ * Hand calc check: phy=90, dri=pas=40, era.physicality=0.9 → playerEdge > 0 → positive term.
+ */
+export function computeSquadFitReport(
+  players: RatedPlayerCard[],
+  era: EraProfile,
+  identity: TacticalIdentity = "balanced",
+): FitReportLine[] {
+  const lines: FitReportLine[] = [];
+  for (const p of players) {
+    const meta = computePlayerMeta(p);
+    const terms = computeFitTerms(era, p.attributes, meta, identity);
+    const eff = effectiveAttributes(p.attributes, terms, 1, 1, 0, 0);
+    const effOvr = ovrFromAttrs(eff);
+    const { delta, summary, tags } = buildFitSummary(p.ovr, effOvr, era, meta);
+    lines.push({
+      playerId: p.playerId,
+      playerName: p.name,
+      baseOvr: p.ovr,
+      effectiveDelta: delta,
+      summary,
+      tags,
+    });
+  }
+  return lines.sort((a, b) => Math.abs(b.effectiveDelta) - Math.abs(a.effectiveDelta));
+}
+
+/** Squad-average physicality fit term (−0.2…+0.2) for pre-sim hook copy. */
+export function squadAveragePhysicalityFit(
+  players: RatedPlayerCard[],
+  era: EraProfile,
+): number {
+  if (!players.length) return 0;
+  let sum = 0;
+  for (const p of players) {
+    sum += computePhysicalityFitTerm(era, p.attributes, computePlayerMeta(p));
+  }
+  return sum / players.length;
+}
+
+/** Human-readable pre-sim fit hook, e.g. "Your technicians will struggle in 1974 mud (−8% expected)". */
+export function fitPreviewHeadline(players: RatedPlayerCard[], era: EraProfile): string {
+  const avg = squadAveragePhysicalityFit(players, era);
+  const pct = Math.round(avg * 100);
+  if (pct <= -4) {
+    return `Your technicians will struggle in ${era.label} mud (${pct}% expected)`;
+  }
+  if (pct >= 4) {
+    return `Your squad is built for ${era.label} conditions (+${pct}% expected)`;
+  }
+  return `${era.label}: near-neutral fit (${pct >= 0 ? "+" : ""}${pct}% expected)`;
 }
 
 export function pickPhaseZone(identity: TacticalIdentity, rng: () => number): PitchZone {

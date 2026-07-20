@@ -1,31 +1,57 @@
-import { loadTrophies } from "@sportverse/draftballer-core";
+import {
+  featuredModeForDate,
+  latestTrophyTitle,
+  loadHubProgress,
+  loadTrophies,
+} from "@sportverse/draftballer-core";
 import { poolCounts } from "@sportverse/sports-db";
 import type { RatedPlayerCard } from "@sportverse/draftballer-types";
+import { playerCardFaceHtml } from "../lib/player-card.js";
 
 type Navigate = (route: string, param?: string) => void;
 
+interface SimValidationReport {
+  count: number;
+  rps: number;
+  brier: number;
+  logLoss: number;
+  accuracy: number;
+  generatedAt?: string;
+  note?: string;
+}
+
+let cachedValidation: SimValidationReport | null | undefined;
+
+async function loadValidationReport(): Promise<SimValidationReport | null> {
+  if (cachedValidation !== undefined) return cachedValidation;
+  try {
+    const base = import.meta.env.BASE_URL ?? "/";
+    const res = await fetch(`${base}data/sim-validation-report.json`);
+    if (!res.ok) {
+      cachedValidation = null;
+      return null;
+    }
+    cachedValidation = (await res.json()) as SimValidationReport;
+    return cachedValidation;
+  } catch {
+    cachedValidation = null;
+    return null;
+  }
+}
+
+/** Draft face card — hybrid data-centric layout (radar + archetype). */
 export function playerCardHtml(card: RatedPlayerCard, compact = false): string {
-  const attrs = card.attributes;
-  return `
-    <div class="db-player-card db-player-card--clickable" data-tier="${card.tier}" data-id="${card.playerId}" title="Tap for rating breakdown">
-      <span class="db-ovr">${card.ovr}</span>
-      <span class="db-pos">${card.position}</span>
-      <div class="db-name">${card.name}</div>
-      ${
-        compact
-          ? ""
-          : `<div class="db-stats">
-        <span>PAC ${attrs.pac}</span><span>SHO ${attrs.sho}</span><span>PAS ${attrs.pas}</span>
-        <span>DRI ${attrs.dri}</span><span>DEF ${attrs.def}</span><span>PHY ${attrs.phy}</span>
-      </div>`
-      }
-    </div>`;
+  return playerCardFaceHtml(card, compact);
 }
 
 export function renderDraftballerHub(root: HTMLElement, navigate: Navigate) {
   const counts = poolCounts();
   const trophies = loadTrophies();
+  const progress = loadHubProgress();
+  const featured = featuredModeForDate();
+  const latestTrophy = latestTrophyTitle();
 
+  const paint = (validation: SimValidationReport | null) => {
   root.innerHTML = `
     <div class="shell db-root">
       <button class="btn btn--ghost" id="back">← SPORTVERSE Hub</button>
@@ -36,6 +62,18 @@ export function renderDraftballerHub(root: HTMLElement, navigate: Navigate) {
           ${counts.draftPlayers.toLocaleString()} players · ${counts.seasonStatRows?.toLocaleString() ?? "—"} stat rows · Transfermarkt + World Cup + curated
         </p>
       </header>
+      <section class="panel db-progress-module" aria-label="Your progress">
+        <p class="db-hero__label">Your progress</p>
+        <div class="db-progress-grid">
+          <div><span class="db-stat-label">Best record</span><strong>${progress.bestPoints ? `${progress.bestPoints} pts · ${progress.bestRecord}` : "—"}</strong></div>
+          <div><span class="db-stat-label">Daily streak</span><strong>${progress.dailyStreak || 0}</strong></div>
+          <div><span class="db-stat-label">Latest trophy</span><strong>${latestTrophy ?? "—"}</strong></div>
+          <div>
+            <span class="db-stat-label">Featured this week</span>
+            <a class="db-featured-link" href="#/draftballer/mode/${featured.id}"><strong>${featured.title}</strong></a>
+          </div>
+        </div>
+      </section>
       <div class="db-grid">
         <a class="db-card db-card--featured" href="#/draftballer/wheel">
           <strong style="color:var(--db-gold)">Spin & Build</strong>
@@ -45,9 +83,9 @@ export function renderDraftballerHub(root: HTMLElement, navigate: Navigate) {
           <strong style="color:var(--db-emerald-hi)">Daily Challenge</strong>
           <p style="font-size:0.85rem;color:var(--db-muted)">Wordle-style shared draft pool each day</p>
         </a>
-        <a class="db-card db-card--featured" href="#/draftballer/architect">
-          <strong style="color:var(--db-emerald-hi)">Draft Architect</strong>
-          <p style="font-size:0.85rem;color:var(--db-muted)">Custom era, scope & rating lens</p>
+        <a class="db-card db-card--architect" href="#/draftballer/architect">
+          <strong style="color:var(--db-gold)">Build your own</strong>
+          <p style="font-size:0.85rem;color:var(--db-muted)">Draft Architect — pro-mode filters, lens blend & shareable presets</p>
         </a>
         <a class="db-card" href="#/draftballer/mode/all-time-any">
           <strong>All-Time · Spin</strong>
@@ -93,6 +131,10 @@ export function renderDraftballerHub(root: HTMLElement, navigate: Navigate) {
           <strong>Era Lab</strong>
           <p style="font-size:0.85rem;color:var(--db-muted)">Batch-test your XI across every reference era</p>
         </a>
+        <a class="db-card" href="#/draftballer/compare">
+          <strong>Compare</strong>
+          <p style="font-size:0.85rem;color:var(--db-muted)">Club vs international — same player, two contexts</p>
+        </a>
         <a class="db-card" href="#/draftballer/ucl">
           <strong>Knockout Cup</strong>
           <p style="font-size:0.85rem;color:var(--db-muted)">UCL-style bracket after your XI</p>
@@ -115,6 +157,40 @@ export function renderDraftballerHub(root: HTMLElement, navigate: Navigate) {
             </div>`
           : ""
       }
+      <footer class="db-hub-footer panel">
+        <p class="db-trust-badge">
+          ${
+            validation
+              ? `Sim engine validated vs <strong>${validation.count}</strong> historical fixtures — <a href="#methodology" id="methodology-link">see methodology</a>`
+              : `Sim engine validation report loading… — <a href="#methodology" id="methodology-link">see methodology</a>`
+          }
+        </p>
+        <details class="db-methodology" id="methodology">
+          <summary>Methodology</summary>
+          <p style="font-size:0.85rem;color:var(--db-muted);margin-top:8px">
+            Dixon–Coles Layer-1 forecasts are scored with Ranked Probability Score, Brier, and log-loss
+            against a holdout of cross-league fixtures (Engine v4 §4). The 2017 Soccer Prediction Challenge
+            benchmark (RPS 0.2063) is a directional reference, not an identical task.
+            ${
+              validation
+                ? `<br/>Latest holdout: n=${validation.count}, RPS=${validation.rps.toFixed(4)}, Brier=${validation.brier.toFixed(4)}, accuracy=${(validation.accuracy * 100).toFixed(1)}%.`
+                : ""
+            }
+            ${validation?.note ? `<br/><em>${validation.note}</em>` : ""}
+            <br/>Fame never influences OVR — only pool visibility. Market-value blend is a separate, capped, labeled input.
+          </p>
+        </details>
+      </footer>
     </div>`;
   root.querySelector("#back")?.addEventListener("click", () => navigate("hub"));
+  root.querySelector("#methodology-link")?.addEventListener("click", (e) => {
+    e.preventDefault();
+    const el = root.querySelector("#methodology") as HTMLDetailsElement | null;
+    if (el) el.open = true;
+    el?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  });
+  };
+
+  paint(cachedValidation ?? null);
+  void loadValidationReport().then((v) => paint(v));
 }

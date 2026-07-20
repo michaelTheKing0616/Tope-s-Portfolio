@@ -1,9 +1,10 @@
 import type { FormationSlotDef, PitchZone } from "@sportverse/draftballer-types";
 import { getFormation } from "@sportverse/match-sim";
+import { resolveApiBase } from "@sportverse/platform";
 
 type Navigate = (route: string, param?: string) => void;
 
-const API_BASE = (import.meta.env?.VITE_API_URL as string | undefined) ?? "http://localhost:8792";
+const API_BASE = resolveApiBase();
 const GRID_STEP = 5;
 const MAX_SLOTS = 11;
 const POSITION_TAGS = ["GK", "CB", "FB", "DM", "CM", "AM", "W", "ST"] as const;

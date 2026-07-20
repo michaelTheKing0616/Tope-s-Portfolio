@@ -19,12 +19,12 @@ import {
   effectiveAttributes,
   fatigueTollProbability,
   pickPhaseZone,
-  zoneOverloadModifier as zoneMod,
 } from "./fit-model.js";
 import {
   commentaryForV2,
   fitCommentary,
   momentumCommentary,
+  overloadCommentary,
   tacticalPreviewHeadline,
 } from "./commentary-v2.js";
 import {
@@ -312,12 +312,13 @@ export function simulateMatchV2(
     const defForm = homePossession ? activeFormAway : activeFormHome;
     const zMod = zoneOverloadModifier(atkForm, defForm, zone);
     if (Math.abs(zMod) >= 0.08) {
+      const atkName = (homePossession ? home.name : away.name) ?? "Attackers";
       zoneEvents.push({
         minute,
         zone,
         team: homePossession ? "home" : "away",
         overloadDelta: Math.round(zMod * 100) / 100,
-        text: `${homePossession ? home.name : away.name} overload ${zone.replace("_", " ")}`,
+        text: overloadCommentary(atkName, zone, zMod, atkForm, defForm),
       });
     }
 

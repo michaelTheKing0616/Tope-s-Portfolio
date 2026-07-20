@@ -1,0 +1,12 @@
+{
+  "count": 200,
+  "rps": -0.014349920123972482,
+  "brier": 0.6846107151424752,
+  "logLoss": 1.1217741390819131,
+  "accuracy": 0.275,
+  "generatedAt": "2026-07-20T08:56:08.014Z",
+  "note": "Cross-league holdout n=200 (seeded sample of 500) — directional vs 2017 Soccer Prediction Challenge, not an identical task.",
+  "corpusSize": 500,
+  "benchmarkRps": 0.2063,
+  "benchmarkAccuracy": 0.5243
+}

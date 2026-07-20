@@ -17,6 +17,7 @@ import {
 import { setAwardsData } from "@sportverse/rating-engine";
 import { getAwards, getIconicMoments } from "@sportverse/sports-db";
 import { playerCardHtml } from "./draftballer-hub.js";
+import { bindIdentityPicker, identityPickerHtml } from "./draftballer-identity.js";
 
 type Navigate = (route: string, param?: string) => void;
 
@@ -83,15 +84,20 @@ export function renderDraftballerAuction(root: HTMLElement, navigate: Navigate) 
             <h2 class="db-hero__title" style="font-size:2.5rem">${winner}</h2>
             <p>Your squad OVR: <strong style="color:var(--db-gold)">${youRating}</strong> · Bot: ${botRating}</p>
             <div class="db-pool-grid" style="margin:16px 0">${room.rosters[0]!.map((id) => playerCardHtml(poolMap.get(id)!, true)).join("")}</div>
+            ${identityPickerHtml("balanced")}
             <button class="btn" id="simulate">Simulate Season</button>
             <button class="btn" id="again">Auction again</button>
             <button class="btn btn--ghost" id="hub">Hub</button>
           </div>
         </div>`;
+      const getIdentity = bindIdentityPicker(root);
       root.querySelector("#simulate")?.addEventListener("click", () => {
         const ids = room.rosters[0]!;
         const cards = ids.map((id) => poolMap.get(id)!).filter(Boolean);
-        saveSquadForSeason(mode, ids, cards, youRating, "auction");
+        saveSquadForSeason(mode, ids, cards, youRating, "auction", {
+          tacticalIdentity: getIdentity(),
+          formationId: mode.formationId,
+        });
         navigate("draftballer", "season");
       });
       root.querySelector("#again")?.addEventListener("click", () => renderDraftballerAuction(root, navigate));

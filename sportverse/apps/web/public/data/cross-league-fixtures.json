@@ -1,62 +1,5002 @@
 [
   {
-    "fixtureId": "ucl-2020-r16-1",
-    "clubAId": "premier-league-liverpool",
-    "leagueAId": "premier-league",
-    "clubBId": "la-liga-atletico",
-    "leagueBId": "la-liga",
-    "competitionId": "champions-league",
-    "seasonLabel": "2020",
-    "result": 1
-  },
-  {
-    "fixtureId": "ucl-2020-r16-2",
-    "clubAId": "premier-league-man-city",
-    "leagueAId": "premier-league",
-    "clubBId": "bundesliga-dortmund",
-    "leagueBId": "bundesliga",
-    "competitionId": "champions-league",
-    "seasonLabel": "2020",
-    "result": 1
-  },
-  {
-    "fixtureId": "ucl-2020-r16-3",
-    "clubAId": "serie-a-juventus",
+    "fixtureId": "arch-15/16-europa-league-serie-a-primeira-liga",
+    "clubAId": "serie-a-rep",
     "leagueAId": "serie-a",
-    "clubBId": "ligue-1-lyon",
-    "leagueBId": "ligue-1",
-    "competitionId": "champions-league",
-    "seasonLabel": "2020",
-    "result": -1
-  },
-  {
-    "fixtureId": "ucl-2020-qf-1",
-    "clubAId": "premier-league-man-city",
-    "leagueAId": "premier-league",
-    "clubBId": "la-liga-barcelona",
-    "leagueBId": "la-liga",
-    "competitionId": "champions-league",
-    "seasonLabel": "2020",
+    "clubBId": "primeira-liga-rep",
+    "leagueBId": "primeira-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
     "result": 1
   },
   {
-    "fixtureId": "uel-2020-sf-1",
-    "clubAId": "championship-fulham",
-    "leagueAId": "championship",
-    "clubBId": "eredivisie-ajax",
+    "fixtureId": "arch-15/16-europa-league-serie-a-pro-league",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "pro-league-rep",
+    "leagueBId": "pro-league",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-serie-a-tm-pl1",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "tm-pl1-rep",
+    "leagueBId": "tm-pl1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-serie-a-tm-ru1",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "tm-ru1-rep",
+    "leagueBId": "tm-ru1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-serie-a-premier-league",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "premier-league-rep",
+    "leagueBId": "premier-league",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-serie-a-tm-cn2a",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "tm-cn2a-rep",
+    "leagueBId": "tm-cn2a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-serie-a-tm-no1",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "tm-no1-rep",
+    "leagueBId": "tm-no1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-serie-a-tm-a1",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "tm-a1-rep",
+    "leagueBId": "tm-a1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-serie-a-eredivisie",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "eredivisie-rep",
     "leagueBId": "eredivisie",
     "competitionId": "europa-league",
-    "seasonLabel": "2020",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-serie-a-super-lig",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "super-lig-rep",
+    "leagueBId": "super-lig",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-serie-a-tm-gr1",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "tm-gr1-rep",
+    "leagueBId": "tm-gr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-serie-a-tm-ts1",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "tm-ts1-rep",
+    "leagueBId": "tm-ts1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-serie-a-bundesliga",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "bundesliga-rep",
+    "leagueBId": "bundesliga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-serie-a-tm-l2",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "tm-l2-rep",
+    "leagueBId": "tm-l2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
     "result": 0
   },
   {
-    "fixtureId": "lib-2020-final",
-    "clubAId": "serie-a-brazil-flamengo",
-    "leagueAId": "serie-a-brazil",
-    "clubBId": "la-liga-atletico",
+    "fixtureId": "arch-15/16-europa-league-serie-a-tm-c1",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "tm-c1-rep",
+    "leagueBId": "tm-c1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-serie-a-ligue-1",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "ligue-1-rep",
+    "leagueBId": "ligue-1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-serie-a-tm-dk1",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "tm-dk1-rep",
+    "leagueBId": "tm-dk1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-serie-a-tm-ukr1",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-serie-a-la-liga",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "la-liga-rep",
     "leagueBId": "la-liga",
-    "competitionId": "copa-libertadores",
-    "seasonLabel": "2020",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-serie-a-scottish-premiership",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "scottish-premiership-rep",
+    "leagueBId": "scottish-premiership",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-serie-a-tm-fr2",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "tm-fr2-rep",
+    "leagueBId": "tm-fr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-serie-a-tm-pt3a",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "tm-pt3a-rep",
+    "leagueBId": "tm-pt3a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-primeira-liga-pro-league",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "pro-league-rep",
+    "leagueBId": "pro-league",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-primeira-liga-tm-pl1",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "tm-pl1-rep",
+    "leagueBId": "tm-pl1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-primeira-liga-tm-ru1",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "tm-ru1-rep",
+    "leagueBId": "tm-ru1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-primeira-liga-premier-league",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "premier-league-rep",
+    "leagueBId": "premier-league",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-primeira-liga-tm-cn2a",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "tm-cn2a-rep",
+    "leagueBId": "tm-cn2a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-primeira-liga-tm-no1",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "tm-no1-rep",
+    "leagueBId": "tm-no1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-primeira-liga-tm-a1",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "tm-a1-rep",
+    "leagueBId": "tm-a1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-primeira-liga-eredivisie",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "eredivisie-rep",
+    "leagueBId": "eredivisie",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-primeira-liga-super-lig",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "super-lig-rep",
+    "leagueBId": "super-lig",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-primeira-liga-tm-gr1",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "tm-gr1-rep",
+    "leagueBId": "tm-gr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-primeira-liga-tm-ts1",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "tm-ts1-rep",
+    "leagueBId": "tm-ts1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-primeira-liga-bundesliga",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "bundesliga-rep",
+    "leagueBId": "bundesliga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-primeira-liga-tm-l2",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "tm-l2-rep",
+    "leagueBId": "tm-l2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-primeira-liga-tm-c1",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "tm-c1-rep",
+    "leagueBId": "tm-c1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-primeira-liga-ligue-1",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "ligue-1-rep",
+    "leagueBId": "ligue-1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-primeira-liga-tm-dk1",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "tm-dk1-rep",
+    "leagueBId": "tm-dk1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-primeira-liga-tm-ukr1",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-primeira-liga-la-liga",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-primeira-liga-scottish-premiership",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "scottish-premiership-rep",
+    "leagueBId": "scottish-premiership",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-primeira-liga-tm-fr2",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "tm-fr2-rep",
+    "leagueBId": "tm-fr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-primeira-liga-tm-pt3a",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "tm-pt3a-rep",
+    "leagueBId": "tm-pt3a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-pro-league-tm-pl1",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "tm-pl1-rep",
+    "leagueBId": "tm-pl1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-pro-league-tm-ru1",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "tm-ru1-rep",
+    "leagueBId": "tm-ru1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-pro-league-premier-league",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "premier-league-rep",
+    "leagueBId": "premier-league",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-pro-league-tm-cn2a",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "tm-cn2a-rep",
+    "leagueBId": "tm-cn2a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-pro-league-tm-no1",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "tm-no1-rep",
+    "leagueBId": "tm-no1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-pro-league-tm-a1",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "tm-a1-rep",
+    "leagueBId": "tm-a1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-pro-league-eredivisie",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "eredivisie-rep",
+    "leagueBId": "eredivisie",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-pro-league-super-lig",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "super-lig-rep",
+    "leagueBId": "super-lig",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-pro-league-tm-gr1",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "tm-gr1-rep",
+    "leagueBId": "tm-gr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-pro-league-tm-ts1",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "tm-ts1-rep",
+    "leagueBId": "tm-ts1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-pro-league-bundesliga",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "bundesliga-rep",
+    "leagueBId": "bundesliga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-pro-league-tm-l2",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "tm-l2-rep",
+    "leagueBId": "tm-l2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
     "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-pro-league-tm-c1",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "tm-c1-rep",
+    "leagueBId": "tm-c1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-pro-league-ligue-1",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "ligue-1-rep",
+    "leagueBId": "ligue-1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-pro-league-tm-dk1",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "tm-dk1-rep",
+    "leagueBId": "tm-dk1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-pro-league-tm-ukr1",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-pro-league-la-liga",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-pro-league-scottish-premiership",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "scottish-premiership-rep",
+    "leagueBId": "scottish-premiership",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-pro-league-tm-fr2",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "tm-fr2-rep",
+    "leagueBId": "tm-fr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-pro-league-tm-pt3a",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "tm-pt3a-rep",
+    "leagueBId": "tm-pt3a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-pl1-tm-ru1",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "tm-ru1-rep",
+    "leagueBId": "tm-ru1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-pl1-premier-league",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "premier-league-rep",
+    "leagueBId": "premier-league",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-pl1-tm-cn2a",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "tm-cn2a-rep",
+    "leagueBId": "tm-cn2a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-pl1-tm-no1",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "tm-no1-rep",
+    "leagueBId": "tm-no1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-pl1-tm-a1",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "tm-a1-rep",
+    "leagueBId": "tm-a1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-pl1-eredivisie",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "eredivisie-rep",
+    "leagueBId": "eredivisie",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-pl1-super-lig",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "super-lig-rep",
+    "leagueBId": "super-lig",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-pl1-tm-gr1",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "tm-gr1-rep",
+    "leagueBId": "tm-gr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-pl1-tm-ts1",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "tm-ts1-rep",
+    "leagueBId": "tm-ts1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-pl1-bundesliga",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "bundesliga-rep",
+    "leagueBId": "bundesliga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-pl1-tm-l2",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "tm-l2-rep",
+    "leagueBId": "tm-l2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-pl1-tm-c1",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "tm-c1-rep",
+    "leagueBId": "tm-c1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-pl1-ligue-1",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "ligue-1-rep",
+    "leagueBId": "ligue-1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-pl1-tm-dk1",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "tm-dk1-rep",
+    "leagueBId": "tm-dk1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-pl1-tm-ukr1",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-pl1-la-liga",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-pl1-scottish-premiership",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "scottish-premiership-rep",
+    "leagueBId": "scottish-premiership",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-pl1-tm-fr2",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "tm-fr2-rep",
+    "leagueBId": "tm-fr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-pl1-tm-pt3a",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "tm-pt3a-rep",
+    "leagueBId": "tm-pt3a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-ru1-premier-league",
+    "clubAId": "tm-ru1-rep",
+    "leagueAId": "tm-ru1",
+    "clubBId": "premier-league-rep",
+    "leagueBId": "premier-league",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-ru1-tm-cn2a",
+    "clubAId": "tm-ru1-rep",
+    "leagueAId": "tm-ru1",
+    "clubBId": "tm-cn2a-rep",
+    "leagueBId": "tm-cn2a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-ru1-tm-no1",
+    "clubAId": "tm-ru1-rep",
+    "leagueAId": "tm-ru1",
+    "clubBId": "tm-no1-rep",
+    "leagueBId": "tm-no1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-ru1-tm-a1",
+    "clubAId": "tm-ru1-rep",
+    "leagueAId": "tm-ru1",
+    "clubBId": "tm-a1-rep",
+    "leagueBId": "tm-a1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-ru1-eredivisie",
+    "clubAId": "tm-ru1-rep",
+    "leagueAId": "tm-ru1",
+    "clubBId": "eredivisie-rep",
+    "leagueBId": "eredivisie",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-ru1-super-lig",
+    "clubAId": "tm-ru1-rep",
+    "leagueAId": "tm-ru1",
+    "clubBId": "super-lig-rep",
+    "leagueBId": "super-lig",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-ru1-tm-gr1",
+    "clubAId": "tm-ru1-rep",
+    "leagueAId": "tm-ru1",
+    "clubBId": "tm-gr1-rep",
+    "leagueBId": "tm-gr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-ru1-tm-ts1",
+    "clubAId": "tm-ru1-rep",
+    "leagueAId": "tm-ru1",
+    "clubBId": "tm-ts1-rep",
+    "leagueBId": "tm-ts1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-ru1-bundesliga",
+    "clubAId": "tm-ru1-rep",
+    "leagueAId": "tm-ru1",
+    "clubBId": "bundesliga-rep",
+    "leagueBId": "bundesliga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-ru1-tm-l2",
+    "clubAId": "tm-ru1-rep",
+    "leagueAId": "tm-ru1",
+    "clubBId": "tm-l2-rep",
+    "leagueBId": "tm-l2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-ru1-tm-c1",
+    "clubAId": "tm-ru1-rep",
+    "leagueAId": "tm-ru1",
+    "clubBId": "tm-c1-rep",
+    "leagueBId": "tm-c1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-ru1-ligue-1",
+    "clubAId": "tm-ru1-rep",
+    "leagueAId": "tm-ru1",
+    "clubBId": "ligue-1-rep",
+    "leagueBId": "ligue-1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-ru1-tm-dk1",
+    "clubAId": "tm-ru1-rep",
+    "leagueAId": "tm-ru1",
+    "clubBId": "tm-dk1-rep",
+    "leagueBId": "tm-dk1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-ru1-tm-ukr1",
+    "clubAId": "tm-ru1-rep",
+    "leagueAId": "tm-ru1",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-ru1-la-liga",
+    "clubAId": "tm-ru1-rep",
+    "leagueAId": "tm-ru1",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-ru1-scottish-premiership",
+    "clubAId": "tm-ru1-rep",
+    "leagueAId": "tm-ru1",
+    "clubBId": "scottish-premiership-rep",
+    "leagueBId": "scottish-premiership",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-ru1-tm-fr2",
+    "clubAId": "tm-ru1-rep",
+    "leagueAId": "tm-ru1",
+    "clubBId": "tm-fr2-rep",
+    "leagueBId": "tm-fr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-ru1-tm-pt3a",
+    "clubAId": "tm-ru1-rep",
+    "leagueAId": "tm-ru1",
+    "clubBId": "tm-pt3a-rep",
+    "leagueBId": "tm-pt3a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-premier-league-tm-cn2a",
+    "clubAId": "premier-league-rep",
+    "leagueAId": "premier-league",
+    "clubBId": "tm-cn2a-rep",
+    "leagueBId": "tm-cn2a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-premier-league-tm-no1",
+    "clubAId": "premier-league-rep",
+    "leagueAId": "premier-league",
+    "clubBId": "tm-no1-rep",
+    "leagueBId": "tm-no1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-premier-league-tm-a1",
+    "clubAId": "premier-league-rep",
+    "leagueAId": "premier-league",
+    "clubBId": "tm-a1-rep",
+    "leagueBId": "tm-a1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-premier-league-eredivisie",
+    "clubAId": "premier-league-rep",
+    "leagueAId": "premier-league",
+    "clubBId": "eredivisie-rep",
+    "leagueBId": "eredivisie",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-premier-league-super-lig",
+    "clubAId": "premier-league-rep",
+    "leagueAId": "premier-league",
+    "clubBId": "super-lig-rep",
+    "leagueBId": "super-lig",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-premier-league-tm-gr1",
+    "clubAId": "premier-league-rep",
+    "leagueAId": "premier-league",
+    "clubBId": "tm-gr1-rep",
+    "leagueBId": "tm-gr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-premier-league-tm-ts1",
+    "clubAId": "premier-league-rep",
+    "leagueAId": "premier-league",
+    "clubBId": "tm-ts1-rep",
+    "leagueBId": "tm-ts1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-premier-league-bundesliga",
+    "clubAId": "premier-league-rep",
+    "leagueAId": "premier-league",
+    "clubBId": "bundesliga-rep",
+    "leagueBId": "bundesliga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-premier-league-tm-l2",
+    "clubAId": "premier-league-rep",
+    "leagueAId": "premier-league",
+    "clubBId": "tm-l2-rep",
+    "leagueBId": "tm-l2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-premier-league-tm-c1",
+    "clubAId": "premier-league-rep",
+    "leagueAId": "premier-league",
+    "clubBId": "tm-c1-rep",
+    "leagueBId": "tm-c1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-premier-league-ligue-1",
+    "clubAId": "premier-league-rep",
+    "leagueAId": "premier-league",
+    "clubBId": "ligue-1-rep",
+    "leagueBId": "ligue-1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-premier-league-tm-dk1",
+    "clubAId": "premier-league-rep",
+    "leagueAId": "premier-league",
+    "clubBId": "tm-dk1-rep",
+    "leagueBId": "tm-dk1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-premier-league-tm-ukr1",
+    "clubAId": "premier-league-rep",
+    "leagueAId": "premier-league",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-premier-league-la-liga",
+    "clubAId": "premier-league-rep",
+    "leagueAId": "premier-league",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-premier-league-scottish-premiership",
+    "clubAId": "premier-league-rep",
+    "leagueAId": "premier-league",
+    "clubBId": "scottish-premiership-rep",
+    "leagueBId": "scottish-premiership",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-premier-league-tm-fr2",
+    "clubAId": "premier-league-rep",
+    "leagueAId": "premier-league",
+    "clubBId": "tm-fr2-rep",
+    "leagueBId": "tm-fr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-premier-league-tm-pt3a",
+    "clubAId": "premier-league-rep",
+    "leagueAId": "premier-league",
+    "clubBId": "tm-pt3a-rep",
+    "leagueBId": "tm-pt3a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-cn2a-tm-no1",
+    "clubAId": "tm-cn2a-rep",
+    "leagueAId": "tm-cn2a",
+    "clubBId": "tm-no1-rep",
+    "leagueBId": "tm-no1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-cn2a-tm-a1",
+    "clubAId": "tm-cn2a-rep",
+    "leagueAId": "tm-cn2a",
+    "clubBId": "tm-a1-rep",
+    "leagueBId": "tm-a1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-cn2a-eredivisie",
+    "clubAId": "tm-cn2a-rep",
+    "leagueAId": "tm-cn2a",
+    "clubBId": "eredivisie-rep",
+    "leagueBId": "eredivisie",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-cn2a-super-lig",
+    "clubAId": "tm-cn2a-rep",
+    "leagueAId": "tm-cn2a",
+    "clubBId": "super-lig-rep",
+    "leagueBId": "super-lig",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-cn2a-tm-gr1",
+    "clubAId": "tm-cn2a-rep",
+    "leagueAId": "tm-cn2a",
+    "clubBId": "tm-gr1-rep",
+    "leagueBId": "tm-gr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-cn2a-tm-ts1",
+    "clubAId": "tm-cn2a-rep",
+    "leagueAId": "tm-cn2a",
+    "clubBId": "tm-ts1-rep",
+    "leagueBId": "tm-ts1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-cn2a-bundesliga",
+    "clubAId": "tm-cn2a-rep",
+    "leagueAId": "tm-cn2a",
+    "clubBId": "bundesliga-rep",
+    "leagueBId": "bundesliga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-cn2a-tm-l2",
+    "clubAId": "tm-cn2a-rep",
+    "leagueAId": "tm-cn2a",
+    "clubBId": "tm-l2-rep",
+    "leagueBId": "tm-l2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-cn2a-tm-c1",
+    "clubAId": "tm-cn2a-rep",
+    "leagueAId": "tm-cn2a",
+    "clubBId": "tm-c1-rep",
+    "leagueBId": "tm-c1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-cn2a-ligue-1",
+    "clubAId": "tm-cn2a-rep",
+    "leagueAId": "tm-cn2a",
+    "clubBId": "ligue-1-rep",
+    "leagueBId": "ligue-1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-cn2a-tm-dk1",
+    "clubAId": "tm-cn2a-rep",
+    "leagueAId": "tm-cn2a",
+    "clubBId": "tm-dk1-rep",
+    "leagueBId": "tm-dk1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-cn2a-tm-ukr1",
+    "clubAId": "tm-cn2a-rep",
+    "leagueAId": "tm-cn2a",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-cn2a-la-liga",
+    "clubAId": "tm-cn2a-rep",
+    "leagueAId": "tm-cn2a",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-cn2a-scottish-premiership",
+    "clubAId": "tm-cn2a-rep",
+    "leagueAId": "tm-cn2a",
+    "clubBId": "scottish-premiership-rep",
+    "leagueBId": "scottish-premiership",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-cn2a-tm-fr2",
+    "clubAId": "tm-cn2a-rep",
+    "leagueAId": "tm-cn2a",
+    "clubBId": "tm-fr2-rep",
+    "leagueBId": "tm-fr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-cn2a-tm-pt3a",
+    "clubAId": "tm-cn2a-rep",
+    "leagueAId": "tm-cn2a",
+    "clubBId": "tm-pt3a-rep",
+    "leagueBId": "tm-pt3a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-no1-tm-a1",
+    "clubAId": "tm-no1-rep",
+    "leagueAId": "tm-no1",
+    "clubBId": "tm-a1-rep",
+    "leagueBId": "tm-a1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-no1-eredivisie",
+    "clubAId": "tm-no1-rep",
+    "leagueAId": "tm-no1",
+    "clubBId": "eredivisie-rep",
+    "leagueBId": "eredivisie",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-no1-super-lig",
+    "clubAId": "tm-no1-rep",
+    "leagueAId": "tm-no1",
+    "clubBId": "super-lig-rep",
+    "leagueBId": "super-lig",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-no1-tm-gr1",
+    "clubAId": "tm-no1-rep",
+    "leagueAId": "tm-no1",
+    "clubBId": "tm-gr1-rep",
+    "leagueBId": "tm-gr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-no1-tm-ts1",
+    "clubAId": "tm-no1-rep",
+    "leagueAId": "tm-no1",
+    "clubBId": "tm-ts1-rep",
+    "leagueBId": "tm-ts1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-no1-bundesliga",
+    "clubAId": "tm-no1-rep",
+    "leagueAId": "tm-no1",
+    "clubBId": "bundesliga-rep",
+    "leagueBId": "bundesliga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-no1-tm-l2",
+    "clubAId": "tm-no1-rep",
+    "leagueAId": "tm-no1",
+    "clubBId": "tm-l2-rep",
+    "leagueBId": "tm-l2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-no1-tm-c1",
+    "clubAId": "tm-no1-rep",
+    "leagueAId": "tm-no1",
+    "clubBId": "tm-c1-rep",
+    "leagueBId": "tm-c1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-no1-ligue-1",
+    "clubAId": "tm-no1-rep",
+    "leagueAId": "tm-no1",
+    "clubBId": "ligue-1-rep",
+    "leagueBId": "ligue-1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-no1-tm-dk1",
+    "clubAId": "tm-no1-rep",
+    "leagueAId": "tm-no1",
+    "clubBId": "tm-dk1-rep",
+    "leagueBId": "tm-dk1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-no1-tm-ukr1",
+    "clubAId": "tm-no1-rep",
+    "leagueAId": "tm-no1",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-no1-la-liga",
+    "clubAId": "tm-no1-rep",
+    "leagueAId": "tm-no1",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-no1-scottish-premiership",
+    "clubAId": "tm-no1-rep",
+    "leagueAId": "tm-no1",
+    "clubBId": "scottish-premiership-rep",
+    "leagueBId": "scottish-premiership",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-no1-tm-fr2",
+    "clubAId": "tm-no1-rep",
+    "leagueAId": "tm-no1",
+    "clubBId": "tm-fr2-rep",
+    "leagueBId": "tm-fr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-no1-tm-pt3a",
+    "clubAId": "tm-no1-rep",
+    "leagueAId": "tm-no1",
+    "clubBId": "tm-pt3a-rep",
+    "leagueBId": "tm-pt3a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-a1-eredivisie",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "eredivisie-rep",
+    "leagueBId": "eredivisie",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-a1-super-lig",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "super-lig-rep",
+    "leagueBId": "super-lig",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-a1-tm-gr1",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "tm-gr1-rep",
+    "leagueBId": "tm-gr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-a1-tm-ts1",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "tm-ts1-rep",
+    "leagueBId": "tm-ts1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-a1-bundesliga",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "bundesliga-rep",
+    "leagueBId": "bundesliga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-a1-tm-l2",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "tm-l2-rep",
+    "leagueBId": "tm-l2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-a1-tm-c1",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "tm-c1-rep",
+    "leagueBId": "tm-c1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-a1-ligue-1",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "ligue-1-rep",
+    "leagueBId": "ligue-1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-a1-tm-dk1",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "tm-dk1-rep",
+    "leagueBId": "tm-dk1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-a1-tm-ukr1",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-a1-la-liga",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-a1-scottish-premiership",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "scottish-premiership-rep",
+    "leagueBId": "scottish-premiership",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-a1-tm-fr2",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "tm-fr2-rep",
+    "leagueBId": "tm-fr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-a1-tm-pt3a",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "tm-pt3a-rep",
+    "leagueBId": "tm-pt3a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-eredivisie-super-lig",
+    "clubAId": "eredivisie-rep",
+    "leagueAId": "eredivisie",
+    "clubBId": "super-lig-rep",
+    "leagueBId": "super-lig",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-eredivisie-tm-gr1",
+    "clubAId": "eredivisie-rep",
+    "leagueAId": "eredivisie",
+    "clubBId": "tm-gr1-rep",
+    "leagueBId": "tm-gr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-eredivisie-tm-ts1",
+    "clubAId": "eredivisie-rep",
+    "leagueAId": "eredivisie",
+    "clubBId": "tm-ts1-rep",
+    "leagueBId": "tm-ts1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-eredivisie-bundesliga",
+    "clubAId": "eredivisie-rep",
+    "leagueAId": "eredivisie",
+    "clubBId": "bundesliga-rep",
+    "leagueBId": "bundesliga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-eredivisie-tm-l2",
+    "clubAId": "eredivisie-rep",
+    "leagueAId": "eredivisie",
+    "clubBId": "tm-l2-rep",
+    "leagueBId": "tm-l2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-eredivisie-tm-c1",
+    "clubAId": "eredivisie-rep",
+    "leagueAId": "eredivisie",
+    "clubBId": "tm-c1-rep",
+    "leagueBId": "tm-c1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-eredivisie-ligue-1",
+    "clubAId": "eredivisie-rep",
+    "leagueAId": "eredivisie",
+    "clubBId": "ligue-1-rep",
+    "leagueBId": "ligue-1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-eredivisie-tm-dk1",
+    "clubAId": "eredivisie-rep",
+    "leagueAId": "eredivisie",
+    "clubBId": "tm-dk1-rep",
+    "leagueBId": "tm-dk1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-eredivisie-tm-ukr1",
+    "clubAId": "eredivisie-rep",
+    "leagueAId": "eredivisie",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-eredivisie-la-liga",
+    "clubAId": "eredivisie-rep",
+    "leagueAId": "eredivisie",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-eredivisie-scottish-premiership",
+    "clubAId": "eredivisie-rep",
+    "leagueAId": "eredivisie",
+    "clubBId": "scottish-premiership-rep",
+    "leagueBId": "scottish-premiership",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-eredivisie-tm-fr2",
+    "clubAId": "eredivisie-rep",
+    "leagueAId": "eredivisie",
+    "clubBId": "tm-fr2-rep",
+    "leagueBId": "tm-fr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-eredivisie-tm-pt3a",
+    "clubAId": "eredivisie-rep",
+    "leagueAId": "eredivisie",
+    "clubBId": "tm-pt3a-rep",
+    "leagueBId": "tm-pt3a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-super-lig-tm-gr1",
+    "clubAId": "super-lig-rep",
+    "leagueAId": "super-lig",
+    "clubBId": "tm-gr1-rep",
+    "leagueBId": "tm-gr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-super-lig-tm-ts1",
+    "clubAId": "super-lig-rep",
+    "leagueAId": "super-lig",
+    "clubBId": "tm-ts1-rep",
+    "leagueBId": "tm-ts1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-super-lig-bundesliga",
+    "clubAId": "super-lig-rep",
+    "leagueAId": "super-lig",
+    "clubBId": "bundesliga-rep",
+    "leagueBId": "bundesliga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-super-lig-tm-l2",
+    "clubAId": "super-lig-rep",
+    "leagueAId": "super-lig",
+    "clubBId": "tm-l2-rep",
+    "leagueBId": "tm-l2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-super-lig-tm-c1",
+    "clubAId": "super-lig-rep",
+    "leagueAId": "super-lig",
+    "clubBId": "tm-c1-rep",
+    "leagueBId": "tm-c1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-super-lig-ligue-1",
+    "clubAId": "super-lig-rep",
+    "leagueAId": "super-lig",
+    "clubBId": "ligue-1-rep",
+    "leagueBId": "ligue-1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-super-lig-tm-dk1",
+    "clubAId": "super-lig-rep",
+    "leagueAId": "super-lig",
+    "clubBId": "tm-dk1-rep",
+    "leagueBId": "tm-dk1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-super-lig-tm-ukr1",
+    "clubAId": "super-lig-rep",
+    "leagueAId": "super-lig",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-super-lig-la-liga",
+    "clubAId": "super-lig-rep",
+    "leagueAId": "super-lig",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-super-lig-scottish-premiership",
+    "clubAId": "super-lig-rep",
+    "leagueAId": "super-lig",
+    "clubBId": "scottish-premiership-rep",
+    "leagueBId": "scottish-premiership",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-super-lig-tm-fr2",
+    "clubAId": "super-lig-rep",
+    "leagueAId": "super-lig",
+    "clubBId": "tm-fr2-rep",
+    "leagueBId": "tm-fr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-super-lig-tm-pt3a",
+    "clubAId": "super-lig-rep",
+    "leagueAId": "super-lig",
+    "clubBId": "tm-pt3a-rep",
+    "leagueBId": "tm-pt3a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-gr1-tm-ts1",
+    "clubAId": "tm-gr1-rep",
+    "leagueAId": "tm-gr1",
+    "clubBId": "tm-ts1-rep",
+    "leagueBId": "tm-ts1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-gr1-bundesliga",
+    "clubAId": "tm-gr1-rep",
+    "leagueAId": "tm-gr1",
+    "clubBId": "bundesliga-rep",
+    "leagueBId": "bundesliga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-gr1-tm-l2",
+    "clubAId": "tm-gr1-rep",
+    "leagueAId": "tm-gr1",
+    "clubBId": "tm-l2-rep",
+    "leagueBId": "tm-l2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-gr1-tm-c1",
+    "clubAId": "tm-gr1-rep",
+    "leagueAId": "tm-gr1",
+    "clubBId": "tm-c1-rep",
+    "leagueBId": "tm-c1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-gr1-ligue-1",
+    "clubAId": "tm-gr1-rep",
+    "leagueAId": "tm-gr1",
+    "clubBId": "ligue-1-rep",
+    "leagueBId": "ligue-1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-gr1-tm-dk1",
+    "clubAId": "tm-gr1-rep",
+    "leagueAId": "tm-gr1",
+    "clubBId": "tm-dk1-rep",
+    "leagueBId": "tm-dk1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-gr1-tm-ukr1",
+    "clubAId": "tm-gr1-rep",
+    "leagueAId": "tm-gr1",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-gr1-la-liga",
+    "clubAId": "tm-gr1-rep",
+    "leagueAId": "tm-gr1",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-gr1-scottish-premiership",
+    "clubAId": "tm-gr1-rep",
+    "leagueAId": "tm-gr1",
+    "clubBId": "scottish-premiership-rep",
+    "leagueBId": "scottish-premiership",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-gr1-tm-fr2",
+    "clubAId": "tm-gr1-rep",
+    "leagueAId": "tm-gr1",
+    "clubBId": "tm-fr2-rep",
+    "leagueBId": "tm-fr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-gr1-tm-pt3a",
+    "clubAId": "tm-gr1-rep",
+    "leagueAId": "tm-gr1",
+    "clubBId": "tm-pt3a-rep",
+    "leagueBId": "tm-pt3a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-ts1-bundesliga",
+    "clubAId": "tm-ts1-rep",
+    "leagueAId": "tm-ts1",
+    "clubBId": "bundesliga-rep",
+    "leagueBId": "bundesliga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-ts1-tm-l2",
+    "clubAId": "tm-ts1-rep",
+    "leagueAId": "tm-ts1",
+    "clubBId": "tm-l2-rep",
+    "leagueBId": "tm-l2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-ts1-tm-c1",
+    "clubAId": "tm-ts1-rep",
+    "leagueAId": "tm-ts1",
+    "clubBId": "tm-c1-rep",
+    "leagueBId": "tm-c1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-ts1-ligue-1",
+    "clubAId": "tm-ts1-rep",
+    "leagueAId": "tm-ts1",
+    "clubBId": "ligue-1-rep",
+    "leagueBId": "ligue-1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-ts1-tm-dk1",
+    "clubAId": "tm-ts1-rep",
+    "leagueAId": "tm-ts1",
+    "clubBId": "tm-dk1-rep",
+    "leagueBId": "tm-dk1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-ts1-tm-ukr1",
+    "clubAId": "tm-ts1-rep",
+    "leagueAId": "tm-ts1",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-ts1-la-liga",
+    "clubAId": "tm-ts1-rep",
+    "leagueAId": "tm-ts1",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-ts1-scottish-premiership",
+    "clubAId": "tm-ts1-rep",
+    "leagueAId": "tm-ts1",
+    "clubBId": "scottish-premiership-rep",
+    "leagueBId": "scottish-premiership",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-ts1-tm-fr2",
+    "clubAId": "tm-ts1-rep",
+    "leagueAId": "tm-ts1",
+    "clubBId": "tm-fr2-rep",
+    "leagueBId": "tm-fr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-ts1-tm-pt3a",
+    "clubAId": "tm-ts1-rep",
+    "leagueAId": "tm-ts1",
+    "clubBId": "tm-pt3a-rep",
+    "leagueBId": "tm-pt3a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-bundesliga-tm-l2",
+    "clubAId": "bundesliga-rep",
+    "leagueAId": "bundesliga",
+    "clubBId": "tm-l2-rep",
+    "leagueBId": "tm-l2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-bundesliga-tm-c1",
+    "clubAId": "bundesliga-rep",
+    "leagueAId": "bundesliga",
+    "clubBId": "tm-c1-rep",
+    "leagueBId": "tm-c1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-bundesliga-ligue-1",
+    "clubAId": "bundesliga-rep",
+    "leagueAId": "bundesliga",
+    "clubBId": "ligue-1-rep",
+    "leagueBId": "ligue-1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-bundesliga-tm-dk1",
+    "clubAId": "bundesliga-rep",
+    "leagueAId": "bundesliga",
+    "clubBId": "tm-dk1-rep",
+    "leagueBId": "tm-dk1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-bundesliga-tm-ukr1",
+    "clubAId": "bundesliga-rep",
+    "leagueAId": "bundesliga",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-bundesliga-la-liga",
+    "clubAId": "bundesliga-rep",
+    "leagueAId": "bundesliga",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-bundesliga-scottish-premiership",
+    "clubAId": "bundesliga-rep",
+    "leagueAId": "bundesliga",
+    "clubBId": "scottish-premiership-rep",
+    "leagueBId": "scottish-premiership",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-bundesliga-tm-fr2",
+    "clubAId": "bundesliga-rep",
+    "leagueAId": "bundesliga",
+    "clubBId": "tm-fr2-rep",
+    "leagueBId": "tm-fr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-bundesliga-tm-pt3a",
+    "clubAId": "bundesliga-rep",
+    "leagueAId": "bundesliga",
+    "clubBId": "tm-pt3a-rep",
+    "leagueBId": "tm-pt3a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-l2-tm-c1",
+    "clubAId": "tm-l2-rep",
+    "leagueAId": "tm-l2",
+    "clubBId": "tm-c1-rep",
+    "leagueBId": "tm-c1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-l2-ligue-1",
+    "clubAId": "tm-l2-rep",
+    "leagueAId": "tm-l2",
+    "clubBId": "ligue-1-rep",
+    "leagueBId": "ligue-1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-l2-tm-dk1",
+    "clubAId": "tm-l2-rep",
+    "leagueAId": "tm-l2",
+    "clubBId": "tm-dk1-rep",
+    "leagueBId": "tm-dk1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-l2-tm-ukr1",
+    "clubAId": "tm-l2-rep",
+    "leagueAId": "tm-l2",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-l2-la-liga",
+    "clubAId": "tm-l2-rep",
+    "leagueAId": "tm-l2",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-l2-scottish-premiership",
+    "clubAId": "tm-l2-rep",
+    "leagueAId": "tm-l2",
+    "clubBId": "scottish-premiership-rep",
+    "leagueBId": "scottish-premiership",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-l2-tm-fr2",
+    "clubAId": "tm-l2-rep",
+    "leagueAId": "tm-l2",
+    "clubBId": "tm-fr2-rep",
+    "leagueBId": "tm-fr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-l2-tm-pt3a",
+    "clubAId": "tm-l2-rep",
+    "leagueAId": "tm-l2",
+    "clubBId": "tm-pt3a-rep",
+    "leagueBId": "tm-pt3a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-c1-ligue-1",
+    "clubAId": "tm-c1-rep",
+    "leagueAId": "tm-c1",
+    "clubBId": "ligue-1-rep",
+    "leagueBId": "ligue-1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-c1-tm-dk1",
+    "clubAId": "tm-c1-rep",
+    "leagueAId": "tm-c1",
+    "clubBId": "tm-dk1-rep",
+    "leagueBId": "tm-dk1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-c1-tm-ukr1",
+    "clubAId": "tm-c1-rep",
+    "leagueAId": "tm-c1",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-c1-la-liga",
+    "clubAId": "tm-c1-rep",
+    "leagueAId": "tm-c1",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-c1-scottish-premiership",
+    "clubAId": "tm-c1-rep",
+    "leagueAId": "tm-c1",
+    "clubBId": "scottish-premiership-rep",
+    "leagueBId": "scottish-premiership",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-c1-tm-fr2",
+    "clubAId": "tm-c1-rep",
+    "leagueAId": "tm-c1",
+    "clubBId": "tm-fr2-rep",
+    "leagueBId": "tm-fr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-c1-tm-pt3a",
+    "clubAId": "tm-c1-rep",
+    "leagueAId": "tm-c1",
+    "clubBId": "tm-pt3a-rep",
+    "leagueBId": "tm-pt3a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-ligue-1-tm-dk1",
+    "clubAId": "ligue-1-rep",
+    "leagueAId": "ligue-1",
+    "clubBId": "tm-dk1-rep",
+    "leagueBId": "tm-dk1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-ligue-1-tm-ukr1",
+    "clubAId": "ligue-1-rep",
+    "leagueAId": "ligue-1",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-ligue-1-la-liga",
+    "clubAId": "ligue-1-rep",
+    "leagueAId": "ligue-1",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-ligue-1-scottish-premiership",
+    "clubAId": "ligue-1-rep",
+    "leagueAId": "ligue-1",
+    "clubBId": "scottish-premiership-rep",
+    "leagueBId": "scottish-premiership",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-ligue-1-tm-fr2",
+    "clubAId": "ligue-1-rep",
+    "leagueAId": "ligue-1",
+    "clubBId": "tm-fr2-rep",
+    "leagueBId": "tm-fr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-ligue-1-tm-pt3a",
+    "clubAId": "ligue-1-rep",
+    "leagueAId": "ligue-1",
+    "clubBId": "tm-pt3a-rep",
+    "leagueBId": "tm-pt3a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-dk1-tm-ukr1",
+    "clubAId": "tm-dk1-rep",
+    "leagueAId": "tm-dk1",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-dk1-la-liga",
+    "clubAId": "tm-dk1-rep",
+    "leagueAId": "tm-dk1",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-dk1-scottish-premiership",
+    "clubAId": "tm-dk1-rep",
+    "leagueAId": "tm-dk1",
+    "clubBId": "scottish-premiership-rep",
+    "leagueBId": "scottish-premiership",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-dk1-tm-fr2",
+    "clubAId": "tm-dk1-rep",
+    "leagueAId": "tm-dk1",
+    "clubBId": "tm-fr2-rep",
+    "leagueBId": "tm-fr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-dk1-tm-pt3a",
+    "clubAId": "tm-dk1-rep",
+    "leagueAId": "tm-dk1",
+    "clubBId": "tm-pt3a-rep",
+    "leagueBId": "tm-pt3a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-ukr1-la-liga",
+    "clubAId": "tm-ukr1-rep",
+    "leagueAId": "tm-ukr1",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-ukr1-scottish-premiership",
+    "clubAId": "tm-ukr1-rep",
+    "leagueAId": "tm-ukr1",
+    "clubBId": "scottish-premiership-rep",
+    "leagueBId": "scottish-premiership",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-ukr1-tm-fr2",
+    "clubAId": "tm-ukr1-rep",
+    "leagueAId": "tm-ukr1",
+    "clubBId": "tm-fr2-rep",
+    "leagueBId": "tm-fr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-ukr1-tm-pt3a",
+    "clubAId": "tm-ukr1-rep",
+    "leagueAId": "tm-ukr1",
+    "clubBId": "tm-pt3a-rep",
+    "leagueBId": "tm-pt3a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-la-liga-scottish-premiership",
+    "clubAId": "la-liga-rep",
+    "leagueAId": "la-liga",
+    "clubBId": "scottish-premiership-rep",
+    "leagueBId": "scottish-premiership",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-la-liga-tm-fr2",
+    "clubAId": "la-liga-rep",
+    "leagueAId": "la-liga",
+    "clubBId": "tm-fr2-rep",
+    "leagueBId": "tm-fr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-la-liga-tm-pt3a",
+    "clubAId": "la-liga-rep",
+    "leagueAId": "la-liga",
+    "clubBId": "tm-pt3a-rep",
+    "leagueBId": "tm-pt3a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-scottish-premiership-tm-fr2",
+    "clubAId": "scottish-premiership-rep",
+    "leagueAId": "scottish-premiership",
+    "clubBId": "tm-fr2-rep",
+    "leagueBId": "tm-fr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-scottish-premiership-tm-pt3a",
+    "clubAId": "scottish-premiership-rep",
+    "leagueAId": "scottish-premiership",
+    "clubBId": "tm-pt3a-rep",
+    "leagueBId": "tm-pt3a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-15/16-europa-league-tm-fr2-tm-pt3a",
+    "clubAId": "tm-fr2-rep",
+    "leagueAId": "tm-fr2",
+    "clubBId": "tm-pt3a-rep",
+    "leagueBId": "tm-pt3a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2015",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-serie-a-tm-pl1",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "tm-pl1-rep",
+    "leagueBId": "tm-pl1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-serie-a-pro-league",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "pro-league-rep",
+    "leagueBId": "pro-league",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-serie-a-tm-a1",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "tm-a1-rep",
+    "leagueBId": "tm-a1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-serie-a-bundesliga",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "bundesliga-rep",
+    "leagueBId": "bundesliga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-serie-a-eredivisie",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "eredivisie-rep",
+    "leagueBId": "eredivisie",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-serie-a-primeira-liga",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "primeira-liga-rep",
+    "leagueBId": "primeira-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-serie-a-tm-dk2",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "tm-dk2-rep",
+    "leagueBId": "tm-dk2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-serie-a-tm-ts1",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "tm-ts1-rep",
+    "leagueBId": "tm-ts1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-serie-a-premier-league",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "premier-league-rep",
+    "leagueBId": "premier-league",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-serie-a-tm-po2",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "tm-po2-rep",
+    "leagueBId": "tm-po2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-serie-a-tm-se1",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "tm-se1-rep",
+    "leagueBId": "tm-se1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-serie-a-tm-c1",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "tm-c1-rep",
+    "leagueBId": "tm-c1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-serie-a-ligue-1",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "ligue-1-rep",
+    "leagueBId": "ligue-1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-serie-a-tm-ru1",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "tm-ru1-rep",
+    "leagueBId": "tm-ru1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-serie-a-la-liga",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-serie-a-tm-ukr1",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-serie-a-tm-cn2a",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "tm-cn2a-rep",
+    "leagueBId": "tm-cn2a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-serie-a-tm-gr1",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "tm-gr1-rep",
+    "leagueBId": "tm-gr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-serie-a-tm-no1",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "tm-no1-rep",
+    "leagueBId": "tm-no1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-serie-a-tm-kr1",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "tm-kr1-rep",
+    "leagueBId": "tm-kr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-serie-a-super-lig",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "super-lig-rep",
+    "leagueBId": "super-lig",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-serie-a-tm-gb3",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "tm-gb3-rep",
+    "leagueBId": "tm-gb3",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-serie-a-championship",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "championship-rep",
+    "leagueBId": "championship",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-serie-a-tm-ukr2",
+    "clubAId": "serie-a-rep",
+    "leagueAId": "serie-a",
+    "clubBId": "tm-ukr2-rep",
+    "leagueBId": "tm-ukr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-pl1-pro-league",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "pro-league-rep",
+    "leagueBId": "pro-league",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-pl1-tm-a1",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "tm-a1-rep",
+    "leagueBId": "tm-a1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-pl1-bundesliga",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "bundesliga-rep",
+    "leagueBId": "bundesliga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-pl1-eredivisie",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "eredivisie-rep",
+    "leagueBId": "eredivisie",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-pl1-primeira-liga",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "primeira-liga-rep",
+    "leagueBId": "primeira-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-pl1-tm-dk2",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "tm-dk2-rep",
+    "leagueBId": "tm-dk2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-pl1-tm-ts1",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "tm-ts1-rep",
+    "leagueBId": "tm-ts1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-pl1-premier-league",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "premier-league-rep",
+    "leagueBId": "premier-league",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-pl1-tm-po2",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "tm-po2-rep",
+    "leagueBId": "tm-po2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-pl1-tm-se1",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "tm-se1-rep",
+    "leagueBId": "tm-se1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-pl1-tm-c1",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "tm-c1-rep",
+    "leagueBId": "tm-c1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-pl1-ligue-1",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "ligue-1-rep",
+    "leagueBId": "ligue-1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-pl1-tm-ru1",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "tm-ru1-rep",
+    "leagueBId": "tm-ru1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-pl1-la-liga",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-pl1-tm-ukr1",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-pl1-tm-cn2a",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "tm-cn2a-rep",
+    "leagueBId": "tm-cn2a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-pl1-tm-gr1",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "tm-gr1-rep",
+    "leagueBId": "tm-gr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-pl1-tm-no1",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "tm-no1-rep",
+    "leagueBId": "tm-no1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-pl1-tm-kr1",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "tm-kr1-rep",
+    "leagueBId": "tm-kr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-pl1-super-lig",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "super-lig-rep",
+    "leagueBId": "super-lig",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-pl1-tm-gb3",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "tm-gb3-rep",
+    "leagueBId": "tm-gb3",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-pl1-championship",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "championship-rep",
+    "leagueBId": "championship",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-pl1-tm-ukr2",
+    "clubAId": "tm-pl1-rep",
+    "leagueAId": "tm-pl1",
+    "clubBId": "tm-ukr2-rep",
+    "leagueBId": "tm-ukr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-pro-league-tm-a1",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "tm-a1-rep",
+    "leagueBId": "tm-a1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-pro-league-bundesliga",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "bundesliga-rep",
+    "leagueBId": "bundesliga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-pro-league-eredivisie",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "eredivisie-rep",
+    "leagueBId": "eredivisie",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-pro-league-primeira-liga",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "primeira-liga-rep",
+    "leagueBId": "primeira-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-pro-league-tm-dk2",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "tm-dk2-rep",
+    "leagueBId": "tm-dk2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-pro-league-tm-ts1",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "tm-ts1-rep",
+    "leagueBId": "tm-ts1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-pro-league-premier-league",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "premier-league-rep",
+    "leagueBId": "premier-league",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-pro-league-tm-po2",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "tm-po2-rep",
+    "leagueBId": "tm-po2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-pro-league-tm-se1",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "tm-se1-rep",
+    "leagueBId": "tm-se1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-pro-league-tm-c1",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "tm-c1-rep",
+    "leagueBId": "tm-c1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-pro-league-ligue-1",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "ligue-1-rep",
+    "leagueBId": "ligue-1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-pro-league-tm-ru1",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "tm-ru1-rep",
+    "leagueBId": "tm-ru1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-pro-league-la-liga",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-pro-league-tm-ukr1",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-pro-league-tm-cn2a",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "tm-cn2a-rep",
+    "leagueBId": "tm-cn2a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-pro-league-tm-gr1",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "tm-gr1-rep",
+    "leagueBId": "tm-gr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-pro-league-tm-no1",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "tm-no1-rep",
+    "leagueBId": "tm-no1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-pro-league-tm-kr1",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "tm-kr1-rep",
+    "leagueBId": "tm-kr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-pro-league-super-lig",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "super-lig-rep",
+    "leagueBId": "super-lig",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-pro-league-tm-gb3",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "tm-gb3-rep",
+    "leagueBId": "tm-gb3",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-pro-league-championship",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "championship-rep",
+    "leagueBId": "championship",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-pro-league-tm-ukr2",
+    "clubAId": "pro-league-rep",
+    "leagueAId": "pro-league",
+    "clubBId": "tm-ukr2-rep",
+    "leagueBId": "tm-ukr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-a1-bundesliga",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "bundesliga-rep",
+    "leagueBId": "bundesliga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-a1-eredivisie",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "eredivisie-rep",
+    "leagueBId": "eredivisie",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-a1-primeira-liga",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "primeira-liga-rep",
+    "leagueBId": "primeira-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-a1-tm-dk2",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "tm-dk2-rep",
+    "leagueBId": "tm-dk2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-a1-tm-ts1",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "tm-ts1-rep",
+    "leagueBId": "tm-ts1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-a1-premier-league",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "premier-league-rep",
+    "leagueBId": "premier-league",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-a1-tm-po2",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "tm-po2-rep",
+    "leagueBId": "tm-po2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-a1-tm-se1",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "tm-se1-rep",
+    "leagueBId": "tm-se1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-a1-tm-c1",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "tm-c1-rep",
+    "leagueBId": "tm-c1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-a1-ligue-1",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "ligue-1-rep",
+    "leagueBId": "ligue-1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-a1-tm-ru1",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "tm-ru1-rep",
+    "leagueBId": "tm-ru1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-a1-la-liga",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-a1-tm-ukr1",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-a1-tm-cn2a",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "tm-cn2a-rep",
+    "leagueBId": "tm-cn2a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-a1-tm-gr1",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "tm-gr1-rep",
+    "leagueBId": "tm-gr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-a1-tm-no1",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "tm-no1-rep",
+    "leagueBId": "tm-no1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-a1-tm-kr1",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "tm-kr1-rep",
+    "leagueBId": "tm-kr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-a1-super-lig",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "super-lig-rep",
+    "leagueBId": "super-lig",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-a1-tm-gb3",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "tm-gb3-rep",
+    "leagueBId": "tm-gb3",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-a1-championship",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "championship-rep",
+    "leagueBId": "championship",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-a1-tm-ukr2",
+    "clubAId": "tm-a1-rep",
+    "leagueAId": "tm-a1",
+    "clubBId": "tm-ukr2-rep",
+    "leagueBId": "tm-ukr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-bundesliga-eredivisie",
+    "clubAId": "bundesliga-rep",
+    "leagueAId": "bundesliga",
+    "clubBId": "eredivisie-rep",
+    "leagueBId": "eredivisie",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-bundesliga-primeira-liga",
+    "clubAId": "bundesliga-rep",
+    "leagueAId": "bundesliga",
+    "clubBId": "primeira-liga-rep",
+    "leagueBId": "primeira-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-bundesliga-tm-dk2",
+    "clubAId": "bundesliga-rep",
+    "leagueAId": "bundesliga",
+    "clubBId": "tm-dk2-rep",
+    "leagueBId": "tm-dk2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-bundesliga-tm-ts1",
+    "clubAId": "bundesliga-rep",
+    "leagueAId": "bundesliga",
+    "clubBId": "tm-ts1-rep",
+    "leagueBId": "tm-ts1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-bundesliga-premier-league",
+    "clubAId": "bundesliga-rep",
+    "leagueAId": "bundesliga",
+    "clubBId": "premier-league-rep",
+    "leagueBId": "premier-league",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-bundesliga-tm-po2",
+    "clubAId": "bundesliga-rep",
+    "leagueAId": "bundesliga",
+    "clubBId": "tm-po2-rep",
+    "leagueBId": "tm-po2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-bundesliga-tm-se1",
+    "clubAId": "bundesliga-rep",
+    "leagueAId": "bundesliga",
+    "clubBId": "tm-se1-rep",
+    "leagueBId": "tm-se1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-bundesliga-tm-c1",
+    "clubAId": "bundesliga-rep",
+    "leagueAId": "bundesliga",
+    "clubBId": "tm-c1-rep",
+    "leagueBId": "tm-c1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-bundesliga-ligue-1",
+    "clubAId": "bundesliga-rep",
+    "leagueAId": "bundesliga",
+    "clubBId": "ligue-1-rep",
+    "leagueBId": "ligue-1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-bundesliga-tm-ru1",
+    "clubAId": "bundesliga-rep",
+    "leagueAId": "bundesliga",
+    "clubBId": "tm-ru1-rep",
+    "leagueBId": "tm-ru1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-bundesliga-la-liga",
+    "clubAId": "bundesliga-rep",
+    "leagueAId": "bundesliga",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-bundesliga-tm-ukr1",
+    "clubAId": "bundesliga-rep",
+    "leagueAId": "bundesliga",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-bundesliga-tm-cn2a",
+    "clubAId": "bundesliga-rep",
+    "leagueAId": "bundesliga",
+    "clubBId": "tm-cn2a-rep",
+    "leagueBId": "tm-cn2a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-bundesliga-tm-gr1",
+    "clubAId": "bundesliga-rep",
+    "leagueAId": "bundesliga",
+    "clubBId": "tm-gr1-rep",
+    "leagueBId": "tm-gr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-bundesliga-tm-no1",
+    "clubAId": "bundesliga-rep",
+    "leagueAId": "bundesliga",
+    "clubBId": "tm-no1-rep",
+    "leagueBId": "tm-no1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-bundesliga-tm-kr1",
+    "clubAId": "bundesliga-rep",
+    "leagueAId": "bundesliga",
+    "clubBId": "tm-kr1-rep",
+    "leagueBId": "tm-kr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-bundesliga-super-lig",
+    "clubAId": "bundesliga-rep",
+    "leagueAId": "bundesliga",
+    "clubBId": "super-lig-rep",
+    "leagueBId": "super-lig",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-bundesliga-tm-gb3",
+    "clubAId": "bundesliga-rep",
+    "leagueAId": "bundesliga",
+    "clubBId": "tm-gb3-rep",
+    "leagueBId": "tm-gb3",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-bundesliga-championship",
+    "clubAId": "bundesliga-rep",
+    "leagueAId": "bundesliga",
+    "clubBId": "championship-rep",
+    "leagueBId": "championship",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-bundesliga-tm-ukr2",
+    "clubAId": "bundesliga-rep",
+    "leagueAId": "bundesliga",
+    "clubBId": "tm-ukr2-rep",
+    "leagueBId": "tm-ukr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-eredivisie-primeira-liga",
+    "clubAId": "eredivisie-rep",
+    "leagueAId": "eredivisie",
+    "clubBId": "primeira-liga-rep",
+    "leagueBId": "primeira-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-eredivisie-tm-dk2",
+    "clubAId": "eredivisie-rep",
+    "leagueAId": "eredivisie",
+    "clubBId": "tm-dk2-rep",
+    "leagueBId": "tm-dk2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-eredivisie-tm-ts1",
+    "clubAId": "eredivisie-rep",
+    "leagueAId": "eredivisie",
+    "clubBId": "tm-ts1-rep",
+    "leagueBId": "tm-ts1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-eredivisie-premier-league",
+    "clubAId": "eredivisie-rep",
+    "leagueAId": "eredivisie",
+    "clubBId": "premier-league-rep",
+    "leagueBId": "premier-league",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-eredivisie-tm-po2",
+    "clubAId": "eredivisie-rep",
+    "leagueAId": "eredivisie",
+    "clubBId": "tm-po2-rep",
+    "leagueBId": "tm-po2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-eredivisie-tm-se1",
+    "clubAId": "eredivisie-rep",
+    "leagueAId": "eredivisie",
+    "clubBId": "tm-se1-rep",
+    "leagueBId": "tm-se1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-eredivisie-tm-c1",
+    "clubAId": "eredivisie-rep",
+    "leagueAId": "eredivisie",
+    "clubBId": "tm-c1-rep",
+    "leagueBId": "tm-c1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-eredivisie-ligue-1",
+    "clubAId": "eredivisie-rep",
+    "leagueAId": "eredivisie",
+    "clubBId": "ligue-1-rep",
+    "leagueBId": "ligue-1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-eredivisie-tm-ru1",
+    "clubAId": "eredivisie-rep",
+    "leagueAId": "eredivisie",
+    "clubBId": "tm-ru1-rep",
+    "leagueBId": "tm-ru1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-eredivisie-la-liga",
+    "clubAId": "eredivisie-rep",
+    "leagueAId": "eredivisie",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-eredivisie-tm-ukr1",
+    "clubAId": "eredivisie-rep",
+    "leagueAId": "eredivisie",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-eredivisie-tm-cn2a",
+    "clubAId": "eredivisie-rep",
+    "leagueAId": "eredivisie",
+    "clubBId": "tm-cn2a-rep",
+    "leagueBId": "tm-cn2a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-eredivisie-tm-gr1",
+    "clubAId": "eredivisie-rep",
+    "leagueAId": "eredivisie",
+    "clubBId": "tm-gr1-rep",
+    "leagueBId": "tm-gr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-eredivisie-tm-no1",
+    "clubAId": "eredivisie-rep",
+    "leagueAId": "eredivisie",
+    "clubBId": "tm-no1-rep",
+    "leagueBId": "tm-no1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-eredivisie-tm-kr1",
+    "clubAId": "eredivisie-rep",
+    "leagueAId": "eredivisie",
+    "clubBId": "tm-kr1-rep",
+    "leagueBId": "tm-kr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-eredivisie-super-lig",
+    "clubAId": "eredivisie-rep",
+    "leagueAId": "eredivisie",
+    "clubBId": "super-lig-rep",
+    "leagueBId": "super-lig",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-eredivisie-tm-gb3",
+    "clubAId": "eredivisie-rep",
+    "leagueAId": "eredivisie",
+    "clubBId": "tm-gb3-rep",
+    "leagueBId": "tm-gb3",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-eredivisie-championship",
+    "clubAId": "eredivisie-rep",
+    "leagueAId": "eredivisie",
+    "clubBId": "championship-rep",
+    "leagueBId": "championship",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-eredivisie-tm-ukr2",
+    "clubAId": "eredivisie-rep",
+    "leagueAId": "eredivisie",
+    "clubBId": "tm-ukr2-rep",
+    "leagueBId": "tm-ukr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-primeira-liga-tm-dk2",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "tm-dk2-rep",
+    "leagueBId": "tm-dk2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-primeira-liga-tm-ts1",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "tm-ts1-rep",
+    "leagueBId": "tm-ts1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-primeira-liga-premier-league",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "premier-league-rep",
+    "leagueBId": "premier-league",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-primeira-liga-tm-po2",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "tm-po2-rep",
+    "leagueBId": "tm-po2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-primeira-liga-tm-se1",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "tm-se1-rep",
+    "leagueBId": "tm-se1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-primeira-liga-tm-c1",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "tm-c1-rep",
+    "leagueBId": "tm-c1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-primeira-liga-ligue-1",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "ligue-1-rep",
+    "leagueBId": "ligue-1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-primeira-liga-tm-ru1",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "tm-ru1-rep",
+    "leagueBId": "tm-ru1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-primeira-liga-la-liga",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-primeira-liga-tm-ukr1",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-primeira-liga-tm-cn2a",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "tm-cn2a-rep",
+    "leagueBId": "tm-cn2a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-primeira-liga-tm-gr1",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "tm-gr1-rep",
+    "leagueBId": "tm-gr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-primeira-liga-tm-no1",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "tm-no1-rep",
+    "leagueBId": "tm-no1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-primeira-liga-tm-kr1",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "tm-kr1-rep",
+    "leagueBId": "tm-kr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-primeira-liga-super-lig",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "super-lig-rep",
+    "leagueBId": "super-lig",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-primeira-liga-tm-gb3",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "tm-gb3-rep",
+    "leagueBId": "tm-gb3",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-primeira-liga-championship",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "championship-rep",
+    "leagueBId": "championship",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-primeira-liga-tm-ukr2",
+    "clubAId": "primeira-liga-rep",
+    "leagueAId": "primeira-liga",
+    "clubBId": "tm-ukr2-rep",
+    "leagueBId": "tm-ukr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-dk2-tm-ts1",
+    "clubAId": "tm-dk2-rep",
+    "leagueAId": "tm-dk2",
+    "clubBId": "tm-ts1-rep",
+    "leagueBId": "tm-ts1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-dk2-premier-league",
+    "clubAId": "tm-dk2-rep",
+    "leagueAId": "tm-dk2",
+    "clubBId": "premier-league-rep",
+    "leagueBId": "premier-league",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-dk2-tm-po2",
+    "clubAId": "tm-dk2-rep",
+    "leagueAId": "tm-dk2",
+    "clubBId": "tm-po2-rep",
+    "leagueBId": "tm-po2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-dk2-tm-se1",
+    "clubAId": "tm-dk2-rep",
+    "leagueAId": "tm-dk2",
+    "clubBId": "tm-se1-rep",
+    "leagueBId": "tm-se1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-dk2-tm-c1",
+    "clubAId": "tm-dk2-rep",
+    "leagueAId": "tm-dk2",
+    "clubBId": "tm-c1-rep",
+    "leagueBId": "tm-c1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-dk2-ligue-1",
+    "clubAId": "tm-dk2-rep",
+    "leagueAId": "tm-dk2",
+    "clubBId": "ligue-1-rep",
+    "leagueBId": "ligue-1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-dk2-tm-ru1",
+    "clubAId": "tm-dk2-rep",
+    "leagueAId": "tm-dk2",
+    "clubBId": "tm-ru1-rep",
+    "leagueBId": "tm-ru1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-dk2-la-liga",
+    "clubAId": "tm-dk2-rep",
+    "leagueAId": "tm-dk2",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-dk2-tm-ukr1",
+    "clubAId": "tm-dk2-rep",
+    "leagueAId": "tm-dk2",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-dk2-tm-cn2a",
+    "clubAId": "tm-dk2-rep",
+    "leagueAId": "tm-dk2",
+    "clubBId": "tm-cn2a-rep",
+    "leagueBId": "tm-cn2a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-dk2-tm-gr1",
+    "clubAId": "tm-dk2-rep",
+    "leagueAId": "tm-dk2",
+    "clubBId": "tm-gr1-rep",
+    "leagueBId": "tm-gr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-dk2-tm-no1",
+    "clubAId": "tm-dk2-rep",
+    "leagueAId": "tm-dk2",
+    "clubBId": "tm-no1-rep",
+    "leagueBId": "tm-no1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-dk2-tm-kr1",
+    "clubAId": "tm-dk2-rep",
+    "leagueAId": "tm-dk2",
+    "clubBId": "tm-kr1-rep",
+    "leagueBId": "tm-kr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-dk2-super-lig",
+    "clubAId": "tm-dk2-rep",
+    "leagueAId": "tm-dk2",
+    "clubBId": "super-lig-rep",
+    "leagueBId": "super-lig",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-dk2-tm-gb3",
+    "clubAId": "tm-dk2-rep",
+    "leagueAId": "tm-dk2",
+    "clubBId": "tm-gb3-rep",
+    "leagueBId": "tm-gb3",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-dk2-championship",
+    "clubAId": "tm-dk2-rep",
+    "leagueAId": "tm-dk2",
+    "clubBId": "championship-rep",
+    "leagueBId": "championship",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-dk2-tm-ukr2",
+    "clubAId": "tm-dk2-rep",
+    "leagueAId": "tm-dk2",
+    "clubBId": "tm-ukr2-rep",
+    "leagueBId": "tm-ukr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-ts1-premier-league",
+    "clubAId": "tm-ts1-rep",
+    "leagueAId": "tm-ts1",
+    "clubBId": "premier-league-rep",
+    "leagueBId": "premier-league",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-ts1-tm-po2",
+    "clubAId": "tm-ts1-rep",
+    "leagueAId": "tm-ts1",
+    "clubBId": "tm-po2-rep",
+    "leagueBId": "tm-po2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-ts1-tm-se1",
+    "clubAId": "tm-ts1-rep",
+    "leagueAId": "tm-ts1",
+    "clubBId": "tm-se1-rep",
+    "leagueBId": "tm-se1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-ts1-tm-c1",
+    "clubAId": "tm-ts1-rep",
+    "leagueAId": "tm-ts1",
+    "clubBId": "tm-c1-rep",
+    "leagueBId": "tm-c1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-ts1-ligue-1",
+    "clubAId": "tm-ts1-rep",
+    "leagueAId": "tm-ts1",
+    "clubBId": "ligue-1-rep",
+    "leagueBId": "ligue-1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-ts1-tm-ru1",
+    "clubAId": "tm-ts1-rep",
+    "leagueAId": "tm-ts1",
+    "clubBId": "tm-ru1-rep",
+    "leagueBId": "tm-ru1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-ts1-la-liga",
+    "clubAId": "tm-ts1-rep",
+    "leagueAId": "tm-ts1",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-ts1-tm-ukr1",
+    "clubAId": "tm-ts1-rep",
+    "leagueAId": "tm-ts1",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-ts1-tm-cn2a",
+    "clubAId": "tm-ts1-rep",
+    "leagueAId": "tm-ts1",
+    "clubBId": "tm-cn2a-rep",
+    "leagueBId": "tm-cn2a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-ts1-tm-gr1",
+    "clubAId": "tm-ts1-rep",
+    "leagueAId": "tm-ts1",
+    "clubBId": "tm-gr1-rep",
+    "leagueBId": "tm-gr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-ts1-tm-no1",
+    "clubAId": "tm-ts1-rep",
+    "leagueAId": "tm-ts1",
+    "clubBId": "tm-no1-rep",
+    "leagueBId": "tm-no1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-ts1-tm-kr1",
+    "clubAId": "tm-ts1-rep",
+    "leagueAId": "tm-ts1",
+    "clubBId": "tm-kr1-rep",
+    "leagueBId": "tm-kr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-ts1-super-lig",
+    "clubAId": "tm-ts1-rep",
+    "leagueAId": "tm-ts1",
+    "clubBId": "super-lig-rep",
+    "leagueBId": "super-lig",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-ts1-tm-gb3",
+    "clubAId": "tm-ts1-rep",
+    "leagueAId": "tm-ts1",
+    "clubBId": "tm-gb3-rep",
+    "leagueBId": "tm-gb3",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-ts1-championship",
+    "clubAId": "tm-ts1-rep",
+    "leagueAId": "tm-ts1",
+    "clubBId": "championship-rep",
+    "leagueBId": "championship",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-ts1-tm-ukr2",
+    "clubAId": "tm-ts1-rep",
+    "leagueAId": "tm-ts1",
+    "clubBId": "tm-ukr2-rep",
+    "leagueBId": "tm-ukr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-premier-league-tm-po2",
+    "clubAId": "premier-league-rep",
+    "leagueAId": "premier-league",
+    "clubBId": "tm-po2-rep",
+    "leagueBId": "tm-po2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-premier-league-tm-se1",
+    "clubAId": "premier-league-rep",
+    "leagueAId": "premier-league",
+    "clubBId": "tm-se1-rep",
+    "leagueBId": "tm-se1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-premier-league-tm-c1",
+    "clubAId": "premier-league-rep",
+    "leagueAId": "premier-league",
+    "clubBId": "tm-c1-rep",
+    "leagueBId": "tm-c1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-premier-league-ligue-1",
+    "clubAId": "premier-league-rep",
+    "leagueAId": "premier-league",
+    "clubBId": "ligue-1-rep",
+    "leagueBId": "ligue-1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-premier-league-tm-ru1",
+    "clubAId": "premier-league-rep",
+    "leagueAId": "premier-league",
+    "clubBId": "tm-ru1-rep",
+    "leagueBId": "tm-ru1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-premier-league-la-liga",
+    "clubAId": "premier-league-rep",
+    "leagueAId": "premier-league",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-premier-league-tm-ukr1",
+    "clubAId": "premier-league-rep",
+    "leagueAId": "premier-league",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-premier-league-tm-cn2a",
+    "clubAId": "premier-league-rep",
+    "leagueAId": "premier-league",
+    "clubBId": "tm-cn2a-rep",
+    "leagueBId": "tm-cn2a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-premier-league-tm-gr1",
+    "clubAId": "premier-league-rep",
+    "leagueAId": "premier-league",
+    "clubBId": "tm-gr1-rep",
+    "leagueBId": "tm-gr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-premier-league-tm-no1",
+    "clubAId": "premier-league-rep",
+    "leagueAId": "premier-league",
+    "clubBId": "tm-no1-rep",
+    "leagueBId": "tm-no1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-premier-league-tm-kr1",
+    "clubAId": "premier-league-rep",
+    "leagueAId": "premier-league",
+    "clubBId": "tm-kr1-rep",
+    "leagueBId": "tm-kr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-premier-league-super-lig",
+    "clubAId": "premier-league-rep",
+    "leagueAId": "premier-league",
+    "clubBId": "super-lig-rep",
+    "leagueBId": "super-lig",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-premier-league-tm-gb3",
+    "clubAId": "premier-league-rep",
+    "leagueAId": "premier-league",
+    "clubBId": "tm-gb3-rep",
+    "leagueBId": "tm-gb3",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-premier-league-championship",
+    "clubAId": "premier-league-rep",
+    "leagueAId": "premier-league",
+    "clubBId": "championship-rep",
+    "leagueBId": "championship",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-premier-league-tm-ukr2",
+    "clubAId": "premier-league-rep",
+    "leagueAId": "premier-league",
+    "clubBId": "tm-ukr2-rep",
+    "leagueBId": "tm-ukr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-po2-tm-se1",
+    "clubAId": "tm-po2-rep",
+    "leagueAId": "tm-po2",
+    "clubBId": "tm-se1-rep",
+    "leagueBId": "tm-se1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-po2-tm-c1",
+    "clubAId": "tm-po2-rep",
+    "leagueAId": "tm-po2",
+    "clubBId": "tm-c1-rep",
+    "leagueBId": "tm-c1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-po2-ligue-1",
+    "clubAId": "tm-po2-rep",
+    "leagueAId": "tm-po2",
+    "clubBId": "ligue-1-rep",
+    "leagueBId": "ligue-1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-po2-tm-ru1",
+    "clubAId": "tm-po2-rep",
+    "leagueAId": "tm-po2",
+    "clubBId": "tm-ru1-rep",
+    "leagueBId": "tm-ru1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-po2-la-liga",
+    "clubAId": "tm-po2-rep",
+    "leagueAId": "tm-po2",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-po2-tm-ukr1",
+    "clubAId": "tm-po2-rep",
+    "leagueAId": "tm-po2",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-po2-tm-cn2a",
+    "clubAId": "tm-po2-rep",
+    "leagueAId": "tm-po2",
+    "clubBId": "tm-cn2a-rep",
+    "leagueBId": "tm-cn2a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-po2-tm-gr1",
+    "clubAId": "tm-po2-rep",
+    "leagueAId": "tm-po2",
+    "clubBId": "tm-gr1-rep",
+    "leagueBId": "tm-gr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-po2-tm-no1",
+    "clubAId": "tm-po2-rep",
+    "leagueAId": "tm-po2",
+    "clubBId": "tm-no1-rep",
+    "leagueBId": "tm-no1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-po2-tm-kr1",
+    "clubAId": "tm-po2-rep",
+    "leagueAId": "tm-po2",
+    "clubBId": "tm-kr1-rep",
+    "leagueBId": "tm-kr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-po2-super-lig",
+    "clubAId": "tm-po2-rep",
+    "leagueAId": "tm-po2",
+    "clubBId": "super-lig-rep",
+    "leagueBId": "super-lig",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-po2-tm-gb3",
+    "clubAId": "tm-po2-rep",
+    "leagueAId": "tm-po2",
+    "clubBId": "tm-gb3-rep",
+    "leagueBId": "tm-gb3",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-po2-championship",
+    "clubAId": "tm-po2-rep",
+    "leagueAId": "tm-po2",
+    "clubBId": "championship-rep",
+    "leagueBId": "championship",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-po2-tm-ukr2",
+    "clubAId": "tm-po2-rep",
+    "leagueAId": "tm-po2",
+    "clubBId": "tm-ukr2-rep",
+    "leagueBId": "tm-ukr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-se1-tm-c1",
+    "clubAId": "tm-se1-rep",
+    "leagueAId": "tm-se1",
+    "clubBId": "tm-c1-rep",
+    "leagueBId": "tm-c1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-se1-ligue-1",
+    "clubAId": "tm-se1-rep",
+    "leagueAId": "tm-se1",
+    "clubBId": "ligue-1-rep",
+    "leagueBId": "ligue-1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-se1-tm-ru1",
+    "clubAId": "tm-se1-rep",
+    "leagueAId": "tm-se1",
+    "clubBId": "tm-ru1-rep",
+    "leagueBId": "tm-ru1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-se1-la-liga",
+    "clubAId": "tm-se1-rep",
+    "leagueAId": "tm-se1",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-se1-tm-ukr1",
+    "clubAId": "tm-se1-rep",
+    "leagueAId": "tm-se1",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-se1-tm-cn2a",
+    "clubAId": "tm-se1-rep",
+    "leagueAId": "tm-se1",
+    "clubBId": "tm-cn2a-rep",
+    "leagueBId": "tm-cn2a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-se1-tm-gr1",
+    "clubAId": "tm-se1-rep",
+    "leagueAId": "tm-se1",
+    "clubBId": "tm-gr1-rep",
+    "leagueBId": "tm-gr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-se1-tm-no1",
+    "clubAId": "tm-se1-rep",
+    "leagueAId": "tm-se1",
+    "clubBId": "tm-no1-rep",
+    "leagueBId": "tm-no1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-se1-tm-kr1",
+    "clubAId": "tm-se1-rep",
+    "leagueAId": "tm-se1",
+    "clubBId": "tm-kr1-rep",
+    "leagueBId": "tm-kr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-se1-super-lig",
+    "clubAId": "tm-se1-rep",
+    "leagueAId": "tm-se1",
+    "clubBId": "super-lig-rep",
+    "leagueBId": "super-lig",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-se1-tm-gb3",
+    "clubAId": "tm-se1-rep",
+    "leagueAId": "tm-se1",
+    "clubBId": "tm-gb3-rep",
+    "leagueBId": "tm-gb3",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-se1-championship",
+    "clubAId": "tm-se1-rep",
+    "leagueAId": "tm-se1",
+    "clubBId": "championship-rep",
+    "leagueBId": "championship",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-se1-tm-ukr2",
+    "clubAId": "tm-se1-rep",
+    "leagueAId": "tm-se1",
+    "clubBId": "tm-ukr2-rep",
+    "leagueBId": "tm-ukr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-c1-ligue-1",
+    "clubAId": "tm-c1-rep",
+    "leagueAId": "tm-c1",
+    "clubBId": "ligue-1-rep",
+    "leagueBId": "ligue-1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-c1-tm-ru1",
+    "clubAId": "tm-c1-rep",
+    "leagueAId": "tm-c1",
+    "clubBId": "tm-ru1-rep",
+    "leagueBId": "tm-ru1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-c1-la-liga",
+    "clubAId": "tm-c1-rep",
+    "leagueAId": "tm-c1",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-c1-tm-ukr1",
+    "clubAId": "tm-c1-rep",
+    "leagueAId": "tm-c1",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-c1-tm-cn2a",
+    "clubAId": "tm-c1-rep",
+    "leagueAId": "tm-c1",
+    "clubBId": "tm-cn2a-rep",
+    "leagueBId": "tm-cn2a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-c1-tm-gr1",
+    "clubAId": "tm-c1-rep",
+    "leagueAId": "tm-c1",
+    "clubBId": "tm-gr1-rep",
+    "leagueBId": "tm-gr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-c1-tm-no1",
+    "clubAId": "tm-c1-rep",
+    "leagueAId": "tm-c1",
+    "clubBId": "tm-no1-rep",
+    "leagueBId": "tm-no1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-c1-tm-kr1",
+    "clubAId": "tm-c1-rep",
+    "leagueAId": "tm-c1",
+    "clubBId": "tm-kr1-rep",
+    "leagueBId": "tm-kr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-c1-super-lig",
+    "clubAId": "tm-c1-rep",
+    "leagueAId": "tm-c1",
+    "clubBId": "super-lig-rep",
+    "leagueBId": "super-lig",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-c1-tm-gb3",
+    "clubAId": "tm-c1-rep",
+    "leagueAId": "tm-c1",
+    "clubBId": "tm-gb3-rep",
+    "leagueBId": "tm-gb3",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-c1-championship",
+    "clubAId": "tm-c1-rep",
+    "leagueAId": "tm-c1",
+    "clubBId": "championship-rep",
+    "leagueBId": "championship",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-c1-tm-ukr2",
+    "clubAId": "tm-c1-rep",
+    "leagueAId": "tm-c1",
+    "clubBId": "tm-ukr2-rep",
+    "leagueBId": "tm-ukr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-ligue-1-tm-ru1",
+    "clubAId": "ligue-1-rep",
+    "leagueAId": "ligue-1",
+    "clubBId": "tm-ru1-rep",
+    "leagueBId": "tm-ru1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-ligue-1-la-liga",
+    "clubAId": "ligue-1-rep",
+    "leagueAId": "ligue-1",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-ligue-1-tm-ukr1",
+    "clubAId": "ligue-1-rep",
+    "leagueAId": "ligue-1",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-ligue-1-tm-cn2a",
+    "clubAId": "ligue-1-rep",
+    "leagueAId": "ligue-1",
+    "clubBId": "tm-cn2a-rep",
+    "leagueBId": "tm-cn2a",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-ligue-1-tm-gr1",
+    "clubAId": "ligue-1-rep",
+    "leagueAId": "ligue-1",
+    "clubBId": "tm-gr1-rep",
+    "leagueBId": "tm-gr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-ligue-1-tm-no1",
+    "clubAId": "ligue-1-rep",
+    "leagueAId": "ligue-1",
+    "clubBId": "tm-no1-rep",
+    "leagueBId": "tm-no1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-ligue-1-tm-kr1",
+    "clubAId": "ligue-1-rep",
+    "leagueAId": "ligue-1",
+    "clubBId": "tm-kr1-rep",
+    "leagueBId": "tm-kr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-ligue-1-super-lig",
+    "clubAId": "ligue-1-rep",
+    "leagueAId": "ligue-1",
+    "clubBId": "super-lig-rep",
+    "leagueBId": "super-lig",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": -1
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-ligue-1-tm-gb3",
+    "clubAId": "ligue-1-rep",
+    "leagueAId": "ligue-1",
+    "clubBId": "tm-gb3-rep",
+    "leagueBId": "tm-gb3",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-ligue-1-championship",
+    "clubAId": "ligue-1-rep",
+    "leagueAId": "ligue-1",
+    "clubBId": "championship-rep",
+    "leagueBId": "championship",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-ligue-1-tm-ukr2",
+    "clubAId": "ligue-1-rep",
+    "leagueAId": "ligue-1",
+    "clubBId": "tm-ukr2-rep",
+    "leagueBId": "tm-ukr2",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-ru1-la-liga",
+    "clubAId": "tm-ru1-rep",
+    "leagueAId": "tm-ru1",
+    "clubBId": "la-liga-rep",
+    "leagueBId": "la-liga",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
+  },
+  {
+    "fixtureId": "arch-13/14-europa-league-tm-ru1-tm-ukr1",
+    "clubAId": "tm-ru1-rep",
+    "leagueAId": "tm-ru1",
+    "clubBId": "tm-ukr1-rep",
+    "leagueBId": "tm-ukr1",
+    "competitionId": "europa-league",
+    "seasonLabel": "2013",
+    "result": 0
   }
 ]

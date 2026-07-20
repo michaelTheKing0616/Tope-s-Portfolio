@@ -2,7 +2,7 @@ import { platform } from "@sportverse/platform";
 import { QUIZ_MODES } from "@sportverse/quiz-engine";
 import type { LeaderboardEntry } from "@sportverse/platform";
 
-type Navigate = (route: "hub" | "quiz" | "football-iq" | "goalkeeper", param?: string) => void;
+type Navigate = (route: string, param?: string) => void;
 
 function hubHtml(
   profile: ReturnType<typeof platform.getProfile>,
@@ -82,24 +82,24 @@ function hubHtml(
   `;
 }
 
-function bindHub(root: HTMLElement, navigate: Navigate, dailyMode: string) {
-  root.querySelector("#daily-btn")?.addEventListener("click", () => navigate("quiz", dailyMode));
+function bindHub(root: HTMLElement, navigate: Navigate) {
+  root.querySelector("#daily-btn")?.addEventListener("click", () => navigate("draftballer", "daily"));
 }
 
 export async function renderHub(root: HTMLElement, navigate: Navigate) {
   const profile = platform.getProfile();
-  const fallbackDaily = { mode: "who-am-i", bonusXp: 50 };
+  const fallbackDaily = { mode: "all-time-any", bonusXp: 50 };
 
   root.innerHTML = hubHtml(profile, fallbackDaily, [], true);
-  bindHub(root, navigate, fallbackDaily.mode);
+  bindHub(root, navigate);
 
   try {
     const [daily, board] = await Promise.all([platform.getDailyChallenge(), platform.fetchLeaderboard()]);
     root.innerHTML = hubHtml(profile, daily, board);
-    bindHub(root, navigate, daily.mode);
+    bindHub(root, navigate);
   } catch {
     const board = await platform.fetchLeaderboard();
     root.innerHTML = hubHtml(profile, fallbackDaily, board);
-    bindHub(root, navigate, fallbackDaily.mode);
+    bindHub(root, navigate);
   }
 }
