@@ -57,37 +57,72 @@ function positionLabel(position?: string): string | null {
   if (!position?.trim()) return null;
   const p = position.toLowerCase();
   if (p.includes("goal")) return "goalkeeper";
-  if (p.includes("def")) return "defender";
+  if (p.includes("centre-back") || p.includes("center-back") || p === "cb") return "centre-back";
+  if (p.includes("back") || p.includes("wing-back")) return "full-back";
+  if (p.includes("defensive mid")) return "defensive midfielder";
+  if (p.includes("attacking mid")) return "attacking midfielder";
+  if (p.includes("winger") || (p.includes("wing") && !p.includes("back"))) return "winger";
+  if (p.includes("striker") || p.includes("second striker")) return "striker";
+  if (p.includes("forward") || p.includes("attack")) return "forward";
   if (p.includes("mid")) return "midfielder";
-  if (p.includes("forward") || p.includes("striker") || p.includes("wing")) return "forward";
-  return position.toLowerCase();
+  if (p.includes("def")) return "defender";
+  return null;
 }
 
-/** Build progressive clues for Who Am I from real database fields. */
+function isBoilerplateClue(clue: string): boolean {
+  return /^(professional record on file|transfermarkt profile|born \d{4})/i.test(clue.trim());
+}
+
+function peakSeason(stats: PlayerSeasonStat[]): PlayerSeasonStat | null {
+  const club = stats.filter((s) => s.context === "CLUB" && s.appearances >= 5);
+  if (!club.length) return null;
+  return [...club].sort((a, b) => b.goals + b.assists - (a.goals + a.assists) || b.appearances - a.appearances)[0] ?? null;
+}
+
+/** Build progressive clues for Who Am I from real database fields (target 5–8). */
 export function generatePlayerClues(player: Player, stats: PlayerSeasonStat[]): string[] {
   const clues: string[] = [];
   const nation = primaryNation(player.nationality);
   const pos = positionLabel(player.position);
-  const clubs = player.clubs?.length ? player.clubs.filter((c) => !YOUTH_MARKERS.test(c)).slice(0, 4) : seniorClubsFromStats(stats);
+  const clubs = (player.clubs?.length ? player.clubs : seniorClubsFromStats(stats))
+    .filter((c) => c && !YOUTH_MARKERS.test(c) && !/^unknown$/i.test(c) && !/^---+$/.test(c))
+    .slice(0, 6);
   const goals = totalGoals(stats);
   const apps = totalApps(stats);
+  const assists = stats.reduce((s, r) => s + r.assists, 0);
   const wc = wcGoals(stats);
   const awards = getAwards().filter((a) => a.playerId === player.id);
+  const peak = peakSeason(stats);
+  const decades = (player as ExtendedPlayer).decades ?? [];
 
+  // Progressive ladder: broad → specific. Order matters for scoring.
   if (nation) clues.push(`I represent ${nation} at international level.`);
   if (pos) clues.push(`My primary role on the pitch is ${pos}.`);
+  if (decades[0]) clues.push(`My career is most often associated with the ${decades[0]}.`);
   if (clubs[0]) clues.push(`I have played senior football for ${clubs[0]}.`);
   if (clubs[1]) clues.push(`Another club on my résumé is ${clubs[1]}.`);
-  if (player.decades?.length) clues.push(`Football historians often discuss me in the context of the ${(player as ExtendedPlayer).decades![0]}.`);
   if (goals >= 100) clues.push(`My database records show ${goals}+ career goals across logged competitions.`);
   else if (goals >= 20) clues.push(`I've scored ${goals} goals in competitions tracked in this archive.`);
+  else if (goals >= 5) clues.push(`I've scored ${goals} goals in competitions tracked in this archive.`);
+  if (assists >= 30) clues.push(`I've registered ${assists}+ assists in tracked competitions.`);
   if (apps >= 500) clues.push(`I've made ${apps}+ recorded appearances in the database.`);
+  else if (apps >= 150) clues.push(`I've made ${apps} recorded appearances in the database.`);
+  if (peak?.seasonLabel && peak.appearances >= 10) {
+    clues.push(
+      `In ${peak.seasonLabel} I logged ${peak.appearances} appearances` +
+        (peak.goals > 0 ? ` and ${peak.goals} goal${peak.goals === 1 ? "" : "s"}` : "") +
+        ` in ${peak.competitionId.replace(/^tm-/, "").replace(/-/g, " ")}.`,
+    );
+  }
   if (wc > 0) clues.push(`I've scored ${wc} FIFA World Cup goal${wc === 1 ? "" : "s"} in tracked tournaments.`);
   if (awards.some((a) => /ballon/i.test(a.award))) clues.push("I've been recognised with a Ballon d'Or in this archive.");
+  else if (awards[0]) clues.push(`I've won a major individual award: ${awards[0]!.award}.`);
   if (clubs[2]) clues.push(`I've also turned out for ${clubs[2]}.`);
+  if (clubs[3]) clues.push(`Later in my career I featured for ${clubs[3]}.`);
 
   if (player.clues?.length) {
     for (const c of player.clues) {
+      if (isBoilerplateClue(c)) continue;
       if (!clues.includes(c)) clues.push(c);
     }
   }
@@ -101,6 +136,7 @@ export function isQuizEligiblePlayer(player: Player, stats: PlayerSeasonStat[]):
 }
 
 let quizPlayerCache: Player[] | null = null;
+let quizPlayerById: Map<string, Player> | null = null;
 
 /** Full-database quiz pool — every eligible extended player with ≥3 real clues. */
 export function getProceduralQuizPlayers(): Player[] {
@@ -116,11 +152,19 @@ export function getProceduralQuizPlayers(): Player[] {
     })
     .filter((p): p is Player => p != null);
   quizPlayerCache = players;
+  quizPlayerById = new Map(players.map((p) => [p.id, p]));
   return players;
+}
+
+/** O(1) lookup of the quiz card (rich clues) — not the raw ETL row. */
+export function getProceduralQuizPlayer(id: string): Player | undefined {
+  if (!quizPlayerById) getProceduralQuizPlayers();
+  return quizPlayerById?.get(id);
 }
 
 export function resetProceduralQuizCache(): void {
   quizPlayerCache = null;
+  quizPlayerById = null;
 }
 
 function clubDisplayName(club: Club): string {

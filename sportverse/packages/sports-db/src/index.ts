@@ -12,6 +12,7 @@ import {
 import {
   getProceduralCareerPaths,
   getProceduralQuizClubs,
+  getProceduralQuizPlayer,
   getProceduralQuizPlayers,
   getProceduralSpeedQuestions,
   getProceduralTrueFalse,
@@ -165,7 +166,14 @@ export function getDraftPlayers() {
 
 export function getPlayer(id: string): Player | undefined {
   if (isExtendedDataLoaded()) {
-    return getExtendedPlayer(id) ?? getCuratedPlayers().find((p) => p.id === id);
+    // Prefer the procedural quiz card (rich clue ladder). Raw extended rows
+    // usually only store 2 ETL boilerplate clues — using those for Who Am I
+    // capped "Next clue" at 2 even when the deck had more.
+    return (
+      getProceduralQuizPlayer(id) ??
+      getExtendedPlayer(id) ??
+      getCuratedPlayers().find((p) => p.id === id)
+    );
   }
   return getCuratedPlayers().find((p) => p.id === id);
 }

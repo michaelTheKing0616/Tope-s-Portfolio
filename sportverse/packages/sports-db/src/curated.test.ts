@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  getPlayer,
   getPlayers,
   getTrueFalse,
   getCareerPaths,
@@ -11,6 +12,7 @@ import {
 import {
   answerWhoAmI,
   answerTrueFalse,
+  revealNextClue,
   startWhoAmI,
   submitCareerPath,
   startCareerPath,
@@ -62,6 +64,18 @@ describe("quiz-engine", () => {
     const result = answerWhoAmI(state, "Kylian Mbappé");
     expect(result.correct).toBe(true);
     expect(result.score).toBe(1000);
+  });
+
+  it("Who Am I reveals more than two clues for archive players", () => {
+    const player = getPlayers().find((p) => p.clues.length >= 4) ?? getPlayers()[0]!;
+    expect(player.clues.length).toBeGreaterThanOrEqual(3);
+    let state = startWhoAmI(player.id);
+    expect(getPlayer(player.id)?.clues.length).toBeGreaterThanOrEqual(3);
+    const before = state.cluesRevealed;
+    state = revealNextClue(state);
+    state = revealNextClue(state);
+    expect(state.cluesRevealed).toBeGreaterThan(before);
+    expect(state.cluesRevealed).toBeGreaterThanOrEqual(Math.min(3, player.clues.length));
   });
 
   it("accepts surname-only Who Am I answers", () => {

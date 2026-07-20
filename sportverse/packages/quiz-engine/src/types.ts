@@ -40,10 +40,11 @@ export interface CareerPathState {
   correct: boolean;
 }
 
-export const WHO_AM_I_SCORES = [1000, 850, 700, 500, 250];
+/** Points by clues already revealed when guessing (index 0 = first clue only). */
+export const WHO_AM_I_SCORES = [1000, 850, 700, 550, 400, 300, 200, 100];
 
 export function whoAmIScore(clueIndex: number): number {
-  return WHO_AM_I_SCORES[Math.min(clueIndex, WHO_AM_I_SCORES.length - 1)] ?? 250;
+  return WHO_AM_I_SCORES[Math.min(clueIndex, WHO_AM_I_SCORES.length - 1)] ?? 100;
 }
 
 export function speedRoundMultiplier(combo: number): number {
