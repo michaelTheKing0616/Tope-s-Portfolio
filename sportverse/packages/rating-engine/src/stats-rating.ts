@@ -1,7 +1,7 @@
 import type { PlayerSeasonStat } from "@sportverse/sports-db";
 import { getEraBaselines, resolveCompetitionToLeague } from "@sportverse/sports-db";
 import type { DraftModeConfig, PlayerAttributes, Position } from "@sportverse/draftballer-types";
-import { mapQuizPosition, ovrFromAttributes } from "./position-weights.js";
+import { ovrFromAttributes } from "./position-weights.js";
 import { peakWeightStats } from "./peak-weighting.js";
 import { extractSubMetrics } from "./sub-metrics.js";
 import { macroFromSubMetrics } from "./micro-coefficients.js";
@@ -31,7 +31,11 @@ function seasonToDecade(seasonLabel: string): string {
   return "2020s";
 }
 
-function filterStats(stats: PlayerSeasonStat[], mode: DraftModeConfig): PlayerSeasonStat[] {
+function filterStats(
+  stats: PlayerSeasonStat[],
+  mode: DraftModeConfig,
+  position?: Position,
+): PlayerSeasonStat[] {
   let rows = repairSeasonMinutesRows(stats);
   if (mode.ratingLens === "club_only") rows = rows.filter((s) => s.context === "CLUB");
   if (mode.ratingLens === "international_only") rows = rows.filter((s) => s.context === "NATIONAL_TEAM");
@@ -61,10 +65,10 @@ function filterStats(stats: PlayerSeasonStat[], mode: DraftModeConfig): PlayerSe
     });
   }
   if (mode.primeYearsOnly) {
-    rows = peakWeightStats(rows, 4);
+    rows = peakWeightStats(rows, 4, position);
   }
   if (mode.era === "all_time" || mode.era === "decade") {
-    rows = peakWeightStats(rows, 4);
+    rows = peakWeightStats(rows, 4, position);
   }
   return rows;
 }
@@ -109,15 +113,17 @@ function legacyAttributesFromAgg(
   const gpgZ = (agg.gpg - leagueGpg) / 0.35;
   const apgZ = (agg.apg - 0.12) / 0.2;
   const minsZ = (agg.mpg - 55) / 25;
-  const base = sigmoidScale(minsZ);
+  const appsZ = (Math.min(agg.apps, 140) / 35 - 1.5) / 1.2;
+  const base = sigmoidScale(minsZ * 0.65 + appsZ * 0.55);
+  const isDef = position === "CB" || position === "FB" || position === "DM" || position === "GK";
 
   return {
     pac: clamp(base + (position === "W" || position === "FB" ? 8 : 0)),
-    sho: sigmoidScale(gpgZ + (position === "ST" || position === "W" ? 0.5 : -0.3)),
-    pas: sigmoidScale(apgZ + (position === "CM" || position === "AM" ? 0.4 : 0)),
-    dri: clamp(base + (position === "AM" || position === "W" ? 6 : 2)),
-    def: sigmoidScale((position === "CB" || position === "GK" ? 0.8 : -0.4) + minsZ * 0.1),
-    phy: sigmoidScale(minsZ * 0.6 + (position === "DM" || position === "CB" ? 0.3 : 0)),
+    sho: sigmoidScale(gpgZ + (position === "ST" || position === "W" ? 0.5 : isDef ? -0.55 : -0.3)),
+    pas: sigmoidScale(apgZ + (position === "CM" || position === "AM" ? 0.4 : position === "FB" ? 0.15 : 0)),
+    dri: clamp(base + (position === "AM" || position === "W" ? 6 : position === "FB" ? 3 : 2)),
+    def: sigmoidScale((isDef ? 1.05 : -0.4) + minsZ * 0.45 + appsZ * 0.35),
+    phy: sigmoidScale(minsZ * 0.6 + appsZ * 0.25 + (position === "DM" || position === "CB" ? 0.35 : 0)),
   };
 }
 
@@ -128,14 +134,34 @@ function legacyMacroZ(
   const gpgZ = (agg.gpg - 0.12) / 0.35;
   const apgZ = (agg.apg - 0.12) / 0.2;
   const minsZ = (agg.mpg - 55) / 25;
+  const appsZ = (Math.min(agg.apps, 140) / 35 - 1.5) / 1.2;
+  const isDef = position === "CB" || position === "FB" || position === "DM" || position === "GK";
   return {
-    sho: gpgZ + (position === "ST" || position === "W" ? 0.5 : -0.3),
-    pas: apgZ + (position === "CM" || position === "AM" ? 0.4 : 0),
+    sho: gpgZ + (position === "ST" || position === "W" ? 0.5 : isDef ? -0.55 : -0.3),
+    pas: apgZ + (position === "CM" || position === "AM" ? 0.4 : position === "FB" ? 0.15 : 0),
     pac: minsZ + (position === "W" || position === "FB" ? 0.35 : 0),
     dri: minsZ + (position === "AM" || position === "W" ? 0.25 : 0.08),
-    def: (position === "CB" || position === "GK" ? 0.8 : -0.4) + minsZ * 0.1,
-    phy: minsZ * 0.6 + (position === "DM" || position === "CB" ? 0.3 : 0),
+    def: (isDef ? 1.05 : -0.4) + minsZ * 0.45 + appsZ * 0.35,
+    phy: minsZ * 0.6 + appsZ * 0.25 + (position === "DM" || position === "CB" ? 0.35 : 0),
   };
+}
+
+/** Minutes/apps floor for defensive roles — starters shouldn't land in the low 50s. */
+export function defensiveWorkloadFloor(
+  apps: number,
+  minutes: number,
+  position: Position,
+): number {
+  if (position !== "CB" && position !== "FB" && position !== "DM") return 0;
+  const seasonsEquiv = Math.min(apps / 28, 5);
+  const minsEquiv = Math.min(minutes / 2200, 5);
+  const workload = Math.max(seasonsEquiv, minsEquiv * 0.9);
+  if (workload >= 4) return 78;
+  if (workload >= 3) return 74;
+  if (workload >= 2) return 70;
+  if (workload >= 1.25) return 66;
+  if (workload >= 0.75) return 62;
+  return 0;
 }
 
 function macroZFromMicroBreakdown(
@@ -163,7 +189,7 @@ export function attributesFromSeasonStats(
   microBreakdown?: Record<string, Record<string, number>>;
   leagueContext?: LeagueContextBreakdown;
 } | null {
-  const rows = filterStats(stats, mode);
+  const rows = filterStats(stats, mode, position);
   if (!rows.length) return null;
 
   const agg = aggregate(rows);
@@ -204,8 +230,11 @@ export function ovrFromSeasonStats(
   const derived = attributesFromSeasonStats(stats, position, mode, lens);
   if (!derived) return null;
 
+  const filtered = filterStats(stats, mode, position);
+  const agg = aggregate(filtered);
+
   if (position === "GK") {
-    const gk = gkAttributesFromStats(filterStats(stats, mode));
+    const gk = gkAttributesFromStats(filtered);
     if (gk) {
       let ovr = gkOvrFromAttributes(gk);
       if (derived.leagueContext && !derived.leagueContext.skipped) {
@@ -226,6 +255,7 @@ export function ovrFromSeasonStats(
   if (derived.leagueContext && !derived.leagueContext.skipped) {
     ovr = clamp(ovr + derived.leagueContext.baselineShift);
   }
+  ovr = Math.max(ovr, defensiveWorkloadFloor(agg.apps, agg.minutes, position));
 
   return {
     ovr,

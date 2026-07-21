@@ -219,34 +219,48 @@ function sampleCandidates(
   }
   if (!eligible.length) return [];
 
+  // Prefer recognizable quality: when a squad has several strong options for
+  // the slot, drop deep bronze fringe so the shortlist reflects true starters.
+  const byOvr = [...eligible].sort((a, b) => b.ovr - a.ovr);
+  const topOvr = byOvr[0]!.ovr;
+  if (byOvr.length >= 4 && topOvr >= 70) {
+    const quality = byOvr.filter((c) => c.ovr >= Math.max(62, topOvr - 16));
+    if (quality.length >= minPickCandidatesForPosition(position ?? "CM")) {
+      eligible = quality;
+    }
+  }
+
   const fame = new Map(eligible.map((c) => [c.playerId, getFameScore(c.playerId)]));
-  // Small squads: show everyone eligible (no thinning to 1 card).
+  const rank = (a: RatedPlayerCard, b: RatedPlayerCard) =>
+    b.ovr - a.ovr || (fame.get(b.playerId) ?? 0) - (fame.get(a.playerId) ?? 0);
+
+  // Small squads: show everyone eligible, strongest first.
   if (eligible.length <= 16) {
-    return [...eligible].sort((a, b) => (fame.get(b.playerId) ?? 0) - (fame.get(a.playerId) ?? 0));
+    return [...eligible].sort(rank);
   }
 
   const rng = createRng(`${seed}:candidates`);
   const weight = (c: RatedPlayerCard) =>
-    Math.max(1, fame.get(c.playerId) ?? 0) * (seen.has(c.playerId) ? 0.3 : 1);
+    Math.max(1, (fame.get(c.playerId) ?? 0) + c.ovr) * (seen.has(c.playerId) ? 0.3 : 1);
 
-  const stars = eligible.filter((c) => (fame.get(c.playerId) ?? 0) >= 75);
+  const stars = eligible.filter((c) => (fame.get(c.playerId) ?? 0) >= 75 || c.ovr >= 82);
   const sampled = rng.weightedSample(eligible, weight, 16);
 
   if (stars.length >= 2) {
     const guaranteed = rng.sample(stars, 2);
     const rest = sampled.filter((c) => !guaranteed.some((g) => g.playerId === c.playerId));
-    return [...guaranteed, ...rest].slice(0, 16);
+    return [...guaranteed, ...rest].sort(rank).slice(0, 16);
   }
 
   const obscureCount = sampled.filter(
-    (c) => fameTierFromScore(fame.get(c.playerId) ?? 0) === "obscure",
+    (c) => fameTierFromScore(fame.get(c.playerId) ?? 0) === "obscure" && c.ovr < 68,
   ).length;
   if (sampled.length && obscureCount / sampled.length > 0.3) {
-    const known = eligible.filter((c) => (fame.get(c.playerId) ?? 0) >= 35);
-    return rng.weightedSample(known.length ? known : eligible, weight, 16);
+    const known = eligible.filter((c) => (fame.get(c.playerId) ?? 0) >= 35 || c.ovr >= 68);
+    return rng.weightedSample(known.length ? known : eligible, weight, 16).sort(rank);
   }
 
-  return sampled;
+  return sampled.sort(rank);
 }
 
 /**

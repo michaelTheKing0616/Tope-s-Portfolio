@@ -16,7 +16,7 @@ function escapeHtml(s: string): string {
     .replace(/"/g, "&quot;");
 }
 
-/** Compact radar for face cards — labels omitted on tiny sizes. */
+/** Compact radar — soft Apple-style stroke, labels optional. */
 export function attributeRadarSvg(
   attrs: RatedPlayerCard["attributes"],
   size = 88,
@@ -33,7 +33,7 @@ export function attributeRadarSvg(
           const a = (Math.PI * 2 * i) / keys.length - Math.PI / 2;
           return `${cx + Math.cos(a) * r * f},${cy + Math.sin(a) * r * f}`;
         })
-        .join(" ")}" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.8"/>`,
+        .join(" ")}" fill="none" stroke="rgba(29,29,31,0.08)" stroke-width="0.8"/>`,
   );
   const pts = keys
     .map((k, i) => {
@@ -48,11 +48,11 @@ export function attributeRadarSvg(
           const a = (Math.PI * 2 * i) / keys.length - Math.PI / 2;
           const lx = cx + Math.cos(a) * (r + size * 0.12);
           const ly = cy + Math.sin(a) * (r + size * 0.12);
-          return `<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" fill="var(--db-muted)" font-size="${Math.max(8, size * 0.08)}">${k.toUpperCase()}</text>`;
+          return `<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" fill="#86868b" font-size="${Math.max(8, size * 0.08)}" font-family="var(--font-ui)">${k.toUpperCase()}</text>`;
         })
         .join("")
     : "";
-  return `<svg class="db-card-radar" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true">${rings.join("")}<polygon points="${pts}" fill="rgba(212,175,55,0.28)" stroke="var(--db-gold)" stroke-width="1.4"/>${labels}</svg>`;
+  return `<svg class="db-card-radar" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true">${rings.join("")}<polygon points="${pts}" fill="rgba(0,113,227,0.14)" stroke="#0071e3" stroke-width="1.5"/>${labels}</svg>`;
 }
 
 function influenceBar(label: string, value: number): string {
@@ -61,13 +61,12 @@ function influenceBar(label: string, value: number): string {
 }
 
 /**
- * Face card — hybrid data-centric layout for draft grids.
- * Centerpiece is the attribute radar (no portrait).
+ * Face card — Apple / 38-0 inspired: airy white tile, big OVR, quiet radar.
  */
 export function playerCardFaceHtml(card: RatedPlayerCard, compact = false): string {
   const profile = derivePlayerCardProfile(card);
   const name = escapeHtml(card.name);
-  const radarSize = compact ? 64 : 108;
+  const radarSize = compact ? 56 : 96;
   const modeClass = compact ? "db-player-card--compact" : "db-player-card--full";
   return `
     <div class="db-player-card db-player-card--data ${modeClass} db-player-card--clickable" data-tier="${card.tier}" data-id="${card.playerId}" data-archetype="${escapeHtml(profile.archetype)}" title="Tap for rating breakdown">
@@ -82,7 +81,7 @@ export function playerCardFaceHtml(card: RatedPlayerCard, compact = false): stri
         <p class="db-card-archetype">${escapeHtml(profile.archetype)}</p>
         ${
           compact
-            ? `<p class="db-card-signature db-card-signature--tight"><span class="db-card-sig-glyph">${signatureGlyph(profile.signature)}</span></p>`
+            ? ""
             : `<p class="db-card-signature"><span class="db-card-sig-glyph">${signatureGlyph(profile.signature)}</span> ${escapeHtml(profile.signature)}</p>`
         }
       </div>
@@ -106,9 +105,6 @@ export function playerCardFaceHtml(card: RatedPlayerCard, compact = false): stri
     </div>`;
 }
 
-/**
- * Detailed card body for breakdown / compare — descriptive hybrid panel.
- */
 export function playerCardDetailHtml(card: RatedPlayerCard, profile?: PlayerCardProfile): string {
   const p = profile ?? derivePlayerCardProfile(card);
   const fits = p.formationFits

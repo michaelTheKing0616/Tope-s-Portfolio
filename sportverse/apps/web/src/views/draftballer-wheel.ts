@@ -18,7 +18,7 @@ import {
 } from "@sportverse/draftballer-core";
 
 /** Bust stale PWA caches — bump when wheel UX changes. */
-const WHEEL_UI_BUILD = "pitch-v4";
+const WHEEL_UI_BUILD = "studio-light-v1";
 import { getFormation } from "@sportverse/match-sim";
 import { computeSquadRating } from "@sportverse/rating-engine";
 import { playerCardHtml } from "./draftballer-hub.js";
@@ -71,7 +71,7 @@ function wheelSegmentHtml(
 ): string {
   const n = Math.max(1, segments.length);
   const slice = 360 / n;
-  const colors = ["#1c2128", "#12161c", "#1a2332", "#151a22"];
+  const colors = ["#e8f1ff", "#f4f5f7", "#dcebff", "#eef0f3"];
 
   const gradientStops = segments
     .map((seg, i) => {
@@ -313,11 +313,11 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
       <div class="shell db-root db-wheel-page">
         <button class="btn btn--ghost" id="back">← Exit</button>
         <header class="db-hero" style="padding-bottom:0.75rem;margin-bottom:0.75rem">
-          <p class="db-hero__label" data-wheel-ui="${WHEEL_UI_BUILD}">${mode.title ?? "Spin & Build"} · Wheel Draft</p>
-          <h1 class="db-hero__title" style="font-size:clamp(1.8rem,5vw,2.8rem)">SPIN · PICK · BUILD</h1>
-          <p style="color:var(--db-muted);font-size:0.85rem;max-width:52ch;margin:0 auto">
-            Spin a recognizable club + season, draft that squad onto the pitch — same loop as
-            <strong style="color:var(--db-gold-hi)">38-0</strong>.
+          <p class="db-hero__label" data-wheel-ui="${WHEEL_UI_BUILD}">${mode.title ?? "Spin & Build"}</p>
+          <h1 class="db-hero__title" style="font-size:clamp(1.9rem,5vw,2.7rem)">Spin. Pick. Build.</h1>
+          <p style="color:var(--db-muted);font-size:0.92rem;max-width:46ch;margin:0 auto;line-height:1.5">
+            Land on a real club season, draft from that squad, and fill your XI —
+            the same clean loop as <strong style="color:var(--db-ink)">38-0</strong>.
           </p>
           <ol class="db-wheel-steps">
             <li>Spin the wheel</li>

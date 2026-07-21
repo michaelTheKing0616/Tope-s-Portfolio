@@ -1,33 +1,969 @@
 [
   {
+    "playerId": "andrzej-szarmach",
+    "moment": "7 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "angel-di-maria",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "arjen-robben",
+    "moment": "6 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "asamoah-gyan",
+    "moment": "6 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "beckham",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "clint-dempsey",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "cuauhtemoc-blanco",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "david-villa",
+    "moment": "9 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "dominique-rocheteau",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "edinson-cavani",
+    "moment": "5 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "fernando-hierro",
+    "moment": "5 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "gabriel-batistuta",
+    "moment": "10 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "gary-lineker",
+    "moment": "10 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "gerd-muller",
+    "moment": "14 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "grzegorz-lato",
+    "moment": "10 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "helmut-rahn",
+    "moment": "10 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "henrik-larsson",
+    "moment": "5 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "ivan-perisic",
+    "moment": "6 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "javier-hernandez",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "ji-sung-park",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "joe-jordan",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "julio-salinas",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "jurgen-klinsmann",
+    "moment": "11 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "just-fontaine",
+    "moment": "13 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "karl-heinz-rummenigge",
+    "moment": "9 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "keisuke-honda",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "lothar-matthaus",
+    "moment": "6 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
     "playerId": "maradona",
-    "moment": "1986 World Cup quarter-final",
+    "moment": "8 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "mbappe",
+    "moment": "12 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "messi",
+    "moment": "13 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "michel-platini",
+    "moment": "5 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "miroslav-klose",
+    "moment": "16 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "rafael-marquez",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "roberto-baggio",
+    "moment": "9 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "robin-van-persie",
+    "moment": "6 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "ronaldo",
+    "moment": "8 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "rudi-voller",
+    "moment": "8 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "sami-al-jaber",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "sandor-kocsis",
+    "moment": "11 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "suarez",
+    "moment": "7 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "teofilo-cubillas",
+    "moment": "10 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "thomas-muller",
+    "moment": "10 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "tim-cahill",
+    "moment": "5 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "uwe-seeler",
+    "moment": "9 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "xherdan-shaqiri",
+    "moment": "5 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 4
+  },
+  {
+    "playerId": "agustin-delgado",
+    "moment": "3 World Cup goals (football-datasets)",
     "context": "international",
     "bonus": 3
   },
   {
-    "playerId": "zidane",
-    "moment": "2002 Champions League final volley",
-    "context": "club",
-    "bonus": 2
+    "playerId": "ahmed-musa",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
   },
   {
-    "playerId": "ronaldinho",
-    "moment": "2002 El Clásico at Bernabéu",
-    "context": "club",
-    "bonus": 2
+    "playerId": "alberto-garcia-aspe",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
   },
   {
-    "playerId": "messi",
-    "moment": "2011 Champions League final",
-    "context": "club",
-    "bonus": 2
+    "playerId": "aleksandar-mitrovic",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
   },
   {
-    "playerId": "ronaldo",
-    "moment": "2008 Champions League final header",
-    "context": "club",
-    "bonus": 2
+    "playerId": "alessandro-altobelli",
+    "moment": "5 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "alessandro-del-piero",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "alfred-korner",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "andre-abegglen",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "andre-ayew",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "andreas-brehme",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "andrej-kramaric",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "benni-mccarthy",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "bernard-genghini",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "blerim-dzemaili",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "bobby-charlton",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "brian-mcbride",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "carlos-tevez",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "christian-vieri",
+    "moment": "9 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "claudio-caniggia",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "daley-blind",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "dan-petrescu",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "daniel-bertoni",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "daniel-passarella",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "davor-suker",
+    "moment": "6 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "de-bruyne",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "dennis-bergkamp",
+    "moment": "6 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "dennis-rommedahl",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "diego-forlan",
+    "moment": "6 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "dragan-stojkovic",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "dries-mertens",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "drogba",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "egisto-pandolfini",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "enner-valencia",
+    "moment": "6 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "enzo-scifo",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "erich-probst",
+    "moment": "6 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "erwin-vandenbergh",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "etoo",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "fernando-morientes",
+    "moment": "5 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "fernando-torres",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "francois-omam-biyik",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "franz-beckenbauer",
+    "moment": "5 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "geoff-hurst",
+    "moment": "5 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "gerrard",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "geza-toldi",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "gianni-rivera",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "giuseppe-meazza",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "gonzalo-higuain",
+    "moment": "5 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "granit-xhaka",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "guillermo-stabile",
+    "moment": "8 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "gyorgy-sarosi",
+    "moment": "6 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "hans-krankl",
+    "moment": "5 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "hans-schafer",
+    "moment": "7 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "helmut-haller",
+    "moment": "6 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "henry",
+    "moment": "6 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "hernan-crespo",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "heung-min-son",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "hristo-bonev",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "hristo-stoichkov",
+    "moment": "6 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "igor-chislenko",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "ivica-olic",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "jacques-fatton",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "james-rodriguez",
+    "moment": "6 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "jan-ceulemans",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "jan-vertonghen",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "jean-beausejour",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "jean-nicolas",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "jean-vincent",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "johnny-rep",
+    "moment": "7 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "jon-dahl-tomasson",
+    "moment": "5 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "jorge-burruchaga",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "josef-hugi",
+    "moment": "6 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "juan-alberto-schiaffino",
+    "moment": "5 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "juan-cuadrado",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "juan-fernando-quintero",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "jung-hwan-ahn",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "kane",
+    "moment": "8 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "kazimierz-deyna",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "kenny-dalglish",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "kjetil-rekdal",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "klaas-jan-huntelaar",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "lajos-tichy",
+    "moment": "7 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "landon-donovan",
+    "moment": "5 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "luis-cubilla",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "luis-enrique",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "lukas-podolski",
+    "moment": "5 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "marc-degryse",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "marc-wilmots",
+    "moment": "5 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "marcos-rojo",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "mario-kempes",
+    "moment": "6 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "mario-mandzukic",
+    "moment": "5 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "mario-zagallo",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "marouane-fellaini",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "martin-peters",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "max-morlock",
+    "moment": "6 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "memphis-depay",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "mesut-ozil",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "michael-laudrup",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "michael-owen",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "michy-batshuayi",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "mile-jedinak",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "nasko-sirakov",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "nelson-cuevas",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "obdulio-varela",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "oldrich-nejedly",
+    "moment": "7 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "oleg-salenko",
+    "moment": "6 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "oleh-blokhin",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "oleksandr-zavarov",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "oliver-bierhoff",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "oliver-neuville",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "olivier-giroud",
+    "moment": "5 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "oscar-miguez",
+    "moment": "8 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "paolo-rossi",
+    "moment": "9 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "patrick-m-boma",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "paul-breitner",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "paul-pogba",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "paulo-wanchope",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
   },
   {
     "playerId": "pele",
@@ -36,9 +972,639 @@
     "bonus": 3
   },
   {
-    "playerId": "henry",
-    "moment": "2003-04 Invincibles season",
-    "context": "club",
+    "playerId": "pierre-littbarski",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "raymond-kopa",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "rene-houseman",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "rob-rensenbrink",
+    "moment": "6 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "robert-prosinecki",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "roger-milla",
+    "moment": "5 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "romelu-lukaku",
+    "moment": "5 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "romeo-benetti",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "ronald-gomez",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "salem-al-dawsari",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "salvatore-schillaci",
+    "moment": "6 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "sami-khedira",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "sang-chul-yoo",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "shinji-okazaki",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "stefan-dobay",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "sulley-muntari",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "sun-hong-hwang",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "sven-jonasson",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "thiago-silva",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "tom-finney",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "tomas-brolin",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "toni-kroos",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "valentin-ivanov",
+    "moment": "5 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "vincenzo-iaquinta",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "w-odzimierz-smolarek",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "wahbi-khazri",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "walter-schachner",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "wesley-sneijder",
+    "moment": "6 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "wolfgang-overath",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "xabi-alonso",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "young-gwon-kim",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "youssef-en-nesyri",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "zbigniew-boniek",
+    "moment": "6 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "zidane",
+    "moment": "5 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 3
+  },
+  {
+    "playerId": "adolf-scherer",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "agne-simonsson",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "alain-giresse",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "alcides-ghiggia",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "alvaro-morata",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "anatoliy-byshovets",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "andre-schurrle",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "angelo-schiavio",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "antoine-griezmann",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "arne-nyberg",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "artem-dzyuba",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "benzema",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "bert-patenaude",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "burhan-sargun",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "carlos-borges",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "carlos-peucelle",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "cesar-sampaio",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "cody-gakpo",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "cruyff",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "david-platt",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "denis-cheryshev",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "diego-costa",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "drazan-jerkovic",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "dusan-bajevic",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "eden-hazard",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "edmund-conen",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "eduard-malofeyev",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "emilio-butragueno",
+    "moment": "5 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "ernst-stojaspal",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "ernst-wilimowski",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "estanislau-basora",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "ferenc-bene",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "ferenc-puskas",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "florian-albert",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "florin-raducioiu",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "fritz-walter",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "gerry-armstrong",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "gheorghe-hagi",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "gigi-riva",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "gino-colaussi",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "goncalo-ramos",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "gustav-wetterstrom",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "gyula-zsengeller",
+    "moment": "5 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "harry-andersson",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "hector-socorro",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "ihor-belanov",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "ilhan-mans-z",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "ivan-bek",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "jesper-olsen",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "johan-neeskens",
+    "moment": "5 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "jorge-valdano",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "jose-augusto",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "jose-luis-caminero",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "jose-torres",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "juan-hohberg",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "julian-alvarez",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "karl-erik-palmer",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "kennet-andersson",
+    "moment": "5 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "kurt-hamrin",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "laszlo-kiss",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "leonel-sanchez",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "leopold-anoul",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "leopold-kielholz",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "leopoldo-luque",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "luis-artime",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "luis-fabiano",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "luis-hernandez",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "marcelo-salas",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "martin-dahlin",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "maxi-rodriguez",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "michael-ballack",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "milan-galic",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
     "bonus": 2
   },
   {
@@ -48,9 +1614,6159 @@
     "bonus": 2
   },
   {
-    "playerId": "mbappe",
-    "moment": "2018 World Cup final",
+    "playerId": "nandor-hidegkuti",
+    "moment": "4 World Cup goals (football-datasets)",
     "context": "international",
     "bonus": 2
+  },
+  {
+    "playerId": "nat-lofthouse",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "nico-claesen",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "oreste-corbatta",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "ottmar-walter",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "papa-bouba-diop",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "pedro-cea",
+    "moment": "5 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "peregrino-anselmo",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "peter-mcparland",
+    "moment": "5 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "preben-elkj-r",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "raimundo-orsi",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "ralf-edstrom",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "rashford",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "robbie-keane",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "robert-ballaman",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "robert-vittek",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "roberto-dinamite",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "roger-hunt",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "roger-piantoni",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "ronaldinho",
+    "moment": "2002 El Clásico at Bernabéu",
+    "context": "club",
+    "bonus": 2
+  },
+  {
+    "playerId": "saka",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "silvio-piola",
+    "moment": "5 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "stig-sundqvist",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "suat-mamat",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "telmo-zarra",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "theodor-wagner",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "todor-veselinovic",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "tomas-skuhravy",
+    "moment": "5 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "valeriy-porkujan",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "yerry-mina",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "zdenek-zikan",
+    "moment": "4 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "zoltan-czibor",
+    "moment": "3 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 2
+  },
+  {
+    "playerId": "abdeljalil-hadda",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "abdelkrim-merry",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "abdelmoumene-djabou",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "abderrazak-khairi",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "abdullah-al-buloushi",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "abdulrahman-fawzi",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "abel-balbo",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "achraf-dari",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "adalbert-desu",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "admir-mehmedi",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "adnan-januzaj",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "adolfo-valencia",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "adolfo-zumelzu",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "adrian-ilie",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "adrian-knup",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "adrien-rabiot",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ahmed-radhi",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "alain-couriol",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "alain-sutter",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "alan-mullery",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "alan-shearer",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "albert-brulls",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "alberto-galateo",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "alberto-gallardo",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "alberto-gilardino",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "alberto-gorriz",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "alberto-tarantini",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "aldo-donelli",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "aldo-serena",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "alejandro-scopelli",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "aleksandar-kolarov",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "aleksandar-petakovic",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "aleksandar-tirnanic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "aleksandr-chivadze",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "aleksandr-golovin",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "aleksandr-ivanov",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "aleksandr-kerzhakov",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "aleksandr-kokorin",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "aleksei-mamykin",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "alexander-frei",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "alexandre-czerniatynski",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "alexandru-neagu",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "alexis-mac-allister",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "alexis-sanchez",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "alfre-finnbogason",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "alfred-bickel",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "alfred-pfaff",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "alfredo-del-aguila",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ali-kaabi",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ali-thani-jumaa",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "allan-clarke",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "allan-nielsen",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "alvaro-pereira",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "alvaro-recoba",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "amleto-frignani",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "anatoli-ilyin",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "anatoliy-banishevskiy",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "anders-svensson",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "andi-herzog",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "andoni-goikoetxea",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "andras-toth",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "andre-carrillo",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "andre-maschinot",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "andreas-christensen",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "andreas-granqvist",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "andreas-moller",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "andreas-ogris",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "andreas-samaris",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "andrei-zygmantovich",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "andres-guardado",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "andres-prieto",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "andriy-bal",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "andriy-rusol",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "andriy-shevchenko",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "andrzej-buncol",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "angel-cabrera",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "angelo-domenghini",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ante-rebic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "antolin-alcaraz",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "anton-schall",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "antonin-panenka",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "antonin-puc",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "antonio-alzamendi",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "antonio-cabrini",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "antonio-di-natale",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "antonio-laing",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "antonio-rada",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "antonio-simoes",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ao-tanaka",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "archie-gemmill",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "arie-haan",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ariel-ortega",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "arne-brustad",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "arne-friedrich",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "aron-winter",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "arturo-vazquez-ayala",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "aruna-dindane",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "asparuh-nikodimov",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "atilio-cremaschi",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "atilio-lopez",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "aurelien-tchouameni",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "avdija-vrsajevic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "bakari-kone",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "bamba-dieng",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "bart-mcghee",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "bartosz-bosacki",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "bastian-schweinsteiger",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "bellingham",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "benito-lorenzi",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "benjamin-pavard",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "bernard-lacombe",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "bernard-voorhoof",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "bernardo-redin",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "bernd-holzenbein",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "bernd-schneider",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "bernhard-cullmann",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "bernhard-klodt",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "billy-hamilton",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "bixente-lizarazu",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "blagoje-marjanovic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "blaise-matuidi",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "bobby-collins",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "bonaventure-kalou",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "bongani-khumalo",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "boudewijn-zenden",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "boulaye-dia",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "branko-oblak",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "branko-zebec",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "breel-embolo",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "brett-holman",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "brian-laudrup",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "bror-mellberg",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "bruce-murray",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "bruno-conti",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "bruno-fernandes",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "bruno-mora",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "bruno-petkovic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "bruno-pezzey",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "bryan-robson",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "bryan-roy",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "bryan-ruiz",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "bulent-korkmaz",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "carles-puyol",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "carlo-costly",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "carlo-galli",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "carlos-alberto",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "carlos-babington",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "carlos-manuel",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "carlos-soler",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "carlos-tenorio",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "carlos-valderrama",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "carlos-vela",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "carlos-vidal",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "carsten-jancker",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "cayetano-re",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "celso-ayala",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "cesar-cueto",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "cesar-lopez-fretes",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "chang-sun-park",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "charles-antenen",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "charles-aranguiz",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "cho-gue-sung",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "chong-gug-song",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "christian-eriksen",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "christian-lopez",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "christian-pulisic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "christophe-dugarry",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "chu-young-park",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "chun-soo-lee",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "chung-yong-lee",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "claudio-lopez",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "claudio-marchisio",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "clint-mathis",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "colin-clarke",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "conny-torstensson",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "constantin-stanciu",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "craig-burley",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "craig-goodwin",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "craig-moore",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "cristian-riveros",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "daizen-maeda",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "damien-duff",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "dan-eggen",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "dani-olmo",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "daniel-amokachi",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "daniel-borimirov",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "daniel-fonseca",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "daniel-sturridge",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "daniel-veyt",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "daniele-de-rossi",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "daniele-massaro",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "darijo-srna",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "dario-rodriguez",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "darko-pancev",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "darren-anderton",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "david-embe",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "david-luiz",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "david-narey",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "david-trezeguet",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "davies",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "davor-jozic",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "davy-klaassen",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "dele-alli",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "dennis-wilshaw",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "denzel-dumfries",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "derek-kevan",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "dick-nanninga",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "didier-six",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "diego-godin",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "dieter-muller",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "dimitris-salpingidis",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "dinko-dermendzhiev",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "dino-baggio",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "dirk-kuyt",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "divock-origi",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "djalma-santos",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "djamel-zidane",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "dmitri-radchenko",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "dmitri-sychev",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "dobromir-zhechev",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "domagoj-vida",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "dong-woon-li",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "doo-ik-pak",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "dragan-dzajic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "dusan-vlahovic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "dylan-bronn",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "earnie-stewart",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ebbe-sand",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "edgar-davids",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "edin-dzeko",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "edison-mendez",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "eduardo-vargas",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "eladio-rojas",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "emerich-dembrovschi",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "emil-forsberg",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "emil-kostadinov",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "emile-heskey",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "emile-veinante",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "emmanuel-amunike",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "emmanuel-kunde",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "emmanuel-olisadebe",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "emmanuel-petit",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "emmanuel-sanon",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "emre-belozoglu",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "enrique-borja",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "enrique-guaita",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "enrique-saura",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "enrique-vera",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "enzo-fernandez",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "enzo-francescoli",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "eric-maxim-choupo-moting",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "eric-wynalda",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "erich-obermayer",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ermes-muccinelli",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ermindo-onega",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ernesto-belis",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ernesto-vidal",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ernie-brandts",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "erno-solymosi",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ernst-lehner",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ernst-ocwirk",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "erol-keskin",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "erwin-sanchez",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "esteban-cambiasso",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "eugen-walaschek",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "eugene-ekeke",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "eul-yong-lee",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "fabio-capello",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "fabio-grosso",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "fabio-quagliarella",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "fahad-al-ghesheyan",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "faisal-al-dakhil",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "fakhreddine-ben-youssef",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "famara-diedhiou",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "felipe-baloy",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ferjani-sassi",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "fernando-quirarte",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "fernando-riera",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ferran-torres",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "filippo-inzaghi",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "finidi-george",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "florea-dumitrache",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "florencio-amarilla",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "florent-malouda",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "foden",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "francesco-graziani",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "francisco-arce",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "francisco-fonseca",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "francisco-varallo",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "francisco-zuluaga",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "franck-ribery",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "franco-causio",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "frank-wallace",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "franky-vercauteren",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "frantisek-svoboda",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "freddie-ljungberg",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "freddy-rincon",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "frenkie-de-jong",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "fryderyk-scherfke",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "fuad-anwar",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "fulvio-nesti",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "gabi-balint",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "gabor-poloskei",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "gabriel-heinze",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "gabriel-mercado",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "gaizka-mendieta",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "gareth-bale",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "gary-breen",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "gaston-taument",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "gelson-fernandes",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "genki-haraguchi",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "george-robledo",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "georges-bregy",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "georges-grun",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "georges-verriest",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "georgi-asparuhov",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "georgi-sokolov",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "georginio-wijnaldum",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "georgios-samaras",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "gerard-hausser",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "gerard-soler",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "gerardo-torrado",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "gerhard-rodax",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "german-aceros",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "gerry-hitchens",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "giacomo-bulgarelli",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "giampiero-boniperti",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "gianluca-zambrotta",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "gino-pariani",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "giorgian-de-arrascaeta",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "giovani-dos-santos",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "giovanni-ferrari",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "giovanni-van-bronckhorst",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "giuseppe-giannini",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "glenn-stromberg",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "goran-vlaovic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "gordon-strachan",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "gosta-dunker",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "graeme-souness",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "gregoire-m-bida",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "grzegorz-krychowiak",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "guillermo-la-rosa",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "guillermo-subiabre",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "gunnar-gren",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "gustavo-moscoso",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "gustavo-pena",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "gylfi-sigur-sson",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "haji-wright",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "hakan-mild",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "hakan-sukur",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "hakim-ziyech",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "hamid-estili",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "haminu-draman",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "hans-cieslarczyk",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "hansi-muller",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "haris-seferovic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "harry-kewell",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "harry-maguire",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "hasan-sas",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "hassan-nader",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "hassan-roshan",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "hasse-jeppson",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "havard-flo",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "hector-castro",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "hector-chumpitaz",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "hector-de-bourgoing",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "hector-facundo",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "hector-hernandez",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "hector-ortiz",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "hector-scarone",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "hector-yazalde",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "hector-zelaya",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "hee-chan-hwang",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "heinz-flohe",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "heinz-schneiter",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "hendrik-isemborghs",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "henri-camara",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "henri-coppens",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "henry-martin",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "herman-gaviria",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "hernan-medford",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "hidetoshi-nakata",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "hiroaki-morishima",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "hirving-lozano",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "horacio-casarin",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "horst-hrubesch",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "horst-szymaniak",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "houmane-jarir",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "hugo-almeida",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "hugo-sanchez",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "iago-aspas",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "igor-dobrovolski",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ildo-maneiro",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ilie-dumitrescu",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ilija-petkovic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ilkay-gundogan",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "iniesta",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "iraj-danaeifard",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "isidoro-diaz",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "isidro-langara",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "islam-slimani",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ismaila-sarr",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "iuliu-baratky",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ivan-gudelj",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ivan-hasek",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ivan-kaviedes",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ivan-rakitic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ivan-yaremchuk",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ivica-surjak",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ivica-vastic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ivor-allchurch",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ivor-broadis",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ja-cheol-koo",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jack-grealish",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jackie-mudie",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jackson-martinez",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jaime-belmonte",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jaime-ramirez",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jan-bednarek",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jan-koller",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "janos-farkas",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "janusz-kupcewicz",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jared-borgetti",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "javier-ambrois",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "javier-fragoso",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "javier-saviola",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "javier-valdivia",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "javier-zanetti",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jawhar-mnari",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jean-charles-castelletto",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jean-marc-ferreri",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jean-pierre-papin",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jean-tigana",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jeno-vincze",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jermain-defoe",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jermaine-jones",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jerzy-gorgon",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jesse-lingard",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jesus-maria-zamora",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jim-brown",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jimmy-greaves",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jimmy-mullen",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jimmy-murray",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jiri-feureisl",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jiri-sobotka",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "joachim-streich",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "joao-felix",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "joaquin-peiro",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "joe-cole",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "joe-gaetjens",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "joe-maca",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "joel-campbell",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "joel-matip",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "johan-walem",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "johann-horvath",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "john-aldridge",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "john-aloisi",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "john-brooks",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "john-charles",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "john-collins",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "john-eriksen",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "john-harold-lozano",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "john-o-brien",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "john-robertson",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "john-stones",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "john-wark",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "johnny-ekstrom",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "johnny-haynes",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jong-boo-kim",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jordan-henderson",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jorge-lino-romero",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jorge-luis-campos",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jorge-toro",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jorge-valdivia",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jose-altafini",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jose-cardozo",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jose-gimenez",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jose-iraragorri",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jose-luis-brown",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jose-luis-gonzalez",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jose-luis-lamadrid",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jose-luis-sierra",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jose-magrina",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jose-parodi",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jose-sanfilippo",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jose-sasia",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jose-velasquez",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "josef-bican",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "josef-gauchel",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "josef-kadraba",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "josef-kostalek",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "josef-masopust",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "josef-zeman",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "josep-guardiola",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "josep-maria-fuste",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "josip-drmic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "josip-katalinski",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "josip-skoblar",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "josko-gvardiol",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jozef-stibranyi",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jozsef-bencsics",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jozsef-bozsik",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jozsef-toth",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jozsef-varga",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "juan-antonio-senor",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "juan-bautista-aguero",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "juan-carlos-letelier",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "juan-carlos-valeron",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "juan-carreno",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "juan-cayasso",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "juan-ignacio-basaguren",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "juan-manuel-asensi",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "juan-mata",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "juan-mujica",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "juan-pablo-vargas",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "julian-green",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "julio-abbadie",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "julio-cesar-cortes",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "julio-cesar-romero",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "julio-perez",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "julius-aghahowa",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jung-moo-huh",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jung-soo-lee",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jung-won-seo",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "junichi-inamoto",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "juninho-pernambucano",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jurgen-grabowski",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "jurgen-sparwasser",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "kai-havertz",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "kakhi-asatiani",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "kalidou-koulibaly",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "kalman-meszoly",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "kalu-uche",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "kamil-kopunek",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "karim-ansarifard",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "karl-heinz-riedle",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "karl-heinz-schnellinger",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "karl-hohmann",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "karl-koller",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "karl-sesta",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "karl-zischek",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "karoly-csapo",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "karoly-sandor",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "katlego-mphela",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "keiji-tamada",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "kendall-waston",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "keun-ho-lee",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "kevin-prince-boateng",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "kevin-sheedy",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "keysher-fuller",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "khalid-boutaib",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "khalid-ismail",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "khalilou-fadiga",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "khoren-hovhannisyan",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ki-hyeon-seol",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "kick-smit",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "kieran-trippier",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "klaus-allofs",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "klaus-fischer",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "knut-kroon",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "kosta-tomasevic",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "kwan-hwangbo",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ladislav-petras",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "lajos-detari",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "lakhdar-belloumi",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "laszlo-fazekas",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "laurent-blanc",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "lazar-szentes",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "leen-vente",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "lefter-kucukandonyadis",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "leider-preciado",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "lennart-skoglund",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "leo-clijsters",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "leroy-fer",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "lewandowski",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "lilian-thuram",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "lothar-emmerich",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "lovro-majer",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "lubos-kubik",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "luc-nilis",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "luca-toni",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "lucas-paqueta",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "lucas-radebe",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "lucien-laurent",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ludo-coeck",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ludovico-avio",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ludwig-augustinsson",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "luigi-di-biagio",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "luis-chavez",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "luis-fernandez",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "luis-flores",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "luis-garcia-postigo",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "luis-monti",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "luis-ramirez-zapata",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "luis-regueiro",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "luis-souza-ferreira",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "luis-vargas-pena",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "m-baye-niang",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "magdi-abdelghani",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "maksym-kalynychenko",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "mane",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "manuel-akanji",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "manuel-amoros",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "manuel-negrete",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "manuel-rosas",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "manuel-sanchis",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "maouhoub-ghazouani",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "marc-berdoll",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "marc-overmars",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "marc-rieper",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "marcel-langiller",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "marcelino-bernal",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "marcell-jansen",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "marcin-zew-akow",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "marcio-santos",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "marco-asensio",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "marco-bode",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "marco-materazzi",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "marco-reus",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "marco-tardelli",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "marco-urena",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "marcos-coll",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "marcus-allback",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "marino-klinger",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "mario-balotelli",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "mario-evaristo",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "mario-fernandes",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "mario-gotze",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "mario-stanic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "marius-lacatus",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "marius-tresor",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "mark-gonzalez",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "mark-wright",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "marko-livaja",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "marko-pantelic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "martin-demichelis",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "martin-hoffmann",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "martin-j-rgensen",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "martin-palermo",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "marton-esterhazy",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "maryan-wisnieski",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "masashi-nakayama",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "mathew-leckie",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "mathias-j-rgensen",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "mathieu-valbuena",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "mats-hummels",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "matt-holland",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "matthew-upson",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "matthias-sindelar",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "mauricio-pineda",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "mauricio-wright",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "maxi-pereira",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "maxime-bossis",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "mehdi-mahdavikia",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "mehdi-taremi",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "michael-bradley",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "michal-bilek",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "michel-de-wolf",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "miguel-angel-benitez",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "miguel-angel-brindisi",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "miguel-angel-neira",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "mihaly-lantos",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "miklos-kovacs",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "milan-badelj",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "milan-dvorak",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "milan-jovanovic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "milan-luhovy",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "milan-rapaic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "milenko-acimovic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "milos-milutinovic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "miralem-pjanic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "mislav-orsic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "mitchell-duke",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "mo-johnston",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "mohamed-kader",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "mohammed-chaouch",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "mohammed-kudus",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "mohammed-muntari",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "mohammed-salisu",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "moises-caicedo",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "mokhtar-dhouib",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "mordechai-spiegler",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "moussa-sissoko",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "moussa-wague",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "mustafa-ertan",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "mustapha-hadji",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "mutiu-adepoju",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "myung-bo-hong",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "nacer-chadli",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "nahuel-molina",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "nejib-ghommidh",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "niall-quinn",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "nicklas-bendtner",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "niclas-alexandersson",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "niclas-fullkrug",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "nikita-simonyan",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "niko-kovac",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "nikola-zigic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "nils-liedholm",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "nilton-santos",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "norberto-menendez",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "norman-whiteside",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "nuno-gomes",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ola-toivonen",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "oleh-protasov",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "omar-bravo",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "or-e-vujadinovic",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "oribe-peralta",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "oscar-duarte",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "oscar-heisserer",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "oscar-ruggeri",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "osman-bukari",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "osvaldo-ardiles",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "otto-siffling",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ove-grahn",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "pablo-armero",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "pablo-bengoechea",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "pablo-dorado",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "paik-seung-ho",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "pal-teleki",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "pal-titkos",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "paolo-barison",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "paolo-guerrero",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "patrick-kluivert",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "patrick-vervoort",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "patrick-vieira",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "paul-caligiuri",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "paul-mariner",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "paul-scholes",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "pavel-yakovenko",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "pawe-krysza-owicz",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "pedro-monzon",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "pedro-pasculli",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "pedro-rocha",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "pedro-troglio",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "petar-radakovic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "peter-beardsley",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "peter-crouch",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "peter-lorimer",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "peter-m-ller",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "peter-odemwingie",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "peter-palotas",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "peter-van-der-heyden",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "philipp-lahm",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "philippe-albert",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "philippe-coutinho",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "philippe-senderos",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "phillip-cocu",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "pierre-njanka",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "pierre-van-hooijdonk",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "pietro-anastasi",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "pietro-ferraris",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "piotr-zielinski",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "pirlo",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "plamen-getov",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "predrag-mijatovic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "quinton-fortune",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "rabah-madjer",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "radamel-falcao",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "radhi-jaidi",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "radivoje-ognjanovic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "rafael-leao",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "rafik-halliche",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "rainer-bonhof",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "rajko-mitic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ramaz-shengelia",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ramin-rezaeian",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ramon-caldere",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ramon-diaz",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ramon-heredia",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "randal-kolo-muani",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "raouf-bouzaiene",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "raoul-lambert",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "raphael-guerreiro",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "raphael-varane",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "rashidi-yekini",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "raul-meireles",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "raul-servin",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ray-houghton",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "reinhard-libuda",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "reinhold-hintermaier",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "remo-freuler",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "renato-augusto",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "renato-zaccarelli",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "rene-bader",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "rene-girard",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "rene-pierre-quentin",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "rene-van-de-kerkhof",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "reza-ghoochannejhad",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ricardo-horta",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ricardo-pavoni",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ricardo-pelaez",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ricardo-quaresma",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "riccardo-carapellese",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "richard-herrmann",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "richard-morales",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "rio-ferdinand",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ritsu-doan",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "robbie-earle",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "robert-jarni",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "robert-koren",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "roberto-ayala",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "roberto-bettega",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "roberto-boninsegna",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "roberto-cabanas",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "roberto-carlos",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "roberto-challe",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "roberto-firmino",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "roberto-gayon",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "roberto-lopez-ufarte",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "rodrigo-millar",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "roger-flores",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "roger-ljung",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "roland-sandberg",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "rolf-wuthrich",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "romain-saiss",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ron-flowers",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ronald-de-boer",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ronald-gonzalez-brenes",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ronald-koeman",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "roque-santa-cruz",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "rouzbeh-cheshmi",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ruben-ayala",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ruben-marcos",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ruben-toribio-diaz",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "rudiger-abramczik",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "rudolf-noack",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "rui-costa",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ruud-gullit",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ruud-krol",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ruud-van-nistelrooy",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "s-ren-lerby",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "saeed-al-owairan",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "safet-susic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "salah",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "salah-assad",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "salaheddine-bassir",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "saleh-al-shehri",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "salif-diao",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "salman-al-faraj",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "salomon-kalou",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "sammy-baird",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "samson-siasia",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "samuel-umtiti",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "sandor-zombori",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "sandro-mazzola",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "santos-iriarte",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "sasa-ilic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "sebastjan-cimirotic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "seok-ju-ha",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "serge-gnabry",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "sergei-aleinikov",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "sergei-baltacha",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "sergej-milinkovic-savic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "sergey-rodionov",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "sergio-aguero",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "sergio-ahumada",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "serhii-rebrov",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "seung-kook-yang",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "seung-zin-pak",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "shane-smeltz",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "shaun-bartlett",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "shinji-kagawa",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "shunsuke-nakamura",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "sigfried-held",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "silvestre-igoa",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "silvestre-varela",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "silviu-bindea",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "sinisa-mihajlovic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "siphiwe-tshabalala",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "siyabonga-nomvethe",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "skander-souayah",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "slobodan-komljenovic",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "sofiane-feghouli",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "sohrab-bakhtiarizadeh",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "sokratis-papastathopoulos",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "sol-campbell",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "soon-ho-choi",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "stan-mortensen",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "stanislaus-kobierski",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "stanislav-karasi",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "stefan-de-vrij",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "stefan-majewski",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "stephane-chapuisat",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "stephane-demol",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "stephen-appiah",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "sterling",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "steve-archibald",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "steve-sumner",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "steve-wooddin",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "steven-zuber",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "stjepan-bobek",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "strahinja-pavlovic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "stuart-mccall",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "sunday-oliseh",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "sune-andersson",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "takashi-inui",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "takayuki-suzuki",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "takuma-asano",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "tarcisio-burgnich",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "teboho-mokoena",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "tedj-bensaoula",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "teofilo-gutierrez",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "terry-medwin",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "theo-de-jong",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "theo-hernandez",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "theodore-whitmore",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "thomas-helveg",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "thomas-linke",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "thomas-meunier",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "thomas-sjoberg",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "tibor-nyilasi",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "tihomir-ognjanov",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "tijani-babangida",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "timothy-weah",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "todor-kolev",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "tom-florie",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "tom-turesson",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "tomas-balcazar",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "tomas-fernandez",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "tomas-rosicky",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "toni-polster",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "tore-andre-flo",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "tore-keller",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "torsten-frings",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "totti",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "tranquillo-barnetta",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "trevor-francis",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "txiki-begiristain",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "uli-hoene",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "umit-davala",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "uwe-bein",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "uwe-reinders",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "vaclav-hovorka",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "vaclav-masek",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "valeri-karpin",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "valter-birsa",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "vasilis-torosidis",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "vasyl-rats",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "vedad-ibisevic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "victor-esparrago",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "victor-ikpeba",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "victor-moses",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "victor-rangel",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "viktor-ponedelnik",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "vilmos-kohut",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "vincent-aboubakar",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "vinicius-jr",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "viorel-moldovan",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "vitaly-khmelnitsky",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "vladimir-beschastnykh",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "vladimir-petrovic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "vladislav-bogicevic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "vlastimil-kopecky",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "vojislav-melic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "w-odzimierz-cio-ek",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "wayne-rooney",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "wesley-sonck",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "wilbur-cush",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "wilf-mannion",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "wilfried-bony",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "wilfried-van-moer",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "wilhelm-hahnemann",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "willy-jaggi",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "willy-van-de-kerkhof",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "wilson-oruma",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "wim-jonk",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "wim-kieft",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "winston-parks",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "winston-reid",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "wolfgang-weber",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "wout-weghorst",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "yacine-brahimi",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "yahya-golmohammadi",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "yannick-stopyra",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "yasser-al-qahtani",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "yasuhito-endo",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "yaya-toure",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "yegor-titov",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "yeltsin-tejeda",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "yordan-letchkov",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "youri-djorkaeff",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "yousuf-al-thunayan",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "yun-nam-ji",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "yuri-gavrilov",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "yury-gazinsky",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "yussuf-poulsen",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "yuya-osako",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "yvon-douis",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "zakaria-aboukhlal",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "zdravko-rajkov",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "zeljko-cajkovski",
+    "moment": "2 World Cup goals (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "ziad-jaziri",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
+  },
+  {
+    "playerId": "zlatan-ljubijankic",
+    "moment": "1 World Cup goal (football-datasets)",
+    "context": "international",
+    "bonus": 1
   }
 ]

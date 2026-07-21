@@ -1,6 +1,6 @@
 import type { DraftModeConfig, PlayerAttributes, RatedPlayerCard, FameTier } from "@sportverse/draftballer-types";
 import type { PlayerSeasonStat } from "@sportverse/sports-db";
-import { mapQuizPosition, ovrFromAttributes, tierFromOvr } from "./position-weights.js";
+import { mapQuizPosition, ovrFromAttributes, resolveRatingPosition, tierFromOvr } from "./position-weights.js";
 import { ovrFromSeasonStats } from "./stats-rating.js";
 import { lensBlend } from "./lens-blend.js";
 import { awardBonus, bigMomentBonus, legacyReputationBonus, longevityAdjustment } from "./awards.js";
@@ -173,7 +173,9 @@ export function mvOvrBlend(
 
 /** Compute OVR for a player under the given draft mode config (rating engine v5). */
 export function computePlayerRating(input: RatingInput, mode: DraftModeConfig): RatedPlayerCard {
-  const position = mapQuizPosition(input.position);
+  const eaEntryEarly = !input.manualOvr ? getEaRating(input.id) : undefined;
+  // Score with the player's true role — never another position's weights.
+  const position = resolveRatingPosition(input.position, eaEntryEarly?.quizPosition);
   const stats = input.seasonStats ?? [];
   const seasonLabel = mode.ratingBasis === "season" ? input.seasonLabel : undefined;
   const fameScore = fameScoreForRating(input.id);
@@ -203,12 +205,16 @@ export function computePlayerRating(input: RatingInput, mode: DraftModeConfig): 
   let eaCalibrationOvr: number | undefined;
   let eaPeakUplift: number | undefined;
   let eaPrimeUpliftPts: number | undefined;
-  const eaEntry = !input.manualOvr ? getEaRating(input.id) : undefined;
+  const eaEntry = eaEntryEarly;
   const eaCurrentSnapshot = mode.ratingBasis === "ea_current";
   if (eaEntry) {
     if (eaEntry.attributes) {
       attrs = eaEntry.attributes;
       fabricated = false;
+      // Re-score fabricated/fallback OVR with this role's weights + EA face stats.
+      if (!clubFromStats && !input.manualOvr) {
+        clubOvr = ovrFromAttributes(position, attrs);
+      }
     }
     if (eaEntry.gkAttributes) {
       gkAttributes = {

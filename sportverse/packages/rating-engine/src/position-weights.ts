@@ -11,23 +11,115 @@ export const POSITION_WEIGHTS: Record<Position, Record<keyof PlayerAttributes, n
   GK: { pac: 0.05, sho: 0.02, pas: 0.08, dri: 0.05, def: 0.35, phy: 0.45 },
 };
 
+/** Coarse archive labels that don't distinguish side/role — prefer EA when available. */
+export function isCoarsePositionLabel(position?: string): boolean {
+  const p = (position ?? "").toLowerCase().trim();
+  return !p || p === "defender" || p === "midfielder" || p === "midfield" || p === "forward" || p === "attacker";
+}
+
+/**
+ * Map raw Transfermarkt / quiz position strings → Sportverse quiz Position.
+ * Order matters: more specific phrases before coarse ones (e.g. attacking mid before attack).
+ */
 export function mapQuizPosition(position?: string): Position {
-  const p = (position ?? "").toLowerCase();
+  const raw = (position ?? "").trim();
+  const p = raw.toLowerCase();
+  if (!p) return "CM";
+
+  // Exact / short codes first
+  const code = p.replace(/[^a-z0-9]/g, "");
+  const codeMap: Record<string, Position> = {
+    gk: "GK",
+    goalkeeper: "GK",
+    cb: "CB",
+    lcb: "CB",
+    rcb: "CB",
+    sweeper: "CB",
+    libero: "CB",
+    lb: "FB",
+    rb: "FB",
+    lwb: "FB",
+    rwb: "FB",
+    wb: "FB",
+    fullback: "FB",
+    fullbackleft: "FB",
+    fullbackright: "FB",
+    wingback: "FB",
+    cdm: "DM",
+    dm: "DM",
+    defensivemidfielder: "DM",
+    defensivemidfield: "DM",
+    cm: "CM",
+    lcm: "CM",
+    rcm: "CM",
+    centralmidfielder: "CM",
+    cam: "AM",
+    am: "AM",
+    attackingmidfielder: "AM",
+    attackingmidfield: "AM",
+    lw: "W",
+    rw: "W",
+    lm: "W",
+    rm: "W",
+    winger: "W",
+    leftwinger: "W",
+    rightwinger: "W",
+    leftmidfield: "W",
+    rightmidfield: "W",
+    leftmidfielder: "W",
+    rightmidfielder: "W",
+    st: "ST",
+    cf: "ST",
+    ls: "ST",
+    rs: "ST",
+    striker: "ST",
+    forward: "ST",
+    centreforward: "ST",
+    centerforward: "ST",
+    secondstriker: "ST",
+  };
+  if (codeMap[code]) return codeMap[code];
+
   if (p.includes("goal")) return "GK";
-  if (p.includes("centre-back") || p.includes("center-back") || p === "cb") return "CB";
-  if (p.includes("back") || p.includes("wing-back")) return "FB";
+  if (p.includes("centre-back") || p.includes("center-back") || p.includes("centre back") || p.includes("center back")) {
+    return "CB";
+  }
+  if (p.includes("wing-back") || p.includes("wingback") || p.includes("full-back") || p.includes("fullback")) {
+    return "FB";
+  }
+  if (p.includes("left-back") || p.includes("right-back") || p.includes("left back") || p.includes("right back")) {
+    return "FB";
+  }
+  // Generic "back" after CB/FB specifics (e.g. "Right-Back")
+  if (/\b(left|right)?-?backs?\b/.test(p) || p.endsWith("-back") || p.endsWith(" back")) return "FB";
+
   if (p.includes("defensive mid")) return "DM";
   if (p.includes("attacking mid")) return "AM";
+  if (p.includes("left mid") || p.includes("right mid")) return "W";
+  if (p.includes("winger") || (p.includes("wing") && !p.includes("back"))) return "W";
+  if (p.includes("second striker") || p.includes("centre-forward") || p.includes("center-forward")) return "ST";
+  if (p.includes("striker") || p.includes("forward")) return "ST";
+  // "attack" alone after attacking-mid already handled
+  if (p.includes("attack") && !p.includes("mid")) return "ST";
   if (p.includes("midfield") || p.includes("midfielder")) return "CM";
-  if (p.includes("winger") || p.includes("wing")) return "W";
-  if (p.includes("forward") || p.includes("striker") || p.includes("attack")) return "ST";
-  // Coarse "Defender" (no side info) reads as centre-back, not midfielder.
   if (p.includes("defend")) return "CB";
   return "CM";
 }
 
+/**
+ * Final role used for OVR math. Prefer EA's precise role when the archive
+ * only has a coarse label (Defender/Midfielder/Forward).
+ */
+export function resolveRatingPosition(rawPosition?: string, eaQuizPosition?: Position): Position {
+  const mapped = mapQuizPosition(rawPosition);
+  if (!eaQuizPosition) return mapped;
+  if (mapped === "GK" || eaQuizPosition === "GK") return "GK";
+  if (isCoarsePositionLabel(rawPosition)) return eaQuizPosition;
+  return mapped;
+}
+
 export function ovrFromAttributes(position: Position, attrs: PlayerAttributes): number {
-  const w = POSITION_WEIGHTS[position];
+  const w = POSITION_WEIGHTS[position] ?? POSITION_WEIGHTS.CM;
   const raw =
     attrs.pac * w.pac +
     attrs.sho * w.sho +
