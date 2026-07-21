@@ -8,6 +8,7 @@ import { communityCalibrationNudge } from "./calibration.js";
 import { durabilityForRating, fameScoreForRating, mvPercentileForRating } from "./fame-data.js";
 import { applyPositionAttributeCaps } from "./position-weights.js";
 import { blendWithEaCalibration, getEaRating } from "./ea-ratings.js";
+import { blendWithHistoricalCalibration, getHistoricalRating } from "./historical-ratings.js";
 
 export interface RatingInput {
   id: string;
@@ -174,6 +175,8 @@ export function mvOvrBlend(
 /** Compute OVR for a player under the given draft mode config (rating engine v5). */
 export function computePlayerRating(input: RatingInput, mode: DraftModeConfig): RatedPlayerCard {
   const eaEntryEarly = !input.manualOvr ? getEaRating(input.id) : undefined;
+  const histEntryEarly =
+    !input.manualOvr && !eaEntryEarly ? getHistoricalRating(input.id) : undefined;
   // Score with the player's true role — never another position's weights.
   const position = resolveRatingPosition(input.position, eaEntryEarly?.quizPosition);
   const stats = input.seasonStats ?? [];
@@ -205,7 +208,12 @@ export function computePlayerRating(input: RatingInput, mode: DraftModeConfig): 
   let eaCalibrationOvr: number | undefined;
   let eaPeakUplift: number | undefined;
   let eaPrimeUpliftPts: number | undefined;
+  let historicalPeakOvr: number | undefined;
+  let historicalUplift: number | undefined;
+  let historicalPrimeUplift: number | undefined;
+  let historicalSource: string | undefined;
   const eaEntry = eaEntryEarly;
+  const histEntry = histEntryEarly;
   const eaCurrentSnapshot = mode.ratingBasis === "ea_current";
   if (eaEntry) {
     if (eaEntry.attributes) {
@@ -232,6 +240,20 @@ export function computePlayerRating(input: RatingInput, mode: DraftModeConfig): 
     eaCalibrationOvr = blended.eaOvr;
     eaPeakUplift = blended.peakUplift;
     eaPrimeUpliftPts = blended.primeUplift;
+  } else if (histEntry) {
+    if (histEntry.attributes) {
+      attrs = histEntry.attributes;
+      fabricated = false;
+      if (!clubFromStats && !intlFromStats) {
+        clubOvr = ovrFromAttributes(position, attrs);
+      }
+    }
+    const blended = blendWithHistoricalCalibration(clubOvr, histEntry, { eaCurrentSnapshot });
+    clubOvr = blended.ovr;
+    historicalPeakOvr = blended.peakOvr;
+    historicalUplift = blended.uplift;
+    historicalPrimeUplift = blended.primeUplift;
+    historicalSource = histEntry.source;
   }
 
   if (intlFromStats) {
@@ -244,7 +266,8 @@ export function computePlayerRating(input: RatingInput, mode: DraftModeConfig): 
   let mvBlendWeight: number | undefined;
   let mvBlendPct: number | undefined;
   // EA FC 26 already encodes market consensus — MV blend must not pull calibrated players below EA floor.
-  if (!input.manualOvr && !eaCurrentSnapshot && !eaEntry) {
+  // Historical index already encodes SoFIFA peaks or tier-2 MV anchors.
+  if (!input.manualOvr && !eaCurrentSnapshot && !eaEntry && !histEntry) {
     const mv = mvOvrBlend(clubOvr, input.id, position);
     clubOvr = mv.ovr;
     if (mv.percentile > 0) {
@@ -271,7 +294,7 @@ export function computePlayerRating(input: RatingInput, mode: DraftModeConfig): 
   let ovr = lensBlend(clubOvr, intlOvr, mode.ratingLens, mode.blendFactor);
   let confidence = input.manualOvr ? 0.98 : statConfidence;
 
-  if (fabricated && !input.manualOvr && !eaEntry) {
+  if (fabricated && !input.manualOvr && !eaEntry && !histEntry) {
     ovr = Math.min(ovr, FABRICATED_OVR_CAP);
     confidence = Math.min(confidence, 0.45);
   }
@@ -281,7 +304,7 @@ export function computePlayerRating(input: RatingInput, mode: DraftModeConfig): 
   }
 
   const { nudge, entry } = communityCalibrationNudge(input.id, confidence);
-  if (!input.manualOvr && !eaCurrentSnapshot && !eaEntry) ovr = clamp(ovr + nudge);
+  if (!input.manualOvr && !eaCurrentSnapshot && !eaEntry && !histEntry) ovr = clamp(ovr + nudge);
 
   // EA FC 26 current-season mode: published OVR is authoritative.
   if (eaCurrentSnapshot && eaEntry) {
@@ -292,6 +315,15 @@ export function computePlayerRating(input: RatingInput, mode: DraftModeConfig): 
   // All-time/prime: never finish below EA floor + prime uplift for matched players.
   if (eaEntry && !input.manualOvr && !eaCurrentSnapshot && eaPrimeUpliftPts != null) {
     ovr = Math.max(ovr, eaEntry.ovr + eaPrimeUpliftPts);
+  }
+
+  // Historical SoFIFA / tier-2 MV floor for retired non-EA players.
+  if (histEntry && !input.manualOvr && !eaCurrentSnapshot && historicalPeakOvr != null) {
+    const histFloor = historicalPeakOvr + (historicalPrimeUplift ?? 0);
+    ovr = Math.max(ovr, histFloor);
+    if (histEntry.attributes) confidence = Math.max(confidence, 0.72);
+    else if (histEntry.source === "peak_mv_tier2") confidence = Math.max(confidence, 0.62);
+    else confidence = Math.max(confidence, 0.68);
   }
 
   return {
@@ -328,6 +360,10 @@ export function computePlayerRating(input: RatingInput, mode: DraftModeConfig): 
       eaCalibrationOvr,
       eaPeakUplift,
       eaPrimeUplift: eaPrimeUpliftPts,
+      historicalPeakOvr,
+      historicalUplift,
+      historicalPrimeUplift,
+      historicalSource,
     },
   };
 }

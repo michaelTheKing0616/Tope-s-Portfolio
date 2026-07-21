@@ -70,33 +70,64 @@ describe("simulateMatch", () => {
 });
 
 describe("simulateSeason", () => {
-  it("plays exactly 38 fixtures", () => {
-    const result = simulateSeason(mockSquad(80), "season-test-1");
+  it("plays exactly 38 fixtures", async () => {
+    const result = await simulateSeason(mockSquad(80), "season-test-1");
     expect(result.played).toBe(SEASON_LENGTH);
     expect(result.fixtures).toHaveLength(SEASON_LENGTH);
   });
 
-  it("points match W/D/L record", () => {
-    const result = simulateSeason(mockSquad(75), "season-test-2");
+  it("points match W/D/L record", async () => {
+    const result = await simulateSeason(mockSquad(75), "season-test-2");
     expect(result.points).toBe(result.won * 3 + result.drawn);
     expect(result.won + result.drawn + result.lost).toBe(38);
   });
 
-  it("deterministic season for same seed", () => {
+  it("deterministic season for same seed", async () => {
     const squad = mockSquad(84);
-    const a = simulateSeason(squad, "repeat-season");
-    const b = simulateSeason(squad, "repeat-season");
+    const a = await simulateSeason(squad, "repeat-season");
+    const b = await simulateSeason(squad, "repeat-season");
     expect(a.points).toBe(b.points);
     expect(a.goalsFor).toBe(b.goalsFor);
     expect(a.isPerfect).toBe(b.isPerfect);
   });
 
-  it("average goals per game in realistic band", () => {
-    const result = simulateSeason(mockSquad(78), "goals-band", {
+  it("average goals per game in realistic band", async () => {
+    const result = await simulateSeason(mockSquad(78), "goals-band", {
       config: { simulationMode: "prime_powers" },
     });
     const gpg = (result.goalsFor + result.goalsAgainst) / result.played;
     expect(gpg).toBeGreaterThan(1.5);
     expect(gpg).toBeLessThan(5.5);
+  });
+
+  it("80 OVR season avoids absurd draw counts", async () => {
+    let totalDraws = 0;
+    let totalGf = 0;
+    for (let i = 0; i < 40; i++) {
+      const r = await simulateSeason(mockSquad(80), `draw-cal-${i}`);
+      totalDraws += r.drawn;
+      totalGf += r.goalsFor;
+    }
+    expect(totalDraws / 40).toBeLessThan(16);
+    expect(totalDraws / 40).toBeGreaterThan(4);
+    expect(totalGf / 40).toBeGreaterThan(25);
+  });
+
+  it("weak face stats with 80 OVR headline still score regularly", async () => {
+    const squad = mockSquad(80);
+    squad.players = squad.players.map((p) => ({
+      ...p,
+      attributes: {
+        pac: p.ovr,
+        sho: Math.max(45, p.ovr - 25),
+        pas: p.ovr - 5,
+        dri: p.ovr - 3,
+        def: p.ovr + 5,
+        phy: p.ovr,
+      },
+    }));
+    const r = await simulateSeason(squad, "weak-attack-cal");
+    expect(r.goalsFor).toBeGreaterThan(18);
+    expect(r.drawn).toBeLessThan(22);
   });
 });

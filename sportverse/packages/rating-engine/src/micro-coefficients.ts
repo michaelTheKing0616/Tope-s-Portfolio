@@ -11,7 +11,7 @@ export const MICRO_COEFFICIENTS: Record<
   Record<MacroKey, Partial<Record<SubMetricKey, number>>>
 > = {
   ST: {
-    sho: { goals_per_90: 0.35, conversion_rate: 0.25, aerial_proxy: 0.12, set_piece_proxy: 0.08, minutes_per_app: 0.1 },
+    sho: { goals_per_90: 0.28, npxg_per_90: 0.32, conversion_rate: 0.2, aerial_proxy: 0.08, minutes_per_app: 0.05 },
     pac: { goals_per_90: 0.2, minutes_per_app: 0.15, dribble_proxy: 0.12, assists_per_90: 0.08 },
     pas: { assists_per_90: 0.22, pass_volume: 0.18, progressive_pass_proxy: 0.22, set_piece_proxy: 0.08, goals_per_90: 0.12 },
     dri: { dribble_proxy: 0.22, goals_per_90: 0.18, progressive_carry_proxy: 0.22, conversion_rate: 0.12, assists_per_90: 0.08 },

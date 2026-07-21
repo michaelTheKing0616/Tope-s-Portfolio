@@ -5,8 +5,8 @@
 
 import type { Rng } from "./rng.js";
 
-/** UNCALIBRATED — EXPERT PRIOR: typical fitted low-score correlation (small negative). */
-export const DEFAULT_RHO = -0.13;
+/** UNCALIBRATED — EXPERT PRIOR: mild low-score correlation (kept small to avoid 0-0 draw inflation). */
+export const DEFAULT_RHO = -0.03;
 
 /** UNCALIBRATED — EXPERT PRIOR: log home-advantage intercept γ. */
 export const DEFAULT_HOME_GAMMA = 0.25;

@@ -116,8 +116,9 @@ async function buildJson(options = {}) {
     const { execSync } = await import("node:child_process");
     execSync("node scripts/etl/build-ea-fc26-index.mjs", { cwd: ROOT, stdio: "inherit" });
     execSync("node scripts/etl/fit-ea-position-weights.mjs", { cwd: ROOT, stdio: "inherit" });
+    execSync("node scripts/etl/build-historical-ratings-index.mjs", { cwd: ROOT, stdio: "inherit" });
   } catch (err) {
-    console.warn("EA FC 26 index build skipped:", err.message ?? err);
+    console.warn("EA / historical ratings index build skipped:", err.message ?? err);
   }
 
   console.log("ETL complete:", {

@@ -1,0 +1,47 @@
+{
+  "sportverse_id": {
+    "pele": 237067,
+    "maradona": 190045,
+    "alfredo-di-stefano": 190048,
+    "ferenc-puskas": 190042,
+    "franz-beckenbauer": 167135,
+    "lev-yashin": 190049,
+    "cruyff": 190055,
+    "gerd-muller": 190047,
+    "maldini": 138449,
+    "michel-platini": 190096,
+    "zidane": 230025,
+    "franco-baresi": 190052,
+    "marco-van-basten": 190051,
+    "tm-3140": 20801,
+    "ronaldo": 20801,
+    "cristiano-ronaldo": 20801,
+    "not-applicable-eusebio": 190053,
+    "not-applicable-garrincha": 190054,
+    "not-applicable-zico": 190056,
+    "not-applicable-socrates": 190057,
+    "not-applicable-romario": 190058,
+    "kaka": 190059,
+    "rivaldo": 190060,
+    "tm-33357": 168609,
+    "messi": 158023,
+    "beckham": 26530,
+    "dennis-bergkamp": 190072,
+    "bobby-charlton": 190073,
+    "bobby-moore": 190074
+  },
+  "search_terms": {
+    "pele": ["Pele", "Edson Arantes Nascimento"],
+    "cruyff": ["Johan Cruyff", "Cruyff"],
+    "gerd-muller": ["Gerd Muller", "Gerhard Muller"],
+    "ferenc-puskas": ["Ferenc Puskas", "Puskas"],
+    "lev-yashin": ["Lev Yashin", "Yashin"],
+    "alfredo-di-stefano": ["Alfredo Di Stefano", "Di Stefano"],
+    "maradona": ["Diego Maradona", "Maradona"],
+    "franz-beckenbauer": ["Franz Beckenbauer", "Beckenbauer"]
+  },
+  "tm": {
+    "tm-33357": 168609,
+    "tm-3140": 20801
+  }
+}

@@ -5,6 +5,11 @@ import { ovrFromAttributes } from "./position-weights.js";
 import { peakWeightStats } from "./peak-weighting.js";
 import { extractSubMetrics } from "./sub-metrics.js";
 import { macroFromSubMetrics } from "./micro-coefficients.js";
+import {
+  attrsFromPillarScores,
+  ovrFromPillarScores,
+  pillarScoresFromSubMetrics,
+} from "./position-pillars.js";
 import { gkAttributesFromStats, gkOvrFromAttributes } from "./gk-rating.js";
 import {
   applyLeagueStrengthBridging,
@@ -201,8 +206,10 @@ export function attributesFromSeasonStats(
   let macroZ: Record<keyof MacroAttrs, number>;
 
   if (Object.keys(subMetrics).length >= 4) {
+    const pillars = pillarScoresFromSubMetrics(position, subMetrics);
     const derived = macroFromSubMetrics(position, subMetrics);
-    attrs = derived.attrs;
+    // Pillar model drives face attrs; micro table retained for breakdown UI.
+    attrs = attrsFromPillarScores(position, pillars);
     microBreakdown = derived.microBreakdown;
     macroZ = macroZFromMicroBreakdown(attrs, derived.microBreakdown);
   } else {
@@ -251,7 +258,14 @@ export function ovrFromSeasonStats(
     }
   }
 
-  let ovr = ovrFromAttributes(position, derived.attrs);
+  let ovr: number;
+  const subMetrics = extractSubMetrics(stats, position, mode);
+  if (Object.keys(subMetrics).length >= 4) {
+    const pillars = pillarScoresFromSubMetrics(position, subMetrics);
+    ovr = ovrFromPillarScores(position, pillars, agg.minutes, agg.apps);
+  } else {
+    ovr = ovrFromAttributes(position, derived.attrs);
+  }
   if (derived.leagueContext && !derived.leagueContext.skipped) {
     ovr = clamp(ovr + derived.leagueContext.baselineShift);
   }

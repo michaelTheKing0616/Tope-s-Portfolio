@@ -13,6 +13,11 @@ export interface PlayerSeasonStat {
   shots?: number;
   goalsConceded?: number;
   goalsAgainst?: number;
+  /** Non-penalty goals source — archive penalty_goals column. */
+  penaltyGoals?: number;
+  cleanSheets?: number;
+  yellowCards?: number;
+  redCards?: number;
   /** Club display name from archive performances.team_name (when available). */
   clubName?: string;
 }

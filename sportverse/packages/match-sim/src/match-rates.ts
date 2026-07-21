@@ -26,6 +26,16 @@ export function eraGoalsPerGameScale(era?: EraProfile): number {
   return 0.72 + era.tempo * 0.55 + (1 - era.tactical_sophistication) * 0.08;
 }
 
+function squadAvgOvr(players: RatedPlayerCard[]): number {
+  if (!players.length) return 65;
+  return players.reduce((s, p) => s + p.ovr, 0) / players.length;
+}
+
+/** Per-team expected goals floor from squad quality — stops OVR-80 sides grinding to 0-0 every week. */
+export function squadGoalRateFloor(avgOvr: number): number {
+  return 0.42 + Math.max(0, avgOvr - 50) * 0.017;
+}
+
 export function computeMatchGoalRates(input: MatchGoalRateInput): DixonColesRates {
   const bridge = getBridgeCoefficients();
   const homeSig = squadStrengthSignals(input.homePlayers, input.formationHomeId, bridge);
@@ -34,7 +44,7 @@ export function computeMatchGoalRates(input: MatchGoalRateInput): DixonColesRate
   const alphaHome = homeSig.alpha + (input.tacticalAttackBoostHome ?? 0);
   const alphaAway = awaySig.alpha + (input.tacticalAttackBoostAway ?? 0);
 
-  return computeDixonColesRates(
+  const rates = computeDixonColesRates(
     alphaHome,
     awaySig.beta,
     alphaAway,
@@ -44,4 +54,12 @@ export function computeMatchGoalRates(input: MatchGoalRateInput): DixonColesRate
       gpgScale: eraGoalsPerGameScale(input.era),
     },
   );
+
+  const homeFloor = squadGoalRateFloor(squadAvgOvr(input.homePlayers));
+  const awayFloor = squadGoalRateFloor(squadAvgOvr(input.awayPlayers));
+  return {
+    ...rates,
+    lambda: Math.max(rates.lambda, homeFloor),
+    mu: Math.max(rates.mu, awayFloor),
+  };
 }

@@ -15,4 +15,7 @@ export * from "./gk-rating.js";
 export * from "./league-strength.js";
 export * from "./fame-data.js";
 export * from "./ea-ratings.js";
+export * from "./historical-ratings.js";
+export * from "./position-percentiles.js";
+export * from "./position-pillars.js";
 export type { RatingInput } from "./compute.js";

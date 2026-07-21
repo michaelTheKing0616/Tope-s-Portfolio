@@ -83,14 +83,14 @@ describe("era fit loop — Phase 2 acceptance", () => {
     expect(fitPreviewHeadline(squad.players, era)).toMatch(/struggle|mud|neutral/i);
   });
 
-  it("all-technical XI earns fewer points in 1970s than Modern over 20 seeded runs", () => {
+  it("all-technical XI earns fewer points in 1970s than Modern over 20 seeded runs", async () => {
     const squad = technicalXi();
     let points70s = 0;
     let pointsModern = 0;
     const runs = 20;
     for (let i = 0; i < runs; i++) {
       const seed = `era-loop-${i}`;
-      const r70 = simulateSeason(squad, seed, {
+      const r70 = await simulateSeason(squad, seed, {
         config: {
           ...DEFAULT_SIM_CONFIG,
           simulationMode: "realistic",
@@ -98,7 +98,7 @@ describe("era fit loop — Phase 2 acceptance", () => {
           weather: "clear",
         },
       });
-      const r20 = simulateSeason(squad, seed, {
+      const r20 = await simulateSeason(squad, seed, {
         config: {
           ...DEFAULT_SIM_CONFIG,
           simulationMode: "realistic",
@@ -116,7 +116,7 @@ describe("era fit loop — Phase 2 acceptance", () => {
     expect(points70s).toBeLessThan(pointsModern);
   });
 
-  it("Prime Powers OFF (prime_powers mode) snapshot is deterministic for fixed seed", () => {
+  it("Prime Powers OFF (prime_powers mode) snapshot is deterministic for fixed seed", async () => {
     const squad = technicalXi();
     const seed = "prime-snapshot-v1";
     const cfg = {
@@ -124,8 +124,8 @@ describe("era fit loop — Phase 2 acceptance", () => {
       simulationMode: "prime_powers" as const,
       weather: "clear" as const,
     };
-    const a = simulateSeason(squad, seed, { config: cfg });
-    const b = simulateSeason(squad, seed, { config: cfg });
+    const a = await simulateSeason(squad, seed, { config: cfg });
+    const b = await simulateSeason(squad, seed, { config: cfg });
     expect(a.seed).toBe(`${seed}:sim:prime_powers`);
     expect(a.won).toBe(b.won);
     expect(a.drawn).toBe(b.drawn);

@@ -126,6 +126,11 @@ export interface RatedPlayerCard {
     eaPeakUplift?: number;
     /** Prime-era bump above EA current snapshot (all-time modes). */
     eaPrimeUplift?: number;
+    /** SoFIFA / tier-2 historical peak anchor applied as floor. */
+    historicalPeakOvr?: number;
+    historicalUplift?: number;
+    historicalPrimeUplift?: number;
+    historicalSource?: string;
   };
   gkAttributes?: GKAttributes;
 }

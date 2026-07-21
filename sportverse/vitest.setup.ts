@@ -9,6 +9,7 @@ import {
   setPartnershipPairs,
   setFameDataForRatings,
   setEaFc26Index,
+  setHistoricalRatingsIndex,
 } from "@sportverse/rating-engine";
 import { setLegendRatings } from "@sportverse/draftballer-core";
 
@@ -67,3 +68,4 @@ setPartnershipPairs(partnerships);
 setFameDataForRatings(attachMvPercentilesFromPeakMv(fameIndex));
 setLegendRatings(readOptional("legend-ratings.json"));
 setEaFc26Index(readOptional("ea-fc26-index.json"));
+setHistoricalRatingsIndex(readOptional("historical-ratings-index.json"));

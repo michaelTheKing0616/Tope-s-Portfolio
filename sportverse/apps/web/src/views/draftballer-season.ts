@@ -251,20 +251,76 @@ export function renderDraftballerSeason(root: HTMLElement, navigate: Navigate) {
       if (simRunning) return;
       simRunning = true;
       persistConditions();
-      drawPreSim();
-      const simConfig = buildSimConfig();
-      const userSquad = {
-        ...userSquadBase,
-        formationId: simConfig.formationHomeId,
-        tacticalIdentity: simConfig.tacticalIdentityHome,
-      };
-      setTimeout(() => {
-        result = simulateSeason(userSquad, draftSeed, { rivalPool, config: simConfig });
-        recordSeasonTrophies(result, saved.mode.title ?? "Season");
-        recordSeasonProgress(result);
-        drawPostSim();
-      }, 0);
+      runLiveSeason();
     });
+  }
+
+  function delay(ms: number): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  async function runLiveSeason() {
+    const simConfig = buildSimConfig();
+    const userSquad = {
+      ...userSquadBase,
+      formationId: simConfig.formationHomeId,
+      tacticalIdentity: simConfig.tacticalIdentityHome,
+    };
+    const era = resolveEraProfile(simConfig.eraContext, saved.mode.decade);
+
+    root.innerHTML = `
+      <div class="shell db-root db-season-page db-season-live">
+        <header class="db-hero">
+          <p class="db-hero__label">${saved.mode.title} · Season Live · ${era.label}</p>
+          <h1 class="db-hero__title" id="live-md">Matchday 1 of 38</h1>
+          <p class="db-hero__sub" id="live-record">0W · 0D · 0L · 0 pts</p>
+        </header>
+        <div class="panel db-season-stats" id="live-stats">
+          <div><span class="db-stat-label">GF</span><strong id="live-gf">0</strong></div>
+          <div><span class="db-stat-label">GA</span><strong id="live-ga">0</strong></div>
+          <div><span class="db-stat-label">GD</span><strong id="live-gd">0</strong></div>
+        </div>
+        <div class="panel db-fixtures">
+          <strong>Fixtures</strong>
+          <div class="db-fixture-list" id="live-fixtures"></div>
+        </div>
+      </div>`;
+
+    const liveFixtures = root.querySelector("#live-fixtures")!;
+    const liveMd = root.querySelector("#live-md")!;
+    const liveRecord = root.querySelector("#live-record")!;
+    const liveGf = root.querySelector("#live-gf")!;
+    const liveGa = root.querySelector("#live-ga")!;
+    const liveGd = root.querySelector("#live-gd")!;
+
+    result = await simulateSeason(userSquad, draftSeed, {
+      rivalPool,
+      config: simConfig,
+      onMatchComplete: async ({ fixture, matchday, totals }) => {
+        liveMd.textContent = `Matchday ${matchday} of 38`;
+        liveRecord.textContent = `${totals.won}W · ${totals.drawn}D · ${totals.lost}L · ${totals.points} pts`;
+        liveGf.textContent = String(totals.goalsFor);
+        liveGa.textContent = String(totals.goalsAgainst);
+        const gd = totals.goalsFor - totals.goalsAgainst;
+        liveGd.textContent = `${gd >= 0 ? "+" : ""}${gd}`;
+
+        const row = document.createElement("div");
+        row.className = "db-fixture-row db-fixture-row--live";
+        row.innerHTML = `
+          <span class="db-fixture-md">MD${fixture.matchday}</span>
+          ${resultBadge(fixture.result)}
+          <span class="db-fixture-score">${fixture.home ? "" : "(A) "}${fixture.goalsFor}–${fixture.goalsAgainst}</span>
+          <span class="db-fixture-opp">${fixture.opponent}</span>`;
+        liveFixtures.prepend(row);
+        await delay(matchday <= 3 ? 420 : matchday <= 10 ? 280 : 180);
+      },
+    });
+
+    recordSeasonTrophies(result, saved.mode.title ?? "Season");
+    recordSeasonProgress(result);
+    simRunning = false;
+    await delay(400);
+    drawPostSim();
   }
 
   function drawPostSim() {

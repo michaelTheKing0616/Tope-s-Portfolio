@@ -75,8 +75,11 @@ export function squadStrengthSignals(
     }
   }
 
-  const attackSignal =
+  const squadOvr = players.reduce((s, p) => s + p.ovr, 0) / Math.max(1, players.length);
+  const rawAttack =
     attackW > 0 ? attackSum / attackW : (strengths.attack + strengths.midfield) / 2;
+  // Headline OVR anchors attack when face stats understate finishers (common for stats-only CB-heavy XIs).
+  const attackSignal = rawAttack * 0.55 + squadOvr * 0.45;
   const defenseWeakness =
     defW > 0 ? defWeakSum / defW : 100 - strengths.defense;
 

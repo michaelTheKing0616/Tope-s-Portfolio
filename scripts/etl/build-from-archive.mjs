@@ -215,6 +215,12 @@ export async function buildFromArchive(footballBase, curatedPlayers) {
       minutes: Math.round(Number(row.minutes_played) || apps * 75),
       confidence: 0.94,
       goalsConceded: Math.round(Number(row.goals_conceded) || 0),
+      penaltyGoals: Math.round(Number(row.penalty_goals) || 0),
+      cleanSheets: Math.round(Number(row.clean_sheets) || 0),
+      yellowCards: Math.round(Number(row.yellow_cards) || 0),
+      redCards:
+        Math.round(Number(row.direct_red_cards) || 0) +
+        Math.round(Number(row.second_yellow_cards) || 0),
       ...(clubName ? { clubName } : {}),
     });
   });

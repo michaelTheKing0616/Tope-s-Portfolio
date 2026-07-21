@@ -18,14 +18,20 @@ export const SEASON_LENGTH = 38;
 export interface SeasonSimOptions {
   config?: Partial<SimMatchConfig>;
   rivalPool?: import("@sportverse/draftballer-types").RatedPlayerCard[];
+  /** Called after each matchday — return a Promise to pause between matchdays (live UI). */
+  onMatchComplete?: (payload: {
+    fixture: FixtureResult;
+    matchday: number;
+    totals: { won: number; drawn: number; lost: number; goalsFor: number; goalsAgainst: number; points: number };
+  }) => void | Promise<void>;
 }
 
 /** Full 38-game league season with optional era-aware sim + fatigue carry (§9). */
-export function simulateSeason(
+export async function simulateSeason(
   userSquad: SimSquadInput,
   seed: string,
   rivalPoolOrOptions?: import("@sportverse/draftballer-types").RatedPlayerCard[] | SeasonSimOptions,
-): SeasonSimResult {
+): Promise<SeasonSimResult> {
   const options: SeasonSimOptions = Array.isArray(rivalPoolOrOptions)
     ? { rivalPool: rivalPoolOrOptions }
     : (rivalPoolOrOptions ?? {});
@@ -130,6 +136,22 @@ export function simulateSeason(
       result,
       events: match.events.filter((e) => e.type === "goal" || e.type === "fulltime") as FixtureResult["events"],
     });
+
+    const hook = options.onMatchComplete?.({
+      fixture: fixtures[fixtures.length - 1]!,
+      matchday: i + 1,
+      totals: {
+        won,
+        drawn,
+        lost,
+        goalsFor,
+        goalsAgainst,
+        points: won * 3 + drawn,
+      },
+    });
+    if (hook && typeof (hook as Promise<void>).then === "function") {
+      await hook;
+    }
   }
 
   const points = won * 3 + drawn;
