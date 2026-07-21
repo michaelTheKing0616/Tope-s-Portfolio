@@ -690,6 +690,35 @@
 .db-player-card--clickable { cursor: pointer; }
 .db-player-card--clickable:hover { border-color: var(--db-gold); }
 
+.db-player-card--ineligible {
+  opacity: 0.42;
+  filter: grayscale(0.85);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.db-player-card--ineligible:hover { transform: none; box-shadow: none; }
+
+.db-player-card--recommended {
+  border-color: rgba(0, 113, 227, 0.55);
+  box-shadow: 0 0 0 1px rgba(0, 113, 227, 0.2), 0 8px 24px rgba(0, 113, 227, 0.12);
+}
+
+.db-squad-quality {
+  font-size: 0.78rem;
+  color: var(--db-muted);
+  margin: 0 0 10px;
+}
+.db-squad-quality--strong { color: var(--db-emerald-hi); }
+.db-squad-quality--on_track { color: var(--db-muted); }
+.db-squad-quality--at_risk { color: #c98a1a; }
+.db-squad-quality--weak { color: #d45a5a; }
+
+.db-pool-grid--full-squad {
+  max-height: min(52vh, 520px);
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
 .db-modal-overlay {
   position: fixed;
   inset: 0;

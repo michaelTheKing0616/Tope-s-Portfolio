@@ -17,6 +17,10 @@ import {
 } from "@sportverse/sports-db";
 import { squadRating } from "./draft-room.js";
 import { draftPickAllowedForSlot } from "./squad-rules.js";
+import {
+  evaluateSquadQuality,
+  qualityWeightBoost,
+} from "./squad-quality.js";
 import { createRng, randomSessionSeed } from "./rng.js";
 
 /**
@@ -129,9 +133,31 @@ export function buildWheelSegments(
   if (!spinnable.length) return [];
 
   const rng = createRng(`${seed}:segments`);
+  const rosterIds = filter.excludePlayerIds ? [...filter.excludePlayerIds] : [];
+  const quality = evaluateSquadQuality(rosterIds, poolById, 11);
   const sampled = rng.weightedSample(
     spinnable,
-    (s) => Math.sqrt(Math.max(1, s.fameSum)),
+    (s) => {
+      let w = Math.sqrt(Math.max(1, s.fameSum));
+      if (quality.needsQualityBoost && position) {
+        const eligibleOvrs = s.playerIds
+          .map((id) => poolById.get(id))
+          .filter(
+            (c): c is RatedPlayerCard =>
+              !!c &&
+              !excluded?.has(c.playerId) &&
+              draftPickAllowedForSlot(c, position, true),
+          )
+          .map((c) => c.ovr)
+          .sort((a, b) => b - a)
+          .slice(0, 4);
+        if (eligibleOvrs.length) {
+          const avgTop = eligibleOvrs.reduce((a, b) => a + b, 0) / eligibleOvrs.length;
+          w *= 1 + Math.max(0, avgTop - quality.targetMinPickOvr) / 18;
+        }
+      }
+      return w;
+    },
     Math.min(count, spinnable.length),
   );
   return sampled.map((entry, i) => clubSeasonToSegment(entry, i));
@@ -203,6 +229,8 @@ function sampleCandidates(
   seen: Set<string>,
   position: Position | undefined,
   seed: string,
+  rosterIds: string[],
+  squadSize: number,
 ): RatedPlayerCard[] {
   let eligible = squadIds
     .map((id) => poolMap.get(id))
@@ -219,6 +247,8 @@ function sampleCandidates(
   }
   if (!eligible.length) return [];
 
+  const quality = evaluateSquadQuality(rosterIds, poolMap, squadSize);
+
   // Prefer recognizable quality: when a squad has several strong options for
   // the slot, drop deep bronze fringe so the shortlist reflects true starters.
   const byOvr = [...eligible].sort((a, b) => b.ovr - a.ovr);
@@ -234,14 +264,28 @@ function sampleCandidates(
   const rank = (a: RatedPlayerCard, b: RatedPlayerCard) =>
     b.ovr - a.ovr || (fame.get(b.playerId) ?? 0) - (fame.get(a.playerId) ?? 0);
 
-  // Small squads: show everyone eligible, strongest first.
+  const isObscure = (c: RatedPlayerCard) =>
+    fameTierFromScore(fame.get(c.playerId) ?? 0) === "obscure";
+
+  // Small squads: show everyone eligible, strongest first (still cap obscure fringe).
   if (eligible.length <= 16) {
-    return [...eligible].sort(rank);
+    const sorted = [...eligible].sort(rank);
+    const obscureCount = sorted.filter(isObscure).length;
+    if (sorted.length && obscureCount / sorted.length > 0.3) {
+      const known = eligible.filter((c) => !isObscure(c));
+      return (known.length ? known : eligible).sort(rank);
+    }
+    return sorted;
   }
 
   const rng = createRng(`${seed}:candidates`);
-  const weight = (c: RatedPlayerCard) =>
-    Math.max(1, (fame.get(c.playerId) ?? 0) + c.ovr) * (seen.has(c.playerId) ? 0.3 : 1);
+  const weight = (c: RatedPlayerCard) => {
+    let w = Math.max(1, (fame.get(c.playerId) ?? 0) + c.ovr) * (seen.has(c.playerId) ? 0.3 : 1);
+    if (quality.needsQualityBoost) {
+      w *= qualityWeightBoost(c.ovr, quality.targetMinPickOvr);
+    }
+    return w;
+  };
 
   const stars = eligible.filter((c) => (fame.get(c.playerId) ?? 0) >= 75 || c.ovr >= 82);
   const sampled = rng.weightedSample(eligible, weight, 16);
@@ -252,11 +296,9 @@ function sampleCandidates(
     return [...guaranteed, ...rest].sort(rank).slice(0, 16);
   }
 
-  const obscureCount = sampled.filter(
-    (c) => fameTierFromScore(fame.get(c.playerId) ?? 0) === "obscure" && c.ovr < 68,
-  ).length;
+  const obscureCount = sampled.filter(isObscure).length;
   if (sampled.length && obscureCount / sampled.length > 0.3) {
-    const known = eligible.filter((c) => (fame.get(c.playerId) ?? 0) >= 35 || c.ovr >= 68);
+    const known = eligible.filter((c) => !isObscure(c));
     return rng.weightedSample(known.length ? known : eligible, weight, 16).sort(rank);
   }
 
@@ -288,7 +330,52 @@ export function getPickCandidates(
     seen,
     position,
     `${state.seed}:pick:${state.spinsUsed}`,
+    state.roster,
+    state.squadSize,
   );
+}
+
+export interface SquadPickBoardEntry {
+  card: RatedPlayerCard;
+  eligible: boolean;
+  recommended: boolean;
+}
+
+/**
+ * Full landed club-season roster for the pick UI — every squad member visible,
+ * ineligible players flagged (greyed in UI), recommended picks highlighted.
+ */
+export function getFullSquadPickBoard(
+  state: WheelBuildState,
+  pool: RatedPlayerCard[],
+): SquadPickBoardEntry[] {
+  if (!state.spunSegment) return [];
+  const squadIds = state.spunSegment.squadPlayerIds ?? [];
+  if (!squadIds.length) return [];
+
+  const picked = new Set(state.roster);
+  const position = targetPosition(state);
+  const poolMap = new Map(pool.map((p) => [p.playerId, p]));
+  const quality = evaluateSquadQuality(state.roster, poolMap, state.squadSize);
+  const shortlistIds = new Set(getPickCandidates(state, pool).map((c) => c.playerId));
+
+  return squadIds
+    .map((id) => poolMap.get(id))
+    .filter((c): c is RatedPlayerCard => !!c && !picked.has(c.playerId))
+    .map((card) => {
+      const eligible = !position || draftPickAllowedForSlot(card, position, true);
+      const recommended =
+        eligible &&
+        (quality.needsQualityBoost
+          ? card.ovr >= quality.targetMinPickOvr
+          : shortlistIds.has(card.playerId));
+      return { card, eligible, recommended };
+    })
+    .sort((a, b) => {
+      if (a.eligible !== b.eligible) return a.eligible ? -1 : 1;
+      if (a.recommended !== b.recommended) return a.recommended ? -1 : 1;
+      return b.card.ovr - a.card.ovr;
+    });
 }
 
 export function getPickCandidatesStrict(
@@ -365,6 +452,8 @@ export function spinToSegment(
     new Set(state.seenPlayerIds),
     position,
     `${state.seed}:spin:${state.spinsUsed + 1}`,
+    state.roster,
+    state.squadSize,
   );
 
   const minNeed = minPickCandidatesForPosition(position);
@@ -448,8 +537,8 @@ export function pickPlayerForSlot(
   const card = poolMap.get(playerId);
   if (!card) throw new Error("Unknown player");
 
-  const candidates = getPickCandidates(state, pool);
-  if (!candidates.some((p) => p.playerId === playerId)) throw new Error("Player not eligible for this spin");
+  const squadIds = new Set(state.spunSegment.squadPlayerIds ?? []);
+  if (!squadIds.has(playerId)) throw new Error("Player not in landed squad");
 
   let slotIndex = state.currentSlotIndex;
   if (state.mode.draftOrder === "squad_first") {

@@ -63,13 +63,30 @@ function influenceBar(label: string, value: number): string {
 /**
  * Face card — Apple / 38-0 inspired: airy white tile, big OVR, quiet radar.
  */
-export function playerCardFaceHtml(card: RatedPlayerCard, compact = false): string {
+export interface PlayerCardFaceOptions {
+  /** Cannot play the active slot — show greyed out, not clickable. */
+  ineligible?: boolean;
+  /** Meets squad-quality nudge for this pick. */
+  recommended?: boolean;
+}
+
+export function playerCardFaceHtml(
+  card: RatedPlayerCard,
+  compact = false,
+  opts: PlayerCardFaceOptions = {},
+): string {
   const profile = derivePlayerCardProfile(card);
   const name = escapeHtml(card.name);
   const radarSize = compact ? 56 : 96;
   const modeClass = compact ? "db-player-card--compact" : "db-player-card--full";
+  const stateClass = [
+    opts.ineligible ? "db-player-card--ineligible" : "db-player-card--clickable",
+    opts.recommended ? "db-player-card--recommended" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
   return `
-    <div class="db-player-card db-player-card--data ${modeClass} db-player-card--clickable" data-tier="${card.tier}" data-id="${card.playerId}" data-archetype="${escapeHtml(profile.archetype)}" title="Tap for rating breakdown">
+    <div class="db-player-card db-player-card--data ${modeClass} ${stateClass}" data-tier="${card.tier}" data-id="${card.playerId}" data-archetype="${escapeHtml(profile.archetype)}" title="${opts.ineligible ? "Cannot play this position" : "Tap for rating breakdown"}">
       <header class="db-card-top">
         <span class="db-ovr">${card.ovr}</span>
         <span class="db-pos">${card.position}</span>

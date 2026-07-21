@@ -3,6 +3,7 @@ import {
   buildWheelSegments,
   createWheelSession,
   ensureSegmentsForSlot,
+  getFullSquadPickBoard,
   getPickCandidates,
   minPickCandidatesForPosition,
   pickPlayerForSlot,
@@ -12,6 +13,7 @@ import {
   swapFormationSlots,
   wheelSquadRating,
 } from "./spin-wheel.js";
+import { evaluateSquadQuality } from "./squad-quality.js";
 import { getPresetMode } from "./modes.js";
 import { buildDraftPool } from "./pool.js";
 import { draftPickAllowedForSlot } from "./squad-rules.js";
@@ -162,6 +164,53 @@ describe("spin-wheel", () => {
 
     expect(state.phase).toBe("complete");
     expect(wheelSquadRating(state, pool)).toBeGreaterThan(0);
+  });
+
+  it("full squad board shows ineligible teammates greyed in UI metadata", () => {
+    let state = createWheelSession(mode, pool, "test-full-board");
+    state = spinToPlayableSegment(state, 0, pool);
+    const board = getFullSquadPickBoard(state, pool);
+    expect(board.length).toBeGreaterThan(0);
+    const squad = new Set(state.spunSegment?.squadPlayerIds ?? []);
+    for (const entry of board) {
+      expect(squad.has(entry.card.playerId)).toBe(true);
+    }
+    const pos = state.formation[state.currentSlotIndex]?.position;
+    const eligible = board.filter((e) => e.eligible);
+    expect(eligible.length).toBeGreaterThanOrEqual(minPickCandidatesForPosition(pos));
+    for (const entry of eligible) {
+      if (pos) expect(draftPickAllowedForSlot(entry.card, pos, true)).toBe(true);
+    }
+    const ineligible = board.filter((e) => !e.eligible);
+    if (ineligible.length) {
+      for (const entry of ineligible) {
+        if (pos) expect(draftPickAllowedForSlot(entry.card, pos, true)).toBe(false);
+      }
+    }
+    // Can pick any eligible squad member, not only shortlist
+    if (eligible.length) {
+      const deep = eligible.find((e) => !e.recommended) ?? eligible[0]!;
+      state = pickPlayerForSlot(state, deep.card.playerId, pool);
+      expect(state.roster).toContain(deep.card.playerId);
+    }
+  });
+
+  it("quality nudge raises target min OVR when squad starts weak", () => {
+    let state = createWheelSession(mode, pool, "test-quality-nudge");
+    // Force three low picks if possible
+    for (let pick = 0; pick < 3 && state.phase !== "complete"; pick++) {
+      state = spinToPlayableSegment({ ...state, phase: "ready", spunSegment: null }, pick, pool);
+      const board = getFullSquadPickBoard(state, pool).filter((e) => e.eligible);
+      const low = [...board].sort((a, b) => a.card.ovr - b.card.ovr)[0];
+      if (!low) break;
+      state = pickPlayerForSlot(state, low.card.playerId, pool);
+    }
+    const poolMap = new Map(pool.map((p) => [p.playerId, p]));
+    const quality = evaluateSquadQuality(state.roster, poolMap, state.squadSize);
+    if (quality.avgOvr > 0 && quality.avgOvr < 68) {
+      expect(quality.needsQualityBoost).toBe(true);
+      expect(quality.targetMinPickOvr).toBeGreaterThan(62);
+    }
   });
 
   it("swaps only when both players fit the opposite slots", () => {

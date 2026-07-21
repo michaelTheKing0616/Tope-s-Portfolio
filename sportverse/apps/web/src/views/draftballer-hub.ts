@@ -6,7 +6,7 @@ import {
 } from "@sportverse/draftballer-core";
 import { poolCounts } from "@sportverse/sports-db";
 import type { RatedPlayerCard } from "@sportverse/draftballer-types";
-import { playerCardFaceHtml } from "../lib/player-card.js";
+import { playerCardFaceHtml, type PlayerCardFaceOptions } from "../lib/player-card.js";
 
 type Navigate = (route: string, param?: string) => void;
 
@@ -40,8 +40,12 @@ async function loadValidationReport(): Promise<SimValidationReport | null> {
 }
 
 /** Draft face card — hybrid data-centric layout (radar + archetype). */
-export function playerCardHtml(card: RatedPlayerCard, compact = false): string {
-  return playerCardFaceHtml(card, compact);
+export function playerCardHtml(
+  card: RatedPlayerCard,
+  compact = false,
+  opts: PlayerCardFaceOptions = {},
+): string {
+  return playerCardFaceHtml(card, compact, opts);
 }
 
 export function renderDraftballerHub(root: HTMLElement, navigate: Navigate) {

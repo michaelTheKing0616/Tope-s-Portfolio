@@ -16,6 +16,7 @@ export * from "./trophy-case.js";
 export * from "./hub-progress.js";
 export * from "./player-profile.js";
 export * from "./squad-rules.js";
+export * from "./squad-quality.js";
 export * from "./bot-drafter.js";
 export * from "./chemistry.js";
 export * from "./rng.js";
