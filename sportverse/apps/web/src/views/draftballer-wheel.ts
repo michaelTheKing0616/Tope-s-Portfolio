@@ -2,16 +2,17 @@ import type { DraftModeConfig, RatedPlayerCard, WheelBuildState } from "@sportve
 import {
   buildDraftPool,
   createWheelSession,
+  draftPickAllowedForSlot,
   ensureSegmentsForSlot,
   evaluateSquadQuality,
   getFullSquadPickBoard,
   getPresetMode,
   listWheelFormationIds,
+  moveFormationPlayer,
   pickPlayerForSlot,
   randomSegmentIndex,
   selectFormationSlot,
   spinToPlayableSegment,
-  swapFormationSlots,
   dailyChallengeSeed,
   saveSquadForSeason,
   useReroll,
@@ -19,7 +20,7 @@ import {
 } from "@sportverse/draftballer-core";
 
 /** Bust stale PWA caches — bump when wheel UX changes. */
-const WHEEL_UI_BUILD = "full-squad-cards-v2";
+const WHEEL_UI_BUILD = "pitch-move-v1";
 import { getFormation } from "@sportverse/match-sim";
 import { computeSquadRating } from "@sportverse/rating-engine";
 import { playerCardHtml } from "./draftballer-hub.js";
@@ -191,6 +192,10 @@ function pitchHtml(
   const formationId = state.mode.formationId ?? "4-3-3";
   const form = getFormation(formationId);
   const activeIdx = state.selectedSlotIndex ?? -1;
+  const movingPlayer =
+    opts.swapFrom != null && state.formation[opts.swapFrom]?.playerId
+      ? poolMap.get(state.formation[opts.swapFrom]!.playerId!)
+      : null;
 
   const dots = state.formation
     .map((slot, i) => {
@@ -198,30 +203,36 @@ function pitchHtml(
       const filled = slot.playerId ? poolMap.get(slot.playerId) : null;
       const active = i === activeIdx && state.phase !== "complete";
       const swapSel = opts.swapFrom === i;
+      const legalMoveTarget =
+        !!movingPlayer &&
+        !slot.playerId &&
+        draftPickAllowedForSlot(movingPlayer, slot.position, true);
       const last = filled ? filled.name.split(" ").pop() : "—";
       const classes = [
         "db-wheel-pitch__slot",
         filled ? "db-wheel-pitch__slot--filled" : "",
         active ? "db-wheel-pitch__slot--active" : "",
         swapSel ? "db-wheel-pitch__slot--swap" : "",
+        legalMoveTarget ? "db-wheel-pitch__slot--legal" : "",
       ]
         .filter(Boolean)
         .join(" ");
       return `
         <button type="button" class="${classes}" data-slot="${i}"
           style="left:${coord.y}%;top:${100 - coord.x}%"
-          title="${slot.position}${filled ? ` · ${filled.name}` : " · empty"}">
+          title="${slot.position}${filled ? ` · ${filled.name}` : legalMoveTarget ? " · drop here" : " · empty"}">
           <span class="db-wheel-pitch__pos">${slot.position}</span>
           <span class="db-wheel-pitch__name">${last}</span>
         </button>`;
     })
     .join("");
 
-  const hint =
-    state.phase === "picking"
-      ? "Pick a card below — they land in the best open slot · tap filled players to swap"
+  const hint = movingPlayer
+    ? `Moving ${movingPlayer.name.split(" ").pop()} — tap a highlighted slot they can play (frees their old spot)`
+    : state.phase === "picking"
+      ? "Pick a card below · or tap a filled player, then a legal empty slot to reposition them"
       : opts.swapHint
-        ? "Tap a filled player, then another legal slot to swap"
+        ? "Tap a filled player, then a legal empty slot to move — or another filled player to swap"
         : "Spin for a club, then pick any available player from the full squad";
 
   return `
@@ -245,15 +256,25 @@ function bindPitchInteractions(
       const slot = state.formation[idx];
       if (!slot) return;
 
-      // Empty slot → target for next spin/pick
+      // Empty slot: complete a move if a filled player is selected, else mark target.
       if (!slot.playerId) {
-        swapFromRef.current = null;
+        if (swapFromRef.current != null) {
+          try {
+            setState(moveFormationPlayer(state, swapFromRef.current, idx, pool));
+            playDraftSound("land");
+          } catch {
+            playDraftSound("tick");
+          }
+          swapFromRef.current = null;
+          redraw();
+          return;
+        }
         setState(selectFormationSlot(state, idx));
         redraw();
         return;
       }
 
-      // Filled: start or complete a legal swap
+      // Filled: start move/swap, cancel, or complete swap with another filled slot.
       if (swapFromRef.current == null) {
         swapFromRef.current = idx;
         redraw();
@@ -267,7 +288,7 @@ function bindPitchInteractions(
       }
 
       try {
-        setState(swapFormationSlots(state, swapFromRef.current, idx, pool));
+        setState(moveFormationPlayer(state, swapFromRef.current, idx, pool));
         playDraftSound("land");
       } catch {
         playDraftSound("tick");

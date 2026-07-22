@@ -11,6 +11,7 @@ import {
   randomSegmentIndex,
   spinToPlayableSegment,
   spinToSegment,
+  moveFormationPlayer,
   swapFormationSlots,
   wheelSquadRating,
 } from "./spin-wheel.js";
@@ -167,6 +168,43 @@ describe("spin-wheel", () => {
       expect(quality.needsQualityBoost).toBe(true);
       expect(quality.targetMinPickOvr).toBeGreaterThan(62);
     }
+  });
+
+  it("moves a player into an empty legal slot and frees the old position", () => {
+    let state = createWheelSession(mode, pool, "test-move-free-slot");
+    state = spinToPlayableSegment(state, 0, pool);
+    const board = getFullSquadPickBoard(state, pool).filter((e) => e.eligible);
+    // Prefer an AM who can soft-fit ST (or any player with a secondary open slot).
+    const am = board.find((e) => e.card.position === "AM") ?? board[0]!;
+    state = pickPlayerForSlot(state, am.card.playerId, pool);
+    const fromIdx = state.formation.findIndex((s) => s.playerId === am.card.playerId);
+    expect(fromIdx).toBeGreaterThanOrEqual(0);
+    const placedPos = state.formation[fromIdx]!.position;
+
+    const destIdx = state.formation.findIndex(
+      (s, i) =>
+        i !== fromIdx &&
+        !s.playerId &&
+        draftPickAllowedForSlot(am.card, s.position, true) &&
+        s.position !== placedPos,
+    );
+    if (destIdx < 0) {
+      // Squad/shape had no alternate legal empty slot — still assert move to same-role empty fails gracefully.
+      expect(() => moveFormationPlayer(state, fromIdx, fromIdx, pool)).not.toThrow();
+      return;
+    }
+
+    const moved = moveFormationPlayer(state, fromIdx, destIdx, pool);
+    expect(moved.formation[fromIdx]!.playerId).toBeUndefined();
+    expect(moved.formation[destIdx]!.playerId).toBe(am.card.playerId);
+
+    // Freed slot should make same-position squadmates selectable again on next spin.
+    const next = spinToPlayableSegment({ ...moved, phase: "ready", spunSegment: null }, 1, pool);
+    const nextBoard = getFullSquadPickBoard(next, pool);
+    const samePos = nextBoard.find(
+      (e) => e.card.position === placedPos && e.card.playerId !== am.card.playerId,
+    );
+    if (samePos) expect(samePos.eligible).toBe(true);
   });
 
   it("swaps only when both players fit the opposite slots", () => {

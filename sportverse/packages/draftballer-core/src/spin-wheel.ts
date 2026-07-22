@@ -635,6 +635,42 @@ export function randomSegmentIndex(
 }
 
 /**
+ * Move a drafted player into an empty slot they can legally play
+ * (e.g. AM placed at ST → move to open AM, freeing ST for a later pick).
+ * If the destination is filled, performs a mutual swap when both fit.
+ */
+export function moveFormationPlayer(
+  state: WheelBuildState,
+  fromIndex: number,
+  toIndex: number,
+  pool: RatedPlayerCard[],
+): WheelBuildState {
+  if (fromIndex === toIndex) return state;
+  const from = state.formation[fromIndex];
+  const to = state.formation[toIndex];
+  if (!from?.playerId) throw new Error("Source slot is empty");
+  if (!to) throw new Error("Invalid destination slot");
+
+  if (to.playerId) {
+    return swapFormationSlots(state, fromIndex, toIndex, pool);
+  }
+
+  const poolMap = new Map(pool.map((p) => [p.playerId, p]));
+  const player = poolMap.get(from.playerId);
+  if (!player) throw new Error("Unknown player in formation");
+  if (!draftPickAllowedForSlot(player, to.position, true)) {
+    throw new Error(`${player.name} cannot play ${to.position}`);
+  }
+
+  const formation = state.formation.map((slot, i) => {
+    if (i === fromIndex) return { id: slot.id, position: slot.position };
+    if (i === toIndex) return { ...slot, playerId: from.playerId };
+    return slot;
+  });
+  return { ...state, formation, selectedSlotIndex: undefined };
+}
+
+/**
  * Swap two filled slots when each player can legally play the other's position.
  */
 export function swapFormationSlots(
