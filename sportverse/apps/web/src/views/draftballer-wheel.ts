@@ -14,13 +14,28 @@ import {
   selectFormationSlot,
   spinToPlayableSegment,
   dailyChallengeSeed,
+  randomSessionSeed,
   saveSquadForSeason,
   useReroll,
   type SquadPickBoardEntry,
 } from "@sportverse/draftballer-core";
 
 /** Bust stale PWA caches — bump when wheel UX changes. */
-const WHEEL_UI_BUILD = "pitch-move-v1";
+const WHEEL_UI_BUILD = "fresh-seed-v1";
+
+/** Casual drafts must not reuse yesterday's / last draft's seed (same clubs). */
+function resolveWheelSeed(mode: DraftModeConfig, challengeSeed?: string): string {
+  if (challengeSeed?.trim()) return challengeSeed.trim();
+  if (mode.id.startsWith("daily-")) {
+    // mode.id = daily-YYYY-MM-DD → shared wheel for everyone that day
+    const day = mode.id.slice("daily-".length);
+    if (/^\d{4}-\d{2}-\d{2}$/.test(day)) {
+      return dailyChallengeSeed(new Date(`${day}T12:00:00Z`));
+    }
+    return dailyChallengeSeed();
+  }
+  return randomSessionSeed();
+}
 import { getFormation } from "@sportverse/match-sim";
 import { computeSquadRating } from "@sportverse/rating-engine";
 import { playerCardHtml } from "./draftballer-hub.js";
@@ -302,7 +317,7 @@ function bindPitchInteractions(
 export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, challengeSeed?: string) {
   const raw = sessionStorage.getItem("db_mode");
   const mode: DraftModeConfig = raw ? JSON.parse(raw) : getPresetMode("all-time-any");
-  const seed = challengeSeed ?? sessionStorage.getItem("db_wheel_seed") ?? dailyChallengeSeed();
+  const seed = resolveWheelSeed(mode, challengeSeed);
   sessionStorage.setItem("db_wheel_seed", seed);
   const pool = buildDraftPool(mode);
   const poolMap = new Map(pool.map((c) => [c.playerId, c]));
@@ -373,7 +388,15 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
         }
         navigate("draftballer", "season");
       });
-      root.querySelector("#again")?.addEventListener("click", () => renderDraftballerWheel(root, navigate));
+      root.querySelector("#again")?.addEventListener("click", () => {
+        sessionStorage.removeItem("db_wheel_seed");
+        // Daily stays on the shared seed; casual drafts mint a brand-new one.
+        renderDraftballerWheel(
+          root,
+          navigate,
+          mode.id.startsWith("daily-") ? seed : undefined,
+        );
+      });
       root.querySelector("#hub")?.addEventListener("click", () => navigate("draftballer"));
       bindPageMotion();
       return;

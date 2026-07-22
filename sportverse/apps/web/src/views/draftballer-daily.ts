@@ -247,8 +247,18 @@ export async function renderDraftballerDaily(root: HTMLElement, navigate: Naviga
 
   root.querySelector("#start")?.addEventListener("click", () => {
     recordDailyPlay(day);
+    const apiSeed = apiDaily?.seed;
+    const wheelSeed = !apiSeed
+      ? offline.wheelSeed
+      : apiSeed.startsWith("daily-")
+        ? apiSeed
+        : /^\d{4}-\d{2}-\d{2}$/.test(apiSeed)
+          ? `daily-${apiSeed}`
+          : offline.wheelSeed;
     sessionStorage.setItem("db_mode", JSON.stringify({ ...mode, id: `daily-${day}` }));
-    navigate("draftballer", "wheel");
+    sessionStorage.setItem("db_wheel_seed", wheelSeed);
+    // Shared challenge seed via /challenge/:seed so everyone spins the same clubs.
+    navigate("draftballer", `challenge/${wheelSeed}`);
   });
 
   root.querySelector("#submit")?.addEventListener("click", async () => {
