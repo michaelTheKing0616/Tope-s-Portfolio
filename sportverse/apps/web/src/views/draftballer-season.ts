@@ -1,16 +1,18 @@
-import type { SeasonSimResult, SimMatchConfig } from "@sportverse/draftballer-types";
+import type { SeasonSimResult, SimMatchConfig, SimSquadInput } from "@sportverse/draftballer-types";
 import {
   buildDraftPool,
   loadSimConfig,
   loadSquadBuilderState,
   loadSquadForSeason,
   patchSquadSimConditions,
+  ratePlayerById,
   recordSeasonProgress,
   recordSeasonTrophies,
   saveSimConfig,
 } from "@sportverse/draftballer-core";
 import {
   fitPreviewHeadline,
+  generateHistoricalOpponents,
   generateOpponents,
   getEraProfile,
   listEraProfiles,
@@ -19,17 +21,60 @@ import {
   simulateMatchV2,
   simulateSeason,
 } from "@sportverse/match-sim";
+import { listSimChallengers, parseSeasonStartYear } from "@sportverse/sports-db";
 import { bindPlayerCardBreakdownsWithPool } from "./draftballer-breakdown.js";
 import { buildShareCardDataUrl } from "./draftballer-share.js";
 import { playerCardHtml } from "./draftballer-hub.js";
 import {
-  renderExpectationGradeHtml,
   renderFitReportHtml,
   renderSeasonAnalysisHtml,
   renderSeasonPredictionHtml,
 } from "./draftballer-reports.js";
 
+/** Bust stale PWA caches — bump when season results UX changes. */
+const SEASON_UI_BUILD = "challenger-v1";
+
 type Navigate = (route: string, param?: string) => void;
+
+function seasonFinishLabel(points: number): { label: string; tier: string } {
+  if (points >= 85) return { label: "Champions material", tier: "champions" };
+  if (points >= 70) return { label: "Title race", tier: "title" };
+  if (points >= 60) return { label: "European spots", tier: "europe" };
+  if (points >= 45) return { label: "Mid-table", tier: "mid" };
+  if (points >= 35) return { label: "Relegation scrap", tier: "scrap" };
+  return { label: "Relegated", tier: "relegated" };
+}
+
+function renderKeyMomentsHtml(
+  fixtures: SeasonSimResult["fixtures"],
+  maxItems = 12,
+): string {
+  const moments: { matchday: number; text: string }[] = [];
+  for (const f of fixtures.filter((fx) => fx.result === "L" || fx.goalsFor >= 3)) {
+    for (const e of f.events.filter((ev) => ev.type === "goal")) {
+      moments.push({ matchday: f.matchday, text: e.text });
+      if (moments.length >= maxItems) break;
+    }
+    if (moments.length >= maxItems) break;
+  }
+  if (!moments.length) return "";
+
+  return `
+    <section class="panel db-report db-post-moments">
+      <p class="db-hero__label">Key moments</p>
+      <ul class="db-moments-list">
+        ${moments
+          .map(
+            (m) =>
+              `<li class="db-moment">
+                <span class="db-moment-badge">MD${m.matchday}</span>
+                <span class="db-moment-text">${m.text}</span>
+              </li>`,
+          )
+          .join("")}
+      </ul>
+    </section>`;
+}
 
 function resultBadge(result: "W" | "D" | "L"): string {
   const cls =
@@ -110,8 +155,35 @@ export function renderDraftballerSeason(root: HTMLElement, navigate: Navigate) {
 
   let realisticFit = (saved.simulationMode ?? config.simulationMode) !== "prime_powers";
 
+  const challengerCatalog = listSimChallengers().filter((c) => c.ready);
+  const leagues = [...new Map(challengerCatalog.map((c) => [c.leagueId, c.leagueName])).entries()].sort(
+    (a, b) => a[1].localeCompare(b[1]),
+  );
+  const richest = [...challengerCatalog].sort((a, b) => b.clubCount - a.clubCount)[0];
+  let challengerLeagueId = config.challenger?.leagueId ?? richest?.leagueId ?? "";
+  let challengerSeasonLabel = config.challenger?.seasonLabel ?? richest?.seasonLabel ?? "";
+
+  function seasonsForLeague(leagueId: string) {
+    return challengerCatalog
+      .filter((c) => c.leagueId === leagueId)
+      .sort((a, b) => b.seasonLabel.localeCompare(a.seasonLabel));
+  }
+
+  function eraProfileFromSeasonLabel(seasonLabel: string): string {
+    const y = parseSeasonStartYear(seasonLabel);
+    if (y == null) return draftEraProfileId(saved.mode);
+    return draftEraProfileId({ year: y });
+  }
+
   function resolveEraContext(): SimMatchConfig["eraContext"] {
     if (eraChoice === "match_draft") {
+      // When a historical challenger is set, match that season's era by default.
+      if (challengerSeasonLabel) {
+        return {
+          mode: "custom",
+          profileId: eraProfileFromSeasonLabel(challengerSeasonLabel),
+        };
+      }
       return {
         mode: "match_higher_draft",
         profileId: draftEraProfileId(saved.mode),
@@ -131,6 +203,10 @@ export function renderDraftballerSeason(root: HTMLElement, navigate: Navigate) {
       formationHomeId: saved.formationId ?? builder.formationId ?? config.formationHomeId,
       tacticalIdentityHome:
         saved.tacticalIdentity ?? builder.tacticalIdentity ?? config.tacticalIdentityHome,
+      challenger:
+        challengerLeagueId && challengerSeasonLabel
+          ? { leagueId: challengerLeagueId, seasonLabel: challengerSeasonLabel }
+          : undefined,
     };
   }
 
@@ -153,20 +229,50 @@ export function renderDraftballerSeason(root: HTMLElement, navigate: Navigate) {
     draftMode: saved.mode,
   };
 
-  const previewOpponents = generateOpponents(
-    { ...userSquadBase, formationId: buildSimConfig().formationHomeId },
-    38,
-    draftSeed,
-    rivalPool,
-  );
-  const opponentAvgOvr =
+  function buildChallengerOpponents(): SimSquadInput[] {
+    if (!challengerLeagueId || !challengerSeasonLabel) return [];
+    return generateHistoricalOpponents({
+      leagueId: challengerLeagueId,
+      seasonLabel: challengerSeasonLabel,
+      matchCount: 38,
+      seed: draftSeed,
+      userSquad: userSquadBase,
+      ratePlayer: (id) => ratePlayerById(id, saved.mode),
+    });
+  }
+
+  function resolvePreviewOpponents(): SimSquadInput[] {
+    const historical = buildChallengerOpponents();
+    if (historical.length) return historical;
+    return generateOpponents(
+      { ...userSquadBase, formationId: buildSimConfig().formationHomeId },
+      38,
+      draftSeed,
+      rivalPool,
+    );
+  }
+
+  let previewOpponents = resolvePreviewOpponents();
+  let opponentAvgOvr =
     previewOpponents.length > 0
       ? Math.round(previewOpponents.reduce((s, o) => s + o.squadOvr, 0) / previewOpponents.length)
       : 72;
-  const preview = predictSeasonOutlook(
+  let preview = predictSeasonOutlook(
     { ...userSquadBase, squadOvr: saved.squadOvr },
     opponentAvgOvr,
   );
+
+  function refreshPreview() {
+    previewOpponents = resolvePreviewOpponents();
+    opponentAvgOvr =
+      previewOpponents.length > 0
+        ? Math.round(previewOpponents.reduce((s, o) => s + o.squadOvr, 0) / previewOpponents.length)
+        : 72;
+    preview = predictSeasonOutlook(
+      { ...userSquadBase, squadOvr: saved.squadOvr },
+      opponentAvgOvr,
+    );
+  }
 
   let result: SeasonSimResult | null = null;
   let simRunning = false;
@@ -187,14 +293,56 @@ export function renderDraftballerSeason(root: HTMLElement, navigate: Navigate) {
       )
       .join("");
 
+    const leagueOptions = leagues
+      .map(
+        ([id, name]) =>
+          `<option value="${id}" ${id === challengerLeagueId ? "selected" : ""}>${name}</option>`,
+      )
+      .join("");
+    const seasonOpts = seasonsForLeague(challengerLeagueId);
+    if (seasonOpts.length && !seasonOpts.some((s) => s.seasonLabel === challengerSeasonLabel)) {
+      challengerSeasonLabel = seasonOpts[0]!.seasonLabel;
+    }
+    const seasonOptions = seasonOpts
+      .map(
+        (s) =>
+          `<option value="${s.seasonLabel}" ${s.seasonLabel === challengerSeasonLabel ? "selected" : ""}>${s.seasonLabel} · ${s.clubCount} clubs</option>`,
+      )
+      .join("");
+    const coverage = seasonOpts.find((s) => s.seasonLabel === challengerSeasonLabel);
+    const historicalPreview = previewOpponents[0]?.name?.match(/XI \(\d+ OVR\)/)
+      ? false
+      : previewOpponents.length > 0 && Boolean(challengerLeagueId);
+
     root.innerHTML = `
       <div class="shell db-root db-season-page">
         <button class="btn btn--ghost" id="back">← Hub</button>
         <header class="db-hero">
           <p class="db-hero__label">${saved.mode.title} · Season Preview</p>
           <h1 class="db-hero__title">Before the whistle blows</h1>
-          <p class="db-hero__sub">Draft era ≠ simulation era. Set match conditions, then run the 38-game season.</p>
+          <p class="db-hero__sub">Pick any archived league &amp; season, set era conditions, then run 38 real fixtures.</p>
         </header>
+
+        <div class="panel db-report db-match-conditions">
+          <p class="db-hero__label">Historical challenger</p>
+          <h2 class="db-report__title">League &amp; season</h2>
+          ${
+            leagues.length
+              ? `
+          <label class="db-stat-label">League</label>
+          <select id="challengerLeague" class="btn btn--ghost btn--block">${leagueOptions}</select>
+          <label class="db-stat-label" style="margin-top:10px">Season</label>
+          <select id="challengerSeason" class="btn btn--ghost btn--block">${seasonOptions}</select>
+          <p style="font-size:0.8rem;color:var(--db-muted);margin:8px 0 0">
+            ${
+              coverage
+                ? `${coverage.clubCount} archive clubs ready${historicalPreview ? " · real club fixtures" : " · building squads…"}`
+                : "Select a league with archive coverage"
+            }
+          </p>`
+              : `<p style="color:var(--db-muted);font-size:0.9rem">Archive catalog not loaded — synthetic rivals will be used.</p>`
+          }
+        </div>
 
         ${renderSeasonPredictionHtml(preview)}
 
@@ -203,7 +351,7 @@ export function renderDraftballerSeason(root: HTMLElement, navigate: Navigate) {
           <h2 class="db-report__title">Simulation era</h2>
           <label class="db-stat-label">Era context</label>
           <select id="eraChoice" class="btn btn--ghost btn--block">
-            <option value="match_draft" ${eraChoice === "match_draft" ? "selected" : ""}>Match my draft era</option>
+            <option value="match_draft" ${eraChoice === "match_draft" ? "selected" : ""}>Match challenger / draft era</option>
             <option value="modern" ${eraChoice === "modern" ? "selected" : ""}>Modern (2020s)</option>
             <optgroup label="Decade picker">
               ${decadeOptions}
@@ -219,6 +367,11 @@ export function renderDraftballerSeason(root: HTMLElement, navigate: Navigate) {
             <li><strong>Formation:</strong> ${simConfig.formationHomeId} · ${simConfig.tacticalIdentityHome.replace("_", " ")}</li>
             <li><strong>Squad OVR:</strong> ${saved.squadOvr} · ${saved.players.length} players drafted</li>
             <li><strong>Resolved era:</strong> ${era.label}</li>
+            <li><strong>Opponents:</strong> ${
+              historicalPreview
+                ? `${challengerLeagueId} ${challengerSeasonLabel}`
+                : "Synthetic league pyramid"
+            }</li>
           </ul>
         </div>
 
@@ -237,6 +390,20 @@ export function renderDraftballerSeason(root: HTMLElement, navigate: Navigate) {
       navigate("draftballer", "sim-setup");
     });
     root.querySelector("#squad")?.addEventListener("click", () => navigate("draftballer", "squad-builder"));
+    root.querySelector("#challengerLeague")?.addEventListener("change", (e) => {
+      challengerLeagueId = (e.target as HTMLSelectElement).value;
+      const next = seasonsForLeague(challengerLeagueId)[0];
+      challengerSeasonLabel = next?.seasonLabel ?? "";
+      refreshPreview();
+      persistConditions();
+      drawPreSim();
+    });
+    root.querySelector("#challengerSeason")?.addEventListener("change", (e) => {
+      challengerSeasonLabel = (e.target as HTMLSelectElement).value;
+      refreshPreview();
+      persistConditions();
+      drawPreSim();
+    });
     root.querySelector("#eraChoice")?.addEventListener("change", (e) => {
       eraChoice = (e.target as HTMLSelectElement).value as EraChoice;
       persistConditions();
@@ -293,9 +460,12 @@ export function renderDraftballerSeason(root: HTMLElement, navigate: Navigate) {
     const liveGa = root.querySelector("#live-ga")!;
     const liveGd = root.querySelector("#live-gd")!;
 
+    const challengerOpponents = buildChallengerOpponents();
     result = await simulateSeason(userSquad, draftSeed, {
       rivalPool,
       config: simConfig,
+      challengerOpponents: challengerOpponents.length ? challengerOpponents : undefined,
+      ratePlayer: (id) => ratePlayerById(id, saved.mode) ?? undefined,
       onMatchComplete: async ({ fixture, matchday, totals }) => {
         liveMd.textContent = `Matchday ${matchday} of 38`;
         liveRecord.textContent = `${totals.won}W · ${totals.drawn}D · ${totals.lost}L · ${totals.points} pts`;
@@ -341,31 +511,36 @@ export function renderDraftballerSeason(root: HTMLElement, navigate: Navigate) {
       1,
       { config: simConfig },
     );
-    const highlightFixtures = result.fixtures.filter((f) => f.result === "L" || f.goalsFor >= 3).slice(0, 8);
     const mvp = saved.players.find((p) => p.playerId === result!.mvpPlayerId);
     const fitReport = result.seasonFitReport?.length ? result.seasonFitReport : sampleMatch.fitReport;
+    const finish = seasonFinishLabel(result.points);
 
     root.innerHTML = `
-      <div class="shell db-root db-season-page">
+      <div class="shell db-root db-season-page db-season-page--post" data-season-ui="${SEASON_UI_BUILD}">
         <button class="btn btn--ghost" id="back">← Hub</button>
-        <header class="db-hero">
+        <header class="db-hero db-post-hero">
           <p class="db-hero__label">${saved.mode.title} · Season Complete · ${era.label}</p>
           ${seasonHero(result)}
-          <p style="color:var(--db-muted);font-size:0.85rem">
+          <p class="db-post-hero__sub">
             ${result.goalsFor} scored · ${result.goalsAgainst} conceded · Squad OVR ${saved.squadOvr}
           </p>
         </header>
 
-        ${result.expectationGrade ? renderExpectationGradeHtml(result.expectationGrade) : ""}
-
-        <div class="db-season-stats panel">
-          <div><span class="db-stat-label">Played</span><strong>${result.played}</strong></div>
-          <div><span class="db-stat-label">Points</span><strong style="color:var(--db-gold)">${result.points}</strong></div>
-          <div><span class="db-stat-label">GF</span><strong>${result.goalsFor}</strong></div>
-          <div><span class="db-stat-label">GA</span><strong>${result.goalsAgainst}</strong></div>
-        </div>
-
         ${renderSeasonAnalysisHtml(result)}
+
+        <div class="panel db-season-stats db-season-stats--post">
+          <div class="db-season-finish db-season-finish--${finish.tier}">
+            <span class="db-hero__label">Table finish</span>
+            <strong class="db-season-finish__label">${finish.label}</strong>
+            <span class="db-season-finish__pts">${result.points} pts</span>
+          </div>
+          <div class="db-season-stats__grid">
+            <div><span class="db-stat-label">Played</span><strong>${result.played}</strong></div>
+            <div><span class="db-stat-label">Points</span><strong class="db-stat-gold">${result.points}</strong></div>
+            <div><span class="db-stat-label">GF</span><strong>${result.goalsFor}</strong></div>
+            <div><span class="db-stat-label">GA</span><strong>${result.goalsAgainst}</strong></div>
+          </div>
+        </div>
 
         ${renderFitReportHtml(fitReport, `Season Fit Report · ${era.label}`)}
 
@@ -373,48 +548,33 @@ export function renderDraftballerSeason(root: HTMLElement, navigate: Navigate) {
           mvp
             ? `<div class="panel db-mvp-panel">
                 <p class="db-hero__label">Season MVP</p>
-                ${playerCardHtml(mvp, true)}
-                <button class="btn btn--ghost btn--block" id="mvp-compare" type="button" style="margin-top:10px">Compare contexts →</button>
+                <div class="db-mvp-card-wrap">${playerCardHtml(mvp, true)}</div>
+                <button class="btn btn--ghost btn--block" id="mvp-compare" type="button">Compare contexts →</button>
               </div>`
             : ""
         }
 
-        <div class="db-fixtures panel">
-          <strong>All 38 fixtures</strong>
-          <div class="db-fixture-list">
+        <section class="panel db-fixtures db-post-fixtures">
+          <p class="db-hero__label">All 38 fixtures</p>
+          <div class="db-fixture-list db-fixture-list--post">
             ${result.fixtures
               .map(
                 (f) => `
-              <div class="db-fixture-row">
+              <div class="db-fixture-row db-fixture-row--post">
                 <span class="db-fixture-md">MD${f.matchday}</span>
                 ${resultBadge(f.result)}
-                <span class="db-fixture-score">${f.home ? "" : "(A) "}${f.goalsFor}–${f.goalsAgainst}</span>
+                <span class="db-fixture-score db-fixture-score--tab">${f.home ? "" : "(A) "}${f.goalsFor}–${f.goalsAgainst}</span>
                 <span class="db-fixture-opp">${f.opponent}</span>
               </div>`,
               )
               .join("")}
           </div>
-        </div>
+        </section>
 
-        ${
-          highlightFixtures.length
-            ? `<div class="panel db-report">
-                <p class="db-hero__label">Key moments</p>
-                <ul class="db-commentary-list">
-                  ${highlightFixtures
-                    .flatMap((f) =>
-                      f.events
-                        .filter((e) => e.type === "goal")
-                        .map((e) => `<li>MD${f.matchday}: ${e.text}</li>`),
-                    )
-                    .join("")}
-                </ul>
-              </div>`
-            : ""
-        }
+        ${renderKeyMomentsHtml(result.fixtures)}
 
-        <details class="panel db-report">
-          <summary class="db-report__title" style="cursor:pointer">Pre-season preview (for reference)</summary>
+        <details class="panel db-report db-post-preview">
+          <summary class="db-report__title db-post-preview__summary">Pre-season preview (for reference)</summary>
           ${renderSeasonPredictionHtml(result.prediction ?? preview)}
         </details>
 

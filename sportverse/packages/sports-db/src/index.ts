@@ -59,6 +59,8 @@ import {
   listSpinnableClubSeasons,
   getClubSeasonSquad,
   getClubSeasonEntry,
+  listSimChallengers,
+  listSimClubSeasons,
   looksLikeCompetitionId,
   looksLikeJunkClubAlias,
   isRecognizableWheelClub,
@@ -68,7 +70,10 @@ import {
   WHEEL_RECOGNIZED_LEAGUE_IDS,
   WHEEL_MIN_POOL_OVERLAP,
   WHEEL_MIN_FAME_SUM,
+  SIM_MIN_CLUBS,
+  SIM_MIN_SQUAD_PLAYERS,
   type ClubSeasonKey,
+  type SimChallengerCatalogEntry,
 } from "./club-season-index.js";
 
 export type { CareerPathEntry, Club, Player, SpeedQuestion, TrueFalseStatement };
@@ -124,6 +129,8 @@ export {
   listSpinnableClubSeasons,
   getClubSeasonSquad,
   getClubSeasonEntry,
+  listSimChallengers,
+  listSimClubSeasons,
   looksLikeCompetitionId,
   looksLikeJunkClubAlias,
   isRecognizableWheelClub,
@@ -133,8 +140,10 @@ export {
   WHEEL_RECOGNIZED_LEAGUE_IDS,
   WHEEL_MIN_POOL_OVERLAP,
   WHEEL_MIN_FAME_SUM,
+  SIM_MIN_CLUBS,
+  SIM_MIN_SQUAD_PLAYERS,
 };
-export type { FameEntry, FameTier, ClubSeasonKey };
+export type { FameEntry, FameTier, ClubSeasonKey, SimChallengerCatalogEntry };
 export type { ExtendedLoadProgress, ExtendedLoadProgressFn } from "./extended.js";
 export {
   competitionDisplayName,

@@ -19,12 +19,16 @@ export interface BridgeCalibrationRow {
 }
 
 export const BRIDGE_CALIBRATION_ROWS: BridgeCalibrationRow[] = [
-  { attackSignal: 82, defenseWeakness: 22, alphaTarget: 0.35, betaTarget: -0.15 },
-  { attackSignal: 75, defenseWeakness: 28, alphaTarget: 0.18, betaTarget: -0.05 },
-  { attackSignal: 68, defenseWeakness: 32, alphaTarget: 0.05, betaTarget: 0.05 },
-  { attackSignal: 62, defenseWeakness: 38, alphaTarget: -0.08, betaTarget: 0.12 },
-  { attackSignal: 55, defenseWeakness: 45, alphaTarget: -0.22, betaTarget: 0.28 },
-  { attackSignal: 48, defenseWeakness: 52, alphaTarget: -0.35, betaTarget: 0.42 },
+  // Steeper curve — real strength gaps must produce decisive scorelines.
+  // Hand-check: 86-OVR side (signal≈85, α≈0.55) vs 61-OVR side (defWeak≈42, β≈+0.28)
+  // → λ = exp(0.25+0.55+0.28) ≈ 2.94; their μ = exp(-0.42-0.38) ≈ 0.45 → ~85% win.
+  { attackSignal: 88, defenseWeakness: 14, alphaTarget: 0.6, betaTarget: -0.42 },
+  { attackSignal: 82, defenseWeakness: 20, alphaTarget: 0.4, betaTarget: -0.28 },
+  { attackSignal: 76, defenseWeakness: 26, alphaTarget: 0.22, betaTarget: -0.13 },
+  { attackSignal: 71, defenseWeakness: 31, alphaTarget: 0.03, betaTarget: 0.0 },
+  { attackSignal: 65, defenseWeakness: 37, alphaTarget: -0.2, betaTarget: 0.15 },
+  { attackSignal: 58, defenseWeakness: 44, alphaTarget: -0.46, betaTarget: 0.33 },
+  { attackSignal: 50, defenseWeakness: 52, alphaTarget: -0.76, betaTarget: 0.53 },
 ];
 
 function fitLinear(xs: number[], ys: number[]): { intercept: number; slope: number } {

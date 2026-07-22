@@ -1244,3 +1244,283 @@
   .db-wheel-wrap--gold-flash { animation: none; }
   .db-load-bar__fill { transition: none; }
 }
+
+/* —— post-season redesign —— */
+.db-season-page--post .db-post-hero__sub {
+  color: var(--db-muted);
+  font-size: 0.85rem;
+  margin: 0.35rem 0 0;
+}
+
+/* Verdict banner — colored by grade, card-style compare */
+.db-season-page--post .db-report--verdict {
+  border: none;
+  border-radius: 18px;
+  padding: 0;
+  overflow: hidden;
+  background: var(--db-panel);
+  box-shadow: var(--db-shadow);
+}
+.db-season-page--post .db-report--verdict .db-report__header {
+  margin: 0;
+  padding: 1.1rem 1.25rem 1rem;
+  border-bottom: 1px solid var(--db-border);
+}
+.db-season-page--post .db-report--verdict.db-grade--exceeded .db-report__header,
+.db-season-page--post .db-report--verdict.db-grade--over .db-report__header,
+.db-season-page--post .db-report--verdict.db-grade--slight-over .db-report__header {
+  background: linear-gradient(135deg, rgba(52, 199, 89, 0.18), rgba(52, 199, 89, 0.06));
+  border-bottom-color: rgba(52, 199, 89, 0.22);
+}
+.db-season-page--post .db-report--verdict.db-grade--met .db-report__header {
+  background: linear-gradient(135deg, rgba(0, 113, 227, 0.16), rgba(0, 113, 227, 0.05));
+  border-bottom-color: rgba(0, 113, 227, 0.2);
+}
+.db-season-page--post .db-report--verdict.db-grade--slight-under .db-report__header {
+  background: linear-gradient(135deg, rgba(255, 159, 10, 0.18), rgba(255, 159, 10, 0.06));
+  border-bottom-color: rgba(255, 159, 10, 0.22);
+}
+.db-season-page--post .db-report--verdict.db-grade--under .db-report__header,
+.db-season-page--post .db-report--verdict.db-grade--underwhelmed .db-report__header {
+  background: linear-gradient(135deg, rgba(255, 59, 48, 0.16), rgba(255, 59, 48, 0.05));
+  border-bottom-color: rgba(255, 59, 48, 0.2);
+}
+.db-season-page--post .db-report__compare--cards {
+  padding: 1rem 1.1rem 1.15rem;
+  gap: 10px;
+}
+.db-season-page--post .db-report__compare-col {
+  background: var(--db-elevated);
+  border: 1px solid var(--db-border);
+  border-radius: 14px;
+  padding: 14px 12px;
+  text-align: center;
+}
+.db-season-page--post .db-report__compare-col--actual {
+  border-color: rgba(0, 113, 227, 0.28);
+  background: rgba(0, 113, 227, 0.04);
+}
+.db-season-page--post .db-report__compare-pts {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  letter-spacing: -0.02em;
+  margin: 4px 0;
+  color: var(--db-ink);
+}
+.db-season-page--post .db-report__compare-arrow {
+  font-size: 1.1rem;
+  color: var(--db-muted);
+  font-weight: 700;
+}
+
+/* Stats row + table finish label */
+.db-season-stats--post {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 1.1rem 1.25rem;
+}
+.db-season-finish {
+  text-align: center;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--db-border);
+  background: var(--db-elevated);
+}
+.db-season-finish__label {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  margin: 2px 0;
+  color: var(--db-ink);
+}
+.db-season-finish__pts {
+  font-size: 0.8rem;
+  color: var(--db-muted);
+}
+.db-season-finish--champions { border-color: rgba(212, 175, 55, 0.45); background: rgba(212, 175, 55, 0.08); }
+.db-season-finish--champions .db-season-finish__label { color: #9a7209; }
+.db-season-finish--title { border-color: rgba(52, 199, 89, 0.35); background: rgba(52, 199, 89, 0.07); }
+.db-season-finish--title .db-season-finish__label { color: var(--db-emerald); }
+.db-season-finish--europe { border-color: rgba(0, 113, 227, 0.3); background: rgba(0, 113, 227, 0.05); }
+.db-season-finish--europe .db-season-finish__label { color: var(--db-gold); }
+.db-season-finish--mid { border-color: var(--db-border); }
+.db-season-finish--scrap { border-color: rgba(255, 159, 10, 0.35); background: rgba(255, 159, 10, 0.06); }
+.db-season-finish--scrap .db-season-finish__label { color: #c27800; }
+.db-season-finish--relegated { border-color: rgba(255, 59, 48, 0.35); background: rgba(255, 59, 48, 0.06); }
+.db-season-finish--relegated .db-season-finish__label { color: #d70015; }
+.db-season-stats__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+@media (min-width: 520px) {
+  .db-season-stats__grid { grid-template-columns: repeat(4, 1fr); }
+}
+.db-season-stats__grid > div {
+  text-align: center;
+  padding: 10px 8px;
+  border-radius: 12px;
+  background: var(--db-elevated);
+  border: 1px solid var(--db-border);
+}
+.db-stat-gold { color: var(--db-gold); }
+
+/* MVP panel — constrain card width (fixes full-width aspect-ratio stretch) */
+.db-season-page--post .db-mvp-panel {
+  max-width: 320px;
+  margin: 1.25rem auto;
+  text-align: center;
+  padding: 1.1rem 1rem 1rem;
+}
+.db-mvp-card-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem 0 0.75rem;
+}
+.db-season-page--post .db-mvp-panel .db-player-card {
+  width: 100%;
+  max-width: 260px;
+  margin: 0 auto;
+  aspect-ratio: auto;
+  height: auto;
+  flex-shrink: 0;
+}
+.db-season-page--post .db-mvp-panel .db-card-viz {
+  flex: 0 0 auto;
+  min-height: 56px;
+}
+.db-season-page--post .db-mvp-panel .db-name {
+  margin-top: 6px;
+}
+.db-season-page--post .db-mvp-panel #mvp-compare {
+  margin-top: 4px;
+}
+
+/* Fixtures — bold chips, zebra rows, tabular scores */
+.db-post-fixtures .db-hero__label { margin-bottom: 0.75rem; }
+.db-fixture-list--post {
+  max-height: 420px;
+  overflow-y: auto;
+}
+.db-fixture-row--post:nth-child(even) {
+  background: rgba(0, 0, 0, 0.025);
+  border-radius: 8px;
+}
+.db-season-page--post .db-fixture-badge {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+}
+.db-season-page--post .db-fixture--win {
+  background: rgba(52, 199, 89, 0.22);
+  color: #1f8a57;
+}
+.db-season-page--post .db-fixture--draw {
+  background: rgba(134, 134, 139, 0.18);
+  color: #636366;
+}
+.db-season-page--post .db-fixture--loss {
+  background: rgba(255, 59, 48, 0.18);
+  color: #d70015;
+}
+.db-fixture-score--tab {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+/* Key moments — matchday badges, capped list */
+.db-moments-list {
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.db-moment {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--db-elevated);
+  border: 1px solid var(--db-border);
+}
+.db-moment-badge {
+  flex-shrink: 0;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--db-gold);
+  background: rgba(0, 113, 227, 0.08);
+  border: 1px solid rgba(0, 113, 227, 0.18);
+  border-radius: 999px;
+  padding: 4px 8px;
+}
+.db-moment-text {
+  font-size: 0.85rem;
+  color: var(--db-ink);
+  line-height: 1.45;
+}
+
+/* Era fit report — delta magnitude bars */
+.db-season-page--post .db-fit-row--report {
+  grid-template-columns: minmax(90px, 1fr) auto minmax(72px, 88px) minmax(120px, 2fr);
+  gap: 8px;
+  align-items: center;
+}
+.db-fit-row__delta-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  min-width: 72px;
+}
+.db-fit-row__bar {
+  display: block;
+  height: 4px;
+  border-radius: 2px;
+  max-width: 100%;
+  min-width: 8px;
+  background: var(--db-muted);
+}
+.db-fit-row--good .db-fit-row__delta { color: var(--db-emerald); }
+.db-fit-row--good .db-fit-row__bar { background: var(--db-emerald); }
+.db-fit-row--bad .db-fit-row__delta { color: #d70015; }
+.db-fit-row--bad .db-fit-row__bar { background: #ff3b30; }
+
+/* Section headers + analysis + preview */
+.db-season-page--post .db-report--analysis .db-hero__label,
+.db-season-page--post .db-report--fit .db-hero__label {
+  margin-bottom: 0.25rem;
+}
+.db-post-preview__summary {
+  cursor: pointer;
+  list-style: none;
+}
+.db-post-preview__summary::-webkit-details-marker { display: none; }
+
+@media (max-width: 520px) {
+  .db-season-page--post .db-report__compare--cards {
+    grid-template-columns: 1fr;
+  }
+  .db-season-page--post .db-report__compare-arrow {
+    transform: rotate(90deg);
+  }
+  .db-season-page--post .db-fit-row--report {
+    grid-template-columns: 1fr 1fr;
+  }
+  .db-season-page--post .db-fit-row--report .db-fit-row__summary {
+    grid-column: 1 / -1;
+  }
+}

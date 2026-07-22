@@ -20,10 +20,18 @@ export interface MatchGoalRateInput {
   tacticalAttackBoostAway?: number;
 }
 
-/** Era-scaled goals environment — lower tempo eras produce fewer expected goals. */
+/**
+ * Era-scaled goals environment, anchored to real historical league averages.
+ * gpgScale multiplies λ and μ so the era's TOTAL goals/game matches history:
+ * 1950s ≈ 3.45, catenaccio Serie A ≈ 2.05, modern ≈ 2.85. Baseline 2.75.
+ */
+const BASELINE_GOALS_PER_GAME = 2.75;
+
 export function eraGoalsPerGameScale(era?: EraProfile): number {
   if (!era) return 1;
-  return 0.72 + era.tempo * 0.55 + (1 - era.tactical_sophistication) * 0.08;
+  const anchor =
+    era.goals_per_game ?? 0.72 * BASELINE_GOALS_PER_GAME + era.tempo * 1.4;
+  return anchor / BASELINE_GOALS_PER_GAME;
 }
 
 function squadAvgOvr(players: RatedPlayerCard[]): number {

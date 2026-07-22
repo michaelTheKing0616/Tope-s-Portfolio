@@ -164,8 +164,45 @@ export function buildFitSummary(
   return { delta, summary, tags };
 }
 
-function ovrFromAttrs(attrs: PlayerAttributes): number {
-  return Math.round((attrs.pac + attrs.sho + attrs.pas + attrs.dri + attrs.def + attrs.phy) / 6);
+/** Position-relevant attribute weights — a GK's card OVR never came from his shooting. */
+const POSITION_ATTR_WEIGHTS: Record<string, PlayerAttributes> = {
+  GK: { pac: 0.05, sho: 0.02, pas: 0.1, dri: 0.03, def: 0.55, phy: 0.25 },
+  CB: { pac: 0.1, sho: 0.02, pas: 0.1, dri: 0.05, def: 0.48, phy: 0.25 },
+  FB: { pac: 0.22, sho: 0.05, pas: 0.15, dri: 0.12, def: 0.3, phy: 0.16 },
+  DM: { pac: 0.1, sho: 0.05, pas: 0.22, dri: 0.12, def: 0.32, phy: 0.19 },
+  CM: { pac: 0.1, sho: 0.12, pas: 0.32, dri: 0.2, def: 0.14, phy: 0.12 },
+  AM: { pac: 0.12, sho: 0.2, pas: 0.28, dri: 0.26, def: 0.04, phy: 0.1 },
+  W: { pac: 0.28, sho: 0.2, pas: 0.15, dri: 0.27, def: 0.03, phy: 0.07 },
+  ST: { pac: 0.18, sho: 0.42, pas: 0.1, dri: 0.16, def: 0.02, phy: 0.12 },
+};
+
+function positionWeightedScore(attrs: PlayerAttributes, position: string): number {
+  const w = POSITION_ATTR_WEIGHTS[position] ?? POSITION_ATTR_WEIGHTS.CM!;
+  return (
+    attrs.pac * w.pac +
+    attrs.sho * w.sho +
+    attrs.pas * w.pas +
+    attrs.dri * w.dri +
+    attrs.def * w.def +
+    attrs.phy * w.phy
+  );
+}
+
+/**
+ * Effective OVR = card OVR scaled by the position-weighted attribute ratio.
+ * Era conditions still move it (dampened attrs → ratio < 1), but a keeper's
+ * low shooting no longer masquerades as a "-45 era collapse".
+ */
+export function effectiveOvrForPosition(
+  baseOvr: number,
+  baseAttrs: PlayerAttributes,
+  effAttrs: PlayerAttributes,
+  position: string,
+): number {
+  const baseScore = positionWeightedScore(baseAttrs, position);
+  if (baseScore <= 0) return baseOvr;
+  const ratio = positionWeightedScore(effAttrs, position) / baseScore;
+  return Math.max(1, Math.min(99, Math.round(baseOvr * ratio)));
 }
 
 /**
@@ -182,7 +219,7 @@ export function computeSquadFitReport(
     const meta = computePlayerMeta(p);
     const terms = computeFitTerms(era, p.attributes, meta, identity);
     const eff = effectiveAttributes(p.attributes, terms, 1, 1, 0, 0);
-    const effOvr = ovrFromAttrs(eff);
+    const effOvr = effectiveOvrForPosition(p.ovr, p.attributes, eff, p.position);
     const { delta, summary, tags } = buildFitSummary(p.ovr, effOvr, era, meta);
     lines.push({
       playerId: p.playerId,

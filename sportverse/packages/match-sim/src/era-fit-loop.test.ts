@@ -135,13 +135,14 @@ describe("era fit loop — Phase 2 acceptance", () => {
     expect(a.goalsAgainst).toBe(b.goalsAgainst);
     expect(a.seasonFitReport).toEqual([]);
     // Snapshot fixture for technicalXi + seed prime-snapshot-v1 — update only if prime_powers path intentionally changes.
+    // Updated for league-structured opponents (season realism recalibration).
     expect({ w: a.won, d: a.drawn, l: a.lost, pts: a.points, gf: a.goalsFor, ga: a.goalsAgainst }).toEqual({
-      w: 26,
-      d: 2,
-      l: 10,
-      pts: 80,
-      gf: 118,
-      ga: 53,
+      w: 20,
+      d: 5,
+      l: 13,
+      pts: 65,
+      gf: 109,
+      ga: 55,
     });
   });
 });

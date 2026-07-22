@@ -31,6 +31,11 @@ function weightedDefenseWeakness(player: RatedPlayerCard): number {
   return 100 - (def * 0.5 + phy * 0.35 + player.attributes.pac * 0.15);
 }
 
+/**
+ * Formation tilt — a 3-striker shape leans attack, a 5-back shape leans defense.
+ * Normalized around 1.0 (typical shapes: ~3 attackers, ~5 defenders) so the tilt
+ * shifts balance slightly instead of crushing the whole strength signal.
+ */
 function formationRoleWeights(formationId: string): { attack: number; defense: number } {
   const form = getFormation(formationId);
   if (!form) return { attack: 1, defense: 1 };
@@ -40,9 +45,10 @@ function formationRoleWeights(formationId: string): { attack: number; defense: n
     if (["ST", "W", "AM"].includes(slot.positionTag)) attackSlots++;
     if (["CB", "FB", "DM", "GK"].includes(slot.positionTag)) defenseSlots++;
   }
+  const clamp = (n: number) => Math.max(0.85, Math.min(1.15, n));
   return {
-    attack: Math.max(1, attackSlots) / form.slots.length,
-    defense: Math.max(1, defenseSlots) / form.slots.length,
+    attack: clamp(attackSlots / 3.2),
+    defense: clamp(defenseSlots / 5.2),
   };
 }
 

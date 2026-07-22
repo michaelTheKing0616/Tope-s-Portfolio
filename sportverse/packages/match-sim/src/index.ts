@@ -6,8 +6,8 @@ export { simulateKnockoutBracket, type KnockoutResult, type KnockoutSquad, type 
 export { simulateRoundRobin, type RoundRobinTeam, type RoundRobinOptions } from "./round-robin.js";
 export { roleFitModifier, assignPlayersToFormationSlots, inferPlayerRole } from "./role-fit.js";
 export { selectRotationSubs, applyRotationToSquad } from "./bot-rotation.js";
-export { generateOpponents } from "./opponent.js";
-export { simulateSeason, SEASON_LENGTH } from "./season.js";
+export { generateOpponents, generateHistoricalOpponents } from "./opponent.js";
+export { simulateSeason, SEASON_LENGTH, type SeasonSimOptions } from "./season.js";
 export { predictSeasonOutlook, gradeSeasonVsPrediction } from "./season-prediction.js";
 export { commentaryFor } from "./commentary.js";
 export {

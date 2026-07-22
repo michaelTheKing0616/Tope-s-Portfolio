@@ -30,6 +30,8 @@ export interface EraProfile extends EraProfileDimensions {
   competitionId?: string;
   region?: string;
   source?: "curated" | "inferred";
+  /** Historical league average total goals per game (both teams) — anchors sim scoring env. */
+  goals_per_game?: number;
 }
 
 export interface PlayerMetaAttributes {
@@ -60,6 +62,8 @@ export interface SimMatchConfig {
   formationAwayId?: string;
   allowMidmatchFormationChange?: boolean;
   isKnockout?: boolean;
+  /** Historical league×season challengers (archive squads). */
+  challenger?: { leagueId: string; seasonLabel: string };
 }
 
 export const DEFAULT_SIM_CONFIG: SimMatchConfig = {

@@ -18,17 +18,24 @@ export function predictSeasonOutlook(
   const topThree = [...xi].sort((a, b) => b.ovr - a.ovr).slice(0, 3);
   const starGap = topThree.length >= 2 ? topThree[0]!.ovr - topThree[2]!.ovr : 0;
 
-  const attack = avgOvr + starGap * 0.15;
-  const defense = avgOvr - (squad.squadOvr - avgOvr) * 0.2;
-  const strengthDelta = (attack + defense) / 2 - opponentAvgOvr;
+  // XI average only — never inflate GD from full-squad vs XI OVR gaps.
+  const strengthDelta = clamp(avgOvr + starGap * 0.08 - opponentAvgOvr, -20, 22);
 
+  // Calibrated to the recalibrated engine: Δ0 → ~37% wins, Δ+10 → ~68%, Δ+15 → ~82%.
   const expectedWins = Math.round(
-    SEASON_LENGTH * clamp(0.15 + 0.028 * strengthDelta + starGap * 0.004, 0.08, 0.78),
+    SEASON_LENGTH * clamp(0.37 + 0.031 * strengthDelta + starGap * 0.003, 0.08, 0.88),
   );
-  const expectedDraws = Math.round(SEASON_LENGTH * clamp(0.22 - strengthDelta * 0.004, 0.1, 0.35));
+  const expectedDraws = Math.round(
+    SEASON_LENGTH * clamp(0.24 - Math.abs(strengthDelta) * 0.012, 0.06, 0.28),
+  );
   const expectedLosses = Math.max(0, SEASON_LENGTH - expectedWins - expectedDraws);
   const expectedPoints = expectedWins * 3 + expectedDraws;
-  const expectedGd = Math.round(strengthDelta * SEASON_LENGTH * 0.35);
+  const expectedGoalsFor = Math.round(
+    SEASON_LENGTH * clamp(1.35 + strengthDelta * 0.048, 0.75, 2.55),
+  );
+  const expectedGoalsAgainst = Math.round(
+    SEASON_LENGTH * clamp(1.25 - strengthDelta * 0.04, 0.55, 2.2),
+  );
 
   const tier = outlookTier(expectedPoints);
   const headline = outlookHeadline(tier, squad.name ?? "Your XI", expectedPoints);
@@ -39,9 +46,9 @@ export function predictSeasonOutlook(
     expectedDraws,
     expectedLosses,
     expectedPoints,
-    expectedGoalsFor: Math.round(SEASON_LENGTH * clamp(1.15 + strengthDelta * 0.04, 0.7, 2.8)),
-    expectedGoalsAgainst: Math.round(SEASON_LENGTH * clamp(1.15 - strengthDelta * 0.035, 0.6, 2.5)),
-    expectedGoalDifference: expectedGd,
+    expectedGoalsFor,
+    expectedGoalsAgainst,
+    expectedGoalDifference: expectedGoalsFor - expectedGoalsAgainst,
     squadOvr: squad.squadOvr,
     avgXiOvr: avgOvr,
     opponentAvgOvr,

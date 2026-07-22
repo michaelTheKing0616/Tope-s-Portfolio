@@ -1,6 +1,7 @@
 import type { DraftModeConfig } from "@sportverse/draftballer-types";
 import type { PlayerSeasonStat } from "./extended-types.js";
 import type { Club } from "./types.js";
+import { getCompetitions } from "./extended.js";
 import { getFameScore } from "./fame.js";
 
 export interface ClubSeasonKey {
@@ -46,6 +47,20 @@ export const WHEEL_MIN_POOL_OVERLAP = 12;
 
 /** Drop obscure club-seasons even if league is recognized. */
 export const WHEEL_MIN_FAME_SUM = 900;
+
+/** Min clubs in a league×season for season-sim historical challengers. */
+export const SIM_MIN_CLUBS = 10;
+
+/** Min squad size for a club-season to enter sim challenger pools. */
+export const SIM_MIN_SQUAD_PLAYERS = 11;
+
+export interface SimChallengerCatalogEntry {
+  leagueId: string;
+  leagueName: string;
+  seasonLabel: string;
+  clubCount: number;
+  ready: boolean;
+}
 
 let clubSeasonIndex: Map<string, ClubSeasonKey> | null = null;
 /** Prebuilt from archive performances (team_name × season) — preferred source. */
@@ -344,4 +359,81 @@ export function getClubSeasonSquad(clubName: string, seasonLabel: string): strin
 
 export function getClubSeasonEntry(clubName: string, seasonLabel: string): ClubSeasonKey | undefined {
   return clubSeasonIndex?.get(indexKey(clubName, seasonLabel));
+}
+
+function leagueDisplayName(leagueId: string): string {
+  const hit = getCompetitions().find((c) => c.id === leagueId);
+  return hit?.name ?? leagueId;
+}
+
+function isSimEligibleClubSeason(entry: ClubSeasonKey): boolean {
+  if (looksLikeCompetitionId(entry.clubName) || looksLikeJunkClubAlias(entry.clubName)) return false;
+  return entry.playerIds.length >= SIM_MIN_SQUAD_PLAYERS;
+}
+
+/** All club-season rows usable for sim challengers (no wheel fame gate). */
+function simEligibleClubSeasons(): ClubSeasonKey[] {
+  const seen = new Set<string>();
+  const out: ClubSeasonKey[] = [];
+
+  const consider = (entry: ClubSeasonKey) => {
+    if (!isSimEligibleClubSeason(entry)) return;
+    const key = indexKey(entry.clubName, entry.seasonLabel);
+    if (seen.has(key)) return;
+    seen.add(key);
+    out.push(entry);
+  };
+
+  if (clubSeasonIndex) {
+    for (const entry of clubSeasonIndex.values()) consider(entry);
+  }
+  if (prebuiltRosters) {
+    for (const entry of prebuiltRosters) consider(entry);
+  }
+  return out;
+}
+
+/** Enumerate league×season combos from archive data — no hard-coded league list. */
+export function listSimChallengers(): SimChallengerCatalogEntry[] {
+  const grouped = new Map<string, { leagueId: string; seasonLabel: string; clubCount: number }>();
+
+  for (const entry of simEligibleClubSeasons()) {
+    const leagueId = resolveClubLeague(entry.clubName, entry.clubId);
+    if (!leagueId) continue;
+    const key = `${leagueId}::${entry.seasonLabel}`;
+    const prev = grouped.get(key);
+    if (prev) {
+      prev.clubCount += 1;
+    } else {
+      grouped.set(key, { leagueId, seasonLabel: entry.seasonLabel, clubCount: 1 });
+    }
+  }
+
+  return [...grouped.values()]
+    .map(({ leagueId, seasonLabel, clubCount }) => ({
+      leagueId,
+      leagueName: leagueDisplayName(leagueId),
+      seasonLabel,
+      clubCount,
+      ready: clubCount >= SIM_MIN_CLUBS,
+    }))
+    .sort((a, b) => {
+      if (a.ready !== b.ready) return a.ready ? -1 : 1;
+      if (b.clubCount !== a.clubCount) return b.clubCount - a.clubCount;
+      const ya = parseSeasonStartYear(a.seasonLabel) ?? 0;
+      const yb = parseSeasonStartYear(b.seasonLabel) ?? 0;
+      if (yb !== ya) return yb - ya;
+      return a.leagueName.localeCompare(b.leagueName);
+    });
+}
+
+/** Club-season squads for sim opponents — ≥11 players, no wheel fame filter. */
+export function listSimClubSeasons(leagueId: string, seasonLabel: string): ClubSeasonKey[] {
+  return simEligibleClubSeasons()
+    .filter((entry) => {
+      if (entry.seasonLabel !== seasonLabel) return false;
+      const league = resolveClubLeague(entry.clubName, entry.clubId);
+      return league === leagueId;
+    })
+    .sort((a, b) => b.playerIds.length - a.playerIds.length);
 }

@@ -11,6 +11,7 @@ export const ERA_PROFILES: EraProfile[] = [
     pitch_ball_quality: 0.3,
     tactical_sophistication: 0.3,
     tempo: 0.35,
+    goals_per_game: 3.45,
     source: "curated",
   },
   {
@@ -22,6 +23,7 @@ export const ERA_PROFILES: EraProfile[] = [
     pitch_ball_quality: 0.45,
     tactical_sophistication: 0.45,
     tempo: 0.45,
+    goals_per_game: 2.55,
     source: "curated",
   },
   {
@@ -33,6 +35,7 @@ export const ERA_PROFILES: EraProfile[] = [
     pitch_ball_quality: 0.65,
     tactical_sophistication: 0.6,
     tempo: 0.55,
+    goals_per_game: 2.6,
     source: "curated",
   },
   {
@@ -44,6 +47,7 @@ export const ERA_PROFILES: EraProfile[] = [
     pitch_ball_quality: 0.8,
     tactical_sophistication: 0.75,
     tempo: 0.65,
+    goals_per_game: 2.55,
     source: "curated",
   },
   {
@@ -55,6 +59,7 @@ export const ERA_PROFILES: EraProfile[] = [
     pitch_ball_quality: 0.95,
     tactical_sophistication: 0.9,
     tempo: 0.8,
+    goals_per_game: 2.7,
     source: "curated",
   },
   {
@@ -66,6 +71,7 @@ export const ERA_PROFILES: EraProfile[] = [
     pitch_ball_quality: 1.0,
     tactical_sophistication: 0.95,
     tempo: 0.85,
+    goals_per_game: 2.85,
     source: "curated",
   },
   {
@@ -79,6 +85,7 @@ export const ERA_PROFILES: EraProfile[] = [
     pitch_ball_quality: 0.5,
     tactical_sophistication: 0.72,
     tempo: 0.4,
+    goals_per_game: 2.05,
     source: "curated",
   },
   {
@@ -91,6 +98,7 @@ export const ERA_PROFILES: EraProfile[] = [
     pitch_ball_quality: 0.42,
     tactical_sophistication: 0.5,
     tempo: 0.48,
+    goals_per_game: 2.55,
     source: "curated",
   },
 ];

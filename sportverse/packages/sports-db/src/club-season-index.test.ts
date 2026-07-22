@@ -2,9 +2,11 @@ import { describe, expect, it } from "vitest";
 import type { DraftModeConfig } from "@sportverse/draftballer-types";
 import {
   isRecognizableWheelClub,
+  listSimChallengers,
   listSpinnableClubSeasons,
   looksLikeJunkClubAlias,
   parseSeasonStartYear,
+  SIM_MIN_CLUBS,
   WHEEL_RECOGNIZED_LEAGUE_IDS,
 } from "./club-season-index.js";
 
@@ -57,5 +59,16 @@ describe("club-season-index — wheel quality", () => {
     const yyYy = list.filter((e) => /^\d{2}\/\d{2}$/.test(e.seasonLabel));
     expect(yyYy.length).toBeGreaterThan(0);
     expect(list.every((e) => isRecognizableWheelClub(e.clubName, e.clubId))).toBe(true);
+  });
+
+  it("listSimChallengers enumerates league×season combos without hard-coded leagues", () => {
+    const catalog = listSimChallengers();
+    if (!catalog.length) return;
+    expect(SIM_MIN_CLUBS).toBeGreaterThanOrEqual(10);
+    for (const row of catalog) {
+      expect(row.leagueId.length).toBeGreaterThan(0);
+      expect(row.clubCount).toBeGreaterThan(0);
+      expect(row.ready).toBe(row.clubCount >= SIM_MIN_CLUBS);
+    }
   });
 });

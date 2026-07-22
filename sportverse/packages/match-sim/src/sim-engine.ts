@@ -17,6 +17,7 @@ import {
   buildFitSummary,
   computeFitTerms,
   effectiveAttributes,
+  effectiveOvrForPosition,
   fatigueTollProbability,
   pickPhaseZone,
 } from "./fit-model.js";
@@ -63,12 +64,6 @@ function tacticalAttackBoost(identity: TacticalIdentity): number {
     default:
       return 0;
   }
-}
-
-function ovrFromEffective(attrs: ReturnType<typeof effectiveAttributes>): number {
-  return Math.round(
-    (attrs.pac + attrs.sho + attrs.pas + attrs.dri + attrs.def + attrs.phy) / 6,
-  );
 }
 
 function initPlayerStates(players: SimSquadInput["players"], carry?: Map<string, number>): Map<string, PlayerSimState> {
@@ -183,14 +178,14 @@ export function simulateMatchV2(
     const slot = homeAssignments.get(p.playerId);
     const roleMod = slot ? roleFitModifier(p, slot) : 0;
     const attrs = effectiveAttributes(p.attributes, terms, 1, 1, 0, roleMod);
-    return { ...p, attributes: attrs, ovr: ovrFromEffective(attrs) };
+    return { ...p, attributes: attrs, ovr: effectiveOvrForPosition(p.ovr, p.attributes, attrs, p.position) };
   });
   const effectiveAway = away.players.map((p, i) => {
     const terms = computeFitTerms(era, p.attributes, awayMeta[i]!, config.tacticalIdentityAway);
     const slot = awayAssignments.get(p.playerId);
     const roleMod = slot ? roleFitModifier(p, slot) : 0;
     const attrs = effectiveAttributes(p.attributes, terms, 1, 1, 0, roleMod);
-    return { ...p, attributes: attrs, ovr: ovrFromEffective(attrs) };
+    return { ...p, attributes: attrs, ovr: effectiveOvrForPosition(p.ovr, p.attributes, attrs, p.position) };
   });
 
   let activeFormHome = formHome;
@@ -212,21 +207,37 @@ export function simulateMatchV2(
     tacticalAttackBoostHome: tacticalAttackBoost(config.tacticalIdentityHome),
     tacticalAttackBoostAway: tacticalAttackBoost(config.tacticalIdentityAway),
   });
-  const [targetHomeGoals, targetAwayGoals] = sampleDixonColesScore(
+  let [targetHomeGoals, targetAwayGoals] = sampleDixonColesScore(
     goalRates.lambda,
     goalRates.mu,
     rng,
     goalRates.rho,
   );
+  // Large quality gaps should rarely end level — resample draws when λ≪μ or λ≫μ.
+  const rateGap = Math.abs(goalRates.lambda - goalRates.mu);
+  if (rateGap >= 0.85 && targetHomeGoals === targetAwayGoals && rng() < Math.min(0.72, 0.35 + rateGap * 0.25)) {
+    [targetHomeGoals, targetAwayGoals] = sampleDixonColesScore(
+      goalRates.lambda,
+      goalRates.mu,
+      rng,
+      goalRates.rho,
+    );
+    if (targetHomeGoals === targetAwayGoals) {
+      if (goalRates.lambda >= goalRates.mu) targetHomeGoals += 1;
+      else targetAwayGoals += 1;
+    }
+  }
   const events: ExtendedMatchEvent[] = [];
   const zoneEvents: ZoneOverloadEvent[] = [];
-  const fitAccum = new Map<string, { base: number; effSum: number; count: number; name: string }>();
-
+  // Kickoff effective OVRs — same values that drive goal rates (not chance-loop noise).
+  const fitAccum = new Map<string, { base: number; eff: number; name: string }>();
   for (const p of home.players) {
-    fitAccum.set(p.playerId, { base: p.ovr, effSum: 0, count: 0, name: p.name });
+    const eff = effectiveHome.find((e) => e.playerId === p.playerId);
+    fitAccum.set(p.playerId, { base: p.ovr, eff: eff?.ovr ?? p.ovr, name: p.name });
   }
   for (const p of away.players) {
-    fitAccum.set(p.playerId, { base: p.ovr, effSum: 0, count: 0, name: p.name });
+    const eff = effectiveAway.find((e) => e.playerId === p.playerId);
+    fitAccum.set(p.playerId, { base: p.ovr, eff: eff?.ovr ?? p.ovr, name: p.name });
   }
 
   events.push({
@@ -333,14 +344,6 @@ export function simulateMatchV2(
     const chanceProb =
       sigmoid((atk.attack * momBoost * chaos - def.defense) / 14) * weather.chanceMultiplier;
     if (rng() > chanceProb * 0.82) continue;
-
-    for (const p of atkSquad.players) {
-      const acc = fitAccum.get(p.playerId);
-      if (acc) {
-        acc.effSum += p.ovr;
-        acc.count++;
-      }
-    }
 
     const shotProb = sigmoid((atk.attack * momBoost - def.gk) / 10);
     const scorer = pickScorer(atkSquad, rng);
@@ -462,20 +465,28 @@ export function simulateMatchV2(
 
   const fitReport: FitReportLine[] = [];
   for (const [playerId, acc] of fitAccum) {
-    const meta = [...homeMeta, ...awayMeta].find((m) => m.playerId === playerId)!;
-    const avgEff = acc.count ? Math.round(acc.effSum / acc.count) : acc.base;
-    const { delta, summary, tags } = buildFitSummary(acc.base, avgEff, era, meta);
-    if (acc.count > 0) {
-      fitReport.push({ playerId, playerName: acc.name, baseOvr: acc.base, effectiveDelta: delta, summary, tags });
-      if (Math.abs(delta) >= 5) {
-        events.push({
-          minute: 90,
-          type: "fit_commentary",
-          team: "home",
-          playerName: acc.name,
-          text: fitCommentary(acc.name, delta),
-        });
-      }
+    const meta = [...homeMeta, ...awayMeta].find((m) => m.playerId === playerId);
+    if (!meta) continue;
+    // Bound era deltas so fit is expressive without absurd −40 collapses.
+    const rawDelta = acc.eff - acc.base;
+    const clampedEff = acc.base + Math.max(-12, Math.min(12, rawDelta));
+    const { delta, summary, tags } = buildFitSummary(acc.base, clampedEff, era, meta);
+    fitReport.push({
+      playerId,
+      playerName: acc.name,
+      baseOvr: acc.base,
+      effectiveDelta: delta,
+      summary,
+      tags,
+    });
+    if (Math.abs(delta) >= 5) {
+      events.push({
+        minute: 90,
+        type: "fit_commentary",
+        team: "home",
+        playerName: acc.name,
+        text: fitCommentary(acc.name, delta),
+      });
     }
   }
 

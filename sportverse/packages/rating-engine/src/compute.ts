@@ -8,7 +8,11 @@ import { communityCalibrationNudge } from "./calibration.js";
 import { durabilityForRating, fameScoreForRating, mvPercentileForRating } from "./fame-data.js";
 import { applyPositionAttributeCaps } from "./position-weights.js";
 import { blendWithEaCalibration, getEaRating } from "./ea-ratings.js";
-import { blendWithHistoricalCalibration, getHistoricalRating } from "./historical-ratings.js";
+import {
+  blendWithHistoricalCalibration,
+  establishedProfessionalFloor,
+  getHistoricalRating,
+} from "./historical-ratings.js";
 
 export interface RatingInput {
   id: string;
@@ -324,6 +328,12 @@ export function computePlayerRating(input: RatingInput, mode: DraftModeConfig): 
     if (histEntry.attributes) confidence = Math.max(confidence, 0.72);
     else if (histEntry.source === "peak_mv_tier2") confidence = Math.max(confidence, 0.62);
     else confidence = Math.max(confidence, 0.68);
+  }
+
+  // Sustained top-flight careers without EA/legend anchors should not land in the 50s.
+  if (!input.manualOvr && !eaCurrentSnapshot && !eaEntry) {
+    const profFloor = establishedProfessionalFloor(stats, histEntry);
+    if (profFloor > 0) ovr = Math.max(ovr, profFloor);
   }
 
   return {

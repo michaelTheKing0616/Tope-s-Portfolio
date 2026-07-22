@@ -81,7 +81,10 @@ export function renderSeasonPredictionHtml(prediction: SeasonPrediction): string
 /** Post-sim verdict comparing actual results to the pre-season preview. */
 export function renderExpectationGradeHtml(grade: SeasonExpectationGrade): string {
   const ptsSign = grade.pointsDelta >= 0 ? "+" : "";
-  const gdSign = grade.goalDifferenceDelta >= 0 ? "+" : "";
+  const gdDeltaSign = grade.goalDifferenceDelta >= 0 ? "+" : "";
+  const actualGd =
+    grade.prediction.expectedGoalDifference + grade.goalDifferenceDelta;
+  const actualGdSign = actualGd >= 0 ? "+" : "";
   return `
     <section class="panel db-report db-report--verdict ${GRADE_CLASS[grade.grade]}" aria-labelledby="season-verdict-heading">
       <header class="db-report__header">
@@ -90,17 +93,19 @@ export function renderExpectationGradeHtml(grade: SeasonExpectationGrade): strin
         <p class="db-report__lede">${grade.summary}</p>
       </header>
 
-      <div class="db-report__compare">
-        <div class="db-report__compare-col">
-          <span class="db-stat-label">Pre-season preview</span>
-          <strong>${grade.prediction.expectedPoints} pts</strong>
-          <span class="db-report__compare-sub">${grade.prediction.expectedWins}W-${grade.prediction.expectedDraws}D-${grade.prediction.expectedLosses}L · GD ${grade.prediction.expectedGoalDifference >= 0 ? "+" : ""}${grade.prediction.expectedGoalDifference}</span>
+      <div class="db-report__compare db-report__compare--cards">
+        <div class="db-report__compare-col db-report__compare-col--preview">
+          <span class="db-stat-label">Pre-season</span>
+          <strong class="db-report__compare-pts">${grade.prediction.expectedPoints} pts</strong>
+          <span class="db-report__compare-sub">${grade.prediction.expectedWins}W · ${grade.prediction.expectedDraws}D · ${grade.prediction.expectedLosses}L</span>
+          <span class="db-report__compare-sub">GD ${grade.prediction.expectedGoalDifference >= 0 ? "+" : ""}${grade.prediction.expectedGoalDifference}</span>
         </div>
         <div class="db-report__compare-arrow" aria-hidden="true">→</div>
         <div class="db-report__compare-col db-report__compare-col--actual">
-          <span class="db-stat-label">Actual season</span>
-          <strong>${grade.actualPoints} pts</strong>
-          <span class="db-report__compare-sub">${grade.actualRecord} · Δ ${ptsSign}${grade.pointsDelta} pts · GD ${gdSign}${grade.goalDifferenceDelta}</span>
+          <span class="db-stat-label">Actual</span>
+          <strong class="db-report__compare-pts">${grade.actualPoints} pts</strong>
+          <span class="db-report__compare-sub">${grade.actualRecord}</span>
+          <span class="db-report__compare-sub">GD ${actualGdSign}${actualGd} · Δ ${ptsSign}${grade.pointsDelta} pts · Δ GD ${gdDeltaSign}${grade.goalDifferenceDelta}</span>
         </div>
       </div>
     </section>`;
@@ -125,10 +130,15 @@ export function renderFitReportHtml(fitReport: FitReportLine[], headline?: strin
   const rowHtml = (f: FitReportLine) => {
     const cls =
       f.effectiveDelta >= 4 ? "db-fit-row--good" : f.effectiveDelta <= -4 ? "db-fit-row--bad" : "";
-    return `<li class="db-fit-row ${cls}">
+    const barPct = Math.min(100, Math.round(Math.abs(f.effectiveDelta) * 10));
+    const deltaSign = f.effectiveDelta >= 0 ? "+" : "";
+    return `<li class="db-fit-row db-fit-row--report ${cls}">
       <span class="db-fit-row__name">${f.playerName}</span>
       <span class="db-fit-row__base">OVR ${f.baseOvr}</span>
-      <span class="db-fit-row__delta">${f.effectiveDelta >= 0 ? "+" : ""}${f.effectiveDelta}</span>
+      <span class="db-fit-row__delta-wrap">
+        <span class="db-fit-row__delta">${deltaSign}${f.effectiveDelta}</span>
+        <span class="db-fit-row__bar" style="width:${barPct}%"></span>
+      </span>
       <span class="db-fit-row__summary">${f.summary}</span>
     </li>`;
   };

@@ -8,7 +8,7 @@ import type {
 import { DEFAULT_SIM_CONFIG } from "@sportverse/draftballer-types";
 import { getSeasonStats } from "@sportverse/sports-db";
 import { simulateMatchV2 } from "./sim-engine.js";
-import { generateOpponents } from "./opponent.js";
+import { generateHistoricalOpponents, generateOpponents } from "./opponent.js";
 import { gradeSeasonVsPrediction, predictSeasonOutlook } from "./season-prediction.js";
 import { resolveEraProfile } from "./era-profiles.js";
 import { computeSquadFitReport } from "./fit-model.js";
@@ -18,6 +18,10 @@ export const SEASON_LENGTH = 38;
 export interface SeasonSimOptions {
   config?: Partial<SimMatchConfig>;
   rivalPool?: import("@sportverse/draftballer-types").RatedPlayerCard[];
+  /** Pre-built historical opponents (web layer); takes precedence over config.challenger. */
+  challengerOpponents?: SimSquadInput[];
+  /** Rate archive player ids when building challengers from config.challenger. */
+  ratePlayer?: (id: string) => import("@sportverse/draftballer-types").RatedPlayerCard | undefined;
   /** Called after each matchday — return a Promise to pause between matchdays (live UI). */
   onMatchComplete?: (payload: {
     fixture: FixtureResult;
@@ -42,7 +46,28 @@ export async function simulateSeason(
   // Seed discipline: identical draft seed + picks + era → identical season.
   const simSeed = `${seed}:sim:${eraKey}`;
 
-  const opponents = generateOpponents(userSquad, SEASON_LENGTH, simSeed, options.rivalPool);
+  let opponents: SimSquadInput[];
+  if (options.challengerOpponents?.length) {
+    opponents = options.challengerOpponents.slice(0, SEASON_LENGTH);
+    while (opponents.length < SEASON_LENGTH && options.challengerOpponents.length) {
+      opponents.push(options.challengerOpponents[opponents.length % options.challengerOpponents.length]!);
+    }
+  } else if (config.challenger && options.ratePlayer) {
+    const historical = generateHistoricalOpponents({
+      leagueId: config.challenger.leagueId,
+      seasonLabel: config.challenger.seasonLabel,
+      matchCount: SEASON_LENGTH,
+      seed: simSeed,
+      userSquad,
+      ratePlayer: (id) => options.ratePlayer!(id) ?? null,
+    });
+    opponents =
+      historical.length > 0
+        ? historical
+        : generateOpponents(userSquad, SEASON_LENGTH, simSeed, options.rivalPool);
+  } else {
+    opponents = generateOpponents(userSquad, SEASON_LENGTH, simSeed, options.rivalPool);
+  }
   const opponentAvgOvr =
     opponents.length > 0
       ? Math.round(opponents.reduce((s, o) => s + o.squadOvr, 0) / opponents.length)
