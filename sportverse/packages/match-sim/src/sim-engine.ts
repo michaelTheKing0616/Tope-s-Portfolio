@@ -47,6 +47,34 @@ import { simulatePenaltyShootout } from "./penalties.js";
 import { computeMatchGoalRates } from "./match-rates.js";
 import { sampleDixonColesScore } from "./dixon-coles.js";
 import type { TacticalIdentity } from "@sportverse/draftballer-types";
+import {
+  chaseIntensity,
+  consumeGoalSlot,
+  dueGoalSlot,
+  emptyPhaseStats,
+  identityChanceBias,
+  isBigChance,
+  sampleChanceXg,
+  scheduleGoalMinutes,
+  summarizeMatchStats,
+} from "./chance-model.js";
+import {
+  seededBigChanceCommentary,
+  seededFulltimePulseCommentary,
+} from "./commentary-seeded.js";
+import {
+  buildSquadSynergy,
+  pickLinkedScorer,
+  synergyChanceBoost,
+} from "./synergy-graph.js";
+import {
+  buildPersonaMap,
+  squadSetPieceThreat,
+  traitScorerWeight,
+  traitXgBias,
+  type PlayerMatchPersona,
+} from "./player-traits.js";
+import { pickSetPieceKind, resolveSetPiece, shouldTriggerSetPiece } from "./set-piece.js";
 
 const PHASES = 85;
 const MOMENTUM_DECAY = 0.92;
@@ -82,10 +110,16 @@ function initPlayerStates(players: SimSquadInput["players"], carry?: Map<string,
   return map;
 }
 
-function pickScorer(squad: SimSquadInput, rng: Rng): SimSquadInput["players"][number] {
+function pickScorer(
+  squad: SimSquadInput,
+  rng: Rng,
+  personas?: Map<string, PlayerMatchPersona>,
+): SimSquadInput["players"][number] {
   const attackers = squad.players.filter((p) => ["ST", "W", "AM", "CM"].includes(p.position));
   const pool = attackers.length ? attackers : squad.players;
-  const weights = pool.map((p) => p.attributes.sho + p.ovr * 0.3);
+  const weights = pool.map((p) =>
+    traitScorerWeight(personas?.get(p.playerId), p.attributes.sho + p.ovr * 0.3),
+  );
   const total = weights.reduce((a, b) => a + b, 0);
   let roll = rng() * total;
   for (let i = 0; i < pool.length; i++) {
@@ -105,12 +139,17 @@ function profileFor(
 }
 
 function eventCommentary(
-  type: "goal" | "chance_missed" | "shot_saved",
+  type: "goal" | "chance_missed" | "shot_saved" | "big_chance",
   scorer: SimSquadInput["players"][number],
   minute: number,
   statsFor?: (playerId: string) => import("@sportverse/sports-db").PlayerSeasonStat[],
+  xg?: number,
 ): string {
   const profile = profileFor(scorer, statsFor);
+  if (type === "big_chance") {
+    if (profile) return seededBigChanceCommentary(scorer.name, minute, profile, xg);
+    return `${minute}' Big chance! ${scorer.name} — this has to go in…`;
+  }
   if (profile) {
     if (type === "goal") return seededGoalCommentary(scorer.name, minute, profile);
     if (type === "chance_missed") return seededChanceCommentary(scorer.name, minute, profile);
@@ -265,6 +304,17 @@ export function simulateMatchV2(
   }
   const events: ExtendedMatchEvent[] = [];
   const zoneEvents: ZoneOverloadEvent[] = [];
+  const phaseStats = emptyPhaseStats();
+  const homeGoalSlots = scheduleGoalMinutes(targetHomeGoals, rng);
+  const awayGoalSlots = scheduleGoalMinutes(targetAwayGoals, rng);
+  const homeSynergy = buildSquadSynergy(effectiveHome);
+  const awaySynergy = buildSquadSynergy(effectiveAway);
+  const chemHome = synergyChanceBoost(homeSynergy);
+  const chemAway = synergyChanceBoost(awaySynergy);
+  const homePersonas = buildPersonaMap(effectiveHome);
+  const awayPersonas = buildPersonaMap(effectiveAway);
+  const homeSpThreat = squadSetPieceThreat(homePersonas);
+  const awaySpThreat = squadSetPieceThreat(awayPersonas);
   // Kickoff effective OVRs — same values that drive goal rates (not chance-loop noise).
   const fitAccum = new Map<string, { base: number; eff: number; name: string }>();
   for (const p of home.players) {
@@ -284,6 +334,22 @@ export function simulateMatchV2(
       ? seededKickoffCommentary(era.label, home.name ?? "Home", away.name ?? "Away")
       : commentaryForV2("kickoff", undefined, undefined, era.label),
   });
+  if (homeSynergy.headline) {
+    events.push({
+      minute: 0,
+      type: "synergy",
+      team: "home",
+      text: `${home.name ?? "Home"} chemistry: ${homeSynergy.headline}.`,
+    });
+  }
+  if (awaySynergy.headline) {
+    events.push({
+      minute: 0,
+      type: "synergy",
+      team: "away",
+      text: `${away.name ?? "Away"} chemistry: ${awaySynergy.headline}.`,
+    });
+  }
 
   for (let phase = 0; phase < PHASES; phase++) {
     momentum *= MOMENTUM_DECAY;
@@ -344,14 +410,21 @@ export function simulateMatchV2(
     const awayStr = squadStrengths(awaySquad.players);
     const numAdvHome = homeCount / Math.max(1, awayCount);
     const numAdvAway = awayCount / Math.max(1, homeCount);
+    const chaseHome = chaseIntensity(homeGoals - awayGoals, minute);
+    const chaseAway = chaseIntensity(awayGoals - homeGoals, minute);
 
     let homePossession =
       rng() <
       sigmoid(
         (homeStr.midfield * numAdvHome - awayStr.midfield * numAdvAway) / 12 +
           (config.venue.homeAdvantage ? 0.15 : 0) +
-          momentum / 200,
+          momentum / 200 +
+          (chaseHome - chaseAway) * 1.4 +
+          (chemHome - chemAway) * 2,
       );
+
+    if (homePossession) phaseStats.possessionHomePhases++;
+    else phaseStats.possessionAwayPhases++;
 
     const atkIdentity = homePossession ? config.tacticalIdentityHome : config.tacticalIdentityAway;
     const zone = pickPhaseZone(atkIdentity, rng);
@@ -373,53 +446,144 @@ export function simulateMatchV2(
     const def = homePossession ? awayStr : homeStr;
     const atkSquad = homePossession ? homeSquad : awaySquad;
     const team = homePossession ? "home" : "away";
+    const slots = homePossession ? homeGoalSlots : awayGoalSlots;
+    const teamChase = homePossession ? chaseHome : chaseAway;
+    const teamChem = homePossession ? chemHome : chemAway;
+    const teamSynergy = homePossession ? homeSynergy : awaySynergy;
+    const teamPersonas = homePossession ? homePersonas : awayPersonas;
+    const teamSpThreat = homePossession ? homeSpThreat : awaySpThreat;
 
-    const momBoost = 1 + (homePossession ? momentum : -momentum) / 250;
+    const momBoost = 1 + (homePossession ? momentum : -momentum) / 250 + teamChase;
     const chaos = 1 + (1 - era.tactical_sophistication) * (rng() - 0.5) * 0.4;
+    const dueSoon = dueGoalSlot(slots, minute);
 
+    // Set-piece sequences — narrative dead-ball stories that can spend a due goal slot.
+    if (
+      shouldTriggerSetPiece({
+        minute,
+        chase: teamChase,
+        setPieceThreat: teamSpThreat,
+        dueSoon,
+        rng,
+      })
+    ) {
+      const teamCurrent = homePossession ? homeGoals : awayGoals;
+      const teamTarget = homePossession ? targetHomeGoals : targetAwayGoals;
+      const canScore = teamCurrent < teamTarget && slots.length > 0;
+      const sp = resolveSetPiece({
+        kind: pickSetPieceKind(rng),
+        minute,
+        team,
+        attackers: atkSquad.players,
+        personas: teamPersonas,
+        canScore,
+        dueSoon,
+        rng,
+        goalText: (scorer, m, x) => eventCommentary("goal", scorer, m, options.statsFor, x),
+      });
+      events.push(...sp.events);
+      if (homePossession) {
+        phaseStats.chancesHome++;
+        phaseStats.xGHome += sp.xg;
+        if (sp.scored) {
+          homeGoals++;
+          consumeGoalSlot(slots);
+          momentum += 20;
+          phaseStats.shotsHome++;
+        } else if (sp.xg >= 0.2) {
+          phaseStats.shotsHome++;
+          if (isBigChance(sp.xg)) phaseStats.bigChancesHome++;
+        }
+      } else {
+        phaseStats.chancesAway++;
+        phaseStats.xGAway += sp.xg;
+        if (sp.scored) {
+          awayGoals++;
+          consumeGoalSlot(slots);
+          momentum -= 20;
+          phaseStats.shotsAway++;
+        } else if (sp.xg >= 0.2) {
+          phaseStats.shotsAway++;
+          if (isBigChance(sp.xg)) phaseStats.bigChancesAway++;
+        }
+      }
+      continue;
+    }
+
+    // Due goal slots force a chance window so goals land on-script, not 89' dumps.
     const chanceProb =
-      sigmoid((atk.attack * momBoost * chaos - def.defense) / 14) * weather.chanceMultiplier;
-    if (rng() > chanceProb * 0.82) continue;
+      (dueSoon ? 0.92 : sigmoid((atk.attack * momBoost * chaos - def.defense) / 14) * weather.chanceMultiplier) *
+      (1 + teamChem);
+    if (!dueSoon && rng() > Math.min(0.95, chanceProb * 0.88)) continue;
 
-    const shotProb = sigmoid((atk.attack * momBoost - def.gk) / 10);
-    const scorer = pickScorer(atkSquad, rng);
+    if (homePossession) phaseStats.chancesHome++;
+    else phaseStats.chancesAway++;
 
-    if (rng() > shotProb * 0.62) {
+    const linked = pickLinkedScorer(atkSquad.players, atkSquad.players, teamSynergy, rng);
+    const scorer = linked ?? pickScorer(atkSquad, rng, teamPersonas);
+    const scorerPersona = teamPersonas.get(scorer.playerId);
+
+    const xg = Math.min(
+      0.72,
+      sampleChanceXg({
+        attack: atk.attack,
+        defense: def.defense,
+        gk: def.gk,
+        zoneMod: zMod,
+        momentumBoost: momBoost,
+        identityBias: identityChanceBias(atkIdentity) + teamChase * 0.5 + teamChem * 0.4,
+        rng,
+      }) + traitXgBias(scorerPersona, "open"),
+    );
+    if (homePossession) phaseStats.xGHome += xg;
+    else phaseStats.xGAway += xg;
+
+    const big = isBigChance(xg);
+    if (big) {
+      if (homePossession) phaseStats.bigChancesHome++;
+      else phaseStats.bigChancesAway++;
+    }
+
+    const shotProb = dueSoon ? 0.97 : Math.min(0.96, 0.35 + xg * 1.1 + teamChase * 0.3);
+    if (rng() > shotProb) {
       events.push({
         minute,
-        type: "chance_missed",
+        type: big ? "big_chance" : "chance_missed",
         team,
         playerName: scorer.name,
-        text: eventCommentary("chance_missed", scorer, minute, options.statsFor),
+        xg,
+        text: eventCommentary(big ? "big_chance" : "chance_missed", scorer, minute, options.statsFor, xg),
       });
       continue;
     }
 
-    const goalProb = sigmoid((atk.attack * 0.6 + atk.midfield * 0.2 - def.gk) / 11) * (1 + zMod);
-    const teamTarget = homePossession ? targetHomeGoals : targetAwayGoals;
+    if (homePossession) phaseStats.shotsHome++;
+    else phaseStats.shotsAway++;
+
     const teamCurrent = homePossession ? homeGoals : awayGoals;
-    if (teamCurrent >= teamTarget) {
-      events.push({
-        minute,
-        type: "shot_saved",
-        team,
-        playerName: scorer.name,
-        text: eventCommentary("shot_saved", scorer, minute, options.statsFor),
-      });
-      continue;
-    }
-    if (rng() < goalProb * 0.52) {
+    const teamTarget = homePossession ? targetHomeGoals : targetAwayGoals;
+    const canScore = teamCurrent < teamTarget && slots.length > 0;
+    // Convert when the slot is due, or (rarely) early if xG is huge and quota remains.
+    const convertP = dueSoon
+      ? Math.min(0.98, 0.72 + xg * 0.35)
+      : canScore && big && minute >= (slots[0] ?? 99) - 8
+        ? xg * 0.55
+        : 0;
+
+    if (canScore && rng() < convertP) {
       if (homePossession) homeGoals++;
       else awayGoals++;
-      momentum = homePossession ? momentum + 18 : momentum - 18;
+      consumeGoalSlot(slots);
+      momentum = homePossession ? momentum + 18 + (big ? 6 : 0) : momentum - 18 - (big ? 6 : 0);
       events.push({
         minute,
         type: "goal",
         team,
         playerName: scorer.name,
-        text: eventCommentary("goal", scorer, minute, options.statsFor),
+        xg,
+        text: eventCommentary("goal", scorer, minute, options.statsFor, xg),
       });
-      if (Math.abs(momentum) > 40) {
+      if (Math.abs(momentum) > 36) {
         events.push({
           minute,
           type: "momentum_swing",
@@ -430,10 +594,11 @@ export function simulateMatchV2(
     } else {
       events.push({
         minute,
-        type: "shot_saved",
+        type: big ? "big_chance" : "shot_saved",
         team,
         playerName: scorer.name,
-        text: eventCommentary("shot_saved", scorer, minute, options.statsFor),
+        xg,
+        text: eventCommentary(big ? "big_chance" : "shot_saved", scorer, minute, options.statsFor, xg),
       });
     }
 
@@ -466,6 +631,7 @@ export function simulateMatchV2(
     }
   }
 
+  // Safety net only — scheduled slots should land goals in-loop.
   injectRemainingGoals(
     homeGoals,
     targetHomeGoals,
@@ -478,17 +644,24 @@ export function simulateMatchV2(
     events,
     rng,
     options.statsFor,
+    homeGoalSlots,
+    awayGoalSlots,
   );
   homeGoals = targetHomeGoals;
   awayGoals = targetAwayGoals;
 
+  const matchStats = summarizeMatchStats(phaseStats);
   events.push({
     minute: 90,
     type: "fulltime",
     team: "home",
-    text: options.statsFor
-      ? seededFulltimeCommentary(home.name ?? "Home", away.name ?? "Away", homeGoals, awayGoals)
-      : commentaryForV2("fulltime"),
+    text: seededFulltimePulseCommentary(
+      home.name ?? "Home",
+      away.name ?? "Away",
+      homeGoals,
+      awayGoals,
+      matchStats,
+    ),
   });
 
   let penaltyShootout: MatchResultV2["penaltyShootout"];
@@ -547,6 +720,13 @@ export function simulateMatchV2(
       targetHomeGoals,
       targetAwayGoals,
     },
+    matchStats,
+    synergyPulse: {
+      homeScore: Math.round(homeSynergy.score * 100),
+      awayScore: Math.round(awaySynergy.score * 100),
+      homeHeadline: homeSynergy.headline,
+      awayHeadline: awaySynergy.headline,
+    },
   };
 }
 
@@ -562,6 +742,8 @@ function injectRemainingGoals(
   events: ExtendedMatchEvent[],
   rng: Rng,
   statsFor?: (playerId: string) => import("@sportverse/sports-db").PlayerSeasonStat[],
+  homeSlots: number[] = [],
+  awaySlots: number[] = [],
 ): void {
   let h = homeGoals;
   let a = awayGoals;
@@ -571,7 +753,7 @@ function injectRemainingGoals(
   while (h < targetHome) {
     h++;
     const scorer = pickScorer(homeSquad, rng);
-    const minute = 88 + Math.floor(rng() * 2);
+    const minute = homeSlots.shift() ?? 78 + Math.floor(rng() * 10);
     events.push({
       minute,
       type: "goal",
@@ -583,7 +765,7 @@ function injectRemainingGoals(
   while (a < targetAway) {
     a++;
     const scorer = pickScorer(awaySquad, rng);
-    const minute = 88 + Math.floor(rng() * 2);
+    const minute = awaySlots.shift() ?? 78 + Math.floor(rng() * 10);
     events.push({
       minute,
       type: "goal",

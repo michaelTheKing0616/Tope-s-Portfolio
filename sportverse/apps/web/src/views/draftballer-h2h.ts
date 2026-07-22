@@ -57,13 +57,42 @@ export function renderDraftballerH2h(root: HTMLElement, navigate: Navigate) {
         <p class="db-season-hero">${match.homeGoals} — ${match.awayGoals}</p>
         <p class="db-season-tagline">${userSquad.name} vs ${rival!.name}</p>
         ${match.preMatchHeadline ? `<p class="db-hero__sub">${match.preMatchHeadline}</p>` : ""}
+        ${
+          match.matchStats
+            ? `<p class="db-hero__sub db-match-pulse">${match.matchStats.possessionHome}–${match.matchStats.possessionAway}% · ${match.matchStats.xGHome.toFixed(1)}–${match.matchStats.xGAway.toFixed(1)} xG · ${match.matchStats.shotsHome}–${match.matchStats.shotsAway} shots</p>`
+            : ""
+        }
+        ${
+          match.synergyPulse
+            ? `<p class="db-hero__sub db-match-pulse">Chemistry ${match.synergyPulse.homeScore}–${match.synergyPulse.awayScore}${
+                match.synergyPulse.homeHeadline ? ` · ${match.synergyPulse.homeHeadline}` : ""
+              }</p>`
+            : ""
+        }
       </header>
       <div class="panel">
-        <strong>Match events</strong>
+        <strong>Match story</strong>
         <ul class="db-commentary-list">
           ${match.events
-            .filter((e) => ["goal", "fulltime", "card_red", "penalty_goal", "penalty_miss"].includes(e.type))
-            .map((e) => `<li>${e.text}</li>`)
+            .filter((e) =>
+              [
+                "goal",
+                "big_chance",
+                "shot_saved",
+                "chance_missed",
+                "corner",
+                "free_kick",
+                "set_piece_chance",
+                "synergy",
+                "momentum_swing",
+                "fulltime",
+                "card_red",
+                "penalty_goal",
+                "penalty_miss",
+              ].includes(e.type),
+            )
+            .slice(0, 32)
+            .map((e) => `<li class="db-commentary-list__${e.type}">${e.text}</li>`)
             .join("")}
         </ul>
       </div>

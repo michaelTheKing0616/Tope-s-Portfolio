@@ -893,7 +893,20 @@ body:has(.db-root) {
 .db-fixture--win { background: rgba(31, 138, 87, 0.35); color: var(--db-emerald-hi); }
 .db-fixture--draw { background: rgba(212, 175, 55, 0.2); color: var(--db-gold); }
 .db-fixture--loss { background: rgba(180, 60, 60, 0.25); color: #f08080; }
-.db-commentary-list { margin: 8px 0 0; padding-left: 1.2rem; color: var(--db-muted); font-size: 0.85rem; }
+.db-commentary-list { margin: 8px 0 0; padding-left: 1.2rem; color: var(--db-muted); font-size: 0.85rem; line-height: 1.55; }
+.db-commentary-list__goal { color: var(--db-emerald-hi, #00ff66); font-weight: 600; }
+.db-commentary-list__big_chance { color: #f0d78c; }
+.db-commentary-list__momentum_swing { color: #9ecbff; font-style: italic; }
+.db-commentary-list__card_red { color: #f08080; font-weight: 600; }
+.db-commentary-list__corner,
+.db-commentary-list__free_kick,
+.db-commentary-list__set_piece_chance { color: #c4b5fd; }
+.db-commentary-list__synergy { color: #86efac; font-style: italic; }
+.db-match-pulse {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  opacity: 0.92;
+}
 .db-season-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.5rem; justify-content: center; }
 
 .db-player-card--clickable { cursor: pointer; }

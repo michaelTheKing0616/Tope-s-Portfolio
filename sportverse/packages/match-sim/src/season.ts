@@ -1,5 +1,7 @@
 import type {
+  ExtendedMatchEvent,
   FixtureResult,
+  MatchEvent,
   SeasonSimResult,
   SimMatchConfig,
   SimSquadInput,
@@ -14,6 +16,54 @@ import { resolveEraProfile } from "./era-profiles.js";
 import { computeSquadFitReport } from "./fit-model.js";
 
 export const SEASON_LENGTH = 38;
+
+const MUST_KEEP_EVENT = new Set([
+  "goal",
+  "fulltime",
+  "card_red",
+  "penalty_goal",
+  "penalty_miss",
+]);
+
+const FLAVOR_EVENT = new Set([
+  "big_chance",
+  "set_piece_chance",
+  "corner",
+  "free_kick",
+  "momentum_swing",
+  "synergy",
+  "shot_saved",
+  "chance_missed",
+]);
+
+/**
+ * Keep every decisive event (goals / FT / reds). Naive .slice(0, N) was dropping
+ * late goals — especially painful on losses with lots of early chance chatter.
+ */
+export function selectFixtureStoryEvents(
+  events: ExtendedMatchEvent[],
+  maxEvents = 22,
+): MatchEvent[] {
+  const must = events.filter((e) => MUST_KEEP_EVENT.has(e.type));
+  const flavor = events
+    .filter((e) => FLAVOR_EVENT.has(e.type))
+    .sort((a, b) => {
+      const rank = (t: string) =>
+        t === "big_chance" || t === "set_piece_chance"
+          ? 0
+          : t === "momentum_swing" || t === "synergy"
+            ? 1
+            : t === "corner" || t === "free_kick"
+              ? 2
+              : 3;
+      return rank(a.type) - rank(b.type) || a.minute - b.minute;
+    });
+
+  const room = Math.max(0, maxEvents - must.length);
+  const picked = [...must, ...flavor.slice(0, room)];
+  picked.sort((a, b) => a.minute - b.minute || a.type.localeCompare(b.type));
+  return picked as MatchEvent[];
+}
 
 export interface SeasonSimOptions {
   config?: Partial<SimMatchConfig>;
@@ -162,7 +212,7 @@ export async function simulateSeason(
       goalsFor: userGoals,
       goalsAgainst: oppGoals,
       result,
-      events: match.events.filter((e) => e.type === "goal" || e.type === "fulltime") as FixtureResult["events"],
+      events: selectFixtureStoryEvents(match.events),
     });
 
     const hook = options.onMatchComplete?.({

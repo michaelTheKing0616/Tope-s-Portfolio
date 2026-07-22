@@ -7,7 +7,12 @@ export { simulateRoundRobin, type RoundRobinTeam, type RoundRobinOptions } from 
 export { roleFitModifier, assignPlayersToFormationSlots, inferPlayerRole } from "./role-fit.js";
 export { selectRotationSubs, applyRotationToSquad } from "./bot-rotation.js";
 export { generateOpponents, generateHistoricalOpponents } from "./opponent.js";
-export { simulateSeason, SEASON_LENGTH, type SeasonSimOptions } from "./season.js";
+export {
+  simulateSeason,
+  SEASON_LENGTH,
+  selectFixtureStoryEvents,
+  type SeasonSimOptions,
+} from "./season.js";
 export { predictSeasonOutlook, gradeSeasonVsPrediction } from "./season-prediction.js";
 export { commentaryFor } from "./commentary.js";
 export {
@@ -27,7 +32,29 @@ export {
   seededFatigueCommentary,
   seededKickoffCommentary,
   seededFulltimeCommentary,
+  seededBigChanceCommentary,
+  seededFulltimePulseCommentary,
 } from "./commentary-seeded.js";
+export {
+  scheduleGoalMinutes,
+  sampleChanceXg,
+  summarizeMatchStats,
+  chaseIntensity,
+} from "./chance-model.js";
+export {
+  buildSquadSynergy,
+  setSimPartnershipPairs,
+  synergyChanceBoost,
+  type SquadSynergy,
+  type SimPartnershipPair,
+} from "./synergy-graph.js";
+export {
+  derivePlayerTraits,
+  buildPersonaMap,
+  type SimTrait,
+  type PlayerMatchPersona,
+} from "./player-traits.js";
+export { resolveSetPiece, shouldTriggerSetPiece, pickSetPieceKind } from "./set-piece.js";
 export { listEraProfiles, getEraProfile, resolveEraProfile, resolveEraFromSeasonLabel, eraProfileIdFromSeasonLabel, ERA_PROFILES } from "./era-profiles.js";
 export { computePlayerMeta, computeSquadMeta } from "./player-meta.js";
 export {

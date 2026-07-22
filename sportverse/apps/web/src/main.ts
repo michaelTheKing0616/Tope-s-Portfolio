@@ -41,7 +41,8 @@ import {
   setHistoricalRatingsIndex,
 } from "@sportverse/rating-engine";
 import { getAwards, getIconicMoments, getFameIndex } from "@sportverse/sports-db";
-import { setLegendRatings } from "@sportverse/draftballer-core";
+import { initPartnershipPairs, setLegendRatings } from "@sportverse/draftballer-core";
+import { setSimPartnershipPairs } from "@sportverse/match-sim";
 
 const app = document.getElementById("app")!;
 
@@ -215,6 +216,16 @@ async function render() {
         if (histRes.ok) setHistoricalRatingsIndex(await histRes.json());
       } catch {
         /* optional */
+      }
+      try {
+        const pairRes = await fetch(`${base}data/partnership-pairs.json`);
+        if (pairRes.ok) {
+          const pairs = await pairRes.json();
+          initPartnershipPairs(pairs);
+          setSimPartnershipPairs(pairs);
+        }
+      } catch {
+        /* optional — style/nationality synergy still applies */
       }
     }
 

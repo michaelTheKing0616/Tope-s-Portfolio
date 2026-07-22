@@ -231,7 +231,20 @@ export interface SimSquadInput {
   squadOvr: number;
 }
 
-export type MatchEventType = "goal" | "shot_saved" | "chance_missed" | "kickoff" | "fulltime";
+export type MatchEventType =
+  | "goal"
+  | "shot_saved"
+  | "chance_missed"
+  | "big_chance"
+  | "corner"
+  | "free_kick"
+  | "set_piece_chance"
+  | "synergy"
+  | "kickoff"
+  | "fulltime"
+  | "momentum_swing"
+  | "card_yellow"
+  | "card_red";
 
 export interface MatchEvent {
   minute: number;
@@ -239,6 +252,7 @@ export interface MatchEvent {
   team: "home" | "away";
   playerName?: string;
   text: string;
+  xg?: number;
 }
 
 export interface MatchResult {

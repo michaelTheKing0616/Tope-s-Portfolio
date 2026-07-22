@@ -102,6 +102,11 @@ export type ExtendedMatchEventType =
   | "goal"
   | "shot_saved"
   | "chance_missed"
+  | "big_chance"
+  | "corner"
+  | "free_kick"
+  | "set_piece_chance"
+  | "synergy"
   | "kickoff"
   | "fulltime"
   | "card_yellow"
@@ -118,6 +123,28 @@ export interface ExtendedMatchEvent {
   team: "home" | "away";
   playerName?: string;
   text: string;
+  /** Hidden chance quality for narrative / UI (not shown as raw xG by default). */
+  xg?: number;
+}
+
+/** Pre-match synergy pulse for the spectator story. */
+export interface MatchSynergyPulse {
+  homeScore: number;
+  awayScore: number;
+  homeHeadline?: string;
+  awayHeadline?: string;
+}
+
+/** Spectator-facing match pulse — possession / shots / xG from the chance loop. */
+export interface MatchPulseStats {
+  possessionHome: number;
+  possessionAway: number;
+  xGHome: number;
+  xGAway: number;
+  shotsHome: number;
+  shotsAway: number;
+  bigChancesHome: number;
+  bigChancesAway: number;
 }
 
 export interface MatchResultV2 {
@@ -142,6 +169,10 @@ export interface MatchResultV2 {
     targetHomeGoals: number;
     targetAwayGoals: number;
   };
+  /** Layer 2 narrative pulse (chance / possession story). */
+  matchStats?: MatchPulseStats;
+  /** Layer 2 synergy graph summary (links / chemistry feel). */
+  synergyPulse?: MatchSynergyPulse;
 }
 
 export interface FormationSlotDef {

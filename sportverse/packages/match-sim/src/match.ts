@@ -24,7 +24,21 @@ export function simulateMatch(
     homeName: v2.homeName,
     awayName: v2.awayName,
     events: v2.events.filter((e) =>
-      ["goal", "shot_saved", "chance_missed", "kickoff", "fulltime"].includes(e.type),
+      [
+        "goal",
+        "shot_saved",
+        "chance_missed",
+        "big_chance",
+        "corner",
+        "free_kick",
+        "set_piece_chance",
+        "synergy",
+        "kickoff",
+        "fulltime",
+        "momentum_swing",
+        "card_yellow",
+        "card_red",
+      ].includes(e.type),
     ) as MatchResult["events"],
     mvpPlayerId: v2.mvpPlayerId,
   };

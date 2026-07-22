@@ -219,3 +219,54 @@ export function seededFulltimeCommentary(homeName: string, awayName: string, hom
   const loser = homeGoals > awayGoals ? awayName : homeName;
   return `Full time — ${homeGoals}-${awayGoals}. ${winner} take it; ${loser} left to reflect.`;
 }
+
+export function seededBigChanceCommentary(
+  playerName: string,
+  minute: number,
+  profile: PlayerCommentaryProfile,
+  xg?: number,
+): string {
+  const min = `${minute}'`;
+  const quality = xg !== undefined && xg >= 0.45 ? "gilt-edged" : "huge";
+  if (profile.goalsPer90 >= 0.6) {
+    return `${min} ${quality} chance! ${playerName} — how did that stay out?`;
+  }
+  if (profile.peakSeasonGoals >= 20) {
+    return `${min} ${quality} chance for ${playerName} — the kind of moment they thrived on in ${profile.peakSeasonLabel || "their peak"}.`;
+  }
+  return `${min} ${quality} chance! ${playerName} can't believe it.`;
+}
+
+export function seededFulltimePulseCommentary(
+  homeName: string,
+  awayName: string,
+  homeGoals: number,
+  awayGoals: number,
+  stats: {
+    possessionHome: number;
+    possessionAway: number;
+    xGHome: number;
+    xGAway: number;
+    shotsHome: number;
+    shotsAway: number;
+    bigChancesHome: number;
+    bigChancesAway: number;
+  },
+): string {
+  const scoreLine = `${homeGoals}-${awayGoals}`;
+  const xgStory =
+    stats.xGHome > stats.xGAway + 0.4 && homeGoals <= awayGoals
+      ? ` ${homeName} dominated the chances (${stats.xGHome.toFixed(1)}–${stats.xGAway.toFixed(1)} xG) but not the scoreboard.`
+      : stats.xGAway > stats.xGHome + 0.4 && awayGoals <= homeGoals
+        ? ` ${awayName} created more (${stats.xGAway.toFixed(1)} xG) yet leave empty-handed.`
+        : ` Chance map ${stats.xGHome.toFixed(1)}–${stats.xGAway.toFixed(1)} xG · ${stats.possessionHome}–${stats.possessionAway}% possession.`;
+  if (homeGoals === awayGoals) {
+    return `Full time — ${scoreLine}.${xgStory}`;
+  }
+  const winner = homeGoals > awayGoals ? homeName : awayName;
+  const lateDrama =
+    Math.abs(homeGoals - awayGoals) === 1 && Math.max(stats.bigChancesHome, stats.bigChancesAway) >= 2
+      ? ` A game of nerves — ${stats.bigChancesHome + stats.bigChancesAway} big chances in total.`
+      : "";
+  return `Full time — ${scoreLine}. ${winner} take the points.${xgStory}${lateDrama}`;
+}

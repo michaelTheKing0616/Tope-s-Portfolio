@@ -54,21 +54,51 @@ function renderKeyMomentsHtml(
   fixtures: SeasonSimResult["fixtures"],
   maxItems = 12,
 ): string {
-  const moments: { matchday: number; text: string; isLoss: boolean }[] = [];
-  for (const f of fixtures.filter((fx) => fx.result === "L" || fx.goalsFor >= 3)) {
-    for (const e of f.events.filter((ev) => ev.type === "goal")) {
-      moments.push({ matchday: f.matchday, text: e.text, isLoss: f.result === "L" });
-      if (moments.length >= maxItems) break;
+  const moments: { matchday: number; text: string; isLoss: boolean; weight: number }[] = [];
+  const storyTypes = new Set([
+    "goal",
+    "big_chance",
+    "momentum_swing",
+    "card_red",
+    "set_piece_chance",
+    "corner",
+    "free_kick",
+    "synergy",
+  ]);
+  for (const f of fixtures) {
+    const dramatic =
+      f.result === "L" ||
+      f.goalsFor >= 3 ||
+      Math.abs(f.goalsFor - f.goalsAgainst) === 1 ||
+      f.goalsFor + f.goalsAgainst >= 4;
+    if (!dramatic) continue;
+    for (const e of f.events.filter((ev) => storyTypes.has(ev.type))) {
+      // Losses: boost actual goals so the scoreline story isn't buried under flavor.
+      const lossBoost = f.result === "L" && e.type === "goal" ? 1.5 : 0;
+      const weight =
+        (e.type === "goal" ? 3 : e.type === "card_red" ? 2.5 : e.type === "big_chance" ? 2 : 1.5) +
+        lossBoost;
+      const prefix =
+        f.result === "L" && e.type === "goal"
+          ? `MD${String(f.matchday).padStart(2, "0")} L ${f.goalsFor}–${f.goalsAgainst} · `
+          : "";
+      moments.push({
+        matchday: f.matchday,
+        text: `${prefix}${e.text}`,
+        isLoss: f.result === "L",
+        weight,
+      });
     }
-    if (moments.length >= maxItems) break;
   }
-  if (!moments.length) return "";
+  moments.sort((a, b) => b.weight - a.weight || a.matchday - b.matchday);
+  const picked = moments.slice(0, maxItems);
+  if (!picked.length) return "";
 
   return `
     <section class="panel db-report db-post-moments">
       <p class="db-label-caps">Key Moments Report</p>
       <ul class="db-timeline">
-        ${moments
+        ${picked
           .map(
             (m) =>
               `<li class="db-timeline-item">

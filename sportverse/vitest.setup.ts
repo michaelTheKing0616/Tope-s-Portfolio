@@ -12,6 +12,7 @@ import {
   setHistoricalRatingsIndex,
 } from "@sportverse/rating-engine";
 import { setLegendRatings } from "@sportverse/draftballer-core";
+import { setSimPartnershipPairs } from "@sportverse/match-sim";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)));
 const dataDir = resolve(root, "packages/sports-db/data");
@@ -64,6 +65,7 @@ const partnerships = readOptional("partnership-pairs.json");
 setAwardsData(awards, moments);
 setLegacyReputationData(legacyRep);
 setPartnershipPairs(partnerships);
+setSimPartnershipPairs(partnerships);
 // Fame firewall: MV percentile from peakMv ranks only — never fameScore.
 setFameDataForRatings(attachMvPercentilesFromPeakMv(fameIndex));
 setLegendRatings(readOptional("legend-ratings.json"));
