@@ -26,7 +26,7 @@ import {
 import { listSimChallengers, parseSeasonStartYear } from "@sportverse/sports-db";
 import { bindPlayerCardBreakdownsWithPool } from "./draftballer-breakdown.js";
 import { buildShareCardDataUrl } from "./draftballer-share.js";
-import { playerCardHtml } from "./draftballer-hub.js";
+import type { RatedPlayerCard } from "@sportverse/draftballer-types";
 import { pitchSurfaceHtml } from "./draftballer-pitch.js";
 import {
   renderFitReportHtml,
@@ -35,7 +35,7 @@ import {
 } from "./draftballer-reports.js";
 
 /** Bust stale PWA caches — bump when season results UX changes. */
-const SEASON_UI_BUILD = "challenger-v1";
+const SEASON_UI_BUILD = "elite-v1";
 
 type Navigate = (route: string, param?: string) => void;
 
@@ -52,10 +52,10 @@ function renderKeyMomentsHtml(
   fixtures: SeasonSimResult["fixtures"],
   maxItems = 12,
 ): string {
-  const moments: { matchday: number; text: string }[] = [];
+  const moments: { matchday: number; text: string; isLoss: boolean }[] = [];
   for (const f of fixtures.filter((fx) => fx.result === "L" || fx.goalsFor >= 3)) {
     for (const e of f.events.filter((ev) => ev.type === "goal")) {
-      moments.push({ matchday: f.matchday, text: e.text });
+      moments.push({ matchday: f.matchday, text: e.text, isLoss: f.result === "L" });
       if (moments.length >= maxItems) break;
     }
     if (moments.length >= maxItems) break;
@@ -64,18 +64,86 @@ function renderKeyMomentsHtml(
 
   return `
     <section class="panel db-report db-post-moments">
-      <p class="db-hero__label">Key moments</p>
-      <ul class="db-moments-list">
+      <p class="db-label-caps">Key Moments Report</p>
+      <ul class="db-timeline">
         ${moments
           .map(
             (m) =>
-              `<li class="db-moment">
-                <span class="db-moment-badge">MD${m.matchday}</span>
-                <span class="db-moment-text">${m.text}</span>
+              `<li class="db-timeline-item">
+                <span class="db-timeline-dot${m.isLoss ? " db-timeline-dot--loss" : ""}" aria-hidden="true"></span>
+                <div class="db-glass db-timeline-card">
+                  <p class="db-timeline-card__text">${m.text}</p>
+                  <p class="db-timeline-card__meta">Matchday ${String(m.matchday).padStart(2, "0")}</p>
+                </div>
               </li>`,
           )
           .join("")}
       </ul>
+    </section>`;
+}
+
+function countMvpGoals(
+  fixtures: SeasonSimResult["fixtures"],
+  mvpName: string | undefined,
+): number {
+  if (!mvpName) return 0;
+  const needle = mvpName.toLowerCase();
+  let goals = 0;
+  for (const f of fixtures) {
+    for (const e of f.events) {
+      if (e.type !== "goal") continue;
+      const byName = e.playerName?.toLowerCase() === needle;
+      const inText = e.text.toLowerCase().includes(needle);
+      if (byName || inText) goals += 1;
+    }
+  }
+  return goals;
+}
+
+function renderMvpEliteHtml(mvp: RatedPlayerCard, goals: number): string {
+  return `
+    <div class="panel db-mvp-elite db-glass">
+      <p class="db-label-caps">MVP Performance</p>
+      <p class="db-mvp-elite__ovr">${mvp.ovr}</p>
+      <p class="db-mvp-elite__name">${mvp.name}</p>
+      <div class="db-mvp-elite__meta">
+        <span><b>${String(goals).padStart(2, "0")}</b> Goals</span>
+        <span style="opacity:0.35">|</span>
+        <span><b>${mvp.position}</b> POS</span>
+      </div>
+      <button class="btn btn--ghost btn--block" id="mvp-compare" type="button" style="margin-top:1rem">Compare contexts →</button>
+    </div>`;
+}
+
+function seasonMonoRecord(result: SeasonSimResult): string {
+  const pad = (n: number) => String(n).padStart(2, "0");
+  if (result.isPerfect) {
+    return `
+      <section class="db-season-mono-hero">
+        <span class="db-label-caps">Season Analytics</span>
+        <div class="db-season-mono-record">
+          <span class="db-w">${pad(38)}W</span>
+          <span class="db-sep">•</span>
+          <span class="db-d">${pad(0)}D</span>
+          <span class="db-sep">•</span>
+          <span class="db-l">${pad(0)}L</span>
+        </div>
+        <p class="db-season-tagline">Perfect season. Legendary.</p>
+      </section>`;
+  }
+  return `
+    <section class="db-season-mono-hero">
+      <span class="db-label-caps">Season Analytics</span>
+      <div class="db-season-mono-record">
+        <span class="db-w">${pad(result.won)}W</span>
+        <span class="db-sep">•</span>
+        <span class="db-d">${pad(result.drawn)}D</span>
+        <span class="db-sep">•</span>
+        <span class="db-l">${pad(result.lost)}L</span>
+      </div>
+      <p class="db-season-tagline">
+        ${result.isUnbeaten ? `Unbeaten season — ${result.points} points` : `${result.points} pts · GD ${result.goalDifference >= 0 ? "+" : ""}${result.goalDifference}`}
+      </p>
     </section>`;
 }
 
@@ -105,22 +173,6 @@ function renderSeasonPitchPanel(
       <p class="db-hero__label">Your XI · ${formationId}</p>
       ${pitchSurfaceHtml(dots, { ariaLabel: `Season squad ${formationId}` })}
     </section>`;
-}
-
-function seasonHero(result: SeasonSimResult): string {
-  if (result.isPerfect) {
-    return `
-      <p class="db-season-hero db-season-hero--perfect">38 — 0 — 0</p>
-      <p class="db-season-tagline">Perfect season. Legendary.</p>`;
-  }
-  if (result.isUnbeaten) {
-    return `
-      <p class="db-season-hero">${result.won}W · ${result.drawn}D · ${result.lost}L</p>
-      <p class="db-season-tagline">Unbeaten season — ${result.points} points</p>`;
-  }
-  return `
-    <p class="db-season-hero">${result.won}W · ${result.drawn}D · ${result.lost}L</p>
-    <p class="db-season-tagline">${result.points} pts · GD ${result.goalDifference >= 0 ? "+" : ""}${result.goalDifference}</p>`;
 }
 
 function draftEraProfileId(mode: { decade?: string; year?: number; era?: string }): string {
@@ -547,6 +599,7 @@ export function renderDraftballerSeason(root: HTMLElement, navigate: Navigate) {
       { config: simConfig },
     );
     const mvp = saved.players.find((p) => p.playerId === result!.mvpPlayerId);
+    const mvpGoals = countMvpGoals(result.fixtures, result.mvpPlayerName);
     const fitReport = result.seasonFitReport?.length ? result.seasonFitReport : sampleMatch.fitReport;
     const finish = seasonFinishLabel(result.points);
 
@@ -554,12 +607,10 @@ export function renderDraftballerSeason(root: HTMLElement, navigate: Navigate) {
       <div class="shell db-root db-season-page db-season-page--post" data-season-ui="${SEASON_UI_BUILD}">
         <button class="btn btn--ghost" id="back">← Hub</button>
         <header class="db-hero db-post-hero">
-          <p class="db-hero__label">${saved.mode.title} · Season Complete · ${era.label}</p>
-          ${seasonHero(result)}
-          <p class="db-post-hero__sub">
-            ${result.goalsFor} scored · ${result.goalsAgainst} conceded · Squad OVR ${saved.squadOvr}
-          </p>
+          <p class="db-label-caps">${saved.mode.title} · Season Complete · ${era.label}</p>
         </header>
+
+        ${seasonMonoRecord(result)}
 
         ${renderSeasonAnalysisHtml(result)}
 
@@ -583,11 +634,7 @@ export function renderDraftballerSeason(root: HTMLElement, navigate: Navigate) {
 
         ${
           mvp
-            ? `<div class="panel db-mvp-panel">
-                <p class="db-hero__label">Season MVP</p>
-                <div class="db-mvp-card-wrap">${playerCardHtml(mvp, true)}</div>
-                <button class="btn btn--ghost btn--block" id="mvp-compare" type="button">Compare contexts →</button>
-              </div>`
+            ? renderMvpEliteHtml(mvp, mvpGoals)
             : ""
         }
 
@@ -616,8 +663,8 @@ export function renderDraftballerSeason(root: HTMLElement, navigate: Navigate) {
         </details>
 
         <div class="db-season-actions">
-          <button class="btn" id="share" type="button">Share</button>
-          <button class="btn" id="runBack" type="button">Run It Back</button>
+          <button class="btn btn--ghost" id="share" type="button">Share</button>
+          <button class="btn db-btn-pitch" id="runBack" type="button">Run It Back</button>
           <button class="btn btn--ghost" id="newDraft" type="button">New Draft</button>
           <details class="db-overflow-menu">
             <summary>More</summary>

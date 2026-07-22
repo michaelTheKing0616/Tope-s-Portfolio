@@ -19,7 +19,7 @@ import {
 } from "@sportverse/draftballer-core";
 
 /** Bust stale PWA caches — bump when wheel UX changes. */
-const WHEEL_UI_BUILD = "full-squad-v1";
+const WHEEL_UI_BUILD = "elite-v1";
 import { getFormation } from "@sportverse/match-sim";
 import { computeSquadRating } from "@sportverse/rating-engine";
 import { playerCardHtml } from "./draftballer-hub.js";
@@ -73,7 +73,7 @@ function wheelSegmentHtml(
 ): string {
   const n = Math.max(1, segments.length);
   const slice = 360 / n;
-  const colors = ["#e8f1ff", "#f4f5f7", "#dcebff", "#eef0f3"];
+  const colors = ["#182218", "#141e14", "#222d22", "#0f1810"];
 
   const gradientStops = segments
     .map((seg, i) => {
@@ -239,7 +239,7 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
             </div>`
             }
             ${identityPickerHtml("balanced")}
-            <button class="btn" id="simulate">Simulate Season</button>
+            <button class="btn db-btn-pitch" id="simulate">Simulate Season</button>
             <button class="btn btn--ghost" id="again">Spin again</button>
             <button class="btn btn--ghost" id="hub">DRAFTBALLER Hub</button>
           </div>
@@ -311,11 +311,10 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
       <div class="shell db-root db-wheel-page">
         <button class="btn btn--ghost" id="back">← Exit</button>
         <header class="db-hero" style="padding-bottom:0.75rem;margin-bottom:0.75rem">
-          <p class="db-hero__label" data-wheel-ui="${WHEEL_UI_BUILD}">${mode.title ?? "Spin & Build"}</p>
-          <h1 class="db-hero__title" style="font-size:clamp(1.9rem,5vw,2.7rem)">Spin. Pick. Build.</h1>
+          <p class="db-label-caps" data-wheel-ui="${WHEEL_UI_BUILD}">${mode.title ?? "Spin & Build"}</p>
+          <h1 class="db-hero__title" style="font-size:clamp(1.9rem,5vw,2.7rem);color:#fff">Spin. Pick. Build.</h1>
           <p style="color:var(--db-muted);font-size:0.92rem;max-width:46ch;margin:0 auto;line-height:1.5">
-            Land on a real club season, draft from that squad, and fill your XI —
-            the same clean loop as <strong style="color:var(--db-ink)">38-0</strong>.
+            Unlock legendary squads from football history with every rotation.
           </p>
           <ol class="db-wheel-steps">
             <li>Spin the wheel</li>
@@ -338,8 +337,8 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
             ${
               segment
                 ? `
-              <div class="db-spin-result panel">
-                <p class="db-hero__label">You landed on</p>
+              <div class="db-spin-result panel db-glass">
+                <p class="db-label-caps">You landed on</p>
                 <h3 class="db-spin-result__title">${segment.label}</h3>
                 <p class="db-spin-result__era">${segment.sublabel}</p>
               </div>`
@@ -365,8 +364,8 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
           </div>
 
           <div class="db-wheel-col">
-            <div class="panel" style="background:var(--db-panel);border-color:var(--db-border);width:100%">
-              <strong>Pitch · ${state.mode.formationId ?? "4-3-3"}</strong>
+          <div class="panel db-glass" style="width:100%">
+            <strong style="color:var(--db-pitch)">Pitch · ${state.mode.formationId ?? "4-3-3"}</strong>
               ${
                 state.phase === "ready" && state.roster.length === 0
                   ? `<label class="db-stat-label" style="display:block;margin:8px 0 4px">Shape</label>

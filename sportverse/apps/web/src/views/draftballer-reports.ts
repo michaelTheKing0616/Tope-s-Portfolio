@@ -85,20 +85,48 @@ export function renderExpectationGradeHtml(grade: SeasonExpectationGrade): strin
   const actualGd =
     grade.prediction.expectedGoalDifference + grade.goalDifferenceDelta;
   const actualGdSign = actualGd >= 0 ? "+" : "";
+  const expectedPct = Math.min(100, Math.round((grade.prediction.expectedPoints / 114) * 100));
+  const actualPct = Math.min(100, Math.round((grade.actualPoints / 114) * 100));
+  const underperformed = grade.pointsDelta < 0;
+  const verdictAccent = underperformed ? "#ff4c4c" : "var(--db-pitch)";
+  const actualBarClass = underperformed ? "db-verdict-bar-fill--actual--bad" : "db-verdict-bar-fill--actual--good";
+
   return `
-    <section class="panel db-report db-report--verdict ${GRADE_CLASS[grade.grade]}" aria-labelledby="season-verdict-heading">
+    <section class="panel db-report db-report--verdict db-glass ${GRADE_CLASS[grade.grade]}" aria-labelledby="season-verdict-heading">
       <header class="db-report__header">
-        <p class="db-hero__label">Season Verdict</p>
-        <h2 id="season-verdict-heading" class="db-report__title">${grade.label}</h2>
+        <p class="db-label-caps">Performance Status</p>
+        <h2 id="season-verdict-heading" class="db-report__title">
+          Verdict: <span style="color:${verdictAccent}">${grade.label}</span>
+        </h2>
         <p class="db-report__lede">${grade.summary}</p>
       </header>
 
-      <div class="db-report__compare db-report__compare--cards">
+      <div class="db-verdict-bars">
+        <div class="db-verdict-bar-row">
+          <div class="db-verdict-bar-head">
+            <span>Expected Pts (xP)</span>
+            <strong>${grade.prediction.expectedPoints}</strong>
+          </div>
+          <div class="db-verdict-bar-track">
+            <div class="db-verdict-bar-fill db-verdict-bar-fill--expected" style="width:${expectedPct}%"></div>
+          </div>
+        </div>
+        <div class="db-verdict-bar-row">
+          <div class="db-verdict-bar-head">
+            <span>Actual Pts</span>
+            <strong style="color:${verdictAccent}">${grade.actualPoints}</strong>
+          </div>
+          <div class="db-verdict-bar-track">
+            <div class="db-verdict-bar-fill ${actualBarClass}" style="width:${actualPct}%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="db-report__compare db-report__compare--cards" style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--db-border)">
         <div class="db-report__compare-col db-report__compare-col--preview">
           <span class="db-stat-label">Pre-season</span>
           <strong class="db-report__compare-pts">${grade.prediction.expectedPoints} pts</strong>
           <span class="db-report__compare-sub">${grade.prediction.expectedWins}W · ${grade.prediction.expectedDraws}D · ${grade.prediction.expectedLosses}L</span>
-          <span class="db-report__compare-sub">GD ${grade.prediction.expectedGoalDifference >= 0 ? "+" : ""}${grade.prediction.expectedGoalDifference}</span>
         </div>
         <div class="db-report__compare-arrow" aria-hidden="true">→</div>
         <div class="db-report__compare-col db-report__compare-col--actual">
