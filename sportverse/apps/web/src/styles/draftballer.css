@@ -2,19 +2,30 @@
 
 /* DRAFTBALLER — Elite Draft (Stitch pitch-green / charcoal) */
 .db-root {
+  /* Remap Sportverse light-theme tokens so global .btn/.panel stay readable on charcoal */
+  --ink: #e8f0e6;
+  --muted: #b8c9b4;
+  --bg: #0c160c;
+  --panel: rgba(24, 34, 24, 0.72);
+  --border: rgba(184, 201, 180, 0.22);
+  --accent: #00ff66;
+  --accent2: #6bff83;
+
   --db-bg: #0c160c;
-  --db-panel: rgba(24, 34, 24, 0.55);
-  --db-elevated: #182218;
+  --db-panel: rgba(24, 34, 24, 0.72);
+  --db-elevated: #1a261a;
   --db-pitch: #00ff66;
   --db-gold: #00ff66;
   --db-gold-hi: #6bff83;
   --db-emerald: #00ff66;
-  --db-emerald-hi: #00e55b;
-  --db-muted: #849581;
-  --db-slate: #71717a;
-  --db-ink: #dae6d5;
-  --db-border: rgba(132, 149, 129, 0.15);
-  --db-outline-variant: #3b4b3a;
+  --db-emerald-hi: #6bff83;
+  /* Secondary text must clear WCAG AA on #0c160c */
+  --db-muted: #b8c9b4;
+  --db-slate: #a9bba6;
+  --db-ink: #e8f0e6;
+  --db-text: #e8f0e6;
+  --db-border: rgba(184, 201, 180, 0.2);
+  --db-outline-variant: #4a5c48;
   --font-display: Geist, system-ui, sans-serif;
   --font-ui: Geist, system-ui, sans-serif;
   --font-mono: "Geist Mono", ui-monospace, monospace;
@@ -23,6 +34,40 @@
   color: var(--db-ink);
   font-family: var(--font-ui);
   -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* Full viewport charcoal — kill light gutters outside the centered shell */
+html:has(.db-root),
+body:has(.db-root) {
+  background: #0c160c !important;
+  color: #e8f0e6;
+  color-scheme: dark;
+}
+#app:has(.db-root) {
+  min-height: 100vh;
+  background: #0c160c;
+  color: #e8f0e6;
+}
+
+/* Neutralize light-theme text rules that used --ink / --muted */
+.db-root .panel strong,
+.db-root strong {
+  color: var(--db-ink);
+}
+.db-root .panel p {
+  color: var(--db-muted);
+}
+.db-root a:not(.btn):not(.db-btn-pitch):not(.card) {
+  color: var(--db-pitch);
+}
+.db-root select,
+.db-root input,
+.db-root textarea,
+.db-root option {
+  color: var(--db-ink);
+  background: var(--db-elevated);
+  border-color: var(--db-border);
 }
 
 /* Elite utilities */
@@ -82,15 +127,18 @@
   filter: brightness(1.05);
   box-shadow: 0 0 16px rgba(0, 255, 102, 0.3);
 }
-.db-root .btn--ghost {
+.db-root .btn--ghost,
+.db-root button.btn--ghost {
   background: transparent;
-  border: 1px solid rgba(132, 149, 129, 0.28);
-  color: var(--db-ink);
+  border: 1px solid rgba(184, 201, 180, 0.35);
+  color: var(--db-ink) !important;
   border-radius: 12px;
 }
-.db-root .btn--ghost:hover {
-  border-color: rgba(0, 255, 102, 0.35);
-  background: rgba(0, 255, 102, 0.06);
+.db-root .btn--ghost:hover,
+.db-root button.btn--ghost:hover {
+  border-color: rgba(0, 255, 102, 0.45);
+  background: rgba(0, 255, 102, 0.08);
+  color: #fff !important;
 }
 
 .db-root .shell { max-width: 1100px; }
@@ -761,7 +809,7 @@
   display: block;
   margin-bottom: 1.25rem;
   letter-spacing: 0.3em;
-  color: var(--db-slate);
+  color: var(--db-muted);
 }
 .db-season-mono-record {
   font-family: var(--font-mono);
@@ -777,7 +825,7 @@
 .db-season-mono-record .db-w { color: var(--db-pitch); text-shadow: 0 0 10px rgba(0, 255, 102, 0.3); }
 .db-season-mono-record .db-d { color: var(--db-ink); }
 .db-season-mono-record .db-l { color: #ff4c4c; text-shadow: 0 0 10px rgba(255, 76, 76, 0.3); }
-.db-season-mono-record .db-sep { color: rgba(113, 113, 122, 0.4); }
+.db-season-mono-record .db-sep { color: var(--db-muted); }
 .db-season-hero {
   font-family: var(--font-mono);
   font-size: clamp(2rem, 8vw, 3.5rem);
@@ -886,9 +934,10 @@
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
-  background: #fff;
+  background: var(--db-elevated);
+  color: var(--db-ink);
   border: 1px solid var(--db-border);
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
   border-radius: 24px;
 }
 .db-modal-close { position: absolute; top: 8px; right: 8px; }
@@ -1100,10 +1149,11 @@
   margin: 0.25rem 0 0.5rem;
   font-size: 1.15rem;
   letter-spacing: 0.02em;
+  color: var(--db-ink);
 }
 .db-report__lede {
   margin: 0;
-  color: var(--db-text);
+  color: var(--db-muted);
   font-size: 0.95rem;
   line-height: 1.55;
 }
@@ -2285,16 +2335,16 @@
   color: var(--db-muted);
 }
 .db-season-finish--champions { border-color: rgba(212, 175, 55, 0.45); background: rgba(212, 175, 55, 0.08); }
-.db-season-finish--champions .db-season-finish__label { color: #9a7209; }
+.db-season-finish--champions .db-season-finish__label { color: #f0d060; }
 .db-season-finish--title { border-color: rgba(52, 199, 89, 0.35); background: rgba(52, 199, 89, 0.07); }
 .db-season-finish--title .db-season-finish__label { color: var(--db-emerald); }
 .db-season-finish--europe { border-color: rgba(0, 113, 227, 0.3); background: rgba(0, 113, 227, 0.05); }
-.db-season-finish--europe .db-season-finish__label { color: var(--db-gold); }
+.db-season-finish--europe .db-season-finish__label { color: #7eb6ff; }
 .db-season-finish--mid { border-color: var(--db-border); }
 .db-season-finish--scrap { border-color: rgba(255, 159, 10, 0.35); background: rgba(255, 159, 10, 0.06); }
-.db-season-finish--scrap .db-season-finish__label { color: #c27800; }
+.db-season-finish--scrap .db-season-finish__label { color: #ffb84d; }
 .db-season-finish--relegated { border-color: rgba(255, 59, 48, 0.35); background: rgba(255, 59, 48, 0.06); }
-.db-season-finish--relegated .db-season-finish__label { color: #d70015; }
+.db-season-finish--relegated .db-season-finish__label { color: #ff7a72; }
 .db-season-stats__grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -2363,15 +2413,15 @@
 }
 .db-season-page--post .db-fixture--win {
   background: rgba(52, 199, 89, 0.22);
-  color: #1f8a57;
+  color: #6bff83;
 }
 .db-season-page--post .db-fixture--draw {
   background: rgba(134, 134, 139, 0.18);
-  color: #636366;
+  color: #d4d4d8;
 }
 .db-season-page--post .db-fixture--loss {
   background: rgba(255, 59, 48, 0.18);
-  color: #d70015;
+  color: #ff8a84;
 }
 .db-fixture-score--tab {
   font-family: ui-monospace, "SF Mono", Menlo, monospace;
@@ -2679,7 +2729,7 @@
   display: flex;
   justify-content: space-between;
   font-size: 0.75rem;
-  color: var(--db-slate);
+  color: var(--db-muted);
   margin-bottom: 6px;
 }
 .db-verdict-bar-head strong {
@@ -2697,7 +2747,7 @@
   height: 100%;
   border-radius: 999px;
 }
-.db-verdict-bar-fill--expected { background: rgba(113, 113, 122, 0.45); }
+.db-verdict-bar-fill--expected { background: rgba(184, 201, 180, 0.55); }
 .db-verdict-bar-fill--actual--good { background: var(--db-pitch); box-shadow: 0 0 8px rgba(0, 255, 102, 0.4); }
 .db-verdict-bar-fill--actual--bad { background: #ff4c4c; box-shadow: 0 0 8px rgba(255, 76, 76, 0.4); }
 
@@ -2774,7 +2824,7 @@
   margin: 4px 0 0;
   font-size: 0.72rem;
   font-family: var(--font-mono);
-  color: var(--db-slate);
+  color: var(--db-muted);
 }
 
 .db-season-actions .db-btn-pitch { min-width: 140px; padding: 14px 20px; }
@@ -3308,7 +3358,7 @@
   animation: db-pulse-green 3s infinite;
 }
 .db-era-lab-node em { font-style: normal; font-size: 0.55rem; font-weight: 800; color: #0a0a0b; }
-.db-era-lab-node small { font-size: 0.45rem; color: rgba(0, 0, 0, 0.6); }
+.db-era-lab-node small { font-size: 0.45rem; color: rgba(10, 10, 11, 0.75); }
 .db-era-lab-holo {
   position: absolute;
   padding: 6px 8px;
@@ -3930,11 +3980,11 @@
 }
 .db-auction-activity__row--you .db-auction-activity__who { font-weight: 600; }
 .db-auction-activity__amt { font-weight: 700; font-size: 1.05rem; }
-.db-auction-activity__empty { color: #849581; font-size: 0.85rem; margin: 0; }
+.db-auction-activity__empty { color: var(--db-muted); font-size: 0.85rem; margin: 0; }
 .db-auction-nominate { padding: 1.5rem; border-radius: 0.75rem; }
 .db-auction-nominate__eyebrow { color: rgba(0, 255, 102, 0.75); margin: 0 0 0.35rem; }
 .db-auction-nominate__title { margin: 0; font-size: 1.5rem; color: #fff; }
-.db-auction-nominate__hint { margin: 0.5rem 0 0; color: #849581; font-size: 0.875rem; }
+.db-auction-nominate__hint { margin: 0.5rem 0 0; color: var(--db-muted); font-size: 0.875rem; }
 .db-auction-pool__grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
@@ -3963,7 +4013,7 @@
   color: var(--db-pitch);
   line-height: 1;
 }
-.db-auction-nom-card__pos { color: #849581; }
+.db-auction-nom-card__pos { color: var(--db-muted); }
 .db-auction-nom-card__name {
   font-size: 0.8rem;
   font-weight: 500;
@@ -3971,7 +4021,7 @@
   line-height: 1.2;
 }
 .db-auction-nom-card__tier { font-size: 0.6rem; color: #b9ccb5; letter-spacing: 0.08em; }
-.db-auction-nom-card__club { font-size: 0.65rem; color: #71717a; }
+.db-auction-nom-card__club { font-size: 0.65rem; color: var(--db-slate); }
 .db-auction-error { color: #f87171; font-size: 0.85rem; margin: 0; }
 .db-auction-bid-panel { padding: 1.5rem; border-radius: 0.75rem; display: flex; flex-direction: column; gap: 1.25rem; }
 .db-auction-bid-panel__high-head {
@@ -3994,7 +4044,7 @@
   color: #fff;
   letter-spacing: -0.02em;
 }
-.db-auction-bid-panel__leader { margin: 0.25rem 0 0; color: #849581; font-size: 0.8rem; }
+.db-auction-bid-panel__leader { margin: 0.25rem 0 0; color: var(--db-muted); font-size: 0.8rem; }
 .db-auction-bid-panel__slider-head {
   display: flex;
   justify-content: space-between;
@@ -4064,7 +4114,7 @@
 .db-auction-resolve {
   background: transparent;
   border: none;
-  color: #849581;
+  color: var(--db-muted);
   font-size: 0.75rem;
   text-decoration: underline;
   cursor: pointer;
@@ -4110,7 +4160,7 @@
   padding: 0.35rem 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
-.db-auction-xi__empty { color: #849581; font-size: 0.8rem; }
+.db-auction-xi__empty { color: var(--db-muted); font-size: 0.8rem; }
 .db-auction-drafters { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.08); }
 .db-auction-drafters__row {
   display: flex;
@@ -4224,12 +4274,12 @@
 }
 .db-blind-header__sub {
   margin: 0.5rem 0 0;
-  color: #849581;
+  color: var(--db-muted);
   font-size: 0.875rem;
 }
 .db-blind-pick-hint {
   text-align: center;
-  color: #849581;
+  color: var(--db-muted);
   font-size: 0.875rem;
   margin: 0 0 1.5rem;
 }
@@ -4349,7 +4399,7 @@
 .db-blind-mystery__rarity { display: block; margin: 0.75rem 0 0.35rem; }
 .db-blind-tier--iconic .db-blind-mystery__rarity { color: #6bff83; }
 .db-blind-tier--legendary .db-blind-mystery__rarity { color: #b9ccb5; }
-.db-blind-tier--rare .db-blind-mystery__rarity { color: #849581; }
+.db-blind-tier--rare .db-blind-mystery__rarity { color: var(--db-muted); }
 .db-blind-mystery__name {
   margin: 0;
   font-size: 1rem;
@@ -4369,13 +4419,13 @@
   color: #fff;
   font-weight: 500;
 }
-.db-blind-stat .db-label-caps { font-size: 0.5rem; color: #849581; }
+.db-blind-stat .db-label-caps { font-size: 0.5rem; color: var(--db-muted); }
 .db-blind-mystery__front-foot {
   padding: 0.75rem 1rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   background: #182218;
   font-size: 0.7rem;
-  color: #849581;
+  color: var(--db-muted);
   display: flex;
   flex-direction: column;
   gap: 0.15rem;
@@ -4420,7 +4470,7 @@
 .db-blind-prob__labels div:nth-child(1) .db-blind-prob__pct { color: var(--db-pitch); }
 .db-blind-prob__labels div:nth-child(2) .db-blind-prob__pct { color: rgba(255, 255, 255, 0.8); }
 .db-blind-prob__labels div:nth-child(3) .db-blind-prob__pct { color: rgba(185, 204, 181, 0.5); }
-.db-blind-prob__labels .db-label-caps { font-size: 0.5rem; color: #849581; }
+.db-blind-prob__labels .db-label-caps { font-size: 0.5rem; color: var(--db-muted); }
 .db-blind-bot {
   display: flex;
   align-items: center;
@@ -4447,7 +4497,7 @@
   margin: 0.25rem 0 0;
   font-family: var(--font-mono);
   font-size: 0.68rem;
-  color: #849581;
+  color: var(--db-muted);
   display: flex;
   align-items: center;
   gap: 0.35rem;
@@ -4486,7 +4536,7 @@
 .db-blind-result__title { margin: 0; font-size: 2rem; color: #fff; }
 .db-blind-result__scores { color: #b9ccb5; margin: 0.75rem 0; }
 .db-blind-result__scores strong { color: var(--db-pitch); font-size: 1.2rem; }
-.db-blind-result__hint { color: #849581; font-size: 0.85rem; margin: 0 0 1rem; }
+.db-blind-result__hint { color: var(--db-muted); font-size: 0.85rem; margin: 0 0 1rem; }
 .db-blind-reveal { margin: 1rem 0; }
 .db-blind-result__actions {
   display: flex;
