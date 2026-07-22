@@ -21,7 +21,7 @@ import {
 } from "@sportverse/draftballer-core";
 
 /** Bust stale PWA caches — bump when wheel UX changes. */
-const WHEEL_UI_BUILD = "pitch-discs-v1";
+const WHEEL_UI_BUILD = "pick-flip-v1";
 
 /** Casual drafts must not reuse yesterday's / last draft's seed (same clubs). */
 function resolveWheelSeed(mode: DraftModeConfig, challengeSeed?: string): string {
@@ -39,7 +39,7 @@ function resolveWheelSeed(mode: DraftModeConfig, challengeSeed?: string): string
 import { getFormation } from "@sportverse/match-sim";
 import { computeSquadRating } from "@sportverse/rating-engine";
 import { playerCardHtml } from "./draftballer-hub.js";
-import { bindPlayerCardBreakdownsWithPool } from "./draftballer-breakdown.js";
+import { bindPlayerCardBreakdownsWithPool, showDraftPickInspect } from "./draftballer-breakdown.js";
 import { submitDailyScore } from "./draftballer-daily.js";
 import { playDraftSound } from "../lib/draft-sound.js";
 import { mountStagedReveal } from "../lib/staged-reveal.js";
@@ -112,7 +112,7 @@ function pickBoardSectionHtml(
           <span class="db-select-board__round">Round ${String(round).padStart(2, "0")} · Full squad</span>
         </div>
         <h2 class="db-select-board__title">${escapeHtml(segment.label)} — pick any available player</h2>
-        <p class="db-select-board__lede">Tap a card to draft. Greyed cards only fit positions already filled.</p>
+        <p class="db-select-board__lede">Tap a card to inspect (flip) · confirm below to draft. Greyed cards have no open legal slot.</p>
         ${
           eligible.length
             ? `<button class="btn btn--ghost db-select-random" id="random-pick" type="button">Random pick</button>`
@@ -484,11 +484,11 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
     const segment = state.spunSegment;
     const pickBoard = segment ? getFullSquadPickBoard(state, pool) : [];
     const eligiblePicks = pickBoard.filter((e) => e.eligible);
-    if (state.phase === "picking" && eligiblePicks.length) {
-      if (!selectedPickId || !eligiblePicks.some((e) => e.card.playerId === selectedPickId)) {
-        selectedPickId = eligiblePicks[0]!.card.playerId;
-      }
-    } else if (state.phase !== "picking") {
+    // Two-step: never auto-select — user must tap a card, then Confirm.
+    if (
+      state.phase !== "picking" ||
+      (selectedPickId != null && !eligiblePicks.some((e) => e.card.playerId === selectedPickId))
+    ) {
       selectedPickId = null;
     }
     const squadQuality = evaluateSquadQuality(state.roster, poolMap, state.squadSize);
@@ -711,39 +711,7 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
       }, spinMs + 80);
     });
 
-    root.querySelector("#random-pick")?.addEventListener("click", () => {
-      if (state.phase !== "picking" || eligiblePicks.length === 0) return;
-      const pick = eligiblePicks[Math.floor(Math.random() * eligiblePicks.length)]!;
-      try {
-        state = pickPlayerForSlot(state, pick.card.playerId, pool);
-        selectedPickId = null;
-        swapFromRef.current = null;
-        playDraftSound("land");
-        draw();
-      } catch {
-        /* invalid pick */
-      }
-    });
-
-    root.querySelectorAll("#pick-pool .db-pick-card:not([disabled])").forEach((el) => {
-      el.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const id = (el as HTMLElement).dataset.pickId;
-        if (!id || state.phase !== "picking") return;
-        try {
-          state = pickPlayerForSlot(state, id, pool);
-          selectedPickId = null;
-          swapFromRef.current = null;
-          playDraftSound("land");
-          draw();
-        } catch {
-          selectedPickId = id;
-          draw();
-        }
-      });
-    });
-
-    root.querySelector("#confirm-pick")?.addEventListener("click", () => {
+    const confirmSelectedPick = () => {
       if (!selectedPickId || state.phase !== "picking") return;
       try {
         state = pickPlayerForSlot(state, selectedPickId, pool);
@@ -754,7 +722,48 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
       } catch {
         /* invalid pick */
       }
+    };
+
+    root.querySelector("#random-pick")?.addEventListener("click", () => {
+      if (state.phase !== "picking" || eligiblePicks.length === 0) return;
+      const pick = eligiblePicks[Math.floor(Math.random() * eligiblePicks.length)]!;
+      selectedPickId = pick.card.playerId;
+      draw();
+      showDraftPickInspect(pick.card, {
+        canConfirm: true,
+        confirmLabel: "Confirm Pick →",
+        onConfirm: confirmSelectedPick,
+      });
     });
+
+    root.querySelectorAll("#pick-pool .db-pick-card:not([disabled])").forEach((el) => {
+      el.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const id = (el as HTMLElement).dataset.pickId;
+        if (!id || state.phase !== "picking") return;
+        const entry = pickBoard.find((p) => p.card.playerId === id);
+        if (!entry?.eligible) return;
+        selectedPickId = id;
+        // Paint selection without full remount first — then raise the flip card.
+        root.querySelectorAll(".db-pick-card").forEach((card) => {
+          card.classList.toggle(
+            "db-pick-card--active",
+            (card as HTMLElement).dataset.pickId === id,
+          );
+        });
+        const nameEl = root.querySelector(".db-select-board__name");
+        if (nameEl) nameEl.textContent = entry.card.name;
+        const confirmBtn = root.querySelector("#confirm-pick") as HTMLButtonElement | null;
+        if (confirmBtn) confirmBtn.disabled = false;
+        showDraftPickInspect(entry.card, {
+          canConfirm: true,
+          confirmLabel: "Confirm Pick →",
+          onConfirm: confirmSelectedPick,
+        });
+      });
+    });
+
+    root.querySelector("#confirm-pick")?.addEventListener("click", confirmSelectedPick);
 
     root.querySelectorAll("#respin-empty").forEach((btn) => {
       btn.addEventListener("click", runRespin);

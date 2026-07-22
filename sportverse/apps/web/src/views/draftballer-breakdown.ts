@@ -5,9 +5,17 @@ import {
   getSeasonStats,
   seasonContextLabel,
 } from "@sportverse/sports-db";
-import { attributeRadarSvg, playerCardDetailHtml } from "../lib/player-card.js";
+import {
+  attributeRadarSvg,
+  playerCardDetailHtml,
+  playerCardFaceHtml,
+} from "../lib/player-card.js";
 
 let overlayEl: HTMLElement | null = null;
+let flipOverlayEl: HTMLElement | null = null;
+
+const FLIP_MS = 720;
+const FLIP_START_DELAY_MS = 140;
 
 function radarSvg(attrs: RatedPlayerCard["attributes"], size = 160): string {
   return attributeRadarSvg(attrs, size, { labels: true });
@@ -124,6 +132,103 @@ function gkAttributesHtml(gk: NonNullable<RatedPlayerCard["gkAttributes"]>): str
         <span>REF ${gk.ref}</span><span>SPD ${gk.spd}</span><span>POS ${gk.pos}</span>
       </div>
     </div>`;
+}
+
+export interface DraftPickInspectOptions {
+  /** Show a primary confirm CTA (draft pick). */
+  onConfirm?: () => void;
+  confirmLabel?: string;
+  onClose?: () => void;
+  canConfirm?: boolean;
+}
+
+/**
+ * Two-step draft inspect: raised flip card (face → detail), confirm via button.
+ * Does not draft by itself — caller wires onConfirm.
+ */
+export function showDraftPickInspect(card: RatedPlayerCard, opts: DraftPickInspectOptions = {}): void {
+  flipOverlayEl?.remove();
+  const reduced =
+    typeof matchMedia !== "undefined" && matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  flipOverlayEl = document.createElement("div");
+  flipOverlayEl.className = "db-card-flip-overlay";
+  flipOverlayEl.setAttribute("role", "dialog");
+  flipOverlayEl.setAttribute("aria-modal", "true");
+  flipOverlayEl.setAttribute("aria-label", `${card.name} player details`);
+  const esc = (s: string) =>
+    s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  flipOverlayEl.innerHTML = `
+    <div class="db-card-flip-stage${reduced ? " db-card-flip-stage--flipped" : ""}" data-flip-stage>
+      <div class="db-card-flip-face db-card-flip-face--front">
+        ${playerCardFaceHtml(card, false)}
+        <p class="db-card-flip-cue">Inspecting…</p>
+      </div>
+      <div class="db-card-flip-face db-card-flip-face--back">
+        <button type="button" class="db-card-flip-close btn btn--ghost" aria-label="Close">×</button>
+        <p class="db-label-caps">Player card</p>
+        <h2 class="db-card-flip-name">${esc(card.name)}</h2>
+        <p class="db-card-flip-meta">${esc(card.position)} · OVR <strong>${card.ovr}</strong>${
+          card.contextLine ? ` · ${esc(card.contextLine)}` : ""
+        }</p>
+        <div class="db-card-flip-scroll">
+          ${playerCardDetailHtml(card)}
+        </div>
+        <div class="db-card-flip-actions">
+          ${
+            opts.onConfirm && opts.canConfirm !== false
+              ? `<button type="button" class="db-btn-pitch" data-flip-confirm>${opts.confirmLabel ?? "Confirm Pick →"}</button>`
+              : ""
+          }
+          <button type="button" class="btn btn--ghost" data-flip-more>Full rating breakdown</button>
+          <button type="button" class="btn btn--ghost" data-flip-close>Back to board</button>
+        </div>
+      </div>
+    </div>`;
+
+  const close = () => {
+    flipOverlayEl?.classList.add("db-card-flip-overlay--out");
+    const node = flipOverlayEl;
+    window.setTimeout(() => {
+      node?.remove();
+      if (flipOverlayEl === node) flipOverlayEl = null;
+      opts.onClose?.();
+    }, reduced ? 0 : 180);
+  };
+
+  flipOverlayEl.addEventListener("click", (e) => {
+    if (e.target === flipOverlayEl) close();
+  });
+  flipOverlayEl.querySelectorAll("[data-flip-close], .db-card-flip-close").forEach((btn) => {
+    btn.addEventListener("click", close);
+  });
+  flipOverlayEl.querySelector("[data-flip-confirm]")?.addEventListener("click", () => {
+    close();
+    opts.onConfirm?.();
+  });
+  flipOverlayEl.querySelector("[data-flip-more]")?.addEventListener("click", () => {
+    close();
+    window.setTimeout(() => showRatingBreakdown(card), reduced ? 0 : 200);
+  });
+  document.addEventListener(
+    "keydown",
+    function esc(ev) {
+      if (ev.key === "Escape") {
+        close();
+        document.removeEventListener("keydown", esc);
+      }
+    },
+    { once: true },
+  );
+
+  document.body.appendChild(flipOverlayEl);
+  // Force layout, then flip so the motion reads as a real card turn.
+  if (!reduced) {
+    const stage = flipOverlayEl.querySelector("[data-flip-stage]");
+    requestAnimationFrame(() => {
+      window.setTimeout(() => stage?.classList.add("db-card-flip-stage--flipped"), FLIP_START_DELAY_MS);
+    });
+  }
 }
 
 export function showRatingBreakdown(card: RatedPlayerCard, onClose?: () => void, pool?: RatedPlayerCard[]): void {
@@ -348,7 +453,10 @@ export function bindPlayerCardBreakdowns(root: HTMLElement): void {
 export function bindPlayerCardBreakdownsWithPool(root: HTMLElement, pool: RatedPlayerCard[]): void {
   const poolMap = new Map(pool.map((p) => [p.playerId, p]));
   root.addEventListener("click", (e) => {
-    const cardEl = (e.target as HTMLElement).closest(".db-player-card") as HTMLElement | null;
+    const target = e.target as HTMLElement;
+    // Pick board owns its own flip-inspect flow.
+    if (target.closest("#pick-pool, .db-pick-card, .db-card-flip-overlay")) return;
+    const cardEl = target.closest(".db-player-card") as HTMLElement | null;
     if (!cardEl?.dataset.id) return;
     const card = poolMap.get(cardEl.dataset.id);
     if (card) showRatingBreakdown(card, undefined, pool);
