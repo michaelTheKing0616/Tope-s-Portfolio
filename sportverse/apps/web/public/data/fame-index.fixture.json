@@ -1,0 +1,22 @@
+[
+  { "playerId": "messi", "fameScore": 98, "peakMv": 180000000, "peakMvYear": 2022, "durability": 0.92 },
+  { "playerId": "ronaldo", "fameScore": 97, "peakMv": 120000000, "peakMvYear": 2018, "durability": 0.88 },
+  { "playerId": "mbappe", "fameScore": 94, "peakMv": 180000000, "peakMvYear": 2023, "durability": 0.95 },
+  { "playerId": "haaland", "fameScore": 91, "peakMv": 180000000, "peakMvYear": 2023, "durability": 0.9 },
+  { "playerId": "de-bruyne", "fameScore": 88, "peakMv": 100000000, "peakMvYear": 2021, "durability": 0.85 },
+  { "playerId": "modric", "fameScore": 87, "peakMv": 75000000, "peakMvYear": 2018, "durability": 0.93 },
+  { "playerId": "benzema", "fameScore": 86, "peakMv": 80000000, "peakMvYear": 2020, "durability": 0.87 },
+  { "playerId": "lewandowski", "fameScore": 86, "peakMv": 90000000, "peakMvYear": 2020, "durability": 0.91 },
+  { "playerId": "maldini", "fameScore": 90, "peakMv": 0, "peakMvYear": 1990, "durability": 0.95 },
+  { "playerId": "maradona", "fameScore": 96, "peakMv": 0, "peakMvYear": 1984, "durability": 0.8 },
+  { "playerId": "pele", "fameScore": 98, "peakMv": 0, "peakMvYear": 1970, "durability": 0.95 },
+  { "playerId": "zidane", "fameScore": 95, "peakMv": 75000000, "peakMvYear": 2001, "durability": 0.88 },
+  { "playerId": "ronaldinho", "fameScore": 93, "peakMv": 70000000, "peakMvYear": 2006, "durability": 0.82 },
+  { "playerId": "henry", "fameScore": 92, "peakMv": 65000000, "peakMvYear": 2004, "durability": 0.9 },
+  { "playerId": "van-dijk", "fameScore": 85, "peakMv": 90000000, "peakMvYear": 2019, "durability": 0.88 },
+  { "playerId": "salah", "fameScore": 88, "peakMv": 150000000, "peakMvYear": 2023, "durability": 0.9 },
+  { "playerId": "neymar", "fameScore": 89, "peakMv": 222000000, "peakMvYear": 2017, "durability": 0.75 },
+  { "playerId": "bellingham", "fameScore": 84, "peakMv": 180000000, "peakMvYear": 2024, "durability": 0.94 },
+  { "playerId": "xavi", "fameScore": 88, "peakMv": 60000000, "peakMvYear": 2010, "durability": 0.9 },
+  { "playerId": "iniesta", "fameScore": 89, "peakMv": 65000000, "peakMvYear": 2012, "durability": 0.92 }
+]
