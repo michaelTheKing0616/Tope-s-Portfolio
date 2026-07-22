@@ -14,8 +14,8 @@ import {
 let overlayEl: HTMLElement | null = null;
 let flipOverlayEl: HTMLElement | null = null;
 
-const FLIP_MS = 720;
-const FLIP_START_DELAY_MS = 140;
+const FLIP_HALF_MS = 340;
+const FLIP_START_DELAY_MS = 160;
 
 function radarSvg(attrs: RatedPlayerCard["attributes"], size = 160): string {
   return attributeRadarSvg(attrs, size, { labels: true });
@@ -144,7 +144,8 @@ export interface DraftPickInspectOptions {
 
 /**
  * Two-step draft inspect: raised flip card (face → detail), confirm via button.
- * Does not draft by itself — caller wires onConfirm.
+ * Uses a half-flip content swap (0→90, swap, −90→0) so text is never mirrored —
+ * dual-face preserve-3d breaks in WebKit with nested cards / filters.
  */
 export function showDraftPickInspect(card: RatedPlayerCard, opts: DraftPickInspectOptions = {}): void {
   flipOverlayEl?.remove();
@@ -159,12 +160,12 @@ export function showDraftPickInspect(card: RatedPlayerCard, opts: DraftPickInspe
   const esc = (s: string) =>
     s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   flipOverlayEl.innerHTML = `
-    <div class="db-card-flip-stage${reduced ? " db-card-flip-stage--flipped" : ""}" data-flip-stage>
-      <div class="db-card-flip-face db-card-flip-face--front">
+    <div class="db-card-flip-panel" data-flip-panel>
+      <div class="db-card-flip-side db-card-flip-side--front" data-flip-front>
         ${playerCardFaceHtml(card, false)}
         <p class="db-card-flip-cue">Inspecting…</p>
       </div>
-      <div class="db-card-flip-face db-card-flip-face--back">
+      <div class="db-card-flip-side db-card-flip-side--back" data-flip-back hidden>
         <button type="button" class="db-card-flip-close btn btn--ghost" aria-label="Close">×</button>
         <p class="db-label-caps">Player card</p>
         <h2 class="db-card-flip-name">${esc(card.name)}</h2>
@@ -212,23 +213,50 @@ export function showDraftPickInspect(card: RatedPlayerCard, opts: DraftPickInspe
   });
   document.addEventListener(
     "keydown",
-    function esc(ev) {
+    function onEsc(ev) {
       if (ev.key === "Escape") {
         close();
-        document.removeEventListener("keydown", esc);
+        document.removeEventListener("keydown", onEsc);
       }
     },
     { once: true },
   );
 
   document.body.appendChild(flipOverlayEl);
-  // Force layout, then flip so the motion reads as a real card turn.
-  if (!reduced) {
-    const stage = flipOverlayEl.querySelector("[data-flip-stage]");
-    requestAnimationFrame(() => {
-      window.setTimeout(() => stage?.classList.add("db-card-flip-stage--flipped"), FLIP_START_DELAY_MS);
-    });
+
+  const panel = flipOverlayEl.querySelector<HTMLElement>("[data-flip-panel]");
+  const front = flipOverlayEl.querySelector<HTMLElement>("[data-flip-front]");
+  const back = flipOverlayEl.querySelector<HTMLElement>("[data-flip-back]");
+  if (!panel || !front || !back) return;
+  // Avoid native title tooltips during the flip.
+  front.querySelectorAll("[title]").forEach((el) => el.removeAttribute("title"));
+
+  const revealBack = () => {
+    front.hidden = true;
+    back.hidden = false;
+    panel.classList.add("db-card-flip-panel--detail");
+  };
+
+  if (reduced) {
+    revealBack();
+    return;
   }
+
+  // Half-flip: edge-on → swap readable detail → open the other way.
+  window.setTimeout(() => {
+    panel.classList.add("db-card-flip-panel--to-edge");
+    window.setTimeout(() => {
+      revealBack();
+      panel.classList.remove("db-card-flip-panel--to-edge");
+      panel.classList.add("db-card-flip-panel--from-edge");
+      // Force reflow so the open-from-edge transition runs.
+      void panel.offsetWidth;
+      requestAnimationFrame(() => {
+        panel.classList.remove("db-card-flip-panel--from-edge");
+        panel.classList.add("db-card-flip-panel--open");
+      });
+    }, FLIP_HALF_MS);
+  }, FLIP_START_DELAY_MS);
 }
 
 export function showRatingBreakdown(card: RatedPlayerCard, onClose?: () => void, pool?: RatedPlayerCard[]): void {

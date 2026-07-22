@@ -21,7 +21,7 @@ import {
 } from "@sportverse/draftballer-core";
 
 /** Bust stale PWA caches — bump when wheel UX changes. */
-const WHEEL_UI_BUILD = "pick-flip-v1";
+const WHEEL_UI_BUILD = "pick-flip-v2";
 
 /** Casual drafts must not reuse yesterday's / last draft's seed (same clubs). */
 function resolveWheelSeed(mode: DraftModeConfig, challengeSeed?: string): string {
