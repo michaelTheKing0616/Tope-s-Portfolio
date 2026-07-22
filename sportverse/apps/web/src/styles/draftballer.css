@@ -4621,6 +4621,7 @@
 .db-glass {
   position: relative;
   overflow: hidden;
+  isolation: isolate;
   --mouse-x: 50%;
   --mouse-y: 50%;
 }
@@ -4637,9 +4638,6 @@
   );
   opacity: 0.85;
   transition: opacity 0.25s ease;
-}
-.db-glass {
-  isolation: isolate;
 }
 .db-glass:hover::before { opacity: 1; }
 
