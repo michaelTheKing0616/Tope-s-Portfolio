@@ -21,7 +21,7 @@ import {
 } from "@sportverse/draftballer-core";
 
 /** Bust stale PWA caches — bump when wheel UX changes. */
-const WHEEL_UI_BUILD = "fresh-seed-v1";
+const WHEEL_UI_BUILD = "pitch-discs-v1";
 
 /** Casual drafts must not reuse yesterday's / last draft's seed (same clubs). */
 function resolveWheelSeed(mode: DraftModeConfig, challengeSeed?: string): string {
@@ -198,6 +198,78 @@ function wheelSegmentHtml(
     </div>`;
 }
 
+function pitchHintText(
+  state: WheelBuildState,
+  poolMap: Map<string, RatedPlayerCard>,
+  swapFrom: number | null | undefined,
+  swapHint?: boolean,
+): string {
+  const movingPlayer =
+    swapFrom != null && state.formation[swapFrom]?.playerId
+      ? poolMap.get(state.formation[swapFrom]!.playerId!)
+      : null;
+  if (movingPlayer) {
+    return `Moving ${movingPlayer.name.split(" ").pop()} — tap a highlighted slot they can play (frees their old spot)`;
+  }
+  if (state.phase === "picking") {
+    return "Pick a card below · or tap a filled player, then a legal empty slot to reposition them";
+  }
+  if (swapHint) {
+    return "Tap a filled player, then a legal empty slot to move — or another filled player to swap";
+  }
+  return "Spin for a club, then pick any available player from the full squad";
+}
+
+/** Short surname for the disc — keeps circles readable without collisions. */
+function pitchNameLabel(fullName: string): string {
+  const last = fullName.split(" ").pop() || fullName;
+  return last.length > 9 ? `${last.slice(0, 8)}…` : last;
+}
+
+/**
+ * Update selection / legal-move highlights without wiping the pitch DOM
+ * (full redraw was flashing player discs out of existence).
+ */
+function paintPitchSelection(
+  root: HTMLElement,
+  state: WheelBuildState,
+  pool: RatedPlayerCard[],
+  swapFrom: number | null,
+): void {
+  const poolMap = new Map(pool.map((p) => [p.playerId, p]));
+  const movingPlayer =
+    swapFrom != null && state.formation[swapFrom]?.playerId
+      ? poolMap.get(state.formation[swapFrom]!.playerId!)
+      : null;
+  const activeIdx = state.selectedSlotIndex ?? -1;
+
+  root.querySelectorAll<HTMLElement>(".db-wheel-pitch__slot").forEach((el) => {
+    const i = Number(el.dataset.slot);
+    if (!Number.isFinite(i)) return;
+    const slot = state.formation[i];
+    if (!slot) return;
+    const filled = Boolean(slot.playerId);
+    const legal =
+      !!movingPlayer &&
+      !slot.playerId &&
+      draftPickAllowedForSlot(movingPlayer, slot.position, true);
+    el.classList.toggle("db-wheel-pitch__slot--swap", swapFrom === i);
+    el.classList.toggle(
+      "db-wheel-pitch__slot--active",
+      i === activeIdx && state.phase !== "complete" && !filled,
+    );
+    el.classList.toggle("db-wheel-pitch__slot--legal", legal);
+    el.classList.toggle("db-wheel-pitch__slot--dim", swapFrom != null && swapFrom !== i && filled && !legal);
+    const player = slot.playerId ? poolMap.get(slot.playerId) : null;
+    el.title = `${slot.position}${player ? ` · ${player.name}` : legal ? " · drop here" : " · empty"}`;
+  });
+
+  const hint = root.querySelector(".db-wheel-pitch__hint");
+  if (hint) {
+    hint.textContent = pitchHintText(state, poolMap, swapFrom, state.roster.length > 0);
+  }
+}
+
 /** Interactive pitch — formation coords from match-sim, overlays drafted players. */
 function pitchHtml(
   state: WheelBuildState,
@@ -216,13 +288,16 @@ function pitchHtml(
     .map((slot, i) => {
       const coord = form.slots[i] ?? form.slots[0]!;
       const filled = slot.playerId ? poolMap.get(slot.playerId) : null;
-      const active = i === activeIdx && state.phase !== "complete";
+      const active = i === activeIdx && state.phase !== "complete" && !filled;
       const swapSel = opts.swapFrom === i;
       const legalMoveTarget =
         !!movingPlayer &&
         !slot.playerId &&
         draftPickAllowedForSlot(movingPlayer, slot.position, true);
-      const last = filled ? filled.name.split(" ").pop() : "—";
+      const last = filled ? pitchNameLabel(filled.name) : "—";
+      // Inset from edges so larger discs don't clip the pitch frame.
+      const left = Math.min(90, Math.max(10, coord.y));
+      const top = Math.min(90, Math.max(10, 100 - coord.x));
       const classes = [
         "db-wheel-pitch__slot",
         filled ? "db-wheel-pitch__slot--filled" : "",
@@ -234,7 +309,7 @@ function pitchHtml(
         .join(" ");
       return `
         <button type="button" class="${classes}" data-slot="${i}"
-          style="left:${coord.y}%;top:${100 - coord.x}%"
+          style="left:${left}%;top:${top}%"
           title="${slot.position}${filled ? ` · ${filled.name}` : legalMoveTarget ? " · drop here" : " · empty"}">
           <span class="db-wheel-pitch__pos">${slot.position}</span>
           <span class="db-wheel-pitch__name">${last}</span>
@@ -242,16 +317,15 @@ function pitchHtml(
     })
     .join("");
 
-  const hint = movingPlayer
-    ? `Moving ${movingPlayer.name.split(" ").pop()} — tap a highlighted slot they can play (frees their old spot)`
-    : state.phase === "picking"
-      ? "Pick a card below · or tap a filled player, then a legal empty slot to reposition them"
-      : opts.swapHint
-        ? "Tap a filled player, then a legal empty slot to move — or another filled player to swap"
-        : "Spin for a club, then pick any available player from the full squad";
+  const hint = pitchHintText(state, poolMap, opts.swapFrom, opts.swapHint);
 
   return `
-    ${pitchSurfaceHtml(dots, { className: "db-wheel-pitch", ariaLabel: `${formationId} pitch` })}
+    ${pitchSurfaceHtml(dots, {
+      className: "db-wheel-pitch",
+      ariaLabel: `${formationId} pitch`,
+      // Flat — 3D rotateX turns discs into ellipses and fights name readability.
+      flat: true,
+    })}
     <p class="db-wheel-pitch__hint">${hint}</p>`;
 }
 
@@ -285,20 +359,20 @@ function bindPitchInteractions(
           return;
         }
         setState(selectFormationSlot(state, idx));
-        redraw();
+        paintPitchSelection(root, getState(), pool, swapFromRef.current);
         return;
       }
 
       // Filled: start move/swap, cancel, or complete swap with another filled slot.
       if (swapFromRef.current == null) {
         swapFromRef.current = idx;
-        redraw();
+        paintPitchSelection(root, state, pool, swapFromRef.current);
         return;
       }
 
       if (swapFromRef.current === idx) {
         swapFromRef.current = null;
-        redraw();
+        paintPitchSelection(root, state, pool, null);
         return;
       }
 

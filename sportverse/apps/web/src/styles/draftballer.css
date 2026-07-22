@@ -690,10 +690,11 @@ body:has(.db-root) {
 
 /* —— Wheel interactive pitch (38-0 style overlay) —— */
 .db-wheel-pitch {
+  --db-pitch-disc: 68px;
   position: relative;
   width: 100%;
   aspect-ratio: 3 / 4;
-  max-height: 420px;
+  max-height: 440px;
   margin-top: 8px;
   border-radius: 22px;
   overflow: visible;
@@ -703,12 +704,15 @@ body:has(.db-root) {
 .db-wheel-pitch__slot {
   position: absolute;
   transform: translate(-50%, -50%);
-  width: 54px;
-  min-height: 46px;
-  padding: 4px 2px;
-  border-radius: 999px;
+  width: var(--db-pitch-disc);
+  height: var(--db-pitch-disc);
+  min-height: 0;
+  padding: 6px;
+  box-sizing: border-box;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
   border: 1.5px dashed rgba(132, 149, 129, 0.45);
-  background: rgba(24, 34, 24, 0.75);
+  background: rgba(18, 28, 18, 0.88);
   color: var(--db-ink);
   cursor: pointer;
   z-index: 2;
@@ -716,51 +720,61 @@ body:has(.db-root) {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1px;
-  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s, transform 0.15s;
+  gap: 2px;
+  overflow: hidden;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, opacity 0.15s ease;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
 .db-wheel-pitch__slot--filled {
   border-style: solid;
-  border-color: rgba(0, 255, 102, 0.35);
-  background: rgba(24, 34, 24, 0.85);
+  border-color: rgba(0, 255, 102, 0.4);
+  background: rgba(14, 24, 14, 0.92);
+  z-index: 3;
 }
 .db-wheel-pitch__slot--active {
   border-color: var(--db-pitch);
-  box-shadow: 0 0 0 3px rgba(0, 255, 102, 0.25), 0 0 16px rgba(0, 255, 102, 0.15);
-  transform: translate(-50%, -50%) scale(1.06);
+  box-shadow: 0 0 0 3px rgba(0, 255, 102, 0.22);
+  z-index: 4;
 }
 .db-wheel-pitch__slot--swap {
   border-color: #6bff83;
-  box-shadow: 0 0 0 3px rgba(107, 255, 131, 0.25);
+  box-shadow: 0 0 0 3px rgba(107, 255, 131, 0.3), 0 0 18px rgba(0, 255, 102, 0.18);
+  z-index: 5;
+}
+.db-wheel-pitch__slot--dim {
+  opacity: 0.55;
 }
 .db-wheel-pitch__slot--legal {
   border-style: solid;
   border-color: var(--db-pitch);
-  background: rgba(0, 255, 102, 0.12);
-  box-shadow: 0 0 0 2px rgba(0, 255, 102, 0.28), 0 0 14px rgba(0, 255, 102, 0.2);
+  background: rgba(0, 255, 102, 0.14);
+  box-shadow: 0 0 0 2px rgba(0, 255, 102, 0.28);
   animation: db-legal-slot-pulse 1.4s ease-in-out infinite;
+  z-index: 4;
 }
 @keyframes db-legal-slot-pulse {
-  0%, 100% { box-shadow: 0 0 0 2px rgba(0, 255, 102, 0.28), 0 0 10px rgba(0, 255, 102, 0.15); }
-  50% { box-shadow: 0 0 0 3px rgba(0, 255, 102, 0.45), 0 0 18px rgba(0, 255, 102, 0.3); }
+  0%, 100% { box-shadow: 0 0 0 2px rgba(0, 255, 102, 0.28); }
+  50% { box-shadow: 0 0 0 3px rgba(0, 255, 102, 0.42); }
 }
 .db-wheel-pitch__pos {
-  font-size: 0.55rem;
-  letter-spacing: 0.08em;
+  font-size: 0.52rem;
+  letter-spacing: 0.06em;
   color: var(--db-muted);
   text-transform: uppercase;
-  font-weight: 650;
+  font-weight: 700;
+  line-height: 1;
 }
 .db-wheel-pitch__name {
   font-size: 0.62rem;
-  font-weight: 700;
-  max-width: 48px;
+  font-weight: 750;
+  line-height: 1.05;
+  max-width: calc(var(--db-pitch-disc) - 14px);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   color: var(--db-ink);
+  text-align: center;
 }
 .db-wheel-pitch__hint {
   font-size: 0.7rem;
@@ -768,9 +782,13 @@ body:has(.db-root) {
   margin: 8px 0 0;
   text-align: center;
 }
-@media (max-width: 480px) {
-  .db-wheel-pitch__slot { width: 44px; min-height: 40px; }
-  .db-wheel-pitch__name { font-size: 0.55rem; max-width: 40px; }
+@media (max-width: 640px) {
+  .db-wheel-pitch { --db-pitch-disc: 60px; max-height: 400px; }
+}
+@media (max-width: 420px) {
+  .db-wheel-pitch { --db-pitch-disc: 54px; }
+  .db-wheel-pitch__name { font-size: 0.55rem; }
+  .db-wheel-pitch__pos { font-size: 0.48rem; }
 }
 
 .db-pick-section { margin-top: 1.5rem; }
