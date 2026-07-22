@@ -740,7 +740,11 @@ body:has(.db-root) {
   border-color: var(--db-pitch);
   background: rgba(0, 255, 102, 0.12);
   box-shadow: 0 0 0 2px rgba(0, 255, 102, 0.28), 0 0 14px rgba(0, 255, 102, 0.2);
-  animation: db-soft-pulse 1.4s ease-in-out infinite;
+  animation: db-legal-slot-pulse 1.4s ease-in-out infinite;
+}
+@keyframes db-legal-slot-pulse {
+  0%, 100% { box-shadow: 0 0 0 2px rgba(0, 255, 102, 0.28), 0 0 10px rgba(0, 255, 102, 0.15); }
+  50% { box-shadow: 0 0 0 3px rgba(0, 255, 102, 0.45), 0 0 18px rgba(0, 255, 102, 0.3); }
 }
 .db-wheel-pitch__pos {
   font-size: 0.55rem;
