@@ -3,9 +3,13 @@ import { loadSquadForSeason, loadSquadBuilderState, saveSquadBuilderState } from
 import { formationsForEra, getFormation } from "@sportverse/match-sim";
 import { loadSimConfig, saveSimConfig } from "@sportverse/draftballer-core";
 import { computeSquadRating } from "@sportverse/rating-engine";
-import { pitchSurfaceHtml } from "./draftballer-pitch.js";
+import { pitchSlotChipHtml, pitchSurfaceHtml } from "./draftballer-pitch.js";
 
 type Navigate = (route: string, param?: string) => void;
+
+function escapeHtml(s: string): string {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
 
 /** Squad Builder — formation picker + tactical identity (Formation System v1 §2.2). */
 export function renderDraftballerSquadBuilder(root: HTMLElement, navigate: Navigate) {
@@ -21,64 +25,126 @@ export function renderDraftballerSquadBuilder(root: HTMLElement, navigate: Navig
   const eraDecade = saved.mode.decade ?? "2020s";
   const formations = formationsForEra(eraDecade);
   const rating = computeSquadRating(saved.players, { formationId: builder.formationId });
+  const formation = getFormation(builder.formationId);
+  const playerMap = new Map(saved.players.map((p) => [p.playerId, p]));
 
+  function renderTacticalPitch(formationId: string): string {
+    const form = getFormation(formationId);
+    const slots = form.slots
+      .map((coord, i) => {
+        const pid = saved!.playerIds[i];
+        const player = pid ? playerMap.get(pid) : undefined;
+        const chip = pitchSlotChipHtml({
+          ovr: player?.ovr,
+          position: coord.positionTag,
+          empty: !player,
+          active: !player,
+          title: player ? `${player.name} · ${player.ovr}` : `${coord.positionTag} · empty`,
+        });
+        return `
+          <div class="db-tactical-slot" style="left:${coord.y}%;top:${100 - coord.x}%">
+            ${chip}
+          </div>`;
+      })
+      .join("");
+    return pitchSurfaceHtml(slots, {
+      className: "db-tactical-pitch-surface",
+      flat: true,
+      ariaLabel: `${formationId} tactical pitch`,
+    });
+  }
+
+  const nextEmptyIdx = saved.playerIds.findIndex((id) => !id);
   root.innerHTML = `
-    <div class="shell db-root">
+    <div class="shell db-root db-tactical-page">
       <button class="btn btn--ghost" id="back">← Season</button>
-      <header class="db-hero">
-        <p class="db-hero__label">Squad Builder</p>
-        <h1 class="db-hero__title">FORMATION & TACTICS</h1>
+
+      <header class="db-tactical-header">
+        <div>
+          <span class="db-tactical-badge db-label-caps">Formation Matrix</span>
+          <h1 class="db-tactical-title">Active Squad</h1>
+          <p class="db-tactical-formation">${escapeHtml(builder.formationId)} · ${escapeHtml(formation.name)}</p>
+        </div>
+        <div class="db-tactical-ovr">
+          <div class="db-tactical-ovr__value">${rating.squadRating}</div>
+          <span class="db-label-caps">Team Rating</span>
+        </div>
       </header>
-      <div class="db-formation-grid">
+
+      <div class="db-tactical-pitch-wrap">
+        ${renderTacticalPitch(builder.formationId)}
+      </div>
+
+      <section class="db-tactical-selection">
+        <p class="db-label-caps">Current Selection</p>
+        <h2>Next: ${nextEmptyIdx >= 0 ? formation.slots[nextEmptyIdx]?.positionTag ?? "Slot" : "Squad Complete"}</h2>
+      </section>
+
+      <div class="db-tactical-formations">
         ${formations
           .map(
             (f) => `
-          <button class="db-formation-btn ${builder.formationId === f.id ? "db-formation-btn--active" : ""}" data-id="${f.id}">
+          <button type="button" class="db-glass db-tactical-form-btn ${builder.formationId === f.id ? "db-tactical-form-btn--active" : ""}" data-id="${f.id}">
             <strong>${f.name}</strong>
-            <span>${f.backLineCount} at the back · ${f.widthCategory}</span>
+            <span>${f.backLineCount} at back · ${f.widthCategory}</span>
           </button>`,
           )
           .join("")}
       </div>
-      <div class="panel" style="margin-top:12px">
-        <label>Tactical identity</label>
+
+      <div class="db-glass db-tactical-panel">
+        <label class="db-label-caps" for="identity">Tactical identity</label>
         <select id="identity" class="btn btn--ghost btn--block">
           ${(["balanced", "possession", "high_press", "counter", "route_one"] as const).map(
             (i) =>
               `<option value="${i}" ${builder.tacticalIdentity === i ? "selected" : ""}>${i.replace("_", " ")}</option>`,
           )}
         </select>
-        <p style="font-size:0.8rem;color:var(--db-muted);margin-top:8px">Era-authentic sort active for ${eraDecade}. Anachronistic picks are allowed.</p>
+        <p class="db-tactical-note">Era-authentic sort active for ${eraDecade}.</p>
       </div>
-      <div class="db-pitch-preview panel" style="margin-top:12px;min-height:180px;position:relative">
-        ${pitchSurfaceHtml(renderPitchDots(getFormation(builder.formationId).slots), {
-          flat: true,
-          ariaLabel: `${builder.formationId} preview`,
-        })}
-      </div>
-      <div class="panel db-squad-rating" style="margin-top:12px">
-        <p class="db-hero__label">Squad rating</p>
-        <p style="font-family:var(--font-display);font-size:2rem;color:var(--db-gold);margin:0.25rem 0">${rating.squadRating}</p>
-        <div class="db-breakdown-grid">
-          <div><span class="db-stat-label">CF (correction)</span><strong>+${rating.correctionFactor}</strong></div>
-          <div><span class="db-stat-label">Chemistry</span><strong>+${rating.chemistryBonus}</strong></div>
-          <div><span class="db-stat-label">Zone coherence</span><strong>+${rating.zoneCoherenceBonus}</strong></div>
-          <div><span class="db-stat-label">Flat average</span><strong>${rating.flatAverage}</strong></div>
+
+      <div class="db-glass db-tactical-roster">
+        <p class="db-label-caps">Squad List</p>
+        <ul class="db-tactical-roster-list">
+          ${saved.players
+            .map(
+              (p) => `
+            <li class="db-tactical-roster-row">
+              <span class="db-tactical-roster-ovr">${p.ovr}</span>
+              <div>
+                <strong>${escapeHtml(p.name)}</strong>
+                <span>${p.position}${p.contextLine ? ` · ${escapeHtml(p.contextLine.split("·").pop()?.trim() ?? "")}` : ""}</span>
+              </div>
+            </li>`,
+            )
+            .join("")}
+        </ul>
+        <div class="db-tactical-breakdown">
+          <div><span class="db-label-caps">Chemistry</span><strong>+${rating.chemistryBonus}</strong></div>
+          <div><span class="db-label-caps">Zone</span><strong>+${rating.zoneCoherenceBonus}</strong></div>
+          <div><span class="db-label-caps">Flat avg</span><strong>${rating.flatAverage}</strong></div>
         </div>
       </div>
-      <button class="btn btn--ghost" id="canvas" style="width:100%;margin-top:12px">Custom formation canvas</button>
-      <button class="btn" id="save" style="width:100%;margin-top:8px">Save squad setup</button>
-      <button class="btn btn--ghost" id="simSetup" style="width:100%;margin-top:8px">Simulation conditions</button>
+
+      <button class="btn btn--ghost db-tactical-canvas-link" id="canvas" type="button">Custom formation canvas</button>
+      <button class="db-btn-pitch db-tactical-save" id="save" type="button">Save squad setup</button>
+      <button class="btn btn--ghost" id="simSetup" type="button">Simulation conditions</button>
     </div>`;
 
   root.querySelector("#back")?.addEventListener("click", () => navigate("draftballer", "season"));
   root.querySelector("#canvas")?.addEventListener("click", () => navigate("draftballer", "formation-canvas"));
-  root.querySelectorAll<HTMLElement>(".db-formation-btn").forEach((btn) => {
+  root.querySelectorAll<HTMLElement>(".db-tactical-form-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
       builder.formationId = btn.dataset.id!;
-      drawPitch();
-      root.querySelectorAll(".db-formation-btn").forEach((b) => b.classList.remove("db-formation-btn--active"));
-      btn.classList.add("db-formation-btn--active");
+      const pitchEl = root.querySelector(".db-tactical-pitch-wrap");
+      if (pitchEl) pitchEl.innerHTML = renderTacticalPitch(builder.formationId);
+      root.querySelectorAll(".db-tactical-form-btn").forEach((b) => b.classList.remove("db-tactical-form-btn--active"));
+      btn.classList.add("db-tactical-form-btn--active");
+      const formLabel = root.querySelector(".db-tactical-formation");
+      if (formLabel) {
+        const f = getFormation(builder.formationId);
+        formLabel.textContent = `${builder.formationId} · ${f.name}`;
+      }
     });
   });
   root.querySelector("#identity")?.addEventListener("change", (e) => {
@@ -101,23 +167,4 @@ export function renderDraftballerSquadBuilder(root: HTMLElement, navigate: Navig
     navigate("draftballer", "season");
   });
   root.querySelector("#simSetup")?.addEventListener("click", () => navigate("draftballer", "sim-setup"));
-
-  function drawPitch() {
-    const el = root.querySelector(".db-pitch-preview");
-    if (el) {
-      el.innerHTML = pitchSurfaceHtml(renderPitchDots(getFormation(builder.formationId).slots), {
-        flat: true,
-        ariaLabel: `${builder.formationId} preview`,
-      });
-    }
-  }
-}
-
-function renderPitchDots(slots: { x: number; y: number; positionTag: string }[]): string {
-  return slots
-    .map(
-      (s) =>
-        `<span class="db-pitch-dot" style="left:${s.y}%;top:${100 - s.x}%" title="${s.positionTag}">${s.positionTag.slice(0, 2)}</span>`,
-    )
-    .join("");
 }

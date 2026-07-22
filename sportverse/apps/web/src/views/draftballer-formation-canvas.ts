@@ -1,7 +1,7 @@
 import type { FormationSlotDef, PitchZone } from "@sportverse/draftballer-types";
 import { getFormation } from "@sportverse/match-sim";
 import { resolveApiBase } from "@sportverse/platform";
-import { pitchSurfaceHtml } from "./draftballer-pitch.js";
+import { pitchSurfaceHtml, pitchSlotChipHtml } from "./draftballer-pitch.js";
 
 type Navigate = (route: string, param?: string) => void;
 
@@ -72,7 +72,9 @@ function renderDots(slots: CanvasSlot[]): string {
   return slots
     .map(
       (s, i) =>
-        `<button type="button" class="db-pitch-dot db-pitch-dot--draggable" data-idx="${i}" style="left:${s.y}%;top:${100 - s.x}%" title="${s.positionTag} — drag to move, click to cycle">${s.positionTag.slice(0, 2)}</button>`,
+        `<button type="button" class="db-tactical-slot db-tactical-slot--draggable" data-idx="${i}" style="left:${s.y}%;top:${100 - s.x}%" title="${s.positionTag} — drag to move, click to cycle">
+          ${pitchSlotChipHtml({ ovr: s.positionTag.slice(0, 2), position: s.positionTag, className: "db-tactical-chip--canvas" })}
+        </button>`,
     )
     .join("");
 }
@@ -99,43 +101,43 @@ export function renderDraftballerFormationCanvas(root: HTMLElement, navigate: Na
 
   function draw() {
     root.innerHTML = `
-      <div class="shell db-root">
+      <div class="shell db-root db-tactical-canvas-page">
         <button class="btn btn--ghost" id="back">← Squad Builder</button>
-        <header class="db-hero">
-          <p class="db-hero__label">Formation Canvas</p>
-          <h1 class="db-hero__title">CUSTOM XI</h1>
-          <p style="color:var(--db-muted);font-size:0.85rem">Drag dots on the pitch · snap 5% grid · ${slots.length}/${MAX_SLOTS} slots</p>
+        <header class="db-tactical-canvas-header">
+          <span class="db-tactical-badge db-label-caps">Tact Matrix</span>
+          <h1 class="db-tactical-title">Custom Formation Canvas</h1>
+          <p class="db-tactical-note">Drag OVR slots on the pitch · snap 5% grid · ${slots.length}/${MAX_SLOTS} slots</p>
         </header>
 
-        <div class="panel">
-          <label for="fname">Formation name</label>
-          <input id="fname" class="btn btn--ghost btn--block" value="${formationName}" style="margin-top:6px;text-align:left" />
+        <div class="db-glass db-tactical-canvas-panel">
+          <label for="fname" class="db-label-caps">Formation name</label>
+          <input id="fname" class="btn btn--ghost btn--block db-tactical-canvas-input" value="${formationName}" />
         </div>
 
-        <div class="panel db-formation-canvas" aria-label="Pitch formation canvas">
+        <div class="db-tactical-canvas-pitch db-glass" aria-label="Pitch formation canvas">
           <div id="pitch">
-            ${pitchSurfaceHtml(renderDots(slots), { flat: true, ariaLabel: "Custom formation pitch" })}
+            ${pitchSurfaceHtml(renderDots(slots), { flat: true, className: "db-tactical-pitch-surface", ariaLabel: "Custom formation pitch" })}
           </div>
         </div>
 
-        <div class="db-formation-canvas__toolbar">
+        <div class="db-tactical-canvas-toolbar">
           <button class="btn btn--ghost" id="reset" type="button">Reset 4-4-2</button>
           <button class="btn btn--ghost" id="remove" type="button" ${slots.length <= 1 ? "disabled" : ""}>Remove slot</button>
           <button class="btn btn--ghost" id="add" type="button" ${slots.length >= MAX_SLOTS ? "disabled" : ""}>Add slot</button>
         </div>
 
-        <button class="btn" id="save" style="width:100%;margin-top:12px" ${slots.length !== MAX_SLOTS ? "disabled" : ""}>
+        <button class="db-btn-pitch db-tactical-canvas-save" id="save" type="button" ${slots.length !== MAX_SLOTS ? "disabled" : ""}>
           Save formation (${slots.length}/${MAX_SLOTS})
         </button>
-        <button class="btn btn--ghost" id="share" style="width:100%;margin-top:8px">Generate share code</button>
+        <button class="btn btn--ghost" id="share" type="button">Generate share code</button>
 
-        ${shareCode ? `<div class="panel" style="margin-top:12px"><label>Share code</label><code class="db-share-code">${shareCode}</code></div>` : ""}
-        ${statusMsg ? `<p class="db-formation-canvas__status">${statusMsg}</p>` : ""}
+        ${shareCode ? `<div class="db-glass db-tactical-canvas-panel"><label class="db-label-caps">Share code</label><code class="db-share-code">${shareCode}</code></div>` : ""}
+        ${statusMsg ? `<p class="db-tactical-canvas-status">${statusMsg}</p>` : ""}
 
-        <div class="panel" style="margin-top:12px;font-size:0.8rem;color:var(--db-muted)">
-          <strong style="color:var(--db-gold)">Import share code</strong>
-          <input id="import" class="btn btn--ghost btn--block" placeholder="checksum.base64…" style="margin-top:6px;text-align:left" />
-          <button class="btn btn--ghost" id="loadShare" style="width:100%;margin-top:8px">Load from code</button>
+        <div class="db-glass db-tactical-canvas-panel">
+          <strong class="db-label-caps">Import share code</strong>
+          <input id="import" class="btn btn--ghost btn--block db-tactical-canvas-input" placeholder="checksum.base64…" />
+          <button class="btn btn--ghost" id="loadShare" type="button" style="width:100%;margin-top:8px">Load from code</button>
         </div>
       </div>`;
 
@@ -195,7 +197,7 @@ export function renderDraftballerFormationCanvas(root: HTMLElement, navigate: Na
     const pitchWrap = root.querySelector("#pitch") as HTMLElement | null;
     const pitch = pitchWrap?.querySelector(".db-pitch-surface__grass") as HTMLElement | null;
     if (!pitch) return;
-    pitch.querySelectorAll<HTMLElement>(".db-pitch-dot--draggable").forEach((dot) => {
+    pitch.querySelectorAll<HTMLElement>(".db-tactical-slot--draggable").forEach((dot) => {
       const idx = Number(dot.dataset.idx);
       dot.addEventListener("click", (e) => {
         if (draggingIdx !== null) return;

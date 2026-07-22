@@ -1,5 +1,6 @@
 import {
   getPresetMode,
+  loadHubProgress,
   loadSquadForSeason,
   recordDailyPlay,
   resolveDailyChallenge,
@@ -59,20 +60,92 @@ export async function submitDailyScore(name: string, ovr: number): Promise<{ ok:
   }
 }
 
-function leaderboardHtml(entries: DailyLeaderboardEntry[]): string {
+function initialsFromName(name: string): string {
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  if (!parts.length) return "?";
+  if (parts.length === 1) return parts[0]!.slice(0, 2).toUpperCase();
+  return (parts[0]![0]! + parts[parts.length - 1]![0]!).toUpperCase();
+}
+
+function estimateXpYield(rank: number, ovr: number, topOvr: number, bonusXp: number): number {
+  if (rank === 1) return bonusXp;
+  const ovrRatio = topOvr > 0 ? ovr / topOvr : 0.5;
+  const rankDecay = Math.max(0.15, 1 - (rank - 1) * 0.12);
+  return Math.max(50, Math.round(bonusXp * ovrRatio * rankDecay));
+}
+
+function msUntilMidnightUtc(): number {
+  const now = new Date();
+  const next = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1));
+  return next.getTime() - now.getTime();
+}
+
+function formatCountdown(ms: number): string {
+  const total = Math.max(0, Math.floor(ms / 1000));
+  const h = Math.floor(total / 3600);
+  const m = Math.floor((total % 3600) / 60);
+  const s = total % 60;
+  return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+}
+
+function leaderboardTableHtml(entries: DailyLeaderboardEntry[], bonusXp: number): string {
   if (!entries.length) {
-    return `<p style="color:var(--db-muted);font-size:0.85rem">No scores yet — be first after your draft.</p>`;
+    return `<p class="db-daily-empty">No scores yet — be first after your draft.</p>`;
   }
+  const topOvr = entries[0]?.ovr ?? 90;
   return `
-    <ol class="db-daily-leaderboard">
-      ${entries
-        .slice(0, 20)
-        .map(
-          (e, i) =>
-            `<li><span class="db-daily-rank">${i + 1}</span><strong>${e.name}</strong><span class="db-daily-ovr">${e.ovr} OVR</span></li>`,
-        )
-        .join("")}
-    </ol>`;
+    <table class="db-daily-table">
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player Profile</th>
+          <th>OVR</th>
+          <th>XP Yield</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${entries
+          .slice(0, 20)
+          .map((e, i) => {
+            const rank = i + 1;
+            const xp = estimateXpYield(rank, e.ovr, topOvr, bonusXp);
+            return `<tr>
+              <td><span class="db-daily-table__rank${rank === 1 ? " db-daily-table__rank--top" : ""}">${String(rank).padStart(2, "0")}</span></td>
+              <td>
+                <div class="db-daily-profile">
+                  <span class="db-daily-profile__chip">${initialsFromName(e.name)}</span>
+                  <span class="db-daily-profile__name">${e.name}</span>
+                </div>
+              </td>
+              <td class="db-daily-table__ovr">${e.ovr}</td>
+              <td class="db-daily-table__xp">+${xp.toLocaleString()}</td>
+            </tr>`;
+          })
+          .join("")}
+      </tbody>
+    </table>`;
+}
+
+function dailyStatsHtml(data: DailyChallengeResponse | null, leaderboardLen: number): string {
+  const bonusXp = data?.bonusXp ?? 500;
+  const activeUsers = leaderboardLen > 0 ? leaderboardLen.toLocaleString() : "—";
+  return `
+    <div class="db-daily-stat db-glass">
+      <span class="db-daily-stat__label db-label-caps">Ends In</span>
+      <span class="db-daily-stat__value" id="daily-countdown">${formatCountdown(msUntilMidnightUtc())}</span>
+    </div>
+    <div class="db-daily-stat db-glass">
+      <span class="db-daily-stat__label db-label-caps">Active Users</span>
+      <span class="db-daily-stat__value">${activeUsers}</span>
+    </div>
+    <div class="db-daily-stat db-glass">
+      <span class="db-daily-stat__label db-label-caps">Prize Pool</span>
+      <span class="db-daily-stat__value db-daily-stat__value--pitch">${bonusXp.toLocaleString()} XP</span>
+    </div>
+    <div class="db-daily-stat db-glass">
+      <span class="db-daily-stat__label db-label-caps">Region</span>
+      <span class="db-daily-stat__value">GLOBAL</span>
+    </div>`;
 }
 
 export async function renderDraftballerDaily(root: HTMLElement, navigate: Navigate) {
@@ -83,45 +156,93 @@ export async function renderDraftballerDaily(root: HTMLElement, navigate: Naviga
   const profile = platform.getProfile();
   const saved = loadSquadForSeason();
   const isDailySquad = saved?.mode.id === `daily-${day}`;
+  const progress = loadHubProgress();
+  const playedToday = progress.lastDailyDay === day;
+  const bestOvr = isDailySquad ? saved!.squadOvr : null;
+  const bonusXp = apiDaily?.bonusXp ?? 500;
+  const leaderboard = apiDaily?.leaderboard ?? [];
+
+  let countdownTimer: ReturnType<typeof setInterval> | null = null;
+
+  function paintLeaderboard(entries: DailyLeaderboardEntry[]) {
+    const panel = root.querySelector("#leaderboard-panel");
+    if (!panel) return;
+    panel.innerHTML = `
+      <div class="db-daily-board__head">
+        <h3 class="db-label-caps">Global Leaderboard</h3>
+        <span class="db-daily-board__live">LIVE</span>
+      </div>
+      <div class="db-daily-board__body">${leaderboardTableHtml(entries, bonusXp)}</div>`;
+
+    const stats = root.querySelector("#daily-stats");
+    if (stats) stats.innerHTML = dailyStatsHtml(apiDaily, entries.length);
+  }
 
   root.innerHTML = `
-    <div class="shell db-root">
+    <div class="shell db-root db-daily-page">
       <button class="btn btn--ghost" id="back">← Hub</button>
-      <header class="db-hero">
-        <p class="db-hero__label">Daily Draft Challenge</p>
-        <h1 class="db-hero__title">${mode.title}</h1>
-        <p style="color:var(--db-muted)">Shared challenge for ${day} — same pool for everyone.</p>
-      </header>
 
-      <div class="panel" id="leaderboard-panel">
-        <p class="db-hero__label">Today's leaderboard</p>
-        <p style="color:var(--db-muted);font-size:0.85rem">Loading…</p>
+      <section class="db-daily-hero">
+        <div class="db-daily-live-pill">
+          <span class="db-daily-live-pill__dot" aria-hidden="true"></span>
+          <span class="db-label-caps">Daily Challenge Live</span>
+        </div>
+        <h1 class="db-daily-hero__title">Daily Draft: <span class="db-daily-hero__mode">${mode.title}</span></h1>
+        <p class="db-daily-hero__sub">Shared challenge for ${day} — same pool for everyone.</p>
+      </section>
+
+      <div class="db-daily-grid">
+        <div class="db-daily-board db-glass" id="leaderboard-panel">
+          <div class="db-daily-board__head">
+            <h3 class="db-label-caps">Global Leaderboard</h3>
+            <span class="db-daily-board__live">LIVE</span>
+          </div>
+          <div class="db-daily-board__body"><p class="db-daily-empty">Loading…</p></div>
+        </div>
+
+        <aside class="db-daily-aside">
+          <div class="db-daily-cta db-glass">
+            <p class="db-label-caps db-daily-cta__label">Ready to Draft?</p>
+            <p class="db-daily-cta__hint">Build your XI from today's wheel pool, then submit your squad OVR.</p>
+            <button class="db-btn-pitch db-daily-cta__btn" id="start">Start Today's Wheel Draft</button>
+            ${
+              isDailySquad
+                ? `<div class="db-daily-submit">
+                    <p class="db-daily-submit__ovr">Squad OVR <strong>${saved!.squadOvr}</strong></p>
+                    <button class="db-btn-pitch db-daily-submit__btn" id="submit">Submit Score</button>
+                    <p class="db-daily-submit__status" id="submit-status"></p>
+                  </div>`
+                : ""
+            }
+          </div>
+
+          <div class="db-daily-progress db-glass">
+            <h4 class="db-label-caps db-daily-progress__title">Progress Metrics</h4>
+            <div class="db-daily-progress__row">
+              <span class="db-daily-progress__label">Daily Attempts</span>
+              <span class="db-daily-progress__value">${playedToday ? "01" : "00"} / 01</span>
+            </div>
+            <div class="db-daily-progress__bar" aria-hidden="true">
+              <div class="db-daily-progress__fill" style="width:${playedToday ? "100" : "0"}%"></div>
+            </div>
+            <div class="db-daily-progress__row db-daily-progress__row--border">
+              <span class="db-daily-progress__label">Best Today</span>
+              <span class="db-daily-progress__value">${bestOvr ?? "—"}${bestOvr ? " OVR" : ""}</span>
+            </div>
+          </div>
+        </aside>
       </div>
 
-      <button class="btn" id="start">Start today's wheel draft</button>
+      <div class="db-daily-stats" id="daily-stats">${dailyStatsHtml(apiDaily, leaderboard.length)}</div>
 
-      ${
-        isDailySquad
-          ? `<div class="panel" style="margin-top:12px">
-              <p class="db-hero__label">Submit your score</p>
-              <p style="color:var(--db-muted);font-size:0.85rem">Squad OVR <strong style="color:var(--db-gold)">${saved!.squadOvr}</strong> — submit after draft completes.</p>
-              <button class="btn" id="submit" style="width:100%;margin-top:8px">POST score to leaderboard</button>
-              <p id="submit-status" style="font-size:0.8rem;color:var(--db-muted);margin-top:8px"></p>
-            </div>`
-          : ""
-      }
-
-      <div class="panel db-daily-api-doc" style="margin-top:12px;font-size:0.8rem;color:var(--db-muted)">
-        <strong style="color:var(--db-gold)">API usage</strong>
-        <ul class="db-stat-list">
-          <li><code>GET /api/daily</code> — mode, seed, bonusXp, leaderboard[]</li>
-          <li><code>POST /api/daily/score</code> — body <code>{ name, ovr }</code> after wheel draft; returns rank</li>
-        </ul>
-        <p style="margin-top:8px">Wheel completion hook lives in draftballer-wheel — return here to submit your squad OVR.</p>
-      </div>
+      <p class="db-daily-footer">Scores sync via <code>GET /api/daily</code> · submit after wheel draft</p>
     </div>`;
 
-  root.querySelector("#back")?.addEventListener("click", () => navigate("draftballer"));
+  root.querySelector("#back")?.addEventListener("click", () => {
+    if (countdownTimer) clearInterval(countdownTimer);
+    navigate("draftballer");
+  });
+
   root.querySelector("#start")?.addEventListener("click", () => {
     recordDailyPlay(day);
     sessionStorage.setItem("db_mode", JSON.stringify({ ...mode, id: `daily-${day}` }));
@@ -141,14 +262,15 @@ export async function renderDraftballerDaily(root: HTMLElement, navigate: Naviga
     }
   });
 
+  countdownTimer = setInterval(() => {
+    const el = root.querySelector("#daily-countdown");
+    if (el) el.textContent = formatCountdown(msUntilMidnightUtc());
+  }, 1000);
+
   async function refreshLeaderboard() {
-    const panel = root.querySelector("#leaderboard-panel");
-    if (!panel) return;
     const data = await fetchDailyBoard();
-    panel.innerHTML = `
-      <p class="db-hero__label">Today's leaderboard</p>
-      ${leaderboardHtml(data?.leaderboard ?? [])}`;
+    paintLeaderboard(data?.leaderboard ?? []);
   }
 
-  void refreshLeaderboard();
+  paintLeaderboard(leaderboard);
 }

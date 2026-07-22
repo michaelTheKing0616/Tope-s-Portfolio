@@ -11,41 +11,52 @@ const FORMATS: { id: DraftFormat; label: string; hint: string }[] = [
   { id: "blind", label: "Blind", hint: "Simultaneous hidden picks each round" },
 ];
 
+function formatChipHtml(format: DraftFormat, active: DraftFormat): string {
+  return FORMATS.map(
+    (f) =>
+      `<button type="button" class="db-lobby-chip${f.id === active ? " db-lobby-chip--active" : ""}" data-format="${f.id}" title="${f.hint}">${f.label.toUpperCase()}</button>`,
+  ).join("");
+}
+
+function lobbyCardHtml(opts: {
+  title: string;
+  meta: string;
+  format: string;
+  players: string;
+  action: string;
+  actionId: string;
+  accent?: boolean;
+}): string {
+  return `
+    <article class="db-lobby-card db-glass${opts.accent ? " db-lobby-card--accent" : ""}">
+      <div class="db-lobby-card__main">
+        <div class="db-lobby-card__icon" aria-hidden="true">◈</div>
+        <div>
+          <h4 class="db-lobby-card__title">${opts.title}</h4>
+          <p class="db-lobby-card__meta">${opts.meta}</p>
+          <p class="db-lobby-card__format">${opts.format}</p>
+        </div>
+      </div>
+      <div class="db-lobby-card__stats">
+        <div class="db-lobby-card__stat">
+          <span class="db-label-caps">Players</span>
+          <span class="db-lobby-card__stat-val">${opts.players}</span>
+        </div>
+      </div>
+      <button class="db-btn-pitch db-lobby-card__join" id="${opts.actionId}">${opts.action}</button>
+    </article>`;
+}
+
 export function renderDraftballerMpLobby(root: HTMLElement, navigate: Navigate) {
   const modeJson = sessionStorage.getItem("db_mode");
   const mode = modeJson ? (JSON.parse(modeJson) as { id: string; title?: string }) : { id: "all-time-any" };
   let format: DraftFormat = (sessionStorage.getItem("db_mp_format") as DraftFormat) ?? "snake";
   const apiOn = isDraftApiEnabled();
 
-  function draw(status = "") {
-    root.innerHTML = `
-      <div class="shell db-root">
-        <button class="btn btn--ghost" id="back">← Architect</button>
-        <header class="db-hero">
-          <p class="db-hero__label">Multiplayer</p>
-          <h1 class="db-hero__title">DRAFT ROOM</h1>
-          <p class="db-hero__sub">${mode.title ?? mode.id} · ${apiOn ? "Live API + WebSocket" : "Local preview (set VITE_API_URL for live rooms)"}</p>
-        </header>
-        <div class="panel">
-          <label>Draft format</label>
-          <select id="format" class="btn btn--ghost btn--block">
-            ${FORMATS.map((f) => `<option value="${f.id}" ${f.id === format ? "selected" : ""}>${f.label} — ${f.hint}</option>`).join("")}
-          </select>
-          <button class="btn" id="create" style="width:100%;margin-top:12px">Create Room</button>
-          <label style="display:block;margin-top:12px">Join with code</label>
-          <input id="code" class="btn btn--ghost btn--block" placeholder="ABC123" maxlength="8" />
-          <button class="btn btn--ghost" id="join" style="width:100%;margin-top:8px">Join Room</button>
-          <p id="status" style="color:var(--db-muted);margin-top:12px;font-size:0.85rem">${status}</p>
-        </div>
-      </div>`;
-
+  function bindEvents(status = "") {
     root.querySelector("#back")?.addEventListener("click", () => navigate("draftballer", "architect"));
-    root.querySelector("#format")?.addEventListener("change", (e) => {
-      format = (e.target as HTMLSelectElement).value as DraftFormat;
-      sessionStorage.setItem("db_mp_format", format);
-    });
-
-    root.querySelector("#create")?.addEventListener("click", () => void createRoom());
+    root.querySelector("#quick-match")?.addEventListener("click", () => void createRoom());
+    root.querySelector("#create-private")?.addEventListener("click", () => void createRoom());
     root.querySelector("#join")?.addEventListener("click", () => {
       const code = (root.querySelector("#code") as HTMLInputElement).value.trim().toUpperCase();
       if (!code) return;
@@ -54,6 +65,97 @@ export function renderDraftballerMpLobby(root: HTMLElement, navigate: Navigate) 
       sessionStorage.setItem("db_mp_format", format);
       navigate("draftballer", `room/${code}`);
     });
+    root.querySelectorAll<HTMLButtonElement>(".db-lobby-chip").forEach((chip) => {
+      chip.addEventListener("click", () => {
+        format = chip.dataset.format as DraftFormat;
+        sessionStorage.setItem("db_mp_format", format);
+        draw(status);
+      });
+    });
+  }
+
+  function draw(status = "") {
+    const formatLabel = FORMATS.find((f) => f.id === format)?.label ?? format;
+    root.innerHTML = `
+      <div class="shell db-root db-lobby-page">
+        <button class="btn btn--ghost" id="back">← Architect</button>
+
+        <header class="db-lobby-header">
+          <div class="db-lobby-header__top">
+            <span class="db-lobby-header__bar" aria-hidden="true"></span>
+            <span class="db-label-caps db-lobby-header__live">Live Multiplayer</span>
+          </div>
+          <h1 class="db-lobby-header__title">Draft Lobby Hub</h1>
+          <p class="db-lobby-header__sub">${mode.title ?? mode.id} · real-time drafting sessions</p>
+          <div class="db-lobby-header__actions">
+            <button class="db-btn-pitch" id="quick-match">Quick Match</button>
+            <button class="db-lobby-secondary" id="create-private">Create Private Room</button>
+          </div>
+        </header>
+
+        <div class="db-lobby-layout">
+          <aside class="db-lobby-aside">
+            <div class="db-lobby-filters db-glass">
+              <h3 class="db-label-caps db-lobby-filters__title">Search Filters</h3>
+              <label class="db-label-caps" for="code">Lobby Code</label>
+              <input id="code" class="db-lobby-input" placeholder="ABC123" maxlength="8" autocomplete="off" />
+              <p class="db-label-caps db-lobby-filters__title db-lobby-filters__title--spaced">Draft Format</p>
+              <div class="db-lobby-chips">${formatChipHtml(format, format)}</div>
+            </div>
+
+            <div class="db-lobby-status db-glass">
+              <div class="db-lobby-status__head">
+                <h3 class="db-label-caps">Server Status</h3>
+                <span class="db-lobby-status__pill${apiOn ? " db-lobby-status__pill--on" : ""}">${apiOn ? "API ON" : "OFFLINE"}</span>
+              </div>
+              <div class="db-lobby-status__row">
+                <span>Mode</span>
+                <span>${mode.title ?? mode.id}</span>
+              </div>
+              <div class="db-lobby-status__row">
+                <span>Format</span>
+                <span>${formatLabel}</span>
+              </div>
+              <div class="db-lobby-status__row">
+                <span>Transport</span>
+                <span>${apiOn ? "WebSocket + REST" : "Local preview"}</span>
+              </div>
+            </div>
+          </aside>
+
+          <section class="db-lobby-main">
+            <div class="db-lobby-main__head">
+              <h2 class="db-label-caps db-lobby-main__tab">Public Lobbies</h2>
+              <span class="db-lobby-main__meta">RESULT_SET: 2_ACTIVE</span>
+            </div>
+
+            <div class="db-lobby-list">
+              ${lobbyCardHtml({
+                title: "Create Your Own",
+                meta: `${mode.title ?? mode.id} · ${formatLabel} draft`,
+                format: `${formatLabel.toUpperCase()} · 2 drafters · 11 squad`,
+                players: "01/02",
+                action: "JOIN",
+                actionId: "quick-match-card",
+                accent: true,
+              })}
+              ${lobbyCardHtml({
+                title: "Join by Code",
+                meta: "Enter a lobby code to enter an existing room",
+                format: `${formatLabel.toUpperCase()} · PRIVATE`,
+                players: "—/02",
+                action: "ENTER",
+                actionId: "join",
+              })}
+            </div>
+
+            ${status ? `<p class="db-lobby-status-msg">${status}</p>` : ""}
+          </section>
+        </div>
+      </div>`;
+
+    bindEvents(status);
+    root.querySelector("#quick-match-card")?.addEventListener("click", () => void createRoom());
   }
 
   async function createRoom() {

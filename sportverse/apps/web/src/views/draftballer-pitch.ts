@@ -34,6 +34,34 @@ export interface PitchSurfaceOpts {
   flat?: boolean;
 }
 
+export interface PitchSlotChipOpts {
+  ovr?: number | string;
+  position: string;
+  active?: boolean;
+  empty?: boolean;
+  className?: string;
+  title?: string;
+}
+
+/** Glass circular slot — OVR + position text (no player photos). */
+export function pitchSlotChipHtml(opts: PitchSlotChipOpts): string {
+  const classes = [
+    "db-tactical-chip",
+    opts.active ? "db-tactical-chip--active" : "",
+    opts.empty ? "db-tactical-chip--empty" : "",
+    opts.className ?? "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+  const label = opts.ovr != null ? String(opts.ovr) : "—";
+  const title = opts.title ? ` title="${opts.title.replace(/"/g, "&quot;")}"` : "";
+  return `
+    <div class="${classes}"${title}>
+      <span class="db-tactical-chip__ovr">${label}</span>
+      <span class="db-tactical-chip__pos">${opts.position}</span>
+    </div>`;
+}
+
 /** Wrap inner pitch content (slots, dots) in the shared 3D surface. */
 export function pitchSurfaceHtml(inner: string, opts: PitchSurfaceOpts = {}): string {
   const extra = opts.className ? ` ${opts.className}` : "";

@@ -187,15 +187,15 @@ export function renderDraftballerMpRoom(root: HTMLElement, roomCode: string, nav
 
   function drawError() {
     root.innerHTML = `
-      <div class="shell db-root">
+      <div class="shell db-root db-room-page">
         <button class="btn btn--ghost" id="back">← Lobby</button>
-        <header class="db-hero">
-          <p class="db-hero__label">Room ${roomCode}</p>
-          <h1 class="db-hero__title">DRAFT UNAVAILABLE</h1>
-          <p class="db-hero__sub">${statusMsg || "Could not connect to draft room."}</p>
+        <header class="db-room-header">
+          <p class="db-label-caps">Room ${roomCode}</p>
+          <h1 class="db-room-header__title">Draft Unavailable</h1>
+          <p class="db-room-header__sub">${statusMsg || "Could not connect to draft room."}</p>
         </header>
-        <div class="panel">
-          <p style="color:var(--db-muted);font-size:0.85rem">Set VITE_API_URL and ensure the draft API is running for live multiplayer.</p>
+        <div class="db-glass db-room-panel">
+          <p class="db-room-hint">Set VITE_API_URL and ensure the draft API is running for live multiplayer.</p>
         </div>
       </div>`;
     root.querySelector("#back")?.addEventListener("click", () => {
@@ -223,17 +223,17 @@ export function renderDraftballerMpRoom(root: HTMLElement, roomCode: string, nav
       const available = room.poolIds.slice(0, 48);
 
       root.innerHTML = `
-        <div class="shell db-root">
+        <div class="shell db-root db-room-page">
           <button class="btn btn--ghost" id="back">← Lobby</button>
-          <header class="db-hero">
-            <p class="db-hero__label">Room ${roomCode} · Local preview</p>
-            <h1 class="db-hero__title">SNAKE DRAFT</h1>
-            <p class="db-hero__sub">${mode.title ?? mode.id} · Pick ${room.currentPickIndex + 1} · ${room.rosters[0]!.length}/11</p>
+          <header class="db-room-header">
+            <p class="db-label-caps">Room ${roomCode} · Local preview</p>
+            <h1 class="db-room-header__title">Snake Draft</h1>
+            <p class="db-room-header__sub">${mode.title ?? mode.id} · Pick ${room.currentPickIndex + 1} · ${room.rosters[0]!.length}/11</p>
           </header>
-          <div class="panel" style="margin-bottom:12px">
-            <p style="color:var(--db-muted);font-size:0.85rem">Live API disabled — local snake draft only. Set VITE_API_URL for real multiplayer.</p>
+          <div class="db-glass db-room-panel db-room-panel--notice">
+            <p class="db-room-hint">Live API disabled — local snake draft only. Set VITE_API_URL for real multiplayer.</p>
           </div>
-          <p style="color:var(--db-muted);font-size:0.85rem;margin-bottom:8px">${isYou ? "Your pick — tap a card" : "Waiting for opponent…"}</p>
+          <p class="db-room-turn">${isYou ? "Your pick — tap a card" : "Waiting for opponent…"}</p>
           <div class="db-pool-grid">
             ${available
               .map((id) => poolMap.get(id))
@@ -268,15 +268,15 @@ export function renderDraftballerMpRoom(root: HTMLElement, roomCode: string, nav
 
   function drawUnsupportedFormat() {
     root.innerHTML = `
-      <div class="shell db-root">
+      <div class="shell db-root db-room-page">
         <button class="btn btn--ghost" id="back">← Lobby</button>
-        <header class="db-hero">
-          <p class="db-hero__label">Room ${roomCode}</p>
-          <h1 class="db-hero__title">${formatLabel(format).toUpperCase()} DRAFT</h1>
-          <p class="db-hero__sub">Requires live API — set VITE_API_URL for ${format} multiplayer.</p>
+        <header class="db-room-header">
+          <p class="db-label-caps">Room ${roomCode}</p>
+          <h1 class="db-room-header__title">${formatLabel(format)} Draft</h1>
+          <p class="db-room-header__sub">Requires live API — set VITE_API_URL for ${format} multiplayer.</p>
         </header>
-        <div class="panel">
-          <p style="color:var(--db-muted);font-size:0.85rem">Local preview supports snake only. Try snake format or enable the draft API.</p>
+        <div class="db-glass db-room-panel">
+          <p class="db-room-hint">Local preview supports snake only. Try snake format or enable the draft API.</p>
         </div>
       </div>`;
     root.querySelector("#back")?.addEventListener("click", () => {
@@ -307,14 +307,14 @@ export function renderDraftballerMpRoom(root: HTMLElement, roomCode: string, nav
 
     const maxBid = maxAffordableBid(state, drafterIndex);
     return `
-      <div class="panel" style="margin-bottom:12px">
+      <div class="db-glass db-room-panel db-room-panel--auction">
         <strong>${lot.playerName}</strong> · OVR ${lot.ovr}<br/>
-        High bid: <strong style="color:var(--db-gold)">${lot.highBid}</strong>
+        High bid: <strong class="db-room-bid">${lot.highBid}</strong>
         ${lot.highBidder !== null ? ` (Drafter ${lot.highBidder + 1})` : ""}
-        <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
-          <input id="bid-amt" type="number" min="${lot.highBid + 1}" max="${maxBid}" value="${Math.min(maxBid, lot.highBid + 1)}" class="btn btn--ghost" style="width:80px" />
-          <button class="btn" id="bid-btn" ${maxBid < lot.highBid + 1 ? "disabled" : ""}>Bid (max ${maxBid})</button>
-          <button class="btn btn--ghost" id="resolve-btn">Resolve lot</button>
+        <div class="db-room-auction-actions">
+          <input id="bid-amt" type="number" min="${lot.highBid + 1}" max="${maxBid}" value="${Math.min(maxBid, lot.highBid + 1)}" class="db-room-input" />
+          <button class="db-btn-pitch" id="bid-btn" ${maxBid < lot.highBid + 1 ? "disabled" : ""}>Bid (max ${maxBid})</button>
+          <button class="db-room-secondary" id="resolve-btn">Resolve lot</button>
         </div>
       </div>`;
   }
@@ -325,9 +325,9 @@ export function renderDraftballerMpRoom(root: HTMLElement, roomCode: string, nav
     if (submitted) {
       if (blindRoundReadyFlag || (round && round.submissions.length >= state.drafterCount)) {
         return `
-          <div class="panel" style="margin-bottom:12px">
-            <p style="color:var(--db-emerald-hi)">Round ready — resolve to reveal picks.</p>
-            <button class="btn" id="blind-resolve">Resolve round</button>
+          <div class="db-glass db-room-panel">
+            <p class="db-room-ready">Round ready — resolve to reveal picks.</p>
+            <button class="db-btn-pitch" id="blind-resolve">Resolve round</button>
           </div>`;
       }
       return `<p style="color:var(--db-muted);font-size:0.85rem">Pick submitted — waiting for others…</p>`;
@@ -484,18 +484,18 @@ export function renderDraftballerMpRoom(root: HTMLElement, roomCode: string, nav
     else formatHint = pickPanel(state);
 
     root.innerHTML = `
-      <div class="shell db-root">
+      <div class="shell db-root db-room-page">
         <button class="btn btn--ghost" id="back">← Lobby</button>
-        <header class="db-hero">
-          <p class="db-hero__label">Room ${roomCode} · ${connLabel}</p>
-          <h1 class="db-hero__title">${formatLabel(state.format).toUpperCase()} DRAFT</h1>
-          <p class="db-hero__sub">${mode.title ?? mode.id} · ${state.picks.length} picks · You: ${myRoster.length}/${state.squadSize}</p>
+        <header class="db-room-header">
+          <p class="db-label-caps">Room ${roomCode} · ${connLabel}</p>
+          <h1 class="db-room-header__title">${formatLabel(state.format)} Draft</h1>
+          <p class="db-room-header__sub">${mode.title ?? mode.id} · ${state.picks.length} picks · You: ${myRoster.length}/${state.squadSize}</p>
         </header>
         <div class="db-draft-layout">
-          <div class="db-order-rail">${drafterRail(state)}</div>
+          <div class="db-order-rail db-glass">${drafterRail(state)}</div>
           <div>
             ${formatHint}
-            ${statusMsg ? `<p style="color:#f87171;font-size:0.85rem;margin-bottom:8px">${statusMsg}</p>` : ""}
+            ${statusMsg ? `<p class="db-room-error">${statusMsg}</p>` : ""}
             <div class="db-pool-grid">
               ${poolSlice
                 .map((id) => poolMap.get(id))
@@ -504,17 +504,17 @@ export function renderDraftballerMpRoom(root: HTMLElement, roomCode: string, nav
                 .join("")}
             </div>
           </div>
-          <div class="panel" style="background:var(--db-panel)">
-            <strong>Your squad</strong>
-            <div style="margin-top:8px">
+          <div class="db-glass db-room-panel db-room-squad">
+            <strong class="db-label-caps">Your Squad</strong>
+            <div class="db-room-squad__list">
               ${myRoster.length
                 ? myRoster
                     .map((id) => {
                       const p = poolMap.get(id);
-                      return p ? `<div style="font-size:0.75rem">${p.name} (${p.ovr})</div>` : "";
+                      return p ? `<div class="db-room-squad__row">${p.name} (${p.ovr})</div>` : "";
                     })
                     .join("")
-                : "<span style='color:var(--db-muted)'>No picks yet</span>"}
+                : "<span class='db-room-hint'>No picks yet</span>"}
             </div>
           </div>
         </div>
