@@ -16,7 +16,7 @@ function escapeHtml(s: string): string {
     .replace(/"/g, "&quot;");
 }
 
-/** Compact radar — soft Apple-style stroke, labels optional. */
+/** Compact radar — Elite pitch-green stroke, labels optional. */
 export function attributeRadarSvg(
   attrs: RatedPlayerCard["attributes"],
   size = 88,
@@ -33,7 +33,7 @@ export function attributeRadarSvg(
           const a = (Math.PI * 2 * i) / keys.length - Math.PI / 2;
           return `${cx + Math.cos(a) * r * f},${cy + Math.sin(a) * r * f}`;
         })
-        .join(" ")}" fill="none" stroke="rgba(29,29,31,0.08)" stroke-width="0.8"/>`,
+        .join(" ")}" fill="none" stroke="rgba(132,149,129,0.22)" stroke-width="0.8"/>`,
   );
   const pts = keys
     .map((k, i) => {
@@ -48,11 +48,11 @@ export function attributeRadarSvg(
           const a = (Math.PI * 2 * i) / keys.length - Math.PI / 2;
           const lx = cx + Math.cos(a) * (r + size * 0.12);
           const ly = cy + Math.sin(a) * (r + size * 0.12);
-          return `<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" fill="#86868b" font-size="${Math.max(8, size * 0.08)}" font-family="var(--font-ui)">${k.toUpperCase()}</text>`;
+          return `<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" fill="#849581" font-size="${Math.max(8, size * 0.08)}" font-family="var(--font-ui)">${k.toUpperCase()}</text>`;
         })
         .join("")
     : "";
-  return `<svg class="db-card-radar" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true">${rings.join("")}<polygon points="${pts}" fill="rgba(0,113,227,0.14)" stroke="#0071e3" stroke-width="1.5"/>${labels}</svg>`;
+  return `<svg class="db-card-radar" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true">${rings.join("")}<polygon points="${pts}" fill="rgba(0,255,102,0.14)" stroke="#00ff66" stroke-width="1.5"/>${labels}</svg>`;
 }
 
 function influenceBar(label: string, value: number): string {
@@ -61,7 +61,7 @@ function influenceBar(label: string, value: number): string {
 }
 
 /**
- * Face card — Apple / 38-0 inspired: airy white tile, big OVR, quiet radar.
+ * Face card — Elite Draft data tile: big OVR, quiet pitch-green radar.
  */
 export interface PlayerCardFaceOptions {
   /** Cannot play the active slot — show greyed out, not clickable. */
