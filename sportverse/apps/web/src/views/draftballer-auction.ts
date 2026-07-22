@@ -17,9 +17,10 @@ import {
 import { setAwardsData } from "@sportverse/rating-engine";
 import { getAwards, getIconicMoments } from "@sportverse/sports-db";
 import { bindIdentityPicker, identityPickerHtml } from "./draftballer-identity.js";
+import { bindEliteMotion } from "../lib/elite-motion.js";
 
-/** elite-v2 — Stitch auction_draft_pro layout, data cards only */
-const UI_BUILD = "elite-v2";
+/** elite-anim-v1 — Stitch auction_draft_pro_animated motion */
+const UI_BUILD = "elite-anim-v1";
 
 type Navigate = (route: string, param?: string) => void;
 
@@ -183,7 +184,7 @@ function auctionTopBar(budget: number, lotNum: number): string {
         <h1 class="db-auction-topbar__title">DRAFTBALLER</h1>
         <span class="db-label-caps db-auction-topbar__lot">Lot ${lotNum}</span>
       </div>
-      <div class="db-auction-topbar__budget">
+      <div class="db-auction-topbar__budget db-soft-pulse">
         <span class="db-label-caps">BUDGET</span>
         <span class="db-auction-topbar__budget-val">${formatBudget(budget)}</span>
       </div>
@@ -225,6 +226,11 @@ export function renderDraftballerAuction(root: HTMLElement, navigate: Navigate) 
   let timerMs = 22;
   let timerHandle: ReturnType<typeof setInterval> | null = null;
   let timerCritical = false;
+
+  function bindPageMotion() {
+    const pageRoot = root.querySelector(".db-root") as HTMLElement | null;
+    if (pageRoot) bindEliteMotion(pageRoot, { scan: "line" });
+  }
 
   function clearTimer() {
     if (timerHandle) {
@@ -395,6 +401,7 @@ export function renderDraftballerAuction(root: HTMLElement, navigate: Navigate) 
       });
       root.querySelector("#again")?.addEventListener("click", () => renderDraftballerAuction(root, navigate));
       root.querySelector("#hub")?.addEventListener("click", () => navigate("draftballer"));
+      bindPageMotion();
       return;
     }
 
@@ -419,7 +426,7 @@ export function renderDraftballerAuction(root: HTMLElement, navigate: Navigate) 
               lot && lot.status === "open" && nominatedCard
                 ? `
               <div class="db-auction-stage db-glass">
-                <div class="db-auction-live-badge">
+                <div class="db-auction-live-badge db-soft-pulse">
                   <span class="db-auction-live-badge__dot" aria-hidden="true"></span>
                   <span class="db-label-caps">LIVE AUCTION</span>
                 </div>
@@ -485,7 +492,7 @@ export function renderDraftballerAuction(root: HTMLElement, navigate: Navigate) 
                     <button type="button" class="db-auction-quick-bids__btn" data-bid-delta="10" ${canBid ? "" : "disabled"}>+10</button>
                     <button type="button" class="db-auction-quick-bids__btn" data-bid-delta="max" ${canBid ? "" : "disabled"}>MAX</button>
                   </div>
-                  <button type="button" class="db-btn-pitch db-auction-place-bid" id="bid-btn" ${canBid ? "" : "disabled"}>PLACE BID</button>
+                  <button type="button" class="db-btn-pitch db-auction-place-bid db-bid-pulse db-pitch-glow" id="bid-btn" ${canBid ? "" : "disabled"}>PLACE BID</button>
                   <button type="button" class="db-auction-resolve" id="resolve-btn">Resolve lot</button>
                 </div>
                 <p class="db-auction-tip">If a bid is placed in the final 10 seconds, the clock resets. All bids are final and deducted immediately.</p>
@@ -549,6 +556,7 @@ export function renderDraftballerAuction(root: HTMLElement, navigate: Navigate) 
           }
         });
       });
+      bindPageMotion();
       return;
     }
 
@@ -558,6 +566,8 @@ export function renderDraftballerAuction(root: HTMLElement, navigate: Navigate) 
         draw();
       }, 600);
     }
+
+    bindPageMotion();
   }
 
   draw();

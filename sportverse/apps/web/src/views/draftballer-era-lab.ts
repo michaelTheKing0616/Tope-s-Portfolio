@@ -7,6 +7,7 @@ import {
 import { generateOpponents, simulateEraLab } from "@sportverse/match-sim";
 import { buildEraLabShareDataUrl } from "./draftballer-share.js";
 import { pitchSurfaceHtml } from "./draftballer-pitch.js";
+import { bindEliteMotion } from "../lib/elite-motion.js";
 
 type Navigate = (route: string, param?: string) => void;
 
@@ -255,7 +256,8 @@ export function renderDraftballerEraLab(root: HTMLElement, navigate: Navigate) {
             </section>
 
             <div class="db-era-lab-actions">
-              <button class="db-btn-pitch db-era-lab-run" id="runSim" type="button">
+              <button class="db-btn-pitch db-era-lab-run" id="runSim" type="button" style="position:relative;overflow:hidden">
+                <span class="db-era-lab-btn-scan" aria-hidden="true"></span>
                 <span aria-hidden="true">⇄</span> Run Simulation
               </button>
               <button class="db-glass db-era-lab-save" id="shareEra" type="button" title="Share card">⬇</button>
@@ -267,6 +269,8 @@ export function renderDraftballerEraLab(root: HTMLElement, navigate: Navigate) {
       </div>`;
 
     bindEvents();
+    const pageRoot = root.querySelector(".db-root") as HTMLElement | null;
+    if (pageRoot) bindEliteMotion(pageRoot, { scan: "vscan" });
   }
 
   function bindEvents() {

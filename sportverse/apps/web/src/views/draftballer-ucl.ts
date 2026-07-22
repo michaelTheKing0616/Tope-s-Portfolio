@@ -13,6 +13,7 @@ import {
   type KnockoutResult,
   type KnockoutSquad,
 } from "@sportverse/match-sim";
+import { bindEliteMotion } from "../lib/elite-motion.js";
 
 type KnockoutMatchRow = KnockoutResult["rounds"][number][number];
 
@@ -231,7 +232,7 @@ export function renderDraftballerUcl(root: HTMLElement, navigate: Navigate) {
 
       <header class="db-knockout-header">
         <div class="db-knockout-header__badges">
-          <span class="db-knockout-live db-label-caps"><span class="db-knockout-live__dot"></span> Live Feed</span>
+          <span class="db-knockout-live db-label-caps db-soft-pulse"><span class="db-knockout-live__dot"></span> Live Feed</span>
           <span class="db-label-caps db-knockout-header__node">Node: Elite Knockout Cup</span>
         </div>
         <h1 class="db-knockout-header__title">Road to the Final</h1>
@@ -294,6 +295,9 @@ export function renderDraftballerUcl(root: HTMLElement, navigate: Navigate) {
       }, 2000);
     }
   });
+
+  const pageRoot = root.querySelector(".db-root") as HTMLElement | null;
+  if (pageRoot) bindEliteMotion(pageRoot, { scan: "line" });
 }
 
 export function renderDraftballerImport(root: HTMLElement, code: string, navigate: Navigate) {

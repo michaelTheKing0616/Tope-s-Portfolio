@@ -33,9 +33,10 @@ import {
   renderSeasonAnalysisHtml,
   renderSeasonPredictionHtml,
 } from "./draftballer-reports.js";
+import { bindEliteMotion } from "../lib/elite-motion.js";
 
 /** Bust stale PWA caches — bump when season results UX changes. */
-const SEASON_UI_BUILD = "elite-v1";
+const SEASON_UI_BUILD = "elite-anim-v1";
 
 type Navigate = (route: string, param?: string) => void;
 
@@ -507,6 +508,8 @@ export function renderDraftballerSeason(root: HTMLElement, navigate: Navigate) {
       persistConditions();
       runLiveSeason();
     });
+    const pageRoot = root.querySelector(".db-root") as HTMLElement | null;
+    if (pageRoot) bindEliteMotion(pageRoot, { scan: "line" });
   }
 
   function delay(ms: number): Promise<void> {
@@ -539,6 +542,9 @@ export function renderDraftballerSeason(root: HTMLElement, navigate: Navigate) {
           <div class="db-fixture-list" id="live-fixtures"></div>
         </div>
       </div>`;
+
+    const livePageRoot = root.querySelector(".db-root") as HTMLElement | null;
+    if (livePageRoot) bindEliteMotion(livePageRoot, { scan: "line" });
 
     const liveFixtures = root.querySelector("#live-fixtures")!;
     const liveMd = root.querySelector("#live-md")!;
@@ -713,6 +719,8 @@ export function renderDraftballerSeason(root: HTMLElement, navigate: Navigate) {
         a.click();
       }
     });
+    const pageRoot = root.querySelector(".db-root") as HTMLElement | null;
+    if (pageRoot) bindEliteMotion(pageRoot, { scan: "band" });
   }
 
   drawPreSim();

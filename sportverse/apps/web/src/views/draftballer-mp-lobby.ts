@@ -1,6 +1,7 @@
 import type { DraftFormat } from "@sportverse/draftballer-types";
 import { createDraftRoom, isDraftApiEnabled } from "../lib/draft-api.js";
 import { connectDraftSocket, socketCreateRoom } from "../lib/draft-socket.js";
+import { bindEliteMotion } from "../lib/elite-motion.js";
 
 type Navigate = (route: string, param?: string) => void;
 
@@ -83,7 +84,7 @@ export function renderDraftballerMpLobby(root: HTMLElement, navigate: Navigate) 
         <header class="db-lobby-header">
           <div class="db-lobby-header__top">
             <span class="db-lobby-header__bar" aria-hidden="true"></span>
-            <span class="db-label-caps db-lobby-header__live">Live Multiplayer</span>
+            <span class="db-label-caps db-lobby-header__live db-soft-pulse">Live Multiplayer</span>
           </div>
           <h1 class="db-lobby-header__title">Draft Lobby Hub</h1>
           <p class="db-lobby-header__sub">${mode.title ?? mode.id} · real-time drafting sessions</p>
@@ -156,6 +157,8 @@ export function renderDraftballerMpLobby(root: HTMLElement, navigate: Navigate) 
 
     bindEvents(status);
     root.querySelector("#quick-match-card")?.addEventListener("click", () => void createRoom());
+    const pageRoot = root.querySelector(".db-root") as HTMLElement | null;
+    if (pageRoot) bindEliteMotion(pageRoot, { scan: "wash" });
   }
 
   async function createRoom() {

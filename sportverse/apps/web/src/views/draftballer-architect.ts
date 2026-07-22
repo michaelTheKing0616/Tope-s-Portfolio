@@ -12,6 +12,7 @@ import { lensBlend, setAwardsData } from "@sportverse/rating-engine";
 import { getAwards, getIconicMoments } from "@sportverse/sports-db";
 import { playerCardHtml } from "./draftballer-hub.js";
 import { renderDraftballerWheel } from "./draftballer-wheel.js";
+import { bindEliteMotion } from "../lib/elite-motion.js";
 
 type Navigate = (route: string, param?: string) => void;
 
@@ -388,6 +389,8 @@ export function renderDraftballerArchitect(root: HTMLElement, navigate: Navigate
       </div>`;
 
     bindEvents();
+    const pageRoot = root.querySelector(".db-root") as HTMLElement | null;
+    if (pageRoot) bindEliteMotion(pageRoot, { scan: "wash" });
   }
 
   function bindEvents() {

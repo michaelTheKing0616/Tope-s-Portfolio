@@ -2,8 +2,17 @@ import type { FormationSlotDef, PitchZone } from "@sportverse/draftballer-types"
 import { getFormation } from "@sportverse/match-sim";
 import { resolveApiBase } from "@sportverse/platform";
 import { pitchSurfaceHtml, pitchSlotChipHtml } from "./draftballer-pitch.js";
+import { bindEliteMotion } from "../lib/elite-motion.js";
 
 type Navigate = (route: string, param?: string) => void;
+
+function injectPitchScanBand(wrap: HTMLElement | null) {
+  if (!wrap || wrap.querySelector(".db-scan-band")) return;
+  const scan = document.createElement("div");
+  scan.className = "db-scan-band";
+  scan.setAttribute("aria-hidden", "true");
+  wrap.prepend(scan);
+}
 
 const API_BASE = resolveApiBase();
 const GRID_STEP = 5;
@@ -142,6 +151,9 @@ export function renderDraftballerFormationCanvas(root: HTMLElement, navigate: Na
       </div>`;
 
     bindEvents();
+    const pageRoot = root.querySelector(".db-root") as HTMLElement | null;
+    if (pageRoot) bindEliteMotion(pageRoot, { scan: "none" });
+    injectPitchScanBand(root.querySelector(".db-tactical-canvas-pitch") as HTMLElement | null);
   }
 
   function bindEvents() {

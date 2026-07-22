@@ -6,6 +6,7 @@ import {
   resolveDailyChallenge,
 } from "@sportverse/draftballer-core";
 import { platform, resolveApiBase } from "@sportverse/platform";
+import { bindEliteMotion } from "../lib/elite-motion.js";
 
 type Navigate = (route: string, param?: string) => void;
 
@@ -170,7 +171,7 @@ export async function renderDraftballerDaily(root: HTMLElement, navigate: Naviga
     panel.innerHTML = `
       <div class="db-daily-board__head">
         <h3 class="db-label-caps">Global Leaderboard</h3>
-        <span class="db-daily-board__live">LIVE</span>
+        <span class="db-daily-board__live db-soft-pulse">LIVE</span>
       </div>
       <div class="db-daily-board__body">${leaderboardTableHtml(entries, bonusXp)}</div>`;
 
@@ -183,11 +184,11 @@ export async function renderDraftballerDaily(root: HTMLElement, navigate: Naviga
       <button class="btn btn--ghost" id="back">← Hub</button>
 
       <section class="db-daily-hero">
-        <div class="db-daily-live-pill">
+        <div class="db-daily-live-pill db-soft-pulse">
           <span class="db-daily-live-pill__dot" aria-hidden="true"></span>
           <span class="db-label-caps">Daily Challenge Live</span>
         </div>
-        <h1 class="db-daily-hero__title">Daily Draft: <span class="db-daily-hero__mode">${mode.title}</span></h1>
+        <h1 class="db-daily-hero__title">Daily Draft: <span class="db-daily-hero__mode db-soft-pulse db-text-glow">${mode.title}</span></h1>
         <p class="db-daily-hero__sub">Shared challenge for ${day} — same pool for everyone.</p>
       </section>
 
@@ -195,7 +196,7 @@ export async function renderDraftballerDaily(root: HTMLElement, navigate: Naviga
         <div class="db-daily-board db-glass" id="leaderboard-panel">
           <div class="db-daily-board__head">
             <h3 class="db-label-caps">Global Leaderboard</h3>
-            <span class="db-daily-board__live">LIVE</span>
+            <span class="db-daily-board__live db-soft-pulse">LIVE</span>
           </div>
           <div class="db-daily-board__body"><p class="db-daily-empty">Loading…</p></div>
         </div>
@@ -273,4 +274,7 @@ export async function renderDraftballerDaily(root: HTMLElement, navigate: Naviga
   }
 
   paintLeaderboard(leaderboard);
+
+  const pageRoot = root.querySelector(".db-root") as HTMLElement | null;
+  if (pageRoot) bindEliteMotion(pageRoot, { scan: "line" });
 }

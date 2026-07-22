@@ -4,8 +4,17 @@ import { formationsForEra, getFormation } from "@sportverse/match-sim";
 import { loadSimConfig, saveSimConfig } from "@sportverse/draftballer-core";
 import { computeSquadRating } from "@sportverse/rating-engine";
 import { pitchSlotChipHtml, pitchSurfaceHtml } from "./draftballer-pitch.js";
+import { bindEliteMotion } from "../lib/elite-motion.js";
 
 type Navigate = (route: string, param?: string) => void;
+
+function injectPitchScanBand(wrap: HTMLElement | null) {
+  if (!wrap || wrap.querySelector(".db-scan-band")) return;
+  const scan = document.createElement("div");
+  scan.className = "db-scan-band";
+  scan.setAttribute("aria-hidden", "true");
+  wrap.prepend(scan);
+}
 
 function escapeHtml(s: string): string {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -137,7 +146,10 @@ export function renderDraftballerSquadBuilder(root: HTMLElement, navigate: Navig
     btn.addEventListener("click", () => {
       builder.formationId = btn.dataset.id!;
       const pitchEl = root.querySelector(".db-tactical-pitch-wrap");
-      if (pitchEl) pitchEl.innerHTML = renderTacticalPitch(builder.formationId);
+      if (pitchEl) {
+        pitchEl.innerHTML = renderTacticalPitch(builder.formationId);
+        injectPitchScanBand(pitchEl as HTMLElement);
+      }
       root.querySelectorAll(".db-tactical-form-btn").forEach((b) => b.classList.remove("db-tactical-form-btn--active"));
       btn.classList.add("db-tactical-form-btn--active");
       const formLabel = root.querySelector(".db-tactical-formation");
@@ -167,4 +179,8 @@ export function renderDraftballerSquadBuilder(root: HTMLElement, navigate: Navig
     navigate("draftballer", "season");
   });
   root.querySelector("#simSetup")?.addEventListener("click", () => navigate("draftballer", "sim-setup"));
+
+  const pageRoot = root.querySelector(".db-root") as HTMLElement | null;
+  if (pageRoot) bindEliteMotion(pageRoot, { scan: "none" });
+  injectPitchScanBand(root.querySelector(".db-tactical-pitch-wrap") as HTMLElement | null);
 }

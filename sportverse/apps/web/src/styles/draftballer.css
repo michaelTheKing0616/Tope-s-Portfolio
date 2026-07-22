@@ -4601,3 +4601,269 @@
   background: rgba(0, 255, 102, 0.1);
   color: var(--db-pitch);
 }
+
+/* ═══════════════════════════════════════════════════════════
+   *_pro_animated motion layer (Stitch Elite Draft)
+   scanlines · soft pulse · entrance stagger · tactical glow
+   ═══════════════════════════════════════════════════════════ */
+.db-elite-motion {
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  position: relative;
+  isolation: isolate;
+}
+.db-elite-motion > .shell,
+.db-elite-motion.shell {
+  position: relative;
+  z-index: 2;
+}
+
+.db-glass {
+  position: relative;
+  overflow: hidden;
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+}
+.db-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    600px circle at var(--mouse-x) var(--mouse-y),
+    rgba(0, 255, 102, 0.07),
+    transparent 42%
+  );
+  opacity: 0.85;
+  transition: opacity 0.25s ease;
+}
+.db-glass {
+  isolation: isolate;
+}
+.db-glass:hover::before { opacity: 1; }
+
+/* Ambient scans */
+.db-scan-line,
+.db-scan-band,
+.db-scan-wash,
+.db-scan-v {
+  pointer-events: none;
+  position: fixed;
+  z-index: 6;
+}
+.db-scan-line {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 102, 0.22), transparent);
+  animation: db-anim-scan-y 8s linear infinite;
+}
+.db-scan-band {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(to bottom, transparent, rgba(0, 255, 102, 0.04), transparent);
+  animation: db-anim-scan-y 8s linear infinite;
+  z-index: 40;
+}
+.db-scan-wash {
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent, rgba(0, 255, 102, 0.05), transparent);
+  animation: db-anim-scan-wash 8s linear infinite;
+}
+.db-scan-v {
+  top: 0;
+  left: -5%;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(to right, transparent, rgba(0, 255, 102, 0.25), transparent);
+  animation: db-anim-scan-x 8s linear infinite;
+  z-index: 1;
+}
+.db-tactical-pitch-wrap,
+.db-tactical-canvas-pitch,
+.db-pitch-container {
+  position: relative;
+  overflow: hidden;
+}
+.db-tactical-pitch-wrap .db-scan-band,
+.db-tactical-canvas-pitch .db-scan-band,
+.db-pitch-container .db-scan-band {
+  position: absolute;
+  height: 40%;
+  z-index: 3;
+  animation-duration: 8s;
+}
+
+@keyframes db-anim-scan-y {
+  0% { transform: translateY(-100vh); }
+  100% { transform: translateY(100vh); }
+}
+@keyframes db-anim-scan-wash {
+  0% { top: -100%; }
+  100% { top: 100%; }
+}
+@keyframes db-anim-scan-x {
+  0% { left: -5%; }
+  100% { left: 105%; }
+}
+
+/* Soft ambient pulse (XP / LIVE / data) */
+.db-soft-pulse {
+  animation: db-anim-soft-pulse 2.5s ease-in-out infinite;
+}
+@keyframes db-anim-soft-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* Architect entrance stagger */
+.db-entrance {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: db-anim-entrance 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes db-anim-entrance {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Auction / CTA bid pulse */
+.db-bid-pulse {
+  animation: db-anim-bid-pulse 2s infinite;
+}
+@keyframes db-anim-bid-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(0, 255, 102, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(0, 255, 102, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 255, 102, 0); }
+}
+.db-pitch-glow {
+  box-shadow: 0 0 20px rgba(0, 255, 102, 0.2);
+}
+.db-rating-glow {
+  text-shadow: 0 0 15px rgba(0, 255, 102, 0.8);
+}
+.db-text-glow {
+  text-shadow: 0 0 18px rgba(0, 255, 102, 0.45);
+}
+
+/* Blind holographic sheen + scanning dots */
+.db-blind-mystery__sheen {
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    rgba(0, 255, 102, 0.03) 40%,
+    rgba(0, 255, 102, 0.1) 50%,
+    rgba(0, 255, 102, 0.03) 60%,
+    transparent 80%
+  );
+  background-size: 200% 200%;
+  animation: db-anim-shine 4s infinite linear;
+}
+@keyframes db-anim-shine {
+  0% { background-position: 200% 0%; }
+  100% { background-position: -200% 0%; }
+}
+.db-blind-bot__scan.scanning-dots::after,
+.db-scanning-dots::after {
+  content: "";
+  animation: db-anim-scanning-dots 1.5s steps(4) infinite;
+}
+@keyframes db-anim-scanning-dots {
+  0%, 20% { content: ""; }
+  40% { content: "."; }
+  60% { content: ".."; }
+  80%, 100% { content: "..."; }
+}
+
+/* Wheel snap (pro_animated) */
+.db-wheel--snap {
+  animation: db-anim-wheel-snap 0.5s ease-out;
+}
+@keyframes db-anim-wheel-snap {
+  0% { transform: scale(1) rotate(var(--final-rot, 0deg)); }
+  50% { transform: scale(1.03) rotate(var(--final-rot, 0deg)); }
+  100% { transform: scale(1) rotate(var(--final-rot, 0deg)); }
+}
+.db-wheel-hub__core,
+.db-animate-pulse-core {
+  animation: db-anim-pulse-core 2.5s infinite ease-in-out;
+}
+@keyframes db-anim-pulse-core {
+  0%, 100% { transform: scale(1); opacity: 1; filter: blur(2px); }
+  50% { transform: scale(1.35); opacity: 0.8; filter: blur(4px); }
+}
+
+/* Era lab button scan + player nodes */
+.db-era-lab-btn-scan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.12) 50%, transparent 60%);
+  background-size: 100% 200%;
+  animation: db-anim-btn-scan 3s linear infinite;
+  opacity: 0.25;
+}
+@keyframes db-anim-btn-scan {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 0% 100%; }
+}
+.db-era-lab-node,
+.db-player-node-pulse {
+  animation: db-anim-node-pulse 3s infinite ease-in-out;
+}
+@keyframes db-anim-node-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 10px rgba(0, 255, 102, 0.55); }
+  50% { transform: scale(1.15); opacity: 0.85; box-shadow: 0 0 18px rgba(0, 255, 102, 0.8); }
+}
+
+/* Lobby icon micro-bounce */
+.db-lobby-card:hover .db-lobby-card__icon {
+  transform: scale(1.15);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.db-lobby-card__icon {
+  transition: transform 0.25s ease;
+}
+
+/* Tactical active slot pulse */
+.db-tactical-chip--active,
+.db-pitch-slot--active {
+  animation: db-anim-slot-pulse 2s infinite;
+}
+@keyframes db-anim-slot-pulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 255, 102, 0.4); }
+  70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(0, 255, 102, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 255, 102, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .db-scan-line,
+  .db-scan-band,
+  .db-scan-wash,
+  .db-scan-v,
+  .db-soft-pulse,
+  .db-entrance,
+  .db-bid-pulse,
+  .db-blind-mystery__sheen,
+  .db-wheel--snap,
+  .db-animate-pulse-core,
+  .db-era-lab-btn-scan,
+  .db-era-lab-node,
+  .db-tactical-chip--active,
+  .db-pitch-slot--active {
+    animation: none !important;
+  }
+  .db-entrance {
+    opacity: 1;
+    transform: none;
+  }
+}

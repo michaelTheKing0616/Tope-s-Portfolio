@@ -6,6 +6,7 @@ import {
 } from "@sportverse/draftballer-core";
 import { poolCounts } from "@sportverse/sports-db";
 import type { RatedPlayerCard } from "@sportverse/draftballer-types";
+import { bindEliteMotion } from "../lib/elite-motion.js";
 import { playerCardFaceHtml, type PlayerCardFaceOptions } from "../lib/player-card.js";
 
 type Navigate = (route: string, param?: string) => void;
@@ -74,7 +75,7 @@ export function renderDraftballerHub(root: HTMLElement, navigate: Navigate) {
           <div class="db-hub-topbar__icon" aria-hidden="true">DB</div>
           <h1 class="db-hub-topbar__title">DraftBaller Hub</h1>
         </div>
-        <div class="db-hub-xp-chip">
+        <div class="db-hub-xp-chip db-soft-pulse">
           <span class="db-hub-xp-dot" aria-hidden="true"></span>
           <span>${xp.toLocaleString()} XP</span>
         </div>
@@ -290,6 +291,8 @@ export function renderDraftballerHub(root: HTMLElement, navigate: Navigate) {
       if (el) el.open = true;
       el?.scrollIntoView({ behavior: "smooth", block: "nearest" });
     });
+    const pageRoot = root.querySelector(".db-root") as HTMLElement | null;
+    if (pageRoot) bindEliteMotion(pageRoot, { scan: "line" });
   };
 
   paint(cachedValidation ?? null);

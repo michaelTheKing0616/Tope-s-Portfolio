@@ -15,9 +15,10 @@ import { setAwardsData } from "@sportverse/rating-engine";
 import { getAwards, getIconicMoments } from "@sportverse/sports-db";
 import { bindIdentityPicker, identityPickerHtml } from "./draftballer-identity.js";
 import { mountStagedReveal } from "../lib/staged-reveal.js";
+import { bindEliteMotion } from "../lib/elite-motion.js";
 
-/** elite-v2 — Stitch blind_draft_pro layout, mystery data cards */
-const UI_BUILD = "elite-v2";
+/** elite-anim-v1 — Stitch blind_draft_pro_animated motion */
+const UI_BUILD = "elite-anim-v1";
 
 type Navigate = (route: string, param?: string) => void;
 
@@ -186,7 +187,7 @@ function botPanelHtml(botSubmitted: boolean, poolQuality: number): string {
         </div>
       </div>
       <div class="db-blind-bot__right">
-        <span class="db-blind-bot__scan${botSubmitted ? " db-blind-bot__scan--done" : ""}">${botSubmitted ? "PICK LOCKED" : "SCANNING ASSETS"}</span>
+        <span class="db-blind-bot__scan db-soft-pulse${botSubmitted ? " db-blind-bot__scan--done" : ""}">${botSubmitted ? "PICK LOCKED" : "SCANNING ASSETS"}</span>
         <span class="db-blind-bot__core">ARCHITECT-CORE-ACTIVE</span>
       </div>
     </div>`;
@@ -205,6 +206,11 @@ export function renderDraftballerBlind(root: HTMLElement, navigate: Navigate) {
   const poolMap = new Map(poolCards.map((c) => [c.playerId, c]));
   let room = createDraftRoom(mode, poolCards, 2, 11, "blind");
   let statusMsg = "";
+
+  function bindPageMotion() {
+    const pageRoot = root.querySelector(".db-root") as HTMLElement | null;
+    if (pageRoot) bindEliteMotion(pageRoot, { scan: "line" });
+  }
 
   function botSubmit() {
     const pick = botBlindPick(room, 1, poolMap);
@@ -305,6 +311,7 @@ export function renderDraftballerBlind(root: HTMLElement, navigate: Navigate) {
       });
       root.querySelector("#again")?.addEventListener("click", () => renderDraftballerBlind(root, navigate));
       root.querySelector("#hub")?.addEventListener("click", () => navigate("draftballer"));
+      bindPageMotion();
       return;
     }
 
@@ -369,11 +376,13 @@ export function renderDraftballerBlind(root: HTMLElement, navigate: Navigate) {
         }
         draw();
       }, 800);
+      bindPageMotion();
       return;
     }
 
     if (!youSubmitted) {
       bindMysteryPick();
+      bindPageMotion();
       return;
     }
 
@@ -384,6 +393,8 @@ export function renderDraftballerBlind(root: HTMLElement, navigate: Navigate) {
         draw();
       }, 600);
     }
+
+    bindPageMotion();
   }
 
   draw();

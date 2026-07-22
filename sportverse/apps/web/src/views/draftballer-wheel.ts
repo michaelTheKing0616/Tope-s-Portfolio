@@ -21,7 +21,7 @@ import {
 } from "@sportverse/draftballer-core";
 
 /** Bust stale PWA caches — bump when wheel UX changes. */
-const WHEEL_UI_BUILD = "elite-v1";
+const WHEEL_UI_BUILD = "elite-anim-v1";
 import { getFormation } from "@sportverse/match-sim";
 import { computeSquadRating } from "@sportverse/rating-engine";
 import { playerCardHtml } from "./draftballer-hub.js";
@@ -31,10 +31,11 @@ import { playDraftSound } from "../lib/draft-sound.js";
 import { mountStagedReveal } from "../lib/staged-reveal.js";
 import { bindIdentityPicker, identityPickerHtml } from "./draftballer-identity.js";
 import { pitchSurfaceHtml } from "./draftballer-pitch.js";
+import { bindEliteMotion, triggerWheelSnap } from "../lib/elite-motion.js";
 
 type Navigate = (route: string, param?: string) => void;
 
-const SPIN_MS = 4200;
+const SPIN_MS = 5000;
 /** UNCALIBRATED — EXPERT PRIOR: fameSum above this gets a gold flash on land. */
 const ICON_FAME_SUM_FLASH = 1600;
 
@@ -153,7 +154,7 @@ function pickBoardSectionHtml(
   return `
     <section class="db-select-board">
       <header class="db-select-board__head">
-        <div class="db-select-board__chip">
+        <div class="db-select-board__chip db-soft-pulse">
           <span class="db-select-board__pulse" aria-hidden="true"></span>
           <span class="db-select-board__round">Round ${String(round).padStart(2, "0")} / ${slot?.position ?? "—"}</span>
         </div>
@@ -343,6 +344,11 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
   let selectedPickId: string | null = null;
   const swapFromRef: { current: number | null } = { current: null };
 
+  function bindPageMotion() {
+    const pageRoot = root.querySelector(".db-root") as HTMLElement | null;
+    if (pageRoot) bindEliteMotion(pageRoot, { scan: "line" });
+  }
+
   function draw() {
     if (state.phase === "complete") {
       const players = state.roster.map((id) => poolMap.get(id)!).filter(Boolean);
@@ -397,6 +403,7 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
       });
       root.querySelector("#again")?.addEventListener("click", () => renderDraftballerWheel(root, navigate));
       root.querySelector("#hub")?.addEventListener("click", () => navigate("draftballer"));
+      bindPageMotion();
       return;
     }
 
@@ -434,6 +441,7 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
         </div>`;
       root.querySelector("#back")?.addEventListener("click", () => navigate("draftballer"));
       root.querySelector("#hub")?.addEventListener("click", () => navigate("draftballer"));
+      bindPageMotion();
       return;
     }
 
@@ -580,7 +588,7 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
       const n = state.segments.length;
       const slice = 360 / n;
       const targetAngle = 360 - (spinTargetIndex * slice + slice / 2);
-      const extraSpins = 5 + Math.floor(Math.random() * 3);
+      const extraSpins = 6 + Math.floor(Math.random() * 4);
       const currentMod = ((wheelRotation % 360) + 360) % 360;
       const delta = (targetAngle - currentMod + 360) % 360;
       const nextRotation = wheelRotation + extraSpins * 360 + delta;
@@ -619,11 +627,7 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
         cancelTicks();
         const landed = state.segments[spinTargetIndex];
         if (wheelEl && !prefersReducedMotion()) {
-          wheelEl.style.transition = "transform 180ms ease-in-out";
-          wheelEl.style.transform = `rotate(${wheelRotation + 4}deg)`;
-          window.setTimeout(() => {
-            wheelEl.style.transform = `rotate(${wheelRotation}deg)`;
-          }, 160);
+          triggerWheelSnap(wheelEl, wheelRotation);
         }
         state = spinToPlayableSegment({ ...state, phase: "ready" }, spinTargetIndex, pool);
         lastLandedIndex = state.segments.findIndex((s) => s.id === state.spunSegment?.id);
@@ -669,6 +673,8 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
     root.querySelectorAll("#respin-empty").forEach((btn) => {
       btn.addEventListener("click", runRespin);
     });
+
+    bindPageMotion();
   }
 
   draw();
