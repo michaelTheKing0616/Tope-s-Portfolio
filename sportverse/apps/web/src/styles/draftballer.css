@@ -3627,6 +3627,12 @@ body:has(.db-root) {
   color: var(--db-ink);
 }
 .db-select-board__warn { font-size: 0.8rem; color: #f5a623; margin: 8px 0 0; }
+.db-select-board__lede {
+  margin: 0.35rem 0 0.75rem;
+  font-size: 0.85rem;
+  color: var(--db-muted);
+  max-width: 52ch;
+}
 .db-select-board__list {
   display: flex;
   flex-direction: column;
@@ -3634,6 +3640,46 @@ body:has(.db-root) {
   max-height: min(52vh, 520px);
   overflow-y: auto;
   padding-right: 4px;
+}
+.db-select-board__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+  gap: 12px;
+  max-height: min(58vh, 640px);
+  overflow-y: auto;
+  padding: 4px 2px 12px;
+}
+.db-pick-card {
+  display: block;
+  padding: 0;
+  margin: 0;
+  border: 2px solid transparent;
+  border-radius: 16px;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+  transition: border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+.db-pick-card .db-player-card {
+  width: 100%;
+  margin: 0;
+  pointer-events: none;
+}
+.db-pick-card:hover:not(:disabled) {
+  border-color: rgba(0, 255, 102, 0.45);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+.db-pick-card--active {
+  border-color: var(--db-pitch) !important;
+  box-shadow: 0 0 0 1px rgba(0, 255, 102, 0.35), 0 0 20px rgba(0, 255, 102, 0.15);
+}
+.db-pick-card--disabled,
+.db-pick-card:disabled {
+  cursor: not-allowed;
+  opacity: 0.42;
+  filter: grayscale(0.55);
 }
 .db-select-row {
   display: flex;

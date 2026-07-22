@@ -337,9 +337,43 @@ export interface SquadPickBoardEntry {
 }
 
 /**
- * Full landed club-season roster for the pick UI — every remaining squad member
- * is selectable (none greyed). `recommended` highlights natural fits / quality
- * nudges once a formation slot has been chosen.
+ * Empty formation index the player can legally fill.
+ * Prefers an already-selected empty slot, then exact position, then soft fit.
+ */
+export function findPlacementSlotIndex(
+  state: WheelBuildState,
+  card: RatedPlayerCard,
+): number {
+  if (
+    state.selectedSlotIndex != null &&
+    !state.formation[state.selectedSlotIndex]?.playerId &&
+    draftPickAllowedForSlot(card, state.formation[state.selectedSlotIndex]!.position, true)
+  ) {
+    return state.selectedSlotIndex;
+  }
+
+  const empty = state.formation
+    .map((slot, index) => ({ slot, index }))
+    .filter(({ slot }) => !slot.playerId);
+
+  const exact = empty.find(({ slot }) => slot.position === card.position);
+  if (exact) return exact.index;
+
+  const soft = empty.find(({ slot }) => draftPickAllowedForSlot(card, slot.position, true));
+  return soft?.index ?? -1;
+}
+
+/** True when at least one open formation slot can accept this player. */
+export function playerHasOpenFormationSlot(
+  state: WheelBuildState,
+  card: RatedPlayerCard,
+): boolean {
+  return findPlacementSlotIndex(state, card) >= 0;
+}
+
+/**
+ * Full landed club-season roster for the pick UI.
+ * Grey out only players whose legal positions are already all filled.
  */
 export function getFullSquadPickBoard(
   state: WheelBuildState,
@@ -350,7 +384,6 @@ export function getFullSquadPickBoard(
   if (!squadIds.length) return [];
 
   const picked = new Set(state.roster);
-  const position = targetPosition(state);
   const poolMap = new Map(pool.map((p) => [p.playerId, p]));
   const quality = evaluateSquadQuality(state.roster, poolMap, state.squadSize);
 
@@ -358,15 +391,20 @@ export function getFullSquadPickBoard(
     .map((id) => poolMap.get(id))
     .filter((c): c is RatedPlayerCard => !!c && !picked.has(c.playerId))
     .map((card) => {
-      const naturalFit = !!position && draftPickAllowedForSlot(card, position, true);
-      const recommended = position
+      const placement = findPlacementSlotIndex(state, card);
+      const eligible = placement >= 0;
+      const exactOpen = state.formation.some(
+        (slot) => !slot.playerId && slot.position === card.position,
+      );
+      const recommended = eligible
         ? quality.needsQualityBoost
-          ? naturalFit && card.ovr >= quality.targetMinPickOvr
-          : naturalFit
+          ? exactOpen && card.ovr >= quality.targetMinPickOvr
+          : exactOpen
         : false;
-      return { card, eligible: true, recommended };
+      return { card, eligible, recommended };
     })
     .sort((a, b) => {
+      if (a.eligible !== b.eligible) return a.eligible ? -1 : 1;
       if (a.recommended !== b.recommended) return a.recommended ? -1 : 1;
       return b.card.ovr - a.card.ovr;
     });
@@ -534,20 +572,19 @@ export function pickPlayerForSlot(
   const squadIds = new Set(state.spunSegment.squadPlayerIds ?? []);
   if (!squadIds.has(playerId)) throw new Error("Player not in landed squad");
 
-  // User must choose an empty formation slot after the spin; any squad player may fill it.
-  if (state.selectedSlotIndex == null) {
-    throw new Error("Choose a formation position first");
+  // Auto-place into the best open legal slot (exact position preferred).
+  const slotIndex = findPlacementSlotIndex(state, card);
+  if (slotIndex < 0) {
+    throw new Error("No open formation slot for this player");
   }
-  const slotIndex = state.selectedSlotIndex;
   const targetSlot = state.formation[slotIndex];
-  if (!targetSlot) throw new Error("No formation slot");
-  if (targetSlot.playerId) throw new Error("Slot already filled — choose an empty position");
+  if (!targetSlot || targetSlot.playerId) throw new Error("Slot already filled");
 
   const formation = state.formation.map((slot, i) =>
     i === slotIndex ? { ...slot, playerId } : slot,
   );
   const roster = [...state.roster, playerId];
-  const nextSlot = state.formation.findIndex((s) => !s.playerId && s.id !== formation[slotIndex]?.id);
+  const nextSlot = formation.findIndex((s) => !s.playerId);
   const filled = formation.every((s) => s.playerId);
   const complete = filled || roster.length >= state.squadSize;
 
@@ -566,6 +603,7 @@ export function pickPlayerForSlot(
     candidateIds: [],
     fallback: null,
     selectedSlotIndex: undefined,
+    seenPlayerIds,
   };
 }
 
