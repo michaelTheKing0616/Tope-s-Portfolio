@@ -977,9 +977,12 @@ body:has(.db-root) {
   inset: 0;
   z-index: 1200;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: 1.25rem;
+  padding: max(1rem, env(safe-area-inset-top)) 1rem max(1rem, env(safe-area-inset-bottom));
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   background: rgba(6, 12, 6, 0.72);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -997,13 +1000,18 @@ body:has(.db-root) {
 .db-card-flip-panel {
   position: relative;
   width: min(420px, 94vw);
-  max-height: min(88vh, 720px);
+  height: min(88dvh, 720px);
+  max-height: min(88dvh, 720px);
+  margin: auto;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
   transform-origin: center center;
   transition: transform 0.34s cubic-bezier(0.4, 0.05, 0.2, 1);
   transform: rotateY(0deg);
   box-shadow: 0 28px 48px rgba(0, 0, 0, 0.55);
   border-radius: 22px;
+  overflow: hidden;
 }
 .db-card-flip-panel--to-edge {
   transform: rotateY(90deg);
@@ -1020,6 +1028,9 @@ body:has(.db-root) {
   background: #121c12;
   border: 1px solid rgba(0, 255, 102, 0.22);
 }
+.db-card-flip-side[hidden] {
+  display: none !important;
+}
 .db-card-flip-side--front {
   display: flex;
   flex-direction: column;
@@ -1027,10 +1038,11 @@ body:has(.db-root) {
   justify-content: center;
   padding: 1.25rem;
   gap: 0.75rem;
-  min-height: 320px;
+  min-height: 280px;
+  flex: 1;
 }
 .db-card-flip-side--front .db-player-card {
-  width: min(280px, 80%);
+  width: min(260px, 78%);
   margin: 0;
   pointer-events: none;
 }
@@ -1044,8 +1056,10 @@ body:has(.db-root) {
 .db-card-flip-side--back {
   display: flex;
   flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
   padding: 1.1rem 1.15rem 1rem;
-  max-height: min(88vh, 720px);
   overflow: hidden;
   position: relative;
 }
@@ -1056,30 +1070,38 @@ body:has(.db-root) {
   z-index: 2;
 }
 .db-card-flip-name {
-  margin: 0.15rem 0 0;
+  margin: 0.15rem 2rem 0 0;
   font-family: var(--font-display, Geist, system-ui);
-  font-size: 1.45rem;
+  font-size: 1.35rem;
   color: var(--db-ink);
+  flex-shrink: 0;
 }
 .db-card-flip-meta {
-  margin: 0.2rem 0 0.75rem;
+  margin: 0.2rem 0 0.65rem;
   font-size: 0.82rem;
   color: var(--db-muted);
+  flex-shrink: 0;
 }
 .db-card-flip-meta strong { color: var(--db-pitch); }
 .db-card-flip-scroll {
-  flex: 1;
+  flex: 1 1 auto;
   min-height: 0;
+  overflow-x: hidden;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
   padding-right: 4px;
+  padding-bottom: 0.5rem;
 }
 .db-card-flip-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 0.85rem;
+  margin-top: 0.65rem;
   padding-top: 0.75rem;
   border-top: 1px solid rgba(132, 149, 129, 0.18);
+  flex-shrink: 0;
+  background: #121c12;
 }
 .db-card-flip-actions .db-btn-pitch { flex: 1 1 140px; }
 @media (prefers-reduced-motion: reduce) {

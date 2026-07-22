@@ -232,8 +232,11 @@ export function showDraftPickInspect(card: RatedPlayerCard, opts: DraftPickInspe
   front.querySelectorAll("[title]").forEach((el) => el.removeAttribute("title"));
 
   const revealBack = () => {
-    front.hidden = true;
+    // Remove face entirely — CSS `display:flex` was overriding [hidden],
+    // stacking both sides and clipping the detail card off-screen.
+    front.remove();
     back.hidden = false;
+    back.removeAttribute("hidden");
     panel.classList.add("db-card-flip-panel--detail");
   };
 
