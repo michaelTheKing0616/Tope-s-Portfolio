@@ -63,10 +63,20 @@ export function fitAggregationBridge(
 
 export const DEFAULT_BRIDGE_COEFFICIENTS: BridgeCoefficients = fitAggregationBridge();
 
-/** Runtime bridge coefficients — archive-fitted when engine-calibration.json is loaded. */
+/**
+ * Archive ETL sometimes fits a crushing β intercept that collapses λ/μ toward
+ * identical floors → draw inflation (~33%+) and ~1.7 GPG. Reject those fits.
+ */
+export function bridgeCoefficientsHealthy(coeffs: BridgeCoefficients): boolean {
+  return coeffs.betaIntercept > -0.55 && coeffs.alphaIntercept > -0.48 && coeffs.alphaSlope > 0.35;
+}
+
+/** Runtime bridge — prefer archive fit only when it keeps mid-table rates healthy. */
 export function getBridgeCoefficients(): BridgeCoefficients {
   const cal = getEngineCalibration();
-  if (cal.version > 0) return cal.aggregationBridge;
+  if (cal.version > 0 && bridgeCoefficientsHealthy(cal.aggregationBridge)) {
+    return cal.aggregationBridge;
+  }
   return DEFAULT_BRIDGE_COEFFICIENTS;
 }
 

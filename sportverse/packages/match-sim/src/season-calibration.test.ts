@@ -98,11 +98,11 @@ describe("season realism calibration", () => {
     // eslint-disable-next-line no-console
     console.log("[calib 86]", JSON.stringify(s));
     expect(s.points).toBeGreaterThan(68);
-    expect(s.points).toBeLessThan(102);
-    expect(s.goalsFor).toBeGreaterThan(60);
-    expect(s.draws).toBeLessThan(12);
-    expect(s.totalGpg).toBeGreaterThan(2.1);
-    // Elite blowouts can push total GPG above modern league means.
+    expect(s.points).toBeLessThan(105);
+    expect(s.goalsFor).toBeGreaterThan(62);
+    // Elite sides shouldn't grind out 12+ draws — target ~15–25% max.
+    expect(s.draws).toBeLessThan(10);
+    expect(s.totalGpg).toBeGreaterThan(2.3);
     expect(s.totalGpg).toBeLessThan(4.0);
   }, 120000);
 
@@ -111,10 +111,11 @@ describe("season realism calibration", () => {
     // eslint-disable-next-line no-console
     console.log("[calib 75]", JSON.stringify(s));
     expect(s.points).toBeGreaterThan(38);
-    expect(s.points).toBeLessThan(75);
-    expect(s.draws).toBeGreaterThan(5);
-    expect(s.draws).toBeLessThan(15);
-    expect(s.totalGpg).toBeGreaterThan(2.1);
+    expect(s.points).toBeLessThan(78);
+    expect(s.draws).toBeGreaterThan(4);
+    // Real top-flight draw share ≈ 22–28% (~8–11/38); refuse the 15–19 draw grind.
+    expect(s.draws).toBeLessThan(13);
+    expect(s.totalGpg).toBeGreaterThan(2.3);
     expect(s.totalGpg).toBeLessThan(3.6);
   }, 120000);
 

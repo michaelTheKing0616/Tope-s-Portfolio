@@ -237,18 +237,30 @@ export function simulateMatchV2(
     rng,
     goalRates.rho,
   );
-  // Large quality gaps should rarely end level — resample draws when λ≪μ or λ≫μ.
+  // Draw break — authentic football clusters around 1-0 / 2-1 / 2-0, not endless 0-0 / 1-1.
+  // Hidden xG stays in λ/μ; we only nudge sampled draws when the rates aren't a coin flip.
   const rateGap = Math.abs(goalRates.lambda - goalRates.mu);
-  if (rateGap >= 0.85 && targetHomeGoals === targetAwayGoals && rng() < Math.min(0.72, 0.35 + rateGap * 0.25)) {
-    [targetHomeGoals, targetAwayGoals] = sampleDixonColesScore(
-      goalRates.lambda,
-      goalRates.mu,
-      rng,
-      goalRates.rho,
-    );
-    if (targetHomeGoals === targetAwayGoals) {
-      if (goalRates.lambda >= goalRates.mu) targetHomeGoals += 1;
-      else targetAwayGoals += 1;
+  const totalRate = goalRates.lambda + goalRates.mu;
+  if (targetHomeGoals === targetAwayGoals) {
+    const nilNil = targetHomeGoals === 0;
+    const breakP = nilNil
+      ? Math.min(0.8, 0.3 + totalRate * 0.12 + rateGap * 0.22)
+      : rateGap >= 0.4
+        ? Math.min(0.72, 0.24 + rateGap * 0.35)
+        : rateGap >= 0.22
+          ? 0.2
+          : 0;
+    if (breakP > 0 && rng() < breakP) {
+      [targetHomeGoals, targetAwayGoals] = sampleDixonColesScore(
+        goalRates.lambda,
+        goalRates.mu,
+        rng,
+        goalRates.rho,
+      );
+      if (targetHomeGoals === targetAwayGoals) {
+        if (goalRates.lambda >= goalRates.mu) targetHomeGoals += 1;
+        else targetAwayGoals += 1;
+      }
     }
   }
   const events: ExtendedMatchEvent[] = [];

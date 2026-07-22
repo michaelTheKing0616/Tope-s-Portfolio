@@ -96,14 +96,15 @@ export async function simulateSeason(
 
     const isHome = i % 2 === 0;
     const opponent = opponents[i]!;
+    // Opponent is always "home" in the away-leg call — keep HA on for the venue side.
     const match = isHome
       ? simulateMatchV2(activeSquad, opponent, simSeed, i + 1, {
-          config: { ...config, venue: { homeAdvantage: isHome } },
+          config: { ...config, venue: { homeAdvantage: true } },
           statsFor: (id) => getSeasonStats(id),
           carryFatigueHome: carryFatigue,
         })
       : simulateMatchV2(opponent, activeSquad, simSeed, i + 1, {
-          config: { ...config, venue: { homeAdvantage: false } },
+          config: { ...config, venue: { homeAdvantage: true } },
           statsFor: (id) => getSeasonStats(id),
           carryFatigueAway: carryFatigue,
         });

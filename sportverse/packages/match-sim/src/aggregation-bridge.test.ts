@@ -2,12 +2,58 @@ import { describe, expect, it } from "vitest";
 import {
   BRIDGE_CALIBRATION_ROWS,
   bridgeCalibrationMae,
+  bridgeCoefficientsHealthy,
+  DEFAULT_BRIDGE_COEFFICIENTS,
   fitAggregationBridge,
+  getBridgeCoefficients,
 } from "./aggregation-bridge.js";
+import { setEngineCalibration } from "@sportverse/sports-db";
 import { squadStrengthSignals } from "./team-strength.js";
 import type { RatedPlayerCard } from "@sportverse/draftballer-types";
 
 describe("aggregation bridge — regression fit (§3.2)", () => {
+  it("rejects crushing archive β fits that inflate draws", () => {
+    expect(
+      bridgeCoefficientsHealthy({
+        alphaIntercept: -0.53,
+        alphaSlope: 0.95,
+        betaIntercept: -1.12,
+        betaSlope: 1.18,
+      }),
+    ).toBe(false);
+    expect(bridgeCoefficientsHealthy(DEFAULT_BRIDGE_COEFFICIENTS)).toBe(true);
+
+    setEngineCalibration({
+      version: 1,
+      fittedAt: "test",
+      source: "unit",
+      aggregationBridge: {
+        alphaIntercept: -0.53,
+        alphaSlope: 0.95,
+        betaIntercept: -1.12,
+        betaSlope: 1.18,
+      },
+      leagueBridging: {
+        scalingBase: 1,
+        scalingSlope: 0,
+        scalingMin: 0.75,
+        scalingMax: 1.15,
+        shiftSlope: 0,
+        shiftMin: -3,
+        shiftMax: 3,
+        transferSampleSize: 0,
+      },
+      lsi: {
+        weights: { elo: 0.45, transfer: 0.15, talent: 0.15, nat: 0.25 },
+        sigmaLsi: 0.08,
+        shrinkageK: 30,
+        holdoutAccuracy: 0.5,
+      },
+    });
+    expect(getBridgeCoefficients()).toEqual(DEFAULT_BRIDGE_COEFFICIENTS);
+    setEngineCalibration(null);
+  });
+
   it("fit reduces MAE on calibration rows", () => {
     const coeffs = fitAggregationBridge();
     const { alphaMae, betaMae } = bridgeCalibrationMae(coeffs);

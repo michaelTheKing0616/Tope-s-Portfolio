@@ -59,7 +59,13 @@ export {
 } from "./dixon-coles.js";
 export { computeMatchGoalRates, eraGoalsPerGameScale, squadGoalRateFloor } from "./match-rates.js";
 export { computeIntelligentMatchRates, styleClashBias } from "./match-intelligence.js";
-export { fitAggregationBridge, DEFAULT_BRIDGE_COEFFICIENTS, bridgeCalibrationMae } from "./aggregation-bridge.js";
+export {
+  fitAggregationBridge,
+  DEFAULT_BRIDGE_COEFFICIENTS,
+  bridgeCalibrationMae,
+  bridgeCoefficientsHealthy,
+  getBridgeCoefficients,
+} from "./aggregation-bridge.js";
 export { squadStrengthSignals } from "./team-strength.js";
 export {
   rankedProbabilityScore,

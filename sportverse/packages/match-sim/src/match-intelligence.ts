@@ -15,7 +15,8 @@ import {
 } from "./dixon-coles.js";
 import { squadStrengthSignals } from "./team-strength.js";
 
-const BASELINE_GOALS_PER_GAME = 2.75;
+/** Modern top-flight anchor — target ~2.6–3.0 total goals / match. */
+const BASELINE_GOALS_PER_GAME = 2.85;
 
 export function eraGoalsPerGameScale(era?: EraProfile): number {
   if (!era) return 1;
@@ -24,8 +25,9 @@ export function eraGoalsPerGameScale(era?: EraProfile): number {
   return anchor / BASELINE_GOALS_PER_GAME;
 }
 
+/** Soft per-side floor — kept low so floors don't equalize λ and μ into draws. */
 export function squadGoalRateFloor(avgOvr: number): number {
-  return 0.42 + Math.max(0, avgOvr - 50) * 0.017;
+  return 0.3 + Math.max(0, avgOvr - 50) * 0.012;
 }
 
 export interface MatchIntelligenceInput {
@@ -99,9 +101,9 @@ export function computeIntelligentMatchRates(input: MatchIntelligenceInput): Dix
 
   const homeOvr = squadAvgOvr(input.homePlayers);
   const awayOvr = squadAvgOvr(input.awayPlayers);
-  // Extra log-linear tilt so elite vs weak stays decisive beyond bridge alone.
-  const qualityTiltHome = ((homeOvr - awayOvr) / 20) * 0.14;
-  const qualityTiltAway = ((awayOvr - homeOvr) / 20) * 0.14;
+  // Stronger quality tilt — OVR gaps must separate λ/μ enough for decisive scorelines.
+  const qualityTiltHome = ((homeOvr - awayOvr) / 20) * 0.26;
+  const qualityTiltAway = ((awayOvr - homeOvr) / 20) * 0.26;
 
   const alphaHome =
     homeSig.alpha +
@@ -125,11 +127,15 @@ export function computeIntelligentMatchRates(input: MatchIntelligenceInput): Dix
     rho: DEFAULT_RHO,
   });
 
-  const homeFloor = squadGoalRateFloor(homeOvr);
-  const awayFloor = squadGoalRateFloor(awayOvr);
-  return {
-    ...rates,
-    lambda: Math.max(rates.lambda, homeFloor),
-    mu: Math.max(rates.mu, awayFloor),
-  };
+  const rawGap = rates.lambda - rates.mu;
+  let lambda = Math.max(rates.lambda, squadGoalRateFloor(homeOvr));
+  let mu = Math.max(rates.mu, squadGoalRateFloor(awayOvr));
+  // Soft floors must not erase quality gaps (main draw-compression failure mode).
+  const flooredGap = lambda - mu;
+  if (Math.abs(rawGap) > 0.18 && Math.abs(flooredGap) < Math.abs(rawGap) * 0.5) {
+    const restored = rawGap * 0.75;
+    if (restored >= 0) lambda = Math.max(lambda, mu + restored);
+    else mu = Math.max(mu, lambda - restored);
+  }
+  return { ...rates, lambda, mu };
 }

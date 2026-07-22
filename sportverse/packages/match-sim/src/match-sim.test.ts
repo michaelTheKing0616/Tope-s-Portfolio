@@ -108,9 +108,10 @@ describe("simulateSeason", () => {
       totalDraws += r.drawn;
       totalGf += r.goalsFor;
     }
-    expect(totalDraws / 40).toBeLessThan(16);
-    expect(totalDraws / 40).toBeGreaterThan(4);
-    expect(totalGf / 40).toBeGreaterThan(25);
+    expect(totalDraws / 40).toBeLessThan(12);
+    // Still some draws — but not the old 15–19 grind.
+    expect(totalDraws / 40).toBeGreaterThan(2);
+    expect(totalGf / 40).toBeGreaterThan(28);
   });
 
   it("weak face stats with 80 OVR headline still score regularly", async () => {
