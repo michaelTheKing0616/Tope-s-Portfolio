@@ -2,6 +2,7 @@ import type { DraftFormat } from "@sportverse/draftballer-types";
 import { createDraftRoom, isDraftApiEnabled } from "../lib/draft-api.js";
 import { connectDraftSocket, socketCreateRoom } from "../lib/draft-socket.js";
 import { bindEliteMotion } from "../lib/elite-motion.js";
+import { keepieLoaderHtml } from "../lib/keepie-loader.js";
 
 type Navigate = (route: string, param?: string) => void;
 
@@ -150,7 +151,13 @@ export function renderDraftballerMpLobby(root: HTMLElement, navigate: Navigate) 
               })}
             </div>
 
-            ${status ? `<p class="db-lobby-status-msg">${status}</p>` : ""}
+            ${
+              status === "Creating room…"
+                ? `<div class="db-keepie-overlay db-keepie-overlay--lobby">${keepieLoaderHtml({ size: 64, label: "Creating" })}</div>`
+                : status
+                  ? `<p class="db-lobby-status-msg">${status}</p>`
+                  : ""
+            }
           </section>
         </div>
       </div>`;

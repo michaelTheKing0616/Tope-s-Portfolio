@@ -4866,6 +4866,162 @@
   transition: transform 0.25s ease;
 }
 
+/* Keepie-uppie idle loader (~1s / 12fps feel) */
+.db-keepie {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  --keepie-shirt: #2e8b57;
+  --keepie-shorts: #1e3a8a;
+  --keepie-skin: #f2c28b;
+  --keepie-ink: #0a0a0b;
+}
+.db-keepie__svg {
+  display: block;
+  overflow: visible;
+}
+.db-keepie__shadow {
+  fill: rgba(0, 0, 0, 0.22);
+  transform-origin: 48px 86px;
+  animation: db-keepie-shadow 1s ease-in-out infinite;
+}
+.db-keepie__player {
+  transform-origin: 48px 70px;
+  animation: db-keepie-bob 1s ease-in-out infinite;
+}
+.db-keepie__head {
+  fill: var(--keepie-skin);
+  stroke: var(--keepie-ink);
+  stroke-width: 1.2;
+}
+.db-keepie__torso {
+  fill: var(--keepie-shirt);
+  stroke: var(--keepie-ink);
+  stroke-width: 1.2;
+}
+.db-keepie__arm-l,
+.db-keepie__arm-r,
+.db-keepie__leg-plant,
+.db-keepie__leg-kick {
+  fill: none;
+  stroke: var(--keepie-ink);
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.db-keepie__arm-l,
+.db-keepie__arm-r {
+  animation: db-keepie-arms 1s ease-in-out infinite;
+}
+.db-keepie__kick {
+  transform-origin: 51px 54px;
+  animation: db-keepie-kick 1s ease-in-out infinite;
+}
+.db-keepie__boot-plant,
+.db-keepie__boot-kick {
+  fill: var(--keepie-shorts);
+  stroke: var(--keepie-ink);
+  stroke-width: 1;
+}
+.db-keepie__ball {
+  transform-origin: 0 0;
+  animation: db-keepie-ball 1s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+.db-keepie__ball-body {
+  fill: #f5f5f5;
+  stroke: var(--keepie-ink);
+  stroke-width: 1.2;
+}
+.db-keepie__ball-mark {
+  fill: var(--keepie-ink);
+  opacity: 0.85;
+}
+.db-keepie__label {
+  color: var(--db-pitch, #00ff66);
+  letter-spacing: 0.14em;
+}
+.db-keepie__detail {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--db-muted);
+  max-width: 280px;
+  text-align: center;
+}
+.db-keepie--inline {
+  flex-direction: row;
+  gap: 12px;
+}
+.db-keepie-page {
+  text-align: center;
+  padding: 2.5rem 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  min-height: 60vh;
+  justify-content: center;
+}
+.db-keepie-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 1.5rem;
+  min-height: 160px;
+}
+.db-keepie-overlay--season,
+.db-keepie-overlay--lobby {
+  min-height: 0;
+  padding: 0.75rem 0 1rem;
+}
+.db-trust-badge__loading {
+  display: inline-flex;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+@keyframes db-keepie-bob {
+  0%, 100% { transform: translateY(0); }
+  25% { transform: translateY(1px); }
+  50% { transform: translateY(0); }
+  75% { transform: translateY(1px); }
+}
+@keyframes db-keepie-arms {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-4deg); }
+  75% { transform: rotate(4deg); }
+}
+@keyframes db-keepie-kick {
+  0%, 100% { transform: rotate(0deg); }
+  8% { transform: rotate(-38deg); }
+  16% { transform: rotate(-12deg); }
+  50% { transform: rotate(0deg); }
+  58% { transform: rotate(42deg); }
+  66% { transform: rotate(14deg); }
+}
+@keyframes db-keepie-ball {
+  /* Right-foot juggle then left-foot juggle — shallow parabolas */
+  0% { transform: translate(56px, 58px); }
+  8% { transform: translate(62px, 48px); }
+  16% { transform: translate(64px, 36px); }
+  25% { transform: translate(60px, 28px); }
+  33% { transform: translate(52px, 34px); }
+  42% { transform: translate(46px, 48px); }
+  50% { transform: translate(40px, 58px); }
+  58% { transform: translate(34px, 46px); }
+  66% { transform: translate(32px, 34px); }
+  75% { transform: translate(36px, 26px); }
+  83% { transform: translate(44px, 34px); }
+  92% { transform: translate(52px, 48px); }
+  100% { transform: translate(56px, 58px); }
+}
+@keyframes db-keepie-shadow {
+  0%, 50%, 100% { transform: scaleX(1); opacity: 0.22; }
+  25%, 75% { transform: scaleX(0.72); opacity: 0.14; }
+}
+
 /* Tactical active slot pulse */
 .db-tactical-chip--active,
 .db-pitch-slot--active {
@@ -4891,11 +5047,21 @@
   .db-era-lab-btn-scan,
   .db-era-lab-node,
   .db-tactical-chip--active,
-  .db-pitch-slot--active {
+  .db-pitch-slot--active,
+  .db-keepie__shadow,
+  .db-keepie__player,
+  .db-keepie__arm-l,
+  .db-keepie__arm-r,
+  .db-keepie__leg-kick,
+  .db-keepie__kick,
+  .db-keepie__ball {
     animation: none !important;
   }
   .db-entrance {
     opacity: 1;
     transform: none;
+  }
+  .db-keepie__ball {
+    transform: translate(56px, 40px);
   }
 }

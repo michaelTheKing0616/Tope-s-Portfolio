@@ -8,6 +8,7 @@ import {
   minPickCandidatesForPosition,
   pickPlayerForSlot,
   randomSegmentIndex,
+  selectFormationSlot,
   spinToPlayableSegment,
   spinToSegment,
   swapFormationSlots,
@@ -18,6 +19,30 @@ import { getPresetMode } from "./modes.js";
 import { buildDraftPool } from "./pool.js";
 import { draftPickAllowedForSlot } from "./squad-rules.js";
 import { looksLikeJunkClubAlias } from "@sportverse/sports-db";
+
+/** Spin → choose empty slot → pick any remaining squad member. */
+function landAndPick(
+  state: ReturnType<typeof createWheelSession>,
+  pool: ReturnType<typeof buildDraftPool>,
+  segmentSalt: number,
+  preferLowOvr = false,
+) {
+  let next = spinToPlayableSegment(
+    { ...state, phase: "ready", spunSegment: null },
+    segmentSalt,
+    pool,
+  );
+  const empty = next.formation.findIndex((s) => !s.playerId);
+  expect(empty).toBeGreaterThanOrEqual(0);
+  next = selectFormationSlot(next, empty);
+  const board = getFullSquadPickBoard(next, pool);
+  expect(board.length).toBeGreaterThan(0);
+  expect(board.every((e) => e.eligible)).toBe(true);
+  const pick = preferLowOvr
+    ? [...board].sort((a, b) => a.card.ovr - b.card.ovr)[0]!
+    : board[0]!;
+  return pickPlayerForSlot(next, pick.card.playerId, pool);
+}
 
 describe("spin-wheel", () => {
   const mode = getPresetMode("all-time-any");
@@ -36,7 +61,7 @@ describe("spin-wheel", () => {
     }
   });
 
-  it("position-filtered segments always supply enough players for the slot", () => {
+  it("optional position-filtered segments still supply enough players for the slot", () => {
     const minNeed = minPickCandidatesForPosition("FB");
     const segments = buildWheelSegments(mode, pool, "test-fb-filter", 24, { position: "FB" });
     expect(segments.length).toBeGreaterThan(0);
@@ -49,33 +74,38 @@ describe("spin-wheel", () => {
     }
   });
 
-  it("every wheel slice is playable — landing never yields an empty pool", () => {
+  it("every wheel slice lands with a non-empty undrafted squad", () => {
     let state = createWheelSession(mode, pool, "test-no-dead-ends");
     state = ensureSegmentsForSlot(state, pool);
-    const pos = state.formation[state.currentSlotIndex]?.position;
-    const minNeed = minPickCandidatesForPosition(pos);
     for (let i = 0; i < state.segments.length; i++) {
       const spun = spinToSegment({ ...state, phase: "ready", spunSegment: null }, i, pool);
-      expect(getPickCandidates(spun, pool).length).toBeGreaterThanOrEqual(minNeed);
+      expect(getPickCandidates(spun, pool).length).toBeGreaterThanOrEqual(1);
+      expect(getFullSquadPickBoard(spun, pool).length).toBeGreaterThanOrEqual(1);
     }
   });
 
-  it("FB slots never surface wingers", () => {
-    let state = createWheelSession(mode, pool, "test-fb-strict");
+  it("spin clears position — user chooses slot after landing", () => {
+    let state = createWheelSession(mode, pool, "test-pos-after-spin");
     const fbSlot = state.formation.findIndex((s) => s.position === "FB");
     expect(fbSlot).toBeGreaterThanOrEqual(0);
-    state = {
-      ...state,
-      currentSlotIndex: fbSlot,
-      selectedSlotIndex: fbSlot,
-      mode: { ...state.mode, draftOrder: "position_first" },
-    };
-    state = ensureSegmentsForSlot(state, pool);
-    state = spinToSegment(state, 0, pool);
+    state = selectFormationSlot(state, fbSlot);
+    expect(state.selectedSlotIndex).toBe(fbSlot);
+    state = spinToPlayableSegment(state, 0, pool);
+    expect(state.phase).toBe("picking");
+    expect(state.selectedSlotIndex).toBeUndefined();
+    expect(getFullSquadPickBoard(state, pool).every((e) => e.eligible)).toBe(true);
+  });
+
+  it("after choosing FB, shortlist prefers legal full-backs", () => {
+    let state = createWheelSession(mode, pool, "test-fb-after-choose");
+    const fbSlot = state.formation.findIndex((s) => s.position === "FB");
+    expect(fbSlot).toBeGreaterThanOrEqual(0);
+    state = spinToPlayableSegment(state, 0, pool);
+    state = selectFormationSlot(state, fbSlot);
     const candidates = getPickCandidates(state, pool);
     expect(candidates.length).toBeGreaterThan(0);
     for (const c of candidates) {
-      expect(c.position).toBe("FB");
+      expect(draftPickAllowedForSlot(c, "FB", true)).toBe(true);
     }
   });
 
@@ -86,124 +116,66 @@ describe("spin-wheel", () => {
     const b = randomSegmentIndex(segments, "same-seed", 1);
     const c = randomSegmentIndex(segments, "same-seed", 1, a);
     expect(c).not.toBe(a);
-    // Same salt → same index (deterministic)
     expect(randomSegmentIndex(segments, "same-seed", 0)).toBe(a);
-    expect(a === b || a !== b).toBe(true); // salt usually differs; exclude is hard guarantee
+    expect(a === b || a !== b).toBe(true);
   });
 
-  it("pick pool is always club squad + legal for target position", () => {
-    let state = createWheelSession(mode, pool, "test-squad-lock");
-    expect(state.segments.length).toBeGreaterThan(0);
-    let checked = 0;
-    for (let i = 0; i < state.segments.length && checked < 6; i++) {
-      state = spinToPlayableSegment({ ...state, phase: "ready", spunSegment: null }, i, pool);
-      const squad = new Set(state.spunSegment?.squadPlayerIds ?? []);
-      const pos = state.formation[state.currentSlotIndex]?.position;
-      const candidates = getPickCandidates(state, pool);
-      if (!candidates.length) continue;
-      expect(candidates.length).toBeGreaterThanOrEqual(minPickCandidatesForPosition(pos));
-      checked++;
-      for (const c of candidates) {
-        expect(squad.has(c.playerId)).toBe(true);
-        if (pos) expect(draftPickAllowedForSlot(c, pos, true)).toBe(true);
-      }
+  it("full squad board is never greyed — any teammate can fill the chosen slot", () => {
+    let state = createWheelSession(mode, pool, "test-full-board");
+    state = spinToPlayableSegment(state, 0, pool);
+    const empty = state.formation.findIndex((s) => !s.playerId);
+    state = selectFormationSlot(state, empty);
+    const board = getFullSquadPickBoard(state, pool);
+    expect(board.length).toBeGreaterThan(0);
+    const squad = new Set(state.spunSegment?.squadPlayerIds ?? []);
+    for (const entry of board) {
+      expect(squad.has(entry.card.playerId)).toBe(true);
+      expect(entry.eligible).toBe(true);
     }
-    expect(checked).toBeGreaterThan(0);
+    const deep = board.find((e) => !e.recommended) ?? board[0]!;
+    state = pickPlayerForSlot(state, deep.card.playerId, pool);
+    expect(state.roster).toContain(deep.card.playerId);
   });
 
-  it("runs spin → pick → complete flow", () => {
+  it("pick requires a chosen empty slot", () => {
+    let state = createWheelSession(mode, pool, "test-need-slot");
+    state = spinToPlayableSegment(state, 0, pool);
+    const board = getFullSquadPickBoard(state, pool);
+    expect(board.length).toBeGreaterThan(0);
+    expect(() => pickPlayerForSlot(state, board[0]!.card.playerId, pool)).toThrow(
+      /Choose a formation position/,
+    );
+  });
+
+  it("runs spin → choose position → pick → ready flow", () => {
     let state = createWheelSession(mode, pool, "test-seed");
     expect(state.phase).toBe("ready");
     expect(state.segments.length).toBeGreaterThan(0);
-
-    let candidates: ReturnType<typeof getPickCandidates> = [];
-    for (let i = 0; i < state.segments.length; i++) {
-      state = spinToSegment({ ...state, phase: "ready", spunSegment: null, spinsUsed: i }, i, pool);
-      candidates = getPickCandidates(state, pool);
-      if (candidates.length) break;
-    }
-    expect(candidates.length).toBeGreaterThan(0);
-
-    state = pickPlayerForSlot(state, candidates[0]!.playerId, pool);
+    state = landAndPick(state, pool, 0);
     expect(state.roster).toHaveLength(1);
     expect(state.phase).toBe("ready");
   });
 
   it("computes squad rating when complete", () => {
     let state = createWheelSession(mode, pool, "test-complete");
-    // Wider segment set so every formation role can find a club-season match.
     state = { ...state, segments: buildWheelSegments(mode, pool, "test-complete-wide", 120) };
     expect(state.segments.length).toBeGreaterThan(20);
 
+    let salt = 0;
     while (state.phase !== "complete") {
-      const emptySlots = state.formation
-        .map((s, idx) => (!s.playerId ? idx : -1))
-        .filter((idx) => idx >= 0);
-      expect(emptySlots.length).toBeGreaterThan(0);
-
-      let placed = false;
-      for (const slotIndex of emptySlots) {
-        state = {
-          ...state,
-          currentSlotIndex: slotIndex,
-          selectedSlotIndex: slotIndex,
-          mode: { ...state.mode, draftOrder: "position_first" },
-        };
-        for (let attempt = 0; attempt < state.segments.length; attempt++) {
-          state = spinToSegment({ ...state, phase: "ready", spunSegment: null }, attempt, pool);
-          const candidates = getPickCandidates(state, pool);
-          if (!candidates.length) continue;
-          state = pickPlayerForSlot(state, candidates[0]!.playerId, pool);
-          placed = true;
-          break;
-        }
-        if (placed) break;
-      }
-      expect(placed).toBe(true);
+      const before = state.roster.length;
+      state = landAndPick(state, pool, salt++);
+      expect(state.roster.length).toBe(before + 1);
     }
 
     expect(state.phase).toBe("complete");
     expect(wheelSquadRating(state, pool)).toBeGreaterThan(0);
   });
 
-  it("full squad board shows ineligible teammates greyed in UI metadata", () => {
-    let state = createWheelSession(mode, pool, "test-full-board");
-    state = spinToPlayableSegment(state, 0, pool);
-    const board = getFullSquadPickBoard(state, pool);
-    expect(board.length).toBeGreaterThan(0);
-    const squad = new Set(state.spunSegment?.squadPlayerIds ?? []);
-    for (const entry of board) {
-      expect(squad.has(entry.card.playerId)).toBe(true);
-    }
-    const pos = state.formation[state.currentSlotIndex]?.position;
-    const eligible = board.filter((e) => e.eligible);
-    expect(eligible.length).toBeGreaterThanOrEqual(minPickCandidatesForPosition(pos));
-    for (const entry of eligible) {
-      if (pos) expect(draftPickAllowedForSlot(entry.card, pos, true)).toBe(true);
-    }
-    const ineligible = board.filter((e) => !e.eligible);
-    if (ineligible.length) {
-      for (const entry of ineligible) {
-        if (pos) expect(draftPickAllowedForSlot(entry.card, pos, true)).toBe(false);
-      }
-    }
-    // Can pick any eligible squad member, not only shortlist
-    if (eligible.length) {
-      const deep = eligible.find((e) => !e.recommended) ?? eligible[0]!;
-      state = pickPlayerForSlot(state, deep.card.playerId, pool);
-      expect(state.roster).toContain(deep.card.playerId);
-    }
-  });
-
   it("quality nudge raises target min OVR when squad starts weak", () => {
     let state = createWheelSession(mode, pool, "test-quality-nudge");
-    // Force three low picks if possible
     for (let pick = 0; pick < 3 && state.phase !== "complete"; pick++) {
-      state = spinToPlayableSegment({ ...state, phase: "ready", spunSegment: null }, pick, pool);
-      const board = getFullSquadPickBoard(state, pool).filter((e) => e.eligible);
-      const low = [...board].sort((a, b) => a.card.ovr - b.card.ovr)[0];
-      if (!low) break;
-      state = pickPlayerForSlot(state, low.card.playerId, pool);
+      state = landAndPick(state, pool, pick, true);
     }
     const poolMap = new Map(pool.map((p) => [p.playerId, p]));
     const quality = evaluateSquadQuality(state.roster, poolMap, state.squadSize);
@@ -215,20 +187,8 @@ describe("spin-wheel", () => {
 
   it("swaps only when both players fit the opposite slots", () => {
     let state = createWheelSession(mode, pool, "test-swap");
-    // Fill two slots with compatible players by scanning
-    const fillSlot = (slotIndex: number) => {
-      state = { ...state, currentSlotIndex: slotIndex, selectedSlotIndex: slotIndex, mode: { ...state.mode, draftOrder: "position_first" as const } };
-      for (let i = 0; i < state.segments.length; i++) {
-        state = spinToSegment({ ...state, phase: "ready", spunSegment: null }, i, pool);
-        const cands = getPickCandidates(state, pool);
-        if (!cands.length) continue;
-        state = pickPlayerForSlot(state, cands[0]!.playerId, pool);
-        return true;
-      }
-      return false;
-    };
-    expect(fillSlot(0)).toBe(true);
-    expect(fillSlot(1)).toBe(true);
+    state = landAndPick(state, pool, 0);
+    state = landAndPick(state, pool, 1);
     const a = state.formation[0]!;
     const b = state.formation[1]!;
     expect(a.playerId && b.playerId).toBeTruthy();

@@ -13,6 +13,7 @@ import {
 import { playerCardHtml } from "./draftballer-hub.js";
 import { playDraftSound } from "../lib/draft-sound.js";
 import { bindIdentityPicker, identityPickerHtml } from "./draftballer-identity.js";
+import { keepieLoaderHtml } from "../lib/keepie-loader.js";
 
 type Navigate = (route: string, param?: string) => void;
 
@@ -93,7 +94,11 @@ export function renderDraftballerRoom(root: HTMLElement, navigate: Navigate, for
             ).join("")}
           </div>
           <div>
-            <p style="color:var(--db-muted);font-size:0.85rem">${isYou ? `Your pick — need ${nextPos ?? "any"}` : "Bot is picking…"}</p>
+            <p style="color:var(--db-muted);font-size:0.85rem">${
+              isYou
+                ? `Your pick — need ${nextPos ?? "any"}`
+                : `${keepieLoaderHtml({ size: 48, label: "Bot picking", className: "db-keepie--inline" })}`
+            }</p>
             <div class="db-pool-grid" id="pool">
               ${gridPool
                 .filter((c) => room.poolIds.includes(c.playerId))

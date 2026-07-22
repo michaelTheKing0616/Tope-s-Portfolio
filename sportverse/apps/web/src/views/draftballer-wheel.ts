@@ -21,7 +21,7 @@ import {
 } from "@sportverse/draftballer-core";
 
 /** Bust stale PWA caches — bump when wheel UX changes. */
-const WHEEL_UI_BUILD = "elite-anim-v1";
+const WHEEL_UI_BUILD = "pos-after-spin-v1";
 import { getFormation } from "@sportverse/match-sim";
 import { computeSquadRating } from "@sportverse/rating-engine";
 import { playerCardHtml } from "./draftballer-hub.js";
@@ -32,6 +32,7 @@ import { mountStagedReveal } from "../lib/staged-reveal.js";
 import { bindIdentityPicker, identityPickerHtml } from "./draftballer-identity.js";
 import { pitchSurfaceHtml } from "./draftballer-pitch.js";
 import { bindEliteMotion, triggerWheelSnap } from "../lib/elite-motion.js";
+import { keepieLoaderHtml } from "../lib/keepie-loader.js";
 
 type Navigate = (route: string, param?: string) => void;
 
@@ -111,10 +112,9 @@ function pickBoardRowHtml(
   const ovrDisplay = blind ? "??" : String(card.ovr);
   return `
     <button type="button"
-      class="db-glass db-select-row ${selected ? "db-select-row--active" : ""} ${!entry.eligible ? "db-select-row--ineligible" : ""} ${entry.recommended ? "db-select-row--recommended" : ""}"
+      class="db-glass db-select-row ${selected ? "db-select-row--active" : ""} ${entry.recommended ? "db-select-row--recommended" : ""}"
       data-pick-id="${card.playerId}"
-      ${!entry.eligible ? "disabled" : ""}
-      title="${entry.eligible ? escapeHtml(card.name) : "Cannot play this position"}">
+      title="${escapeHtml(card.name)}">
       <div class="db-select-row__ovr">
         <span class="db-select-row__ovr-val">${ovrDisplay}</span>
         <span class="db-select-row__pos">${card.position}</span>
@@ -127,6 +127,7 @@ function pickBoardRowHtml(
         <div class="db-select-row__meta">
           <span class="db-select-row__club">${escapeHtml(clubFromContext(card))}</span>
           <span class="db-select-row__style">${escapeHtml(profile.archetype)}</span>
+          ${entry.recommended ? `<span class="db-chip db-chip--on">Fit</span>` : ""}
         </div>
         <div class="db-select-row__stats">
           ${stats.map((s) => `<div><span>${s.label}</span><strong>${blind ? "?" : s.value}</strong></div>`).join("")}
@@ -138,18 +139,32 @@ function pickBoardRowHtml(
 function pickBoardSectionHtml(
   state: WheelBuildState,
   pickBoard: SquadPickBoardEntry[],
-  eligiblePicks: SquadPickBoardEntry[],
   slot: ReturnType<typeof currentFormationSlot>,
   segment: NonNullable<WheelBuildState["spunSegment"]>,
   selectedPickId: string | null,
   blind: boolean,
   squadQuality: ReturnType<typeof evaluateSquadQuality>,
+  positionChosen: boolean,
 ): string {
   const round = state.roster.length + 1;
   const selectedName =
     selectedPickId && pickBoard.find((e) => e.card.playerId === selectedPickId)
       ? pickBoard.find((e) => e.card.playerId === selectedPickId)!.card.name
-      : eligiblePicks[0]?.card.name ?? "Select a player";
+      : pickBoard[0]?.card.name ?? "Select a player";
+
+  if (!positionChosen) {
+    return `
+      <section class="db-select-board db-select-board--await-pos">
+        <header class="db-select-board__head">
+          <div class="db-select-board__chip db-soft-pulse">
+            <span class="db-select-board__pulse" aria-hidden="true"></span>
+            <span class="db-select-board__round">Round ${String(round).padStart(2, "0")} · Choose position</span>
+          </div>
+          <h2 class="db-select-board__title">Landed: ${escapeHtml(segment.label)}</h2>
+          <p class="db-select-board__lede">Tap an empty pitch slot to decide which position this pick fills. Full squad unlocks next.</p>
+        </header>
+      </section>`;
+  }
 
   return `
     <section class="db-select-board">
@@ -158,20 +173,20 @@ function pickBoardSectionHtml(
           <span class="db-select-board__pulse" aria-hidden="true"></span>
           <span class="db-select-board__round">Round ${String(round).padStart(2, "0")} / ${slot?.position ?? "—"}</span>
         </div>
-        <h2 class="db-select-board__title">Pick a ${slot?.position ?? ""} from ${escapeHtml(segment.label)}</h2>
+        <h2 class="db-select-board__title">Fill ${slot?.position ?? "slot"} from ${escapeHtml(segment.label)} · full squad</h2>
         ${
-          eligiblePicks.length
+          pickBoard.length
             ? `<button class="btn btn--ghost db-select-random" id="random-pick" type="button">Random pick</button>`
             : state.rerollsLeft > 0
               ? `<button class="btn btn--ghost" id="respin-empty" type="button">Respin (${state.rerollsLeft} left)</button>`
-              : `<p class="db-select-board__warn">No matching players — respin or change slot</p>`
+              : `<p class="db-select-board__warn">Squad empty — respin</p>`
         }
       </header>
       ${
         squadQuality.filled > 0
           ? `<p class="db-squad-quality db-squad-quality--${squadQuality.band}">
               Squad avg <strong>${squadQuality.avgOvr}</strong>
-              · target ${squadQuality.targetMinPickOvr}+ OVR
+              · natural fits highlighted
               · ${squadQuality.picksRemaining} left
             </p>`
           : ""
@@ -184,7 +199,7 @@ function pickBoardSectionHtml(
           <span class="db-label-caps">Selection</span>
           <strong class="db-select-board__name">${escapeHtml(selectedName)}</strong>
         </div>
-        <button class="db-btn-pitch db-select-confirm" id="confirm-pick" type="button" ${!selectedPickId || !eligiblePicks.some((e) => e.card.playerId === selectedPickId) ? "disabled" : ""}>
+        <button class="db-btn-pitch db-select-confirm" id="confirm-pick" type="button" ${!selectedPickId ? "disabled" : ""}>
           Confirm Pick →
         </button>
       </footer>
@@ -237,10 +252,7 @@ function pitchHtml(
 ): string {
   const formationId = state.mode.formationId ?? "4-3-3";
   const form = getFormation(formationId);
-  const activeIdx =
-    state.mode.draftOrder === "position_first" && state.selectedSlotIndex != null
-      ? state.selectedSlotIndex
-      : state.currentSlotIndex;
+  const activeIdx = state.selectedSlotIndex ?? -1;
 
   const dots = state.formation
     .map((slot, i) => {
@@ -267,15 +279,16 @@ function pitchHtml(
     })
     .join("");
 
+  const hint =
+    state.phase === "picking" && state.selectedSlotIndex == null
+      ? "Tap an empty slot to choose the position for this club"
+      : opts.swapHint
+        ? "Tap a filled player, then another legal slot to swap · empty slot sets placement"
+        : "Spin for a club, then tap a pitch slot to place";
+
   return `
     ${pitchSurfaceHtml(dots, { className: "db-wheel-pitch", ariaLabel: `${formationId} pitch` })}
-    <p class="db-wheel-pitch__hint">
-      ${
-        opts.swapHint
-          ? "Tap a filled player, then another legal slot to swap · empty slot sets next pick"
-          : "Tap a slot to set the next pick position"
-      }
-    </p>`;
+    <p class="db-wheel-pitch__hint">${hint}</p>`;
 }
 
 function bindPitchInteractions(
@@ -407,8 +420,7 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
       return;
     }
 
-    // Rebuild the wheel for the upcoming slot so every slice can supply that
-    // position — a spin can no longer land on a club with no eligible players.
+    // Rebuild club/year slices for the next pick (not position-filtered).
     if (state.phase === "ready") {
       state = ensureSegmentsForSlot(state, pool);
     }
@@ -416,12 +428,15 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
     const slot = currentFormationSlot(state);
     const segment = state.spunSegment;
     const pickBoard = segment ? getFullSquadPickBoard(state, pool) : [];
-    const eligiblePicks = pickBoard.filter((e) => e.eligible);
-    if (state.phase === "picking" && eligiblePicks.length) {
-      if (!selectedPickId || !eligiblePicks.some((e) => e.card.playerId === selectedPickId)) {
-        selectedPickId = eligiblePicks[0]!.card.playerId;
+    const positionChosen =
+      state.phase === "picking" &&
+      state.selectedSlotIndex != null &&
+      !state.formation[state.selectedSlotIndex]?.playerId;
+    if (state.phase === "picking" && positionChosen && pickBoard.length) {
+      if (!selectedPickId || !pickBoard.some((e) => e.card.playerId === selectedPickId)) {
+        selectedPickId = pickBoard[0]!.card.playerId;
       }
-    } else if (state.phase !== "picking") {
+    } else if (state.phase !== "picking" || !positionChosen) {
       selectedPickId = null;
     }
     const squadQuality = evaluateSquadQuality(state.roster, poolMap, state.squadSize);
@@ -457,9 +472,9 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
             Unlock legendary squads from football history with every rotation.
           </p>
           <ol class="db-wheel-steps">
-            <li>Spin the wheel</li>
-            <li>Draft from a full club shortlist</li>
-            <li>Place on the pitch · swap legal positions anytime</li>
+            <li>Spin for a club / year</li>
+            <li>Choose which position to fill</li>
+            <li>Pick anyone from the full squad</li>
           </ol>
         </header>
 
@@ -487,18 +502,18 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
             ${
               state.phase === "ready"
                 ? `<button class="btn db-spin-btn" id="spin" ${spinning ? "disabled" : ""}>Spin the wheel</button>
-                   <p class="db-wheel-hint">Rerolls left: ${state.rerollsLeft} · Pick ${slot?.position ?? "—"} next · ${state.roster.length}/${state.squadSize}${
+                   <p class="db-wheel-hint">Rerolls left: ${state.rerollsLeft} · ${state.roster.length}/${state.squadSize} filled${
                      state.roster.length > 0
                        ? ` · Squad avg ${squadQuality.avgOvr || "—"}`
                        : ""
                    }</p>`
                 : state.phase === "spinning"
-                  ? `<p class="db-wheel-hint db-wheel-hint--spin">Spinning…</p>`
+                  ? `<div class="db-keepie-overlay">${keepieLoaderHtml({ size: 64, label: "Spinning" })}</div>`
                   : state.fallback === "respin_free"
-                    ? `<p class="db-wheel-hint">No ${slot?.position ?? "fit"} in this squad — <strong>respin</strong> for a new club</p>
+                    ? `<p class="db-wheel-hint">This squad has no free players — <strong>respin</strong></p>
                        <button class="btn db-spin-btn" id="respin-empty" type="button">Respin (${state.rerollsLeft} left)</button>`
                     : state.fallback === "out_of_position"
-                      ? `<p class="db-wheel-hint">No ${slot?.position ?? "fit"} in this squad and no rerolls left — pick another slot on the pitch</p>`
+                      ? `<p class="db-wheel-hint">No free players and no rerolls left — try another mode</p>`
                       : ""
             }
           </div>
@@ -521,9 +536,11 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
               }
               <p style="font-size:0.75rem;color:var(--db-muted);margin:8px 0 10px">
                 ${
-                  state.phase === "picking"
-                    ? `Choose a <strong style="color:var(--db-ink)">${slot?.position ?? ""}</strong> from the club below`
-                    : `Next: <strong style="color:var(--db-ink)">${slot?.position ?? "—"}</strong>`
+                  state.phase === "picking" && !positionChosen
+                    ? `Tap an <strong style="color:var(--db-pitch)">empty slot</strong> to choose the position`
+                    : state.phase === "picking" && positionChosen
+                      ? `Placing into <strong style="color:var(--db-ink)">${slot?.position ?? ""}</strong> — pick any player below`
+                      : `Spin first, then choose a position on the pitch`
                 }
               </p>
               ${pitchHtml(state, poolMap, { swapHint: state.roster.length > 0, swapFrom: swapFromRef.current })}
@@ -533,7 +550,16 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
 
         ${
           state.phase === "picking" && segment
-            ? pickBoardSectionHtml(state, pickBoard, eligiblePicks, slot, segment, selectedPickId, blind, squadQuality)
+            ? pickBoardSectionHtml(
+                state,
+                pickBoard,
+                slot,
+                segment,
+                selectedPickId,
+                blind,
+                squadQuality,
+                positionChosen,
+              )
             : ""
         }
       </div>`;
@@ -645,13 +671,13 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
     });
 
     root.querySelector("#random-pick")?.addEventListener("click", () => {
-      if (state.phase !== "picking" || eligiblePicks.length === 0) return;
-      const pick = eligiblePicks[Math.floor(Math.random() * eligiblePicks.length)]!;
+      if (state.phase !== "picking" || !positionChosen || pickBoard.length === 0) return;
+      const pick = pickBoard[Math.floor(Math.random() * pickBoard.length)]!;
       selectedPickId = pick.card.playerId;
       draw();
     });
 
-    root.querySelectorAll("#pick-pool .db-select-row:not([disabled])").forEach((el) => {
+    root.querySelectorAll("#pick-pool .db-select-row").forEach((el) => {
       el.addEventListener("click", () => {
         selectedPickId = (el as HTMLElement).dataset.pickId ?? null;
         draw();
@@ -659,7 +685,7 @@ export function renderDraftballerWheel(root: HTMLElement, navigate: Navigate, ch
     });
 
     root.querySelector("#confirm-pick")?.addEventListener("click", () => {
-      if (!selectedPickId || state.phase !== "picking") return;
+      if (!selectedPickId || state.phase !== "picking" || !positionChosen) return;
       try {
         state = pickPlayerForSlot(state, selectedPickId, pool);
         selectedPickId = null;

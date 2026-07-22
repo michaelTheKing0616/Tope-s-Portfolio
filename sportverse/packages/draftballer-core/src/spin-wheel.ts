@@ -164,26 +164,22 @@ export function buildWheelSegments(
 }
 
 /**
- * Rebuild the wheel for the slot the player is about to fill, so every visible
- * slice is a club-season that can actually supply that position. No-op when the
- * segments were already built for the same slot state.
+ * Rebuild the wheel for the next pick. Segments are NOT position-filtered —
+ * the player spins a club/year first, then chooses which empty formation slot
+ * to fill from the full squad (any player may be placed).
  */
 export function ensureSegmentsForSlot(
   state: WheelBuildState,
   pool: RatedPlayerCard[],
 ): WheelBuildState {
-  const position = targetPosition(state);
-  const key = `${position ?? "any"}:${state.roster.length}`;
+  const key = `any:${state.roster.length}`;
   if (state.segmentsSlotKey === key && state.segments.length) return state;
 
   const excludePlayerIds = new Set(state.roster);
   let segments = buildWheelSegments(state.mode, pool, `${state.seed}:${key}`, 24, {
-    position,
     excludePlayerIds,
   });
   if (!segments.length) {
-    // Late-draft safety: better a wheel that may need a free internal respin
-    // than an empty wheel.
     segments = buildWheelSegments(state.mode, pool, state.seed, 24);
   }
   return { ...state, segments, segmentsSlotKey: key };
@@ -215,11 +211,10 @@ export function createWheelSession(
   return ensureSegmentsForSlot(state, pool);
 }
 
+/** Formation role for recommendations / shortlist — only after the user picks an empty slot. */
 function targetPosition(state: WheelBuildState): Position | undefined {
-  if (state.mode.draftOrder === "position_first" && state.selectedSlotIndex != null) {
-    return state.formation[state.selectedSlotIndex]?.position;
-  }
-  return state.formation[state.currentSlotIndex]?.position;
+  if (state.selectedSlotIndex == null) return undefined;
+  return state.formation[state.selectedSlotIndex]?.position;
 }
 
 function sampleCandidates(
@@ -342,8 +337,9 @@ export interface SquadPickBoardEntry {
 }
 
 /**
- * Full landed club-season roster for the pick UI — every squad member visible,
- * ineligible players flagged (greyed in UI), recommended picks highlighted.
+ * Full landed club-season roster for the pick UI — every remaining squad member
+ * is selectable (none greyed). `recommended` highlights natural fits / quality
+ * nudges once a formation slot has been chosen.
  */
 export function getFullSquadPickBoard(
   state: WheelBuildState,
@@ -357,22 +353,20 @@ export function getFullSquadPickBoard(
   const position = targetPosition(state);
   const poolMap = new Map(pool.map((p) => [p.playerId, p]));
   const quality = evaluateSquadQuality(state.roster, poolMap, state.squadSize);
-  const shortlistIds = new Set(getPickCandidates(state, pool).map((c) => c.playerId));
 
   return squadIds
     .map((id) => poolMap.get(id))
     .filter((c): c is RatedPlayerCard => !!c && !picked.has(c.playerId))
     .map((card) => {
-      const eligible = !position || draftPickAllowedForSlot(card, position, true);
-      const recommended =
-        eligible &&
-        (quality.needsQualityBoost
-          ? card.ovr >= quality.targetMinPickOvr
-          : shortlistIds.has(card.playerId));
-      return { card, eligible, recommended };
+      const naturalFit = !!position && draftPickAllowedForSlot(card, position, true);
+      const recommended = position
+        ? quality.needsQualityBoost
+          ? naturalFit && card.ovr >= quality.targetMinPickOvr
+          : naturalFit
+        : false;
+      return { card, eligible: true, recommended };
     })
     .sort((a, b) => {
-      if (a.eligible !== b.eligible) return a.eligible ? -1 : 1;
       if (a.recommended !== b.recommended) return a.recommended ? -1 : 1;
       return b.card.ovr - a.card.ovr;
     });
@@ -440,25 +434,24 @@ export function spinToSegment(
     };
   }
   const segment = segments[segmentIndex % segments.length]!;
-  const position = targetPosition(state);
   const picked = new Set(state.roster);
   const poolMap = new Map<string, RatedPlayerCard>();
   for (const p of pool) poolMap.set(p.playerId, p);
   const squadIds = segment.squadPlayerIds ?? [];
+  // Full remaining squad is the pick pool — position is chosen after the spin.
   const candidates = sampleCandidates(
     squadIds,
     poolMap,
     picked,
     new Set(state.seenPlayerIds),
-    position,
+    undefined,
     `${state.seed}:spin:${state.spinsUsed + 1}`,
     state.roster,
     state.squadSize,
   );
 
-  const minNeed = minPickCandidatesForPosition(position);
   let fallback: WheelBuildState["fallback"] = null;
-  if (squadIds.length && position && candidates.length < minNeed) {
+  if (!candidates.length) {
     fallback = state.rerollsLeft > 0 ? "respin_free" : "out_of_position";
   }
 
@@ -470,11 +463,13 @@ export function spinToSegment(
     spinsUsed: state.spinsUsed + 1,
     candidateIds: candidates.map((c) => c.playerId),
     fallback,
+    // Fresh land — user must choose which empty slot to fill.
+    selectedSlotIndex: undefined,
   };
 }
 
 /**
- * Land on a club that actually offers a real pick pool for the active slot.
+ * Land on a club-season with at least one undrafted squad member.
  * Retries other wheel slices without burning player-facing rerolls.
  */
 export function spinToPlayableSegment(
@@ -486,9 +481,8 @@ export function spinToPlayableSegment(
   let next = spinToSegment(state, segmentIndex, pool);
   let exclude = segmentIndex;
   let tries = 0;
-  const minNeed = minPickCandidatesForPosition(targetPosition(next));
 
-  while (getPickCandidates(next, pool).length < minNeed && tries < maxTries) {
+  while (getPickCandidates(next, pool).length < 1 && tries < maxTries) {
     tries++;
     const idx = randomSegmentIndex(next.segments, next.seed, next.spinsUsed + tries * 17, exclude);
     exclude = idx;
@@ -499,7 +493,7 @@ export function spinToPlayableSegment(
     );
   }
 
-  if (getPickCandidates(next, pool).length < minNeed) {
+  if (getPickCandidates(next, pool).length < 1) {
     next = {
       ...next,
       fallback: next.rerollsLeft > 0 ? "respin_free" : "out_of_position",
@@ -540,19 +534,14 @@ export function pickPlayerForSlot(
   const squadIds = new Set(state.spunSegment.squadPlayerIds ?? []);
   if (!squadIds.has(playerId)) throw new Error("Player not in landed squad");
 
-  let slotIndex = state.currentSlotIndex;
-  if (state.mode.draftOrder === "squad_first") {
-    const open = state.formation.findIndex((s) => !s.playerId && draftPickAllowedForSlot(card, s.position, true));
-    if (open >= 0) slotIndex = open;
-  } else if (state.selectedSlotIndex != null) {
-    slotIndex = state.selectedSlotIndex;
+  // User must choose an empty formation slot after the spin; any squad player may fill it.
+  if (state.selectedSlotIndex == null) {
+    throw new Error("Choose a formation position first");
   }
-
+  const slotIndex = state.selectedSlotIndex;
   const targetSlot = state.formation[slotIndex];
   if (!targetSlot) throw new Error("No formation slot");
-  if (!draftPickAllowedForSlot(card, targetSlot.position, true)) {
-    throw new Error(`${card.name} cannot play ${targetSlot.position}`);
-  }
+  if (targetSlot.playerId) throw new Error("Slot already filled — choose an empty position");
 
   const formation = state.formation.map((slot, i) =>
     i === slotIndex ? { ...slot, playerId } : slot,
@@ -586,10 +575,8 @@ export function wheelSquadRating(state: WheelBuildState, pool: RatedPlayerCard[]
 }
 
 export function currentFormationSlot(state: WheelBuildState): FormationSlot | undefined {
-  if (state.mode.draftOrder === "position_first" && state.selectedSlotIndex != null) {
-    return state.formation[state.selectedSlotIndex];
-  }
-  return state.formation[state.currentSlotIndex];
+  if (state.selectedSlotIndex == null) return undefined;
+  return state.formation[state.selectedSlotIndex];
 }
 
 /** Salt must change each spin (e.g. spinsUsed) so consecutive spins differ. */
@@ -646,18 +633,14 @@ export function selectFormationSlot(state: WheelBuildState, slotIndex: number): 
   if (slot.playerId) {
     return { ...state, selectedSlotIndex: slotIndex };
   }
-  const next: WheelBuildState = {
+  // Empty slot: lock the placement target. While picking from a landed club,
+  // stay on that club — the user is choosing which position to fill.
+  return {
     ...state,
     selectedSlotIndex: slotIndex,
     currentSlotIndex: slotIndex,
     mode: { ...state.mode, draftOrder: "position_first" },
   };
-  // Retargeting mid-pick returns to the wheel so it can rebuild for the new
-  // position — never a dead end, never burns a reroll.
-  if (state.phase === "picking") {
-    return { ...next, phase: "ready", spunSegment: null, candidateIds: [], fallback: null };
-  }
-  return next;
 }
 
 export function normalizeSegmentsForWheel(segments: WheelSegment[], max = 24): WheelSegment[] {

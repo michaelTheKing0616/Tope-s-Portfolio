@@ -7,6 +7,7 @@ import {
 import { poolCounts } from "@sportverse/sports-db";
 import type { RatedPlayerCard } from "@sportverse/draftballer-types";
 import { bindEliteMotion } from "../lib/elite-motion.js";
+import { keepieLoaderHtml } from "../lib/keepie-loader.js";
 import { playerCardFaceHtml, type PlayerCardFaceOptions } from "../lib/player-card.js";
 
 type Navigate = (route: string, param?: string) => void;
@@ -264,7 +265,8 @@ export function renderDraftballerHub(root: HTMLElement, navigate: Navigate) {
           ${
             validation
               ? `Sim engine validated vs <strong>${validation.count}</strong> historical fixtures — <a href="#methodology" id="methodology-link">see methodology</a>`
-              : `Sim engine validation report loading… — <a href="#methodology" id="methodology-link">see methodology</a>`
+              : `<span class="db-trust-badge__loading">${keepieLoaderHtml({ size: 48, label: "Validating", className: "db-keepie--inline" })}</span>
+                 <span>Sim engine validation report loading… — <a href="#methodology" id="methodology-link">see methodology</a></span>`
           }
         </p>
         <details class="db-methodology" id="methodology">

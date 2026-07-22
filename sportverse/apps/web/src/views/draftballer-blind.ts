@@ -16,6 +16,7 @@ import { getAwards, getIconicMoments } from "@sportverse/sports-db";
 import { bindIdentityPicker, identityPickerHtml } from "./draftballer-identity.js";
 import { mountStagedReveal } from "../lib/staged-reveal.js";
 import { bindEliteMotion } from "../lib/elite-motion.js";
+import { keepieLoaderHtml } from "../lib/keepie-loader.js";
 
 /** elite-anim-v1 — Stitch blind_draft_pro_animated motion */
 const UI_BUILD = "elite-anim-v1";
@@ -343,9 +344,9 @@ export function renderDraftballerBlind(root: HTMLElement, navigate: Navigate) {
 
           ${
             ready
-              ? `<div class="db-blind-status db-glass"><p>Round ready — revealing picks…</p></div>`
+              ? `<div class="db-blind-status db-glass">${keepieLoaderHtml({ size: 48, label: "Revealing", className: "db-keepie--inline" })}</div>`
               : youSubmitted
-                ? `<div class="db-blind-status db-glass"><p>Pick submitted — waiting for bot…</p></div>`
+                ? `<div class="db-blind-status db-glass">${keepieLoaderHtml({ size: 48, label: "Waiting", className: "db-keepie--inline" })}</div>`
                 : `<p class="db-blind-pick-hint">Select one mystery card to reveal your next tactical asset.</p>`
           }
 

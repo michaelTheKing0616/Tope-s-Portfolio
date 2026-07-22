@@ -2,6 +2,7 @@ import "./styles.css";
 import "./styles/draftballer.css";
 import { registerSW } from "virtual:pwa-register";
 import { platform } from "@sportverse/platform";
+import { keepiePageLoaderHtml } from "./lib/keepie-loader.js";
 
 // Force clients onto the newest build — stale SW was serving the old grid wheel UI.
 registerSW({ immediate: true });
@@ -141,12 +142,12 @@ function showError(err: unknown) {
 }
 
 function showLoading(label: string, detail = "Loading player database…") {
-  app.innerHTML = `
-    <div class="shell db-root" style="text-align:center;padding:2rem 1rem">
-      <p class="db-hero__label">${label}</p>
-      <p style="color:var(--db-muted)" id="db-load-status">${detail}</p>
-      <div class="db-load-bar" aria-hidden="true"><div class="db-load-bar__fill" id="db-load-fill" style="width:8%"></div></div>
-    </div>`;
+  app.innerHTML = keepiePageLoaderHtml({
+    title: label,
+    detail,
+    detailId: "db-load-status",
+    showProgress: true,
+  });
 }
 
 function updateLoadProgress(label: string, chunk: number, totalChunks: number) {

@@ -34,9 +34,10 @@ import {
   renderSeasonPredictionHtml,
 } from "./draftballer-reports.js";
 import { bindEliteMotion } from "../lib/elite-motion.js";
+import { keepieLoaderHtml } from "../lib/keepie-loader.js";
 
 /** Bust stale PWA caches — bump when season results UX changes. */
-const SEASON_UI_BUILD = "elite-anim-v1";
+const SEASON_UI_BUILD = "keepie-loader-v1";
 
 type Navigate = (route: string, param?: string) => void;
 
@@ -467,6 +468,11 @@ export function renderDraftballerSeason(root: HTMLElement, navigate: Navigate) {
           <button class="btn db-season-sim-btn" id="runSim" ${simRunning ? "disabled" : ""}>
             ${simRunning ? "Simulating…" : "Run 38-game season simulation"}
           </button>
+          ${
+            simRunning
+              ? `<div class="db-keepie-overlay db-keepie-overlay--season">${keepieLoaderHtml({ size: 64, label: "Simulating" })}</div>`
+              : ""
+          }
           <button class="btn btn--ghost" id="setup">Full sim setup</button>
           <button class="btn btn--ghost" id="squad">Squad builder</button>
         </div>
@@ -506,7 +512,8 @@ export function renderDraftballerSeason(root: HTMLElement, navigate: Navigate) {
       if (simRunning) return;
       simRunning = true;
       persistConditions();
-      runLiveSeason();
+      drawPreSim();
+      void runLiveSeason();
     });
     const pageRoot = root.querySelector(".db-root") as HTMLElement | null;
     if (pageRoot) bindEliteMotion(pageRoot, { scan: "line" });
@@ -532,6 +539,9 @@ export function renderDraftballerSeason(root: HTMLElement, navigate: Navigate) {
           <h1 class="db-hero__title" id="live-md">Matchday 1 of 38</h1>
           <p class="db-hero__sub" id="live-record">0W · 0D · 0L · 0 pts</p>
         </header>
+        <div class="db-keepie-overlay db-keepie-overlay--season">
+          ${keepieLoaderHtml({ size: 48, label: "Playing", className: "db-keepie--inline" })}
+        </div>
         <div class="panel db-season-stats" id="live-stats">
           <div><span class="db-stat-label">GF</span><strong id="live-gf">0</strong></div>
           <div><span class="db-stat-label">GA</span><strong id="live-ga">0</strong></div>

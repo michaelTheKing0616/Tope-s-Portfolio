@@ -18,6 +18,7 @@ import { setAwardsData } from "@sportverse/rating-engine";
 import { getAwards, getIconicMoments } from "@sportverse/sports-db";
 import { bindIdentityPicker, identityPickerHtml } from "./draftballer-identity.js";
 import { bindEliteMotion } from "../lib/elite-motion.js";
+import { keepieLoaderHtml } from "../lib/keepie-loader.js";
 
 /** elite-anim-v1 — Stitch auction_draft_pro_animated motion */
 const UI_BUILD = "elite-anim-v1";
@@ -443,8 +444,13 @@ export function renderDraftballerAuction(root: HTMLElement, navigate: Navigate) 
                 : `
               <div class="db-auction-nominate db-glass">
                 <p class="db-label-caps db-auction-nominate__eyebrow">${mode.title ?? mode.id}</p>
-                <h2 class="db-auction-nominate__title">${isYourNomination ? "Nominate a player" : "Rival Bot is nominating…"}</h2>
-                <p class="db-auction-nominate__hint">${isYourNomination ? "Select from the pool to open the lot." : "Stand by for the next showcase."}</p>
+                ${
+                  isYourNomination
+                    ? `<h2 class="db-auction-nominate__title">Nominate a player</h2>
+                       <p class="db-auction-nominate__hint">Select from the pool to open the lot.</p>`
+                    : `${keepieLoaderHtml({ size: 64, label: "Nominating", className: "db-keepie--inline" })}
+                       <p class="db-auction-nominate__hint">Stand by for the next showcase.</p>`
+                }
               </div>`
             }
             ${

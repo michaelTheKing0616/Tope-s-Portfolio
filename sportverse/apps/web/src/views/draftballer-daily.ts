@@ -7,6 +7,7 @@ import {
 } from "@sportverse/draftballer-core";
 import { platform, resolveApiBase } from "@sportverse/platform";
 import { bindEliteMotion } from "../lib/elite-motion.js";
+import { keepieLoaderHtml } from "../lib/keepie-loader.js";
 
 type Navigate = (route: string, param?: string) => void;
 
@@ -198,7 +199,7 @@ export async function renderDraftballerDaily(root: HTMLElement, navigate: Naviga
             <h3 class="db-label-caps">Global Leaderboard</h3>
             <span class="db-daily-board__live db-soft-pulse">LIVE</span>
           </div>
-          <div class="db-daily-board__body"><p class="db-daily-empty">Loading…</p></div>
+          <div class="db-daily-board__body">${keepieLoaderHtml({ size: 48, label: "Loading", className: "db-keepie--inline" })}</div>
         </div>
 
         <aside class="db-daily-aside">
@@ -253,7 +254,9 @@ export async function renderDraftballerDaily(root: HTMLElement, navigate: Naviga
   root.querySelector("#submit")?.addEventListener("click", async () => {
     if (!saved) return;
     const statusEl = root.querySelector("#submit-status");
-    if (statusEl) statusEl.textContent = "Submitting…";
+    if (statusEl) {
+      statusEl.innerHTML = keepieLoaderHtml({ size: 48, label: "Submitting", className: "db-keepie--inline" });
+    }
     const result = await submitDailyScore(profile.displayName, saved.squadOvr);
     if (result.ok) {
       if (statusEl) statusEl.textContent = `Submitted — rank #${result.rank ?? "?"}`;

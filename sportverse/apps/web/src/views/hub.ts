@@ -1,6 +1,7 @@
 import { platform } from "@sportverse/platform";
 import { QUIZ_MODES } from "@sportverse/quiz-engine";
 import type { LeaderboardEntry } from "@sportverse/platform";
+import { keepieLoaderHtml } from "../lib/keepie-loader.js";
 
 type Navigate = (route: string, param?: string) => void;
 
@@ -64,13 +65,13 @@ function hubHtml(
 
       <h2 style="font-family:var(--font-display);letter-spacing:.08em;font-size:1.4rem;margin:24px 0 12px">LEADERBOARD</h2>
       <div class="panel">
-        <ul class="leaderboard">
-          ${
-            loading
-              ? `<li><span>Loading…</span></li>`
-              : board.map((e, i) => `<li><span>#${i + 1} ${e.displayName}</span><span>${e.xp} XP · Lv ${e.level}</span></li>`).join("")
-          }
-        </ul>
+        ${
+          loading
+            ? keepieLoaderHtml({ size: 48, label: "Loading", className: "db-keepie--inline" })
+            : `<ul class="leaderboard">
+                ${board.map((e, i) => `<li><span>#${i + 1} ${e.displayName}</span><span>${e.xp} XP · Lv ${e.level}</span></li>`).join("")}
+              </ul>`
+        }
       </div>
 
       ${

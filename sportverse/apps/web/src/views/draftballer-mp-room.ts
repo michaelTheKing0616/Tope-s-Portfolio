@@ -37,6 +37,7 @@ import {
   type DraftSocket,
 } from "../lib/draft-socket.js";
 import { playerCardHtml } from "./draftballer-hub.js";
+import { keepieLoaderHtml } from "../lib/keepie-loader.js";
 
 type Navigate = (route: string, param?: string) => void;
 
@@ -233,7 +234,11 @@ export function renderDraftballerMpRoom(root: HTMLElement, roomCode: string, nav
           <div class="db-glass db-room-panel db-room-panel--notice">
             <p class="db-room-hint">Live API disabled — local snake draft only. Set VITE_API_URL for real multiplayer.</p>
           </div>
-          <p class="db-room-turn">${isYou ? "Your pick — tap a card" : "Waiting for opponent…"}</p>
+          <p class="db-room-turn">${
+            isYou
+              ? "Your pick — tap a card"
+              : keepieLoaderHtml({ size: 48, label: "Waiting", className: "db-keepie--inline" })
+          }</p>
           <div class="db-pool-grid">
             ${available
               .map((id) => poolMap.get(id))
@@ -302,7 +307,7 @@ export function renderDraftballerMpRoom(root: HTMLElement, roomCode: string, nav
       if (nominatorIndex(state) === drafterIndex) {
         return `<p style="color:var(--db-muted);font-size:0.85rem">You nominate — tap a player below.</p>`;
       }
-      return `<p style="color:var(--db-muted);font-size:0.85rem">Waiting for nomination…</p>`;
+      return keepieLoaderHtml({ size: 48, label: "Waiting", className: "db-keepie--inline", detail: "Nomination pending" });
     }
 
     const maxBid = maxAffordableBid(state, drafterIndex);
@@ -330,7 +335,7 @@ export function renderDraftballerMpRoom(root: HTMLElement, roomCode: string, nav
             <button class="db-btn-pitch" id="blind-resolve">Resolve round</button>
           </div>`;
       }
-      return `<p style="color:var(--db-muted);font-size:0.85rem">Pick submitted — waiting for others…</p>`;
+      return keepieLoaderHtml({ size: 48, label: "Waiting", className: "db-keepie--inline", detail: "Others still picking" });
     }
     return `<p style="color:var(--db-muted);font-size:0.85rem">Blind round ${round?.round ?? 1} — tap a player (hidden from rivals).</p>`;
   }
@@ -340,7 +345,12 @@ export function renderDraftballerMpRoom(root: HTMLElement, roomCode: string, nav
     if (turn === drafterIndex) {
       return `<p style="color:var(--db-muted);font-size:0.85rem">Your pick — tap a card.</p>`;
     }
-    return `<p style="color:var(--db-muted);font-size:0.85rem">Waiting for Drafter ${turn + 1}…</p>`;
+    return keepieLoaderHtml({
+      size: 48,
+      label: "Waiting",
+      className: "db-keepie--inline",
+      detail: `Drafter ${turn + 1}`,
+    });
   }
 
   async function sendPick(card: RatedPlayerCard) {

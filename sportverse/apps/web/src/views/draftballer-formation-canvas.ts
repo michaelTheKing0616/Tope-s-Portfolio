@@ -3,6 +3,7 @@ import { getFormation } from "@sportverse/match-sim";
 import { resolveApiBase } from "@sportverse/platform";
 import { pitchSurfaceHtml, pitchSlotChipHtml } from "./draftballer-pitch.js";
 import { bindEliteMotion } from "../lib/elite-motion.js";
+import { keepieLoaderHtml } from "../lib/keepie-loader.js";
 
 type Navigate = (route: string, param?: string) => void;
 
@@ -141,7 +142,13 @@ export function renderDraftballerFormationCanvas(root: HTMLElement, navigate: Na
         <button class="btn btn--ghost" id="share" type="button">Generate share code</button>
 
         ${shareCode ? `<div class="db-glass db-tactical-canvas-panel"><label class="db-label-caps">Share code</label><code class="db-share-code">${shareCode}</code></div>` : ""}
-        ${statusMsg ? `<p class="db-tactical-canvas-status">${statusMsg}</p>` : ""}
+        ${
+          statusMsg === "Saving…"
+            ? keepieLoaderHtml({ size: 48, label: "Saving", className: "db-keepie--inline" })
+            : statusMsg
+              ? `<p class="db-tactical-canvas-status">${statusMsg}</p>`
+              : ""
+        }
 
         <div class="db-glass db-tactical-canvas-panel">
           <strong class="db-label-caps">Import share code</strong>
