@@ -3,6 +3,7 @@ import { loadSquadForSeason, loadSquadBuilderState, saveSquadBuilderState } from
 import { formationsForEra, getFormation } from "@sportverse/match-sim";
 import { loadSimConfig, saveSimConfig } from "@sportverse/draftballer-core";
 import { computeSquadRating } from "@sportverse/rating-engine";
+import { pitchSurfaceHtml } from "./draftballer-pitch.js";
 
 type Navigate = (route: string, param?: string) => void;
 
@@ -50,7 +51,10 @@ export function renderDraftballerSquadBuilder(root: HTMLElement, navigate: Navig
         <p style="font-size:0.8rem;color:var(--db-muted);margin-top:8px">Era-authentic sort active for ${eraDecade}. Anachronistic picks are allowed.</p>
       </div>
       <div class="db-pitch-preview panel" style="margin-top:12px;min-height:180px;position:relative">
-        ${renderPitchDots(getFormation(builder.formationId).slots)}
+        ${pitchSurfaceHtml(renderPitchDots(getFormation(builder.formationId).slots), {
+          flat: true,
+          ariaLabel: `${builder.formationId} preview`,
+        })}
       </div>
       <div class="panel db-squad-rating" style="margin-top:12px">
         <p class="db-hero__label">Squad rating</p>
@@ -100,7 +104,12 @@ export function renderDraftballerSquadBuilder(root: HTMLElement, navigate: Navig
 
   function drawPitch() {
     const el = root.querySelector(".db-pitch-preview");
-    if (el) el.innerHTML = renderPitchDots(getFormation(builder.formationId).slots);
+    if (el) {
+      el.innerHTML = pitchSurfaceHtml(renderPitchDots(getFormation(builder.formationId).slots), {
+        flat: true,
+        ariaLabel: `${builder.formationId} preview`,
+      });
+    }
   }
 }
 

@@ -4,20 +4,44 @@
  * Season-stats only store competitionId (league), so the wheel cannot rebuild real
  * club-seasons from stats alone — this artifact is the source of truth.
  */
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
-import { resolve } from "node:path";
-import { ARCHIVE_DIR, OUT_DIR, streamCsv } from "./utils.mjs";
+import { readFileSync, writeFileSync, existsSync, cpSync, mkdirSync } from "node:fs";
+import { resolve, dirname } from "node:path";
+import { ARCHIVE_DIR, OUT_DIR, ROOT, streamCsv } from "./utils.mjs";
+import { mapCompetition } from "./competition-map.mjs";
 
 const PERF_PATH = resolve(ARCHIVE_DIR, "player_performances/player_performances.csv");
 const FAME_PATH = resolve(OUT_DIR, "fame-index.json");
 const OUT_PATH = resolve(OUT_DIR, "club-season-rosters.json");
+const PUBLIC_OUT = resolve(ROOT, "sportverse/apps/web/public/data/club-season-rosters.json");
 
-const MIN_SQUAD = 14;
+/** Sim needs ≥11 for a full XI + subs depth; wheel still filters separately. */
+const MIN_SQUAD = 11;
 const MAX_SQUAD = 40;
-const MIN_FAMOUS = 3;
 const FAMOUS_THRESHOLD = 55;
-/** Cap artifact size — keep the most recognizable club-seasons. */
-const MAX_ENTRIES = 4000;
+/** Primary fame gate — softened for big domestic leagues. */
+const MIN_FAMOUS_DEFAULT = 2;
+const MIN_FAMOUS_BIG_LEAGUE = 1;
+/** Second pass: keep depth squads with at least one recognizable player. */
+const MIN_FAMOUS_DEPTH_PASS = 1;
+const DEPTH_PASS_MIN_FAME_SUM = 280;
+/** Keep essentially all qualifying club-seasons (was 4000). */
+const MAX_ENTRIES = 12_000;
+
+const BIG_DOMESTIC_LEAGUES = new Set([
+  "premier-league",
+  "la-liga",
+  "serie-a",
+  "bundesliga",
+  "ligue-1",
+  "championship",
+  "eredivisie",
+  "primeira-liga",
+  "super-lig",
+  "scottish-premiership",
+  "pro-league",
+  "mls",
+  "serie-a-brazil",
+]);
 
 function cleanClubName(raw) {
   return String(raw ?? "")
@@ -58,7 +82,6 @@ function looksLikeCompetitionId(name) {
   if (/^tm-c[a-z0-9]+$/i.test(s)) return true;
   if (/^[a-z]{2,3}-\d+$/i.test(s)) return true;
   if (s.includes("competition") || s.startsWith("comp-")) return true;
-  // Youth / reserve sides muddy the wheel — keep first-team seasons only.
   if (/\b(u\d{2}|u-\d{2}|youth|reserves|\bii\b|\b b\b| academy)\b/i.test(s)) return true;
   const leagueLike = new Set([
     "premier-league",
@@ -76,6 +99,53 @@ function looksLikeCompetitionId(name) {
   return leagueLike.has(s);
 }
 
+function dominantDomesticLeague(leagueCounts) {
+  if (!leagueCounts?.size) return undefined;
+  let bestId;
+  let bestN = 0;
+  for (const [id, n] of leagueCounts) {
+    if (n > bestN) {
+      bestN = n;
+      bestId = id;
+    }
+  }
+  return bestId;
+}
+
+function passesFameGate(playerIds, fame, leagueId) {
+  const famousCount = playerIds.filter((id) => (fame.get(id) ?? 0) >= FAMOUS_THRESHOLD).length;
+  const fameSum = playerIds.reduce((s, id) => s + (fame.get(id) ?? 0), 0);
+  const minFamous =
+    leagueId && BIG_DOMESTIC_LEAGUES.has(leagueId) ? MIN_FAMOUS_BIG_LEAGUE : MIN_FAMOUS_DEFAULT;
+  if (famousCount >= minFamous) return true;
+  // Depth pass — sim needs squads even when fameSum is modest.
+  if (
+    playerIds.length >= MIN_SQUAD &&
+    famousCount >= MIN_FAMOUS_DEPTH_PASS &&
+    fameSum >= DEPTH_PASS_MIN_FAME_SUM
+  ) {
+    return true;
+  }
+  return false;
+}
+
+function coverageSummary(entries) {
+  const byLeagueSeason = new Map();
+  for (const e of entries) {
+    if (!e.leagueId) continue;
+    const key = `${e.leagueId}::${e.seasonLabel}`;
+    byLeagueSeason.set(key, (byLeagueSeason.get(key) ?? 0) + 1);
+  }
+  const top = [...byLeagueSeason.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 15)
+    .map(([key, n]) => {
+      const [leagueId, seasonLabel] = key.split("::");
+      return { leagueId, seasonLabel, clubs: n };
+    });
+  return top;
+}
+
 export async function buildClubSeasonRosters() {
   if (!existsSync(PERF_PATH)) {
     console.warn("[club-season] archive performances missing — skip");
@@ -83,6 +153,7 @@ export async function buildClubSeasonRosters() {
   }
   const tmToCanonical = loadTmToCanonical();
   const fame = loadFameScores();
+  /** @type {Map<string, { players: Set<string>, leagues: Map<string, number> }>} */
   const squadByKey = new Map();
 
   let rows = 0;
@@ -98,43 +169,60 @@ export async function buildClubSeasonRosters() {
     if (!clubName || !seasonLabel || looksLikeCompetitionId(clubName)) return;
     mapped++;
     const key = `${clubName}::${seasonLabel}`;
-    let set = squadByKey.get(key);
-    if (!set) {
-      set = new Set();
-      squadByKey.set(key, set);
+    let bucket = squadByKey.get(key);
+    if (!bucket) {
+      bucket = { players: new Set(), leagues: new Map() };
+      squadByKey.set(key, bucket);
     }
-    set.add(playerId);
+    bucket.players.add(playerId);
+
+    const comp = mapCompetition(row.competition_id, row.competition_name);
+    if (comp.type === "domestic_league" && comp.id !== "unknown") {
+      bucket.leagues.set(comp.id, (bucket.leagues.get(comp.id) ?? 0) + 1);
+    }
   });
 
   const entries = [];
-  for (const [key, playerSet] of squadByKey) {
+  for (const [key, bucket] of squadByKey) {
     const sep = key.indexOf("::");
     const clubName = key.slice(0, sep);
     const seasonLabel = key.slice(sep + 2);
-    const playerIds = [...playerSet];
+    const playerIds = [...bucket.players];
     if (playerIds.length < MIN_SQUAD || playerIds.length > MAX_SQUAD) continue;
-    const famousCount = playerIds.filter((id) => (fame.get(id) ?? 0) >= FAMOUS_THRESHOLD).length;
-    if (famousCount < MIN_FAMOUS) continue;
+
+    const leagueId = dominantDomesticLeague(bucket.leagues);
+    if (!passesFameGate(playerIds, fame, leagueId)) continue;
+
     const fameSum = playerIds.reduce((s, id) => s + (fame.get(id) ?? 0), 0);
-    entries.push({
+    const entry = {
       clubId: clubName.toLowerCase().replace(/\s+/g, "-").slice(0, 64),
       clubName,
       seasonLabel,
       playerIds,
       fameSum,
-    });
+    };
+    if (leagueId) entry.leagueId = leagueId;
+    entries.push(entry);
   }
 
   entries.sort((a, b) => b.fameSum - a.fameSum);
   const trimmed = entries.slice(0, MAX_ENTRIES);
   writeFileSync(OUT_PATH, JSON.stringify(trimmed));
+
+  mkdirSync(dirname(PUBLIC_OUT), { recursive: true });
+  cpSync(OUT_PATH, PUBLIC_OUT);
+
+  const topCoverage = coverageSummary(trimmed);
   console.log("club-season-rosters:", {
     perfRows: rows,
     mappedPlayers: mapped,
     rawKeys: squadByKey.size,
     kept: trimmed.length,
+    cappedAt: MAX_ENTRIES,
+    withLeagueId: trimmed.filter((e) => e.leagueId).length,
     bytes: Buffer.byteLength(JSON.stringify(trimmed)),
     top: trimmed.slice(0, 5).map((e) => `${e.clubName} ${e.seasonLabel} n=${e.playerIds.length}`),
+    topLeagueSeasonCoverage: topCoverage,
   });
   return trimmed;
 }

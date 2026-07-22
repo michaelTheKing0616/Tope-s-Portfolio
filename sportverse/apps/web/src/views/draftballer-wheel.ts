@@ -28,6 +28,7 @@ import { submitDailyScore } from "./draftballer-daily.js";
 import { playDraftSound } from "../lib/draft-sound.js";
 import { mountStagedReveal } from "../lib/staged-reveal.js";
 import { bindIdentityPicker, identityPickerHtml } from "./draftballer-identity.js";
+import { pitchSurfaceHtml } from "./draftballer-pitch.js";
 
 type Navigate = (route: string, param?: string) => void;
 
@@ -142,13 +143,7 @@ function pitchHtml(
     .join("");
 
   return `
-    <div class="db-wheel-pitch" aria-label="${formationId} pitch">
-      <div class="db-wheel-pitch__field" aria-hidden="true">
-        <div class="db-wheel-pitch__half"></div>
-        <div class="db-wheel-pitch__circle"></div>
-      </div>
-      ${dots}
-    </div>
+    ${pitchSurfaceHtml(dots, { className: "db-wheel-pitch", ariaLabel: `${formationId} pitch` })}
     <p class="db-wheel-pitch__hint">
       ${
         opts.swapHint

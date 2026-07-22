@@ -29,13 +29,19 @@ def event_id(value: Any) -> str:
     return str(value)
 
 
-def player_id_value(value: Any) -> int | None:
+def player_id_value(value: Any) -> int | str | None:
+    """StatsBomb open data may use int ids or UUID strings."""
     if value is None or (isinstance(value, float) and pd.isna(value)):
         return None
-    try:
-        return int(value)
-    except (TypeError, ValueError):
+    if isinstance(value, int):
+        return value
+    text = str(value).strip()
+    if not text or text.lower() == "nan":
         return None
+    try:
+        return int(text)
+    except (TypeError, ValueError):
+        return text
 
 
 def parse_clock(value: Any, fallback: float = 0.0) -> float:
@@ -65,7 +71,7 @@ def minutes_from_positions(positions: Any, default: float = 0.0) -> float:
     return total
 
 
-def empty_player_stats(player_id: int, player_name: str, team_name: str) -> dict[str, Any]:
+def empty_player_stats(player_id: int | str, player_name: str, team_name: str) -> dict[str, Any]:
     return {
         "player_id": player_id,
         "player_name": player_name,
@@ -148,12 +154,14 @@ def aggregate_match(events: pd.DataFrame, lineups: dict[str, pd.DataFrame], matc
     if events.empty:
         return []
 
-    players: dict[int, dict[str, Any]] = {}
-    team_by_player: dict[int, str] = {}
+    players: dict[int | str, dict[str, Any]] = {}
+    team_by_player: dict[int | str, str] = {}
 
     for team_name, lineup_df in lineups.items():
         for _, row in lineup_df.iterrows():
-            pid = int(row["player_id"])
+            pid = player_id_value(row.get("player_id"))
+            if pid is None:
+                continue
             name = str(row.get("player_name") or row.get("player_nickname") or pid)
             team_by_player[pid] = team_name
             stats = empty_player_stats(pid, name, team_name)

@@ -489,6 +489,63 @@
   text-overflow: ellipsis;
 }
 
+/* —— Shared 3D pitch surface (wheel, squad builder, season results, canvas) —— */
+.db-pitch-surface {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  max-height: 420px;
+  margin-top: 8px;
+  perspective: 820px;
+  perspective-origin: 50% 38%;
+}
+.db-pitch-surface--flat {
+  perspective: none;
+}
+.db-pitch-surface--flat .db-pitch-surface__stage {
+  transform: none;
+}
+.db-pitch-surface--compact {
+  max-height: 220px;
+  margin-top: 0;
+}
+.db-pitch-surface__stage {
+  position: absolute;
+  inset: 0;
+  transform: rotateX(24deg);
+  transform-origin: 50% 55%;
+  transform-style: preserve-3d;
+}
+.db-pitch-surface__grass {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow:
+    0 14px 28px rgba(0, 0, 0, 0.18),
+    0 4px 10px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  background-color: #2d8a52;
+  background-image:
+    repeating-linear-gradient(
+      180deg,
+      #3a9a5e 0px,
+      #3a9a5e 14px,
+      #2f844f 14px,
+      #2f844f 28px
+    ),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, transparent 35%, rgba(0, 0, 0, 0.08) 100%);
+}
+.db-pitch-surface__markings {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
 /* —— Wheel interactive pitch (38-0 style overlay) —— */
 .db-wheel-pitch {
   position: relative;
@@ -497,40 +554,9 @@
   max-height: 420px;
   margin-top: 8px;
   border-radius: 22px;
-  overflow: hidden;
-  border: 1px solid var(--db-border);
-  box-shadow: var(--db-shadow);
-}
-.db-wheel-pitch__field {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, #4aa36a 0%, #2f7a4d 55%, #25653f 100%),
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 11%,
-      rgba(255, 255, 255, 0.05) 11%,
-      rgba(255, 255, 255, 0.05) 12%
-    );
-}
-.db-wheel-pitch__half {
-  position: absolute;
-  left: 8%;
-  right: 8%;
-  top: 50%;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.35);
-}
-.db-wheel-pitch__circle {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 28%;
-  aspect-ratio: 1;
-  transform: translate(-50%, -50%);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  border-radius: 50%;
+  overflow: visible;
+  border: none;
+  box-shadow: none;
 }
 .db-wheel-pitch__slot {
   position: absolute;
@@ -855,9 +881,14 @@
 }
 .db-pitch-preview {
   position: relative;
-  background: linear-gradient(180deg, rgba(31, 138, 87, 0.15), rgba(31, 138, 87, 0.05));
+  padding: 0;
+  overflow: visible;
+  background: transparent;
   border-radius: 12px;
   min-height: 200px;
+}
+.db-pitch-preview .db-pitch-surface {
+  max-height: 220px;
 }
 .db-pitch-dot {
   position: absolute;
@@ -865,14 +896,46 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: var(--db-gold);
-  color: #111;
+  background: #fff;
+  color: var(--db-ink);
   font-size: 0.55rem;
   font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28);
+  border: 1.5px solid rgba(255, 255, 255, 0.9);
+  z-index: 2;
+}
+.db-pitch-dot--season {
+  width: 44px;
+  min-height: 40px;
+  height: auto;
+  padding: 3px 2px;
+  border-radius: 999px;
+  flex-direction: column;
+  gap: 1px;
+}
+.db-pitch-dot--season .db-pitch-dot__pos {
+  font-size: 0.5rem;
+  letter-spacing: 0.06em;
+  color: var(--db-muted);
+  text-transform: uppercase;
+}
+.db-pitch-dot--season .db-pitch-dot__name {
+  font-size: 0.58rem;
+  font-weight: 700;
+  max-width: 40px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.db-season-pitch-panel {
+  margin: 1rem 0;
+  text-align: center;
+}
+.db-season-pitch-panel .db-pitch-surface {
+  max-height: 360px;
 }
 .db-fit-report { margin-top: 1rem; }
 .db-fit-list {
@@ -1017,20 +1080,18 @@
   position: relative;
   min-height: 320px;
   margin-top: 12px;
-  background: linear-gradient(180deg, rgba(31, 138, 87, 0.18), rgba(31, 138, 87, 0.06));
-  border-radius: 12px;
-  overflow: hidden;
+  padding: 0;
+  overflow: visible;
   touch-action: none;
   user-select: none;
+  background: transparent;
+}
+.db-formation-canvas .db-pitch-surface {
+  max-height: 380px;
+  margin-top: 0;
 }
 .db-formation-canvas__grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-  background-size: 5% 5%;
-  pointer-events: none;
+  display: none;
 }
 .db-pitch-dot--draggable {
   cursor: grab;

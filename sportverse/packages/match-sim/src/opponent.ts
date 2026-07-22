@@ -116,10 +116,12 @@ export function generateOpponents(
   count: number,
   seed: string,
   rivalPool?: RatedPlayerCard[],
+  opts?: { anonymousClubsOnly?: boolean },
 ): SimSquadInput[] {
   const rng = createRng(`${seed}:opponents`);
   const pool = rivalPool?.length ? rivalPool : [];
   const leagueMean = 0.35 * userSquad.squadOvr + 0.65 * 74;
+  const anonymous = opts?.anonymousClubsOnly === true;
 
   // Tier offsets vs league mean — a believable 20-club pyramid.
   const tierOffsets = [
@@ -142,7 +144,7 @@ export function generateOpponents(
   }
 
   const clubs = targets.map((targetOvr, i) => {
-    if (pool.length >= 22) {
+    if (!anonymous && pool.length >= 22) {
       const offset = Math.floor(rng() * Math.max(1, pool.length - 22));
       const slice = pool.slice(offset, offset + 120);
       return buildRivalFromPool(targetOvr, `${seed}:opp${i}`, slice.length ? slice : pool, rng, i);

@@ -28,10 +28,12 @@ export {
   seededKickoffCommentary,
   seededFulltimeCommentary,
 } from "./commentary-seeded.js";
-export { listEraProfiles, getEraProfile, resolveEraProfile, ERA_PROFILES } from "./era-profiles.js";
+export { listEraProfiles, getEraProfile, resolveEraProfile, resolveEraFromSeasonLabel, eraProfileIdFromSeasonLabel, ERA_PROFILES } from "./era-profiles.js";
 export { computePlayerMeta, computeSquadMeta } from "./player-meta.js";
 export {
   computePhysicalityFitTerm,
+  computeAnachronismTerm,
+  playerPeakEraId,
   buildFitSummary,
   computeSquadFitReport,
   squadAveragePhysicalityFit,
@@ -55,7 +57,8 @@ export {
   dixonColesTimeDecayWeight,
   DEFAULT_RHO,
 } from "./dixon-coles.js";
-export { computeMatchGoalRates, eraGoalsPerGameScale } from "./match-rates.js";
+export { computeMatchGoalRates, eraGoalsPerGameScale, squadGoalRateFloor } from "./match-rates.js";
+export { computeIntelligentMatchRates, styleClashBias } from "./match-intelligence.js";
 export { fitAggregationBridge, DEFAULT_BRIDGE_COEFFICIENTS, bridgeCalibrationMae } from "./aggregation-bridge.js";
 export { squadStrengthSignals } from "./team-strength.js";
 export {

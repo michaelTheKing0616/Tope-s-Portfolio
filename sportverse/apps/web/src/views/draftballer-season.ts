@@ -6,6 +6,7 @@ import {
   loadSquadForSeason,
   patchSquadSimConditions,
   ratePlayerById,
+  ratePlayerByIdForSeason,
   recordSeasonProgress,
   recordSeasonTrophies,
   saveSimConfig,
@@ -15,6 +16,7 @@ import {
   generateHistoricalOpponents,
   generateOpponents,
   getEraProfile,
+  getFormation,
   listEraProfiles,
   predictSeasonOutlook,
   resolveEraProfile,
@@ -25,6 +27,7 @@ import { listSimChallengers, parseSeasonStartYear } from "@sportverse/sports-db"
 import { bindPlayerCardBreakdownsWithPool } from "./draftballer-breakdown.js";
 import { buildShareCardDataUrl } from "./draftballer-share.js";
 import { playerCardHtml } from "./draftballer-hub.js";
+import { pitchSurfaceHtml } from "./draftballer-pitch.js";
 import {
   renderFitReportHtml,
   renderSeasonAnalysisHtml,
@@ -80,6 +83,28 @@ function resultBadge(result: "W" | "D" | "L"): string {
   const cls =
     result === "W" ? "db-fixture--win" : result === "L" ? "db-fixture--loss" : "db-fixture--draw";
   return `<span class="db-fixture-badge ${cls}">${result}</span>`;
+}
+
+function renderSeasonPitchPanel(
+  formationId: string,
+  players: { name: string }[],
+): string {
+  const form = getFormation(formationId);
+  const dots = form.slots
+    .map((coord, i) => {
+      const p = players[i];
+      const last = p ? p.name.split(" ").pop() : "—";
+      return `<span class="db-pitch-dot db-pitch-dot--season" style="left:${coord.y}%;top:${100 - coord.x}%">
+        <span class="db-pitch-dot__pos">${coord.positionTag}</span>
+        <span class="db-pitch-dot__name">${last ?? "—"}</span>
+      </span>`;
+    })
+    .join("");
+  return `
+    <section class="panel db-season-pitch-panel">
+      <p class="db-hero__label">Your XI · ${formationId}</p>
+      ${pitchSurfaceHtml(dots, { ariaLabel: `Season squad ${formationId}` })}
+    </section>`;
 }
 
 function seasonHero(result: SeasonSimResult): string {
@@ -237,13 +262,23 @@ export function renderDraftballerSeason(root: HTMLElement, navigate: Navigate) {
       matchCount: 38,
       seed: draftSeed,
       userSquad: userSquadBase,
-      ratePlayer: (id) => ratePlayerById(id, saved.mode),
+      ratePlayer: (id) => ratePlayerByIdForSeason(id, challengerSeasonLabel, saved.mode),
     });
   }
 
   function resolvePreviewOpponents(): SimSquadInput[] {
     const historical = buildChallengerOpponents();
     if (historical.length) return historical;
+    if (challengerLeagueId && challengerSeasonLabel) {
+      // Challenger selected but archive thin — never fall back to Surname XI.
+      return generateOpponents(
+        { ...userSquadBase, formationId: buildSimConfig().formationHomeId },
+        38,
+        draftSeed,
+        rivalPool,
+        { anonymousClubsOnly: true },
+      );
+    }
     return generateOpponents(
       { ...userSquadBase, formationId: buildSimConfig().formationHomeId },
       38,
@@ -465,7 +500,7 @@ export function renderDraftballerSeason(root: HTMLElement, navigate: Navigate) {
       rivalPool,
       config: simConfig,
       challengerOpponents: challengerOpponents.length ? challengerOpponents : undefined,
-      ratePlayer: (id) => ratePlayerById(id, saved.mode) ?? undefined,
+      ratePlayer: (id) => ratePlayerByIdForSeason(id, challengerSeasonLabel || "2024/25", saved.mode) ?? undefined,
       onMatchComplete: async ({ fixture, matchday, totals }) => {
         liveMd.textContent = `Matchday ${matchday} of 38`;
         liveRecord.textContent = `${totals.won}W · ${totals.drawn}D · ${totals.lost}L · ${totals.points} pts`;
@@ -527,6 +562,8 @@ export function renderDraftballerSeason(root: HTMLElement, navigate: Navigate) {
         </header>
 
         ${renderSeasonAnalysisHtml(result)}
+
+        ${renderSeasonPitchPanel(simConfig.formationHomeId ?? "4-3-3", saved.players)}
 
         <div class="panel db-season-stats db-season-stats--post">
           <div class="db-season-finish db-season-finish--${finish.tier}">

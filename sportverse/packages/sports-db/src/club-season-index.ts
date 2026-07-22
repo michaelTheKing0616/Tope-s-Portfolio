@@ -10,6 +10,8 @@ export interface ClubSeasonKey {
   seasonLabel: string;
   playerIds: string[];
   fameSum: number;
+  /** Domestic league from archive performances (competition_id), when known. */
+  leagueId?: string;
 }
 
 /**
@@ -277,11 +279,15 @@ export function setPrebuiltClubSeasons(entries: ClubSeasonKey[] | null): void {
   }
 }
 
+function resolveEntryLeagueId(entry: ClubSeasonKey): string | null {
+  return entry.leagueId ?? resolveClubLeague(entry.clubName, entry.clubId);
+}
+
 function mergePrebuiltInto(index: Map<string, ClubSeasonKey>): void {
   if (!prebuiltRosters) return;
   for (const e of prebuiltRosters) {
     if (looksLikeCompetitionId(e.clubName) || looksLikeJunkClubAlias(e.clubName)) continue;
-    if (e.playerIds.length < 14 || e.playerIds.length > 40) continue;
+    if (e.playerIds.length < SIM_MIN_SQUAD_PLAYERS || e.playerIds.length > 40) continue;
     index.set(indexKey(e.clubName, e.seasonLabel), {
       ...e,
       fameSum: e.fameSum || e.playerIds.reduce((s, id) => s + getFameScore(id), 0),
@@ -398,7 +404,7 @@ export function listSimChallengers(): SimChallengerCatalogEntry[] {
   const grouped = new Map<string, { leagueId: string; seasonLabel: string; clubCount: number }>();
 
   for (const entry of simEligibleClubSeasons()) {
-    const leagueId = resolveClubLeague(entry.clubName, entry.clubId);
+    const leagueId = resolveEntryLeagueId(entry);
     if (!leagueId) continue;
     const key = `${leagueId}::${entry.seasonLabel}`;
     const prev = grouped.get(key);
@@ -432,8 +438,7 @@ export function listSimClubSeasons(leagueId: string, seasonLabel: string): ClubS
   return simEligibleClubSeasons()
     .filter((entry) => {
       if (entry.seasonLabel !== seasonLabel) return false;
-      const league = resolveClubLeague(entry.clubName, entry.clubId);
-      return league === leagueId;
+      return resolveEntryLeagueId(entry) === leagueId;
     })
     .sort((a, b) => b.playerIds.length - a.playerIds.length);
 }

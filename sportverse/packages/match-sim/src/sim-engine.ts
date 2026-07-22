@@ -20,6 +20,7 @@ import {
   effectiveOvrForPosition,
   fatigueTollProbability,
   pickPhaseZone,
+  playerPeakEraId,
 } from "./fit-model.js";
 import {
   commentaryForV2,
@@ -174,19 +175,38 @@ export function simulateMatchV2(
   const awayAssignments = assignPlayersToFormationSlots(away.players, formAway, getFormation);
 
   const effectiveHome = home.players.map((p, i) => {
-    const terms = computeFitTerms(era, p.attributes, homeMeta[i]!, config.tacticalIdentityHome);
+    const peakEraId = playerPeakEraId(statsFor(p.playerId));
+    const terms = computeFitTerms(era, p.attributes, homeMeta[i]!, config.tacticalIdentityHome, peakEraId);
     const slot = homeAssignments.get(p.playerId);
     const roleMod = slot ? roleFitModifier(p, slot) : 0;
     const attrs = effectiveAttributes(p.attributes, terms, 1, 1, 0, roleMod);
-    return { ...p, attributes: attrs, ovr: effectiveOvrForPosition(p.ovr, p.attributes, attrs, p.position) };
+    return {
+      ...p,
+      attributes: attrs,
+      ovr: effectiveOvrForPosition(p.ovr, p.attributes, attrs, p.position),
+      _anachronism: Math.abs(terms.anachronismTerm),
+    };
   });
   const effectiveAway = away.players.map((p, i) => {
-    const terms = computeFitTerms(era, p.attributes, awayMeta[i]!, config.tacticalIdentityAway);
+    const peakEraId = playerPeakEraId(statsFor(p.playerId));
+    const terms = computeFitTerms(era, p.attributes, awayMeta[i]!, config.tacticalIdentityAway, peakEraId);
     const slot = awayAssignments.get(p.playerId);
     const roleMod = slot ? roleFitModifier(p, slot) : 0;
     const attrs = effectiveAttributes(p.attributes, terms, 1, 1, 0, roleMod);
-    return { ...p, attributes: attrs, ovr: effectiveOvrForPosition(p.ovr, p.attributes, attrs, p.position) };
+    return {
+      ...p,
+      attributes: attrs,
+      ovr: effectiveOvrForPosition(p.ovr, p.attributes, attrs, p.position),
+      _anachronism: Math.abs(terms.anachronismTerm),
+    };
   });
+
+  const homeEraFriction =
+    effectiveHome.reduce((s, p) => s + ((p as { _anachronism?: number })._anachronism ?? 0), 0) /
+    Math.max(1, effectiveHome.length);
+  const awayEraFriction =
+    effectiveAway.reduce((s, p) => s + ((p as { _anachronism?: number })._anachronism ?? 0), 0) /
+    Math.max(1, effectiveAway.length);
 
   let activeFormHome = formHome;
   let activeFormAway = formAway;
@@ -204,8 +224,12 @@ export function simulateMatchV2(
     formationAwayId: formAway,
     homeAdvantage: config.venue.homeAdvantage,
     era,
+    tacticalIdentityHome: config.tacticalIdentityHome,
+    tacticalIdentityAway: config.tacticalIdentityAway,
     tacticalAttackBoostHome: tacticalAttackBoost(config.tacticalIdentityHome),
     tacticalAttackBoostAway: tacticalAttackBoost(config.tacticalIdentityAway),
+    homeEraFriction,
+    awayEraFriction,
   });
   let [targetHomeGoals, targetAwayGoals] = sampleDixonColesScore(
     goalRates.lambda,

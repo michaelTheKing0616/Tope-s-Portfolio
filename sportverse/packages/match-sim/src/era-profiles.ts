@@ -145,3 +145,29 @@ export function resolveEraProfile(
 export function listEraProfiles(): EraProfile[] {
   return ERA_PROFILES;
 }
+
+/** Map a football season label (`05/06`, `1998`, `2015/16`) to an era profile id. */
+export function eraProfileIdFromSeasonLabel(seasonLabel: string): string {
+  const s = String(seasonLabel).trim();
+  let y: number | null = null;
+  const full = s.match(/^(\d{4})/);
+  if (full) y = Number(full[1]);
+  else {
+    const short = s.match(/^(\d{2})\/(\d{2})$/);
+    if (short) {
+      const yy = Number(short[1]);
+      y = yy >= 50 ? 1900 + yy : 2000 + yy;
+    }
+  }
+  if (y == null || !Number.isFinite(y)) return "2020s";
+  if (y < 1970) return "1950s-60s";
+  if (y < 1990) return "1970s-80s";
+  if (y < 2000) return "1990s";
+  if (y < 2010) return "2000s";
+  if (y < 2020) return "2010s";
+  return "2020s";
+}
+
+export function resolveEraFromSeasonLabel(seasonLabel: string): EraProfile {
+  return getEraProfile(eraProfileIdFromSeasonLabel(seasonLabel));
+}

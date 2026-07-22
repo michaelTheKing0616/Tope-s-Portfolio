@@ -1,6 +1,7 @@
 import type { FormationSlotDef, PitchZone } from "@sportverse/draftballer-types";
 import { getFormation } from "@sportverse/match-sim";
 import { resolveApiBase } from "@sportverse/platform";
+import { pitchSurfaceHtml } from "./draftballer-pitch.js";
 
 type Navigate = (route: string, param?: string) => void;
 
@@ -111,9 +112,10 @@ export function renderDraftballerFormationCanvas(root: HTMLElement, navigate: Na
           <input id="fname" class="btn btn--ghost btn--block" value="${formationName}" style="margin-top:6px;text-align:left" />
         </div>
 
-        <div class="db-formation-canvas panel" id="pitch" aria-label="Pitch formation canvas">
-          <div class="db-formation-canvas__grid" aria-hidden="true"></div>
-          ${renderDots(slots)}
+        <div class="panel db-formation-canvas" aria-label="Pitch formation canvas">
+          <div id="pitch">
+            ${pitchSurfaceHtml(renderDots(slots), { flat: true, ariaLabel: "Custom formation pitch" })}
+          </div>
         </div>
 
         <div class="db-formation-canvas__toolbar">
@@ -190,8 +192,10 @@ export function renderDraftballerFormationCanvas(root: HTMLElement, navigate: Na
     });
     root.querySelector("#save")?.addEventListener("click", () => void saveFormation());
 
-    const pitch = root.querySelector("#pitch") as HTMLElement | null;
-    pitch?.querySelectorAll<HTMLElement>(".db-pitch-dot--draggable").forEach((dot) => {
+    const pitchWrap = root.querySelector("#pitch") as HTMLElement | null;
+    const pitch = pitchWrap?.querySelector(".db-pitch-surface__grass") as HTMLElement | null;
+    if (!pitch) return;
+    pitch.querySelectorAll<HTMLElement>(".db-pitch-dot--draggable").forEach((dot) => {
       const idx = Number(dot.dataset.idx);
       dot.addEventListener("click", (e) => {
         if (draggingIdx !== null) return;

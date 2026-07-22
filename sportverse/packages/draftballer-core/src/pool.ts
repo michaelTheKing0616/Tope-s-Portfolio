@@ -34,6 +34,35 @@ export function ratePlayerById(playerId: string, mode: DraftModeConfig): RatedPl
   return computePlayerRating(input, mode);
 }
 
+/**
+ * Season-correct rating for historical challengers (e.g. "05/06").
+ * Falls back to peak/all-time card when season stats are missing.
+ */
+export function ratePlayerByIdForSeason(
+  playerId: string,
+  seasonLabel: string,
+  mode: DraftModeConfig,
+): RatedPlayerCard | null {
+  const p = getPlayer(playerId);
+  if (!p) return null;
+  const seasonMode: DraftModeConfig = { ...mode, ratingBasis: "season" };
+  const input = enrichInput({
+    id: p.id,
+    name: p.name,
+    nationality: p.nationality,
+    position: p.position,
+    clubs: p.clubs,
+    seasonStats: getSeasonStats(p.id),
+    seasonLabel,
+  });
+  const seasonal = computePlayerRating(input, seasonMode);
+  // If season basis produced a near-empty card, keep all-time as fallback.
+  if (seasonal.ovr < 45 && (input.seasonStats?.length ?? 0) > 0) {
+    return ratePlayerById(playerId, mode) ?? seasonal;
+  }
+  return seasonal;
+}
+
 export function buildDraftPool(
   mode: DraftModeConfig,
   eligibility: EligibilityFilter = {},

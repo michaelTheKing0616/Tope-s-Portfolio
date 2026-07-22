@@ -64,7 +64,9 @@ export async function simulateSeason(
     opponents =
       historical.length > 0
         ? historical
-        : generateOpponents(userSquad, SEASON_LENGTH, simSeed, options.rivalPool);
+        : generateOpponents(userSquad, SEASON_LENGTH, simSeed, options.rivalPool, {
+            anonymousClubsOnly: true,
+          });
   } else {
     opponents = generateOpponents(userSquad, SEASON_LENGTH, simSeed, options.rivalPool);
   }

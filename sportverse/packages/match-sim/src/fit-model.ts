@@ -7,14 +7,18 @@ import type {
   RatedPlayerCard,
   TacticalIdentity,
 } from "@sportverse/draftballer-types";
+import type { PlayerSeasonStat } from "@sportverse/sports-db";
 import { computePlayerMeta } from "./player-meta.js";
+import { eraProfileIdFromSeasonLabel } from "./era-profiles.js";
 
-/** Physicality fit scale — UNCALIBRATED — EXPERT PRIOR (Sim Engine v2 §2). */
-const ALPHA = 1.0;
-/** Technical dampener scale — UNCALIBRATED — EXPERT PRIOR. */
-const BETA = 0.25;
-/** Fatigue toll scale — UNCALIBRATED — EXPERT PRIOR. */
-const GAMMA = 0.035;
+/** Physicality fit scale — calibrated prior (Sim Engine v5). */
+const ALPHA = 0.85;
+/** Technical dampener scale — calibrated prior. */
+const BETA = 0.22;
+/** Fatigue toll scale — calibrated prior. */
+const GAMMA = 0.03;
+/** Max anachronism pull on attribute fit (−0.12…+0.08). */
+const ANACHRONISM_SCALE = 0.1;
 
 function norm(v: number): number {
   return Math.max(0, Math.min(1, v / 99));
@@ -26,10 +30,65 @@ function clamp(n: number, min: number, max: number): number {
 
 export interface FitTerms {
   physicalityFitTerm: number;
+  /** Peak-career decade vs match era (negative when out of time). */
+  anachronismTerm: number;
   technicalDampenerDri: number;
   technicalDampenerPas: number;
   tacticalChaosSpread: number;
   tacticalIdentityMultiplier: Record<keyof PlayerAttributes, number>;
+}
+
+const DECADE_ORDER = [
+  "1950s-60s",
+  "1970s-80s",
+  "1990s",
+  "2000s",
+  "2010s",
+  "2020s",
+] as const;
+
+function decadeIndex(profileId: string): number {
+  if (profileId.includes("serie") || profileId.includes("world-cup")) {
+    return DECADE_ORDER.indexOf("1970s-80s");
+  }
+  const i = DECADE_ORDER.indexOf(profileId as (typeof DECADE_ORDER)[number]);
+  return i >= 0 ? i : DECADE_ORDER.indexOf("2020s");
+}
+
+/** Best season by minutes → era profile id for that player's peak. */
+export function playerPeakEraId(stats: PlayerSeasonStat[]): string | null {
+  if (!stats.length) return null;
+  let best: PlayerSeasonStat | null = null;
+  for (const row of stats) {
+    if (!best || row.minutes > best.minutes) best = row;
+  }
+  if (!best?.seasonLabel) return null;
+  return eraProfileIdFromSeasonLabel(best.seasonLabel);
+}
+
+/**
+ * How far a player's peak era is from the match era.
+ * Modern technicians in Hard Men eras get a modest tax; reverse for physical peaks in modern football.
+ */
+export function computeAnachronismTerm(
+  era: EraProfile,
+  attrs: PlayerAttributes,
+  meta: PlayerMetaAttributes,
+  peakEraId: string | null,
+): number {
+  if (!peakEraId) return 0;
+  const gap = decadeIndex(era.id) - decadeIndex(peakEraId);
+  if (gap === 0) return 0;
+  const tech = meta.technicalRelianceIndex;
+  const phy = norm(attrs.phy);
+  // Playing "in the past" relative to peak (e.g. 2020s star in 1970s).
+  if (gap < 0) {
+    const severity = Math.min(3, Math.abs(gap));
+    return clamp(-ANACHRONISM_SCALE * severity * (0.4 + tech * 0.6), -0.12, 0.08);
+  }
+  // Playing "in the future" relative to peak (e.g. 1970s hard man in 2020s).
+  const severity = Math.min(3, gap);
+  return clamp(-ANACHRONISM_SCALE * severity * (0.35 + (1 - phy) * 0.4), -0.1, 0.06);
 }
 
 export function computePhysicalityFitTerm(
@@ -82,10 +141,12 @@ export function computeFitTerms(
   attrs: PlayerAttributes,
   meta: PlayerMetaAttributes,
   identity: TacticalIdentity,
+  peakEraId: string | null = null,
 ): FitTerms {
   const damp = computeTechnicalDampener(era, attrs);
   return {
     physicalityFitTerm: computePhysicalityFitTerm(era, attrs, meta),
+    anachronismTerm: computeAnachronismTerm(era, attrs, meta, peakEraId),
     technicalDampenerDri: damp.dri,
     technicalDampenerPas: damp.pas,
     tacticalChaosSpread: tacticalChaosSpread(era),
@@ -101,7 +162,7 @@ export function effectiveAttributes(
   zoneOverloadModifier: number,
   roleFitModifier = 0,
 ): PlayerAttributes {
-  const fit = 1 + terms.physicalityFitTerm + roleFitModifier;
+  const fit = 1 + terms.physicalityFitTerm + terms.anachronismTerm + roleFitModifier;
   const zone = 1 + zoneOverloadModifier;
   const mom = momentumMultiplier;
   const fat = fatigueMultiplier;
@@ -213,14 +274,20 @@ export function computeSquadFitReport(
   players: RatedPlayerCard[],
   era: EraProfile,
   identity: TacticalIdentity = "balanced",
+  statsFor?: (playerId: string) => PlayerSeasonStat[],
 ): FitReportLine[] {
   const lines: FitReportLine[] = [];
   for (const p of players) {
-    const meta = computePlayerMeta(p);
-    const terms = computeFitTerms(era, p.attributes, meta, identity);
+    const stats = statsFor?.(p.playerId) ?? [];
+    const meta = computePlayerMeta(p, stats);
+    const peakEraId = playerPeakEraId(stats);
+    const terms = computeFitTerms(era, p.attributes, meta, identity, peakEraId);
     const eff = effectiveAttributes(p.attributes, terms, 1, 1, 0, 0);
     const effOvr = effectiveOvrForPosition(p.ovr, p.attributes, eff, p.position);
     const { delta, summary, tags } = buildFitSummary(p.ovr, effOvr, era, meta);
+    if (peakEraId && peakEraId !== era.id && Math.abs(terms.anachronismTerm) >= 0.04) {
+      tags.push("era_anachronism");
+    }
     lines.push({
       playerId: p.playerId,
       playerName: p.name,
